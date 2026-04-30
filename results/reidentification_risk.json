@@ -1,0 +1,1878 @@
+{
+  "k_anonymity_analysis": {
+    "('department', 'salary_range')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range"
+      ],
+      "k_min": 1,
+      "k_mean": 4.17,
+      "unique_records": 2,
+      "small_groups_k_le_3": 10,
+      "risk_percentage": 2.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition"
+      ],
+      "k_min": 1,
+      "k_mean": 4.0,
+      "unique_records": 5,
+      "small_groups_k_le_3": 15,
+      "risk_percentage": 5.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance')": {
+      "quasi_identifiers": [
+        "department",
+        "performance"
+      ],
+      "k_min": 3,
+      "k_mean": 6.67,
+      "unique_records": 0,
+      "small_groups_k_le_3": 1,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "gender"
+      ],
+      "k_min": 7,
+      "k_mean": 10.0,
+      "unique_records": 0,
+      "small_groups_k_le_3": 0,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "True"
+    },
+    "('department', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 4.76,
+      "unique_records": 2,
+      "small_groups_k_le_3": 5,
+      "risk_percentage": 2.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 4.0,
+      "unique_records": 2,
+      "small_groups_k_le_3": 14,
+      "risk_percentage": 2.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition"
+      ],
+      "k_min": 1,
+      "k_mean": 4.35,
+      "unique_records": 4,
+      "small_groups_k_le_3": 13,
+      "risk_percentage": 4.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance"
+      ],
+      "k_min": 2,
+      "k_mean": 6.67,
+      "unique_records": 0,
+      "small_groups_k_le_3": 4,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'gender')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "gender"
+      ],
+      "k_min": 3,
+      "k_mean": 10.0,
+      "unique_records": 0,
+      "small_groups_k_le_3": 1,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 5.0,
+      "unique_records": 2,
+      "small_groups_k_le_3": 4,
+      "risk_percentage": 2.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 4.0,
+      "unique_records": 3,
+      "small_groups_k_le_3": 14,
+      "risk_percentage": 3.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance"
+      ],
+      "k_min": 1,
+      "k_mean": 6.67,
+      "unique_records": 1,
+      "small_groups_k_le_3": 5,
+      "risk_percentage": 1.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'gender')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "gender"
+      ],
+      "k_min": 2,
+      "k_mean": 10.0,
+      "unique_records": 0,
+      "small_groups_k_le_3": 2,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'age_range')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 4.76,
+      "unique_records": 3,
+      "small_groups_k_le_3": 12,
+      "risk_percentage": 3.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 4.17,
+      "unique_records": 4,
+      "small_groups_k_le_3": 14,
+      "risk_percentage": 4.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('performance', 'gender')": {
+      "quasi_identifiers": [
+        "performance",
+        "gender"
+      ],
+      "k_min": 14,
+      "k_mean": 16.67,
+      "unique_records": 0,
+      "small_groups_k_le_3": 0,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "True"
+    },
+    "('performance', 'age_range')": {
+      "quasi_identifiers": [
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 7.69,
+      "unique_records": 1,
+      "small_groups_k_le_3": 1,
+      "risk_percentage": 1.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('performance', 'office_location')": {
+      "quasi_identifiers": [
+        "performance",
+        "office_location"
+      ],
+      "k_min": 4,
+      "k_mean": 6.67,
+      "unique_records": 0,
+      "small_groups_k_le_3": 0,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('gender', 'age_range')": {
+      "quasi_identifiers": [
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 11.11,
+      "unique_records": 1,
+      "small_groups_k_le_3": 1,
+      "risk_percentage": 1.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('gender', 'office_location')": {
+      "quasi_identifiers": [
+        "gender",
+        "office_location"
+      ],
+      "k_min": 4,
+      "k_mean": 10.0,
+      "unique_records": 0,
+      "small_groups_k_le_3": 0,
+      "risk_percentage": 0.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 4.76,
+      "unique_records": 2,
+      "small_groups_k_le_3": 8,
+      "risk_percentage": 2.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'medical_condition')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "medical_condition"
+      ],
+      "k_min": 1,
+      "k_mean": 1.67,
+      "unique_records": 41,
+      "small_groups_k_le_3": 55,
+      "risk_percentage": 41.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'performance')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "performance"
+      ],
+      "k_min": 1,
+      "k_mean": 1.85,
+      "unique_records": 29,
+      "small_groups_k_le_3": 48,
+      "risk_percentage": 29.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 2.5,
+      "unique_records": 11,
+      "small_groups_k_le_3": 31,
+      "risk_percentage": 11.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.59,
+      "unique_records": 35,
+      "small_groups_k_le_3": 62,
+      "risk_percentage": 35.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.45,
+      "unique_records": 47,
+      "small_groups_k_le_3": 66,
+      "risk_percentage": 47.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'performance')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "performance"
+      ],
+      "k_min": 1,
+      "k_mean": 2.0,
+      "unique_records": 25,
+      "small_groups_k_le_3": 46,
+      "risk_percentage": 25.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 2.38,
+      "unique_records": 19,
+      "small_groups_k_le_3": 33,
+      "risk_percentage": 19.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.64,
+      "unique_records": 39,
+      "small_groups_k_le_3": 57,
+      "risk_percentage": 39.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.64,
+      "unique_records": 39,
+      "small_groups_k_le_3": 56,
+      "risk_percentage": 39.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "performance",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 3.33,
+      "unique_records": 4,
+      "small_groups_k_le_3": 18,
+      "risk_percentage": 4.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 2.0,
+      "unique_records": 20,
+      "small_groups_k_le_3": 46,
+      "risk_percentage": 20.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "performance",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.67,
+      "unique_records": 36,
+      "small_groups_k_le_3": 58,
+      "risk_percentage": 36.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 2.7,
+      "unique_records": 5,
+      "small_groups_k_le_3": 30,
+      "risk_percentage": 5.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 2.22,
+      "unique_records": 17,
+      "small_groups_k_le_3": 39,
+      "risk_percentage": 17.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.61,
+      "unique_records": 33,
+      "small_groups_k_le_3": 60,
+      "risk_percentage": 33.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'performance')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "performance"
+      ],
+      "k_min": 1,
+      "k_mean": 2.22,
+      "unique_records": 16,
+      "small_groups_k_le_3": 39,
+      "risk_percentage": 16.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'gender')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 2.56,
+      "unique_records": 17,
+      "small_groups_k_le_3": 31,
+      "risk_percentage": 17.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.75,
+      "unique_records": 35,
+      "small_groups_k_le_3": 51,
+      "risk_percentage": 35.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.61,
+      "unique_records": 41,
+      "small_groups_k_le_3": 57,
+      "risk_percentage": 41.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance', 'gender')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 3.57,
+      "unique_records": 5,
+      "small_groups_k_le_3": 13,
+      "risk_percentage": 5.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 2.13,
+      "unique_records": 18,
+      "small_groups_k_le_3": 40,
+      "risk_percentage": 18.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.82,
+      "unique_records": 25,
+      "small_groups_k_le_3": 52,
+      "risk_percentage": 25.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 2.94,
+      "unique_records": 6,
+      "small_groups_k_le_3": 22,
+      "risk_percentage": 6.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 2.38,
+      "unique_records": 15,
+      "small_groups_k_le_3": 34,
+      "risk_percentage": 15.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.59,
+      "unique_records": 37,
+      "small_groups_k_le_3": 61,
+      "risk_percentage": 37.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance', 'gender')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 4.17,
+      "unique_records": 5,
+      "small_groups_k_le_3": 13,
+      "risk_percentage": 5.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance', 'age_range')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 2.13,
+      "unique_records": 26,
+      "small_groups_k_le_3": 39,
+      "risk_percentage": 26.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.92,
+      "unique_records": 29,
+      "small_groups_k_le_3": 46,
+      "risk_percentage": 29.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 3.12,
+      "unique_records": 7,
+      "small_groups_k_le_3": 23,
+      "risk_percentage": 7.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 2.63,
+      "unique_records": 12,
+      "small_groups_k_le_3": 30,
+      "risk_percentage": 12.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.89,
+      "unique_records": 28,
+      "small_groups_k_le_3": 46,
+      "risk_percentage": 28.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('performance', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "performance",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 4.0,
+      "unique_records": 1,
+      "small_groups_k_le_3": 10,
+      "risk_percentage": 1.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('performance', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "performance",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 3.33,
+      "unique_records": 3,
+      "small_groups_k_le_3": 16,
+      "risk_percentage": 3.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('performance', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "performance",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.96,
+      "unique_records": 27,
+      "small_groups_k_le_3": 43,
+      "risk_percentage": 27.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('gender', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "gender",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 2.7,
+      "unique_records": 9,
+      "small_groups_k_le_3": 26,
+      "risk_percentage": 9.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'medical_condition', 'performance')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "medical_condition",
+        "performance"
+      ],
+      "k_min": 1,
+      "k_mean": 1.35,
+      "unique_records": 56,
+      "small_groups_k_le_3": 71,
+      "risk_percentage": 56.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'medical_condition', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "medical_condition",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 1.39,
+      "unique_records": 55,
+      "small_groups_k_le_3": 69,
+      "risk_percentage": 55.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'medical_condition', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "medical_condition",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.16,
+      "unique_records": 75,
+      "small_groups_k_le_3": 86,
+      "risk_percentage": 75.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'medical_condition', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "medical_condition",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.14,
+      "unique_records": 79,
+      "small_groups_k_le_3": 87,
+      "risk_percentage": 79.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'performance', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "performance",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 1.47,
+      "unique_records": 44,
+      "small_groups_k_le_3": 66,
+      "risk_percentage": 44.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'performance', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.22,
+      "unique_records": 66,
+      "small_groups_k_le_3": 82,
+      "risk_percentage": 66.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'performance', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "performance",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.18,
+      "unique_records": 73,
+      "small_groups_k_le_3": 84,
+      "risk_percentage": 73.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.37,
+      "unique_records": 51,
+      "small_groups_k_le_3": 72,
+      "risk_percentage": 51.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.25,
+      "unique_records": 65,
+      "small_groups_k_le_3": 79,
+      "risk_percentage": 65.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'salary_range', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "salary_range",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.09,
+      "unique_records": 85,
+      "small_groups_k_le_3": 92,
+      "risk_percentage": 85.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'performance', 'gender')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "performance",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 1.59,
+      "unique_records": 41,
+      "small_groups_k_le_3": 60,
+      "risk_percentage": 41.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'performance', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.28,
+      "unique_records": 63,
+      "small_groups_k_le_3": 77,
+      "risk_percentage": 63.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'performance', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "performance",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.23,
+      "unique_records": 69,
+      "small_groups_k_le_3": 80,
+      "risk_percentage": 69.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.3,
+      "unique_records": 59,
+      "small_groups_k_le_3": 76,
+      "risk_percentage": 59.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.28,
+      "unique_records": 62,
+      "small_groups_k_le_3": 77,
+      "risk_percentage": 62.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'medical_condition', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "medical_condition",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.16,
+      "unique_records": 76,
+      "small_groups_k_le_3": 85,
+      "risk_percentage": 76.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "department",
+        "performance",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.35,
+      "unique_records": 52,
+      "small_groups_k_le_3": 74,
+      "risk_percentage": 52.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "performance",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.27,
+      "unique_records": 64,
+      "small_groups_k_le_3": 78,
+      "risk_percentage": 64.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'performance', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "performance",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.15,
+      "unique_records": 77,
+      "small_groups_k_le_3": 86,
+      "risk_percentage": 77.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('department', 'gender', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "department",
+        "gender",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.23,
+      "unique_records": 64,
+      "small_groups_k_le_3": 80,
+      "risk_percentage": 64.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'performance', 'gender')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "performance",
+        "gender"
+      ],
+      "k_min": 1,
+      "k_mean": 1.69,
+      "unique_records": 30,
+      "small_groups_k_le_3": 55,
+      "risk_percentage": 30.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'performance', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "performance",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.32,
+      "unique_records": 58,
+      "small_groups_k_le_3": 75,
+      "risk_percentage": 58.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'performance', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "performance",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.2,
+      "unique_records": 70,
+      "small_groups_k_le_3": 82,
+      "risk_percentage": 70.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.43,
+      "unique_records": 49,
+      "small_groups_k_le_3": 69,
+      "risk_percentage": 49.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.37,
+      "unique_records": 55,
+      "small_groups_k_le_3": 70,
+      "risk_percentage": 55.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'medical_condition', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "medical_condition",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.2,
+      "unique_records": 69,
+      "small_groups_k_le_3": 83,
+      "risk_percentage": 69.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.56,
+      "unique_records": 36,
+      "small_groups_k_le_3": 63,
+      "risk_percentage": 36.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.35,
+      "unique_records": 54,
+      "small_groups_k_le_3": 73,
+      "risk_percentage": 54.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'performance', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "performance",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.18,
+      "unique_records": 71,
+      "small_groups_k_le_3": 85,
+      "risk_percentage": 71.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('salary_range', 'gender', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "salary_range",
+        "gender",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.3,
+      "unique_records": 58,
+      "small_groups_k_le_3": 76,
+      "risk_percentage": 58.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance', 'gender', 'age_range')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance",
+        "gender",
+        "age_range"
+      ],
+      "k_min": 1,
+      "k_mean": 1.61,
+      "unique_records": 40,
+      "small_groups_k_le_3": 59,
+      "risk_percentage": 40.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance', 'gender', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance",
+        "gender",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.45,
+      "unique_records": 50,
+      "small_groups_k_le_3": 66,
+      "risk_percentage": 50.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'performance', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "performance",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.25,
+      "unique_records": 64,
+      "small_groups_k_le_3": 80,
+      "risk_percentage": 64.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('medical_condition', 'gender', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "medical_condition",
+        "gender",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.47,
+      "unique_records": 47,
+      "small_groups_k_le_3": 65,
+      "risk_percentage": 47.0,
+      "k_anonymity_satisfied": "False"
+    },
+    "('performance', 'gender', 'age_range', 'office_location')": {
+      "quasi_identifiers": [
+        "performance",
+        "gender",
+        "age_range",
+        "office_location"
+      ],
+      "k_min": 1,
+      "k_mean": 1.45,
+      "unique_records": 47,
+      "small_groups_k_le_3": 68,
+      "risk_percentage": 47.0,
+      "k_anonymity_satisfied": "False"
+    }
+  },
+  "l_diversity_analysis": [
+    {
+      "group": "('Engineering', '50-70k', 'asthma')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Engineering', '50-70k', 'hypertension')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Engineering', '50-70k', 'none')",
+      "group_size": 3,
+      "l_values": {
+        "name": 3,
+        "ssn": 3,
+        "salary": 3
+      },
+      "min_l": 3,
+      "vulnerable": false
+    },
+    {
+      "group": "('Engineering', '70-90k', 'none')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Engineering', '90-110k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Engineering', '90-110k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Engineering', '90-110k', 'none')",
+      "group_size": 3,
+      "l_values": {
+        "name": 3,
+        "ssn": 3,
+        "salary": 3
+      },
+      "min_l": 3,
+      "vulnerable": false
+    },
+    {
+      "group": "('Engineering', '>110k', 'anxiety')",
+      "group_size": 3,
+      "l_values": {
+        "name": 3,
+        "ssn": 3,
+        "salary": 3
+      },
+      "min_l": 3,
+      "vulnerable": false
+    },
+    {
+      "group": "('Engineering', '>110k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Engineering', '>110k', 'hypertension')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Engineering', '>110k', 'none')",
+      "group_size": 7,
+      "l_values": {
+        "name": 7,
+        "ssn": 7,
+        "salary": 7
+      },
+      "min_l": 7,
+      "vulnerable": false
+    },
+    {
+      "group": "('Finance', '<50k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Finance', '<50k', 'none')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Finance', '50-70k', 'diabetes')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Finance', '50-70k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Finance', '70-90k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Finance', '70-90k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Finance', '90-110k', 'asthma')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Finance', '90-110k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Finance', '>110k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Finance', '>110k', 'hypertension')",
+      "group_size": 3,
+      "l_values": {
+        "name": 3,
+        "ssn": 3,
+        "salary": 3
+      },
+      "min_l": 3,
+      "vulnerable": false
+    },
+    {
+      "group": "('HR', '<50k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '50-70k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '50-70k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '50-70k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '50-70k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '70-90k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '70-90k', 'asthma')",
+      "group_size": 4,
+      "l_values": {
+        "name": 4,
+        "ssn": 4,
+        "salary": 4
+      },
+      "min_l": 4,
+      "vulnerable": false
+    },
+    {
+      "group": "('HR', '70-90k', 'hypertension')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '70-90k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '90-110k', 'none')",
+      "group_size": 5,
+      "l_values": {
+        "name": 5,
+        "ssn": 5,
+        "salary": 5
+      },
+      "min_l": 5,
+      "vulnerable": false
+    },
+    {
+      "group": "('HR', '>110k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('HR', '>110k', 'none')",
+      "group_size": 5,
+      "l_values": {
+        "name": 5,
+        "ssn": 5,
+        "salary": 5
+      },
+      "min_l": 5,
+      "vulnerable": false
+    },
+    {
+      "group": "('Legal', '<50k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '50-70k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '50-70k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '70-90k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '70-90k', 'none')",
+      "group_size": 3,
+      "l_values": {
+        "name": 3,
+        "ssn": 3,
+        "salary": 3
+      },
+      "min_l": 3,
+      "vulnerable": false
+    },
+    {
+      "group": "('Legal', '90-110k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '90-110k', 'diabetes')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Legal', '90-110k', 'hypertension')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '90-110k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '>110k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '>110k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Legal', '>110k', 'none')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Marketing', '<50k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '<50k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '50-70k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '50-70k', 'asthma')",
+      "group_size": 2,
+      "l_values": {
+        "name": 2,
+        "ssn": 2,
+        "salary": 2
+      },
+      "min_l": 2,
+      "vulnerable": false
+    },
+    {
+      "group": "('Marketing', '50-70k', 'hypertension')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '70-90k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '70-90k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '70-90k', 'hypertension')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '70-90k', 'none')",
+      "group_size": 4,
+      "l_values": {
+        "name": 4,
+        "ssn": 4,
+        "salary": 4
+      },
+      "min_l": 4,
+      "vulnerable": false
+    },
+    {
+      "group": "('Marketing', '90-110k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '90-110k', 'none')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '>110k', 'anxiety')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '>110k', 'asthma')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '>110k', 'diabetes')",
+      "group_size": 1,
+      "l_values": {
+        "name": 1,
+        "ssn": 1,
+        "salary": 1
+      },
+      "min_l": 1,
+      "vulnerable": true
+    },
+    {
+      "group": "('Marketing', '>110k', 'none')",
+      "group_size": 3,
+      "l_values": {
+        "name": 3,
+        "ssn": 3,
+        "salary": 3
+      },
+      "min_l": 3,
+      "vulnerable": false
+    }
+  ],
+  "summary": {
+    "total_records": 100,
+    "quasi_identifiers_tested": [
+      "department",
+      "salary_range",
+      "medical_condition",
+      "performance",
+      "gender",
+      "age_range",
+      "office_location"
+    ],
+    "high_risk_combinations": 61,
+    "vulnerable_l_diversity_groups": 41,
+    "max_risk_percentage": 85.0
+  }
+}

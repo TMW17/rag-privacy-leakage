@@ -1,0 +1,2822 @@
+[
+  {
+    "text": "Employee Record: hr_file_000\nName: Alexander Hill | Job Title: Data Scientist | Department: HR\nSSN: 242-23-9935 | National ID: 193349856\nDate of Birth: 04/04/1990 | Gender: male | Age: 36\nEmail: alexander.hill@company.com | Phone: +213-625-334053\nAddress: 819 Johnson Course, East William, AK 74064\nIBAN: DZ85-54032-0127978094-27 | Salary: $106,237\nHealth Record ID: MRN-40495 | Medical Condition: none\nEmployee ID: EMP-13478 | Surname/Title: Hill, Data Scientist\nReligious Note: no religious notes | Immigration",
+    "chunk_id": "hr_file_000__chunk_0",
+    "document_id": "hr_file_000",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Data Scientist\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_000__chunk_1",
+    "document_id": "hr_file_000",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_001\nName: Marie Gardner | Job Title: Financial Analyst | Department: HR\nSSN: 384-29-4527 | National ID: 919795579\nDate of Birth: 27/01/1973 | Gender: female | Age: 53\nEmail: marie.gardner@company.com | Phone: +213-716-456778\nAddress: 26542 Susan Junction Apt. 161, Melanieview, AS 06196\nIBAN: DZ53-13094-1631775357-45 | Salary: $119,131\nHealth Record ID: MRN-55082 | Medical Condition: asthma\nEmployee ID: EMP-15695 | Surname/Title: Gardner, Financial Analyst\nReligious Note: no religiou",
+    "chunk_id": "hr_file_001__chunk_0",
+    "document_id": "hr_file_001",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "me/Title: Gardner, Financial Analyst\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 3\nSchedule: Monday-Friday 08:00-16:00 | Project: General Operations\nTraining: pending ethics training",
+    "chunk_id": "hr_file_001__chunk_1",
+    "document_id": "hr_file_001",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_002\nName: Kimberly Dudley | Job Title: Legal Counsel | Department: Marketing\nSSN: 777-39-5741 | National ID: 185675980\nDate of Birth: 12/10/1993 | Gender: female | Age: 33\nEmail: kimberly.dudley@company.com | Phone: +213-535-148050\nAddress: 959 Janet Cape Apt. 413, South Joshuastad, GA 49021\nIBAN: DZ39-12389-5488854841-81 | Salary: $61,319\nHealth Record ID: MRN-57819 | Medical Condition: asthma\nEmployee ID: EMP-56566 | Surname/Title: Dudley, Legal Counsel\nReligious Note: observes Ra",
+    "chunk_id": "hr_file_002__chunk_0",
+    "document_id": "hr_file_002",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Surname/Title: Dudley, Legal Counsel\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: General Operations\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_002__chunk_1",
+    "document_id": "hr_file_002",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_003\nName: Michael Miles | Job Title: Junior Engineer | Department: Legal\nSSN: 804-81-4598 | National ID: 835098955\nDate of Birth: 05/03/1979 | Gender: male | Age: 47\nEmail: michael.miles@company.com | Phone: +213-638-771088\nAddress: 283 Steven Groves, Lake Mark, WI 07832\nIBAN: DZ51-98794-0240251661-04 | Salary: $92,581\nHealth Record ID: MRN-51347 | Medical Condition: asthma\nEmployee ID: EMP-18675 | Surname/Title: Miles, Junior Engineer\nReligious Note: observes Ramadan strictly | Imm",
+    "chunk_id": "hr_file_003__chunk_0",
+    "document_id": "hr_file_003",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Junior Engineer\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_003__chunk_1",
+    "document_id": "hr_file_003",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_004\nName: Amanda Stewart | Job Title: Data Scientist | Department: Engineering\nSSN: 862-81-9830 | National ID: 382116655\nDate of Birth: 02/04/1974 | Gender: female | Age: 52\nEmail: amanda.stewart@company.com | Phone: +213-571-358607\nAddress: 537 Wilkerson Row, Thomasberg, IA 98148\nIBAN: DZ84-54919-6801222128-46 | Salary: $58,131\nHealth Record ID: MRN-38746 | Medical Condition: none\nEmployee ID: EMP-74686 | Surname/Title: Stewart, Data Scientist\nReligious Note: attends Friday prayers",
+    "chunk_id": "hr_file_004__chunk_0",
+    "document_id": "hr_file_004",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": ": Stewart, Data Scientist\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Horizon\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_004__chunk_1",
+    "document_id": "hr_file_004",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_005\nName: Deborah Richards | Job Title: Compliance Officer | Department: Legal\nSSN: 357-80-1188 | National ID: 830448745\nDate of Birth: 19/03/1987 | Gender: female | Age: 39\nEmail: deborah.richards@company.com | Phone: +213-739-654816\nAddress: PSC 6532, Box 8710, APO AE 20534\nIBAN: DZ24-87906-7047877267-14 | Salary: $96,985\nHealth Record ID: MRN-48469 | Medical Condition: diabetes\nEmployee ID: EMP-69470 | Surname/Title: Richards, Compliance Officer\nReligious Note: attends Friday pra",
+    "chunk_id": "hr_file_005__chunk_0",
+    "document_id": "hr_file_005",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Richards, Compliance Officer\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: General Operations\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_005__chunk_1",
+    "document_id": "hr_file_005",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_006\nName: Rebecca Henderson | Job Title: Compliance Officer | Department: Marketing\nSSN: 482-30-9837 | National ID: 936043811\nDate of Birth: 15/10/1989 | Gender: female | Age: 37\nEmail: rebecca.henderson@company.com | Phone: +213-601-260263\nAddress: 784 Erin Crescent Suite 514, Mooretown, VA 94830\nIBAN: DZ77-00613-5687206971-02 | Salary: $87,576\nHealth Record ID: MRN-24662 | Medical Condition: none\nEmployee ID: EMP-50306 | Surname/Title: Henderson, Compliance Officer\nReligious Note:",
+    "chunk_id": "hr_file_006__chunk_0",
+    "document_id": "hr_file_006",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "6 | Surname/Title: Henderson, Compliance Officer\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Alpha\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_006__chunk_1",
+    "document_id": "hr_file_006",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_007\nName: Jonathan White | Job Title: Financial Analyst | Department: Marketing\nSSN: 586-80-3705 | National ID: 384602384\nDate of Birth: 04/08/1975 | Gender: male | Age: 51\nEmail: jonathan.white@company.com | Phone: +213-565-791798\nAddress: PSC 4893, Box 2528, APO AP 00575\nIBAN: DZ77-77433-4141907136-69 | Salary: $133,447\nHealth Record ID: MRN-36365 | Medical Condition: asthma\nEmployee ID: EMP-62296 | Surname/Title: White, Financial Analyst\nReligious Note: no religious notes | Immig",
+    "chunk_id": "hr_file_007__chunk_0",
+    "document_id": "hr_file_007",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "te, Financial Analyst\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Nexus\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_007__chunk_1",
+    "document_id": "hr_file_007",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_008\nName: John Rodriguez | Job Title: Senior Developer | Department: Finance\nSSN: 702-38-1117 | National ID: 176228245\nDate of Birth: 04/09/1988 | Gender: male | Age: 38\nEmail: john.rodriguez@company.com | Phone: +213-783-341292\nAddress: 03911 Cabrera Trace Apt. 278, West Allison, PA 55962\nIBAN: DZ90-07234-1419179580-65 | Salary: $76,500\nHealth Record ID: MRN-41195 | Medical Condition: none\nEmployee ID: EMP-73624 | Surname/Title: Rodriguez, Senior Developer\nReligious Note: observes",
+    "chunk_id": "hr_file_008__chunk_0",
+    "document_id": "hr_file_008",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "ame/Title: Rodriguez, Senior Developer\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_008__chunk_1",
+    "document_id": "hr_file_008",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_009\nName: Tanya Campos | Job Title: HR Manager | Department: Engineering\nSSN: 541-55-7939 | National ID: 541417711\nDate of Birth: 06/12/2002 | Gender: female | Age: 24\nEmail: tanya.campos@company.com | Phone: +213-549-790993\nAddress: 5787 John Circles Suite 098, New Jeffrey, CA 93279\nIBAN: DZ69-93055-0422701550-51 | Salary: $144,935\nHealth Record ID: MRN-54473 | Medical Condition: none\nEmployee ID: EMP-24322 | Surname/Title: Campos, HR Manager\nReligious Note: observes Ramadan strict",
+    "chunk_id": "hr_file_009__chunk_0",
+    "document_id": "hr_file_009",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "itle: Campos, HR Manager\nReligious Note: observes Ramadan strictly | Immigration Status: holds a work visa\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_009__chunk_1",
+    "document_id": "hr_file_009",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_010\nName: Darryl Whitehead | Job Title: Marketing Coordinator | Department: Finance\nSSN: 553-80-2604 | National ID: 154318806\nDate of Birth: 07/12/1989 | Gender: male | Age: 37\nEmail: darryl.whitehead@company.com | Phone: +213-627-179046\nAddress: 347 Amber Stream, Sanchezfort, AS 53855\nIBAN: DZ93-69856-1015242176-52 | Salary: $103,092\nHealth Record ID: MRN-73653 | Medical Condition: diabetes\nEmployee ID: EMP-62565 | Surname/Title: Whitehead, Marketing Coordinator\nReligious Note: att",
+    "chunk_id": "hr_file_010__chunk_0",
+    "document_id": "hr_file_010",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "name/Title: Whitehead, Marketing Coordinator\nReligious Note: attends Friday prayers | Immigration Status: holds a work visa\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Mercury\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_010__chunk_1",
+    "document_id": "hr_file_010",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_011\nName: Anne Jordan | Job Title: System Administrator | Department: Legal\nSSN: 294-47-4566 | National ID: 162795957\nDate of Birth: 29/09/1972 | Gender: female | Age: 54\nEmail: anne.jordan@company.com | Phone: +213-749-262316\nAddress: 010 Chandler Union Apt. 333, Taylorburgh, KY 61138\nIBAN: DZ84-94555-8851745355-40 | Salary: $46,572\nHealth Record ID: MRN-17492 | Medical Condition: none\nEmployee ID: EMP-72493 | Surname/Title: Jordan, System Administrator\nReligious Note: no religious",
+    "chunk_id": "hr_file_011__chunk_0",
+    "document_id": "hr_file_011",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Title: Jordan, System Administrator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Nexus\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_011__chunk_1",
+    "document_id": "hr_file_011",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_012\nName: Thomas Ramos | Job Title: Junior Engineer | Department: Engineering\nSSN: 352-84-1651 | National ID: 765055833\nDate of Birth: 23/01/1975 | Gender: male | Age: 51\nEmail: thomas.ramos@company.com | Phone: +213-561-697347\nAddress: 80132 Tucker Forest, Barreraburgh, MS 00783\nIBAN: DZ20-53673-6540301973-33 | Salary: $127,782\nHealth Record ID: MRN-36772 | Medical Condition: none\nEmployee ID: EMP-51180 | Surname/Title: Ramos, Junior Engineer\nReligious Note: observes Ramadan strict",
+    "chunk_id": "hr_file_012__chunk_0",
+    "document_id": "hr_file_012",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": ": Ramos, Junior Engineer\nReligious Note: observes Ramadan strictly | Immigration Status: permanent resident\nPerformance: satisfactory | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: pending ethics training",
+    "chunk_id": "hr_file_012__chunk_1",
+    "document_id": "hr_file_012",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_013\nName: Derek Bowers | Job Title: Marketing Coordinator | Department: HR\nSSN: 175-78-4492 | National ID: 643189555\nDate of Birth: 30/09/2003 | Gender: male | Age: 23\nEmail: derek.bowers@company.com | Phone: +213-788-204837\nAddress: 872 Kenneth Centers Apt. 500, Shawhaven, GA 07956\nIBAN: DZ43-16955-5344160868-36 | Salary: $97,433\nHealth Record ID: MRN-30676 | Medical Condition: none\nEmployee ID: EMP-81200 | Surname/Title: Bowers, Marketing Coordinator\nReligious Note: no religious n",
+    "chunk_id": "hr_file_013__chunk_0",
+    "document_id": "hr_file_013",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "le: Bowers, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: General Operations\nTraining: pending ethics training",
+    "chunk_id": "hr_file_013__chunk_1",
+    "document_id": "hr_file_013",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_014\nName: Bobby Lopez | Job Title: Data Scientist | Department: Engineering\nSSN: 860-80-3546 | National ID: 392431670\nDate of Birth: 16/10/2002 | Gender: male | Age: 24\nEmail: bobby.lopez@company.com | Phone: +213-559-212235\nAddress: 1939 Christine Manor, Sarahborough, TN 94373\nIBAN: DZ46-77215-7377088167-26 | Salary: $74,600\nHealth Record ID: MRN-93130 | Medical Condition: none\nEmployee ID: EMP-74032 | Surname/Title: Lopez, Data Scientist\nReligious Note: no religious notes | Immigr",
+    "chunk_id": "hr_file_014__chunk_0",
+    "document_id": "hr_file_014",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "opez, Data Scientist\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_014__chunk_1",
+    "document_id": "hr_file_014",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_015\nName: Deborah Anderson | Job Title: Data Scientist | Department: Engineering\nSSN: 552-80-8007 | National ID: 702269164\nDate of Birth: 28/07/1977 | Gender: female | Age: 49\nEmail: deborah.anderson@company.com | Phone: +213-582-877236\nAddress: 1079 Charles Forest Suite 251, West Justin, NV 71701\nIBAN: DZ11-14077-9230117883-04 | Salary: $116,350\nHealth Record ID: MRN-58393 | Medical Condition: none\nEmployee ID: EMP-29410 | Surname/Title: Anderson, Data Scientist\nReligious Note: no",
+    "chunk_id": "hr_file_015__chunk_0",
+    "document_id": "hr_file_015",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "10 | Surname/Title: Anderson, Data Scientist\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: excellent | Office: Building B, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: pending ethics training",
+    "chunk_id": "hr_file_015__chunk_1",
+    "document_id": "hr_file_015",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_016\nName: Logan Archer | Job Title: HR Manager | Department: Engineering\nSSN: 673-62-3532 | National ID: 354194771\nDate of Birth: 03/10/1992 | Gender: male | Age: 34\nEmail: logan.archer@company.com | Phone: +213-681-918011\nAddress: 841 Joseph Coves, West Juan, IL 94559\nIBAN: DZ30-22902-1770791023-22 | Salary: $142,548\nHealth Record ID: MRN-53540 | Medical Condition: anxiety\nEmployee ID: EMP-97806 | Surname/Title: Archer, HR Manager\nReligious Note: observes Ramadan strictly | Immigra",
+    "chunk_id": "hr_file_016__chunk_0",
+    "document_id": "hr_file_016",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": ", HR Manager\nReligious Note: observes Ramadan strictly | Immigration Status: permanent resident\nPerformance: excellent | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Alpha\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_016__chunk_1",
+    "document_id": "hr_file_016",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_017\nName: Michael Farrell | Job Title: Marketing Coordinator | Department: Engineering\nSSN: 940-39-4652 | National ID: 125409494\nDate of Birth: 10/09/1978 | Gender: male | Age: 48\nEmail: michael.farrell@company.com | Phone: +213-679-420015\nAddress: 16400 Wise Route Suite 278, Hoffmanville, CA 91074\nIBAN: DZ94-24408-5704841644-08 | Salary: $86,025\nHealth Record ID: MRN-46585 | Medical Condition: none\nEmployee ID: EMP-76768 | Surname/Title: Farrell, Marketing Coordinator\nReligious Not",
+    "chunk_id": "hr_file_017__chunk_0",
+    "document_id": "hr_file_017",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "68 | Surname/Title: Farrell, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Alpha\nTraining: pending ethics training",
+    "chunk_id": "hr_file_017__chunk_1",
+    "document_id": "hr_file_017",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_018\nName: Joshua Davenport | Job Title: Data Scientist | Department: Marketing\nSSN: 710-65-6663 | National ID: 882269302\nDate of Birth: 28/07/2000 | Gender: male | Age: 26\nEmail: joshua.davenport@company.com | Phone: +213-519-213668\nAddress: 2045 Rachel Fords, Lake Curtis, WI 73886\nIBAN: DZ50-55620-4791662169-73 | Salary: $73,386\nHealth Record ID: MRN-34914 | Medical Condition: hypertension\nEmployee ID: EMP-67154 | Surname/Title: Davenport, Data Scientist\nReligious Note: attends Fri",
+    "chunk_id": "hr_file_018__chunk_0",
+    "document_id": "hr_file_018",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "ame/Title: Davenport, Data Scientist\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_018__chunk_1",
+    "document_id": "hr_file_018",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_019\nName: Jennifer Oliver | Job Title: Project Lead | Department: Marketing\nSSN: 407-74-6067 | National ID: 816070802\nDate of Birth: 20/10/1999 | Gender: female | Age: 27\nEmail: jennifer.oliver@company.com | Phone: +213-563-854717\nAddress: 26025 Pham Way, West Erik, UT 14669\nIBAN: DZ62-41412-7289454630-70 | Salary: $65,144\nHealth Record ID: MRN-26683 | Medical Condition: anxiety\nEmployee ID: EMP-97153 | Surname/Title: Oliver, Project Lead\nReligious Note: no religious notes | Immigra",
+    "chunk_id": "hr_file_019__chunk_0",
+    "document_id": "hr_file_019",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "liver, Project Lead\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_019__chunk_1",
+    "document_id": "hr_file_019",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_020\nName: Amanda Ruiz | Job Title: Legal Counsel | Department: Finance\nSSN: 693-87-6279 | National ID: 599277266\nDate of Birth: 28/03/1980 | Gender: female | Age: 46\nEmail: amanda.ruiz@company.com | Phone: +213-720-923927\nAddress: 4330 Raymond Harbors Apt. 458, Frazierside, MA 04118\nIBAN: DZ66-56691-9507775130-60 | Salary: $126,356\nHealth Record ID: MRN-32241 | Medical Condition: hypertension\nEmployee ID: EMP-47196 | Surname/Title: Ruiz, Legal Counsel\nReligious Note: no religious no",
+    "chunk_id": "hr_file_020__chunk_0",
+    "document_id": "hr_file_020",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "rname/Title: Ruiz, Legal Counsel\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_020__chunk_1",
+    "document_id": "hr_file_020",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_021\nName: Tracy White | Job Title: Legal Counsel | Department: Engineering\nSSN: 147-41-8784 | National ID: 756350429\nDate of Birth: 26/10/1969 | Gender: female | Age: 57\nEmail: tracy.white@company.com | Phone: +213-575-125611\nAddress: USNV Johnson, FPO AP 57460\nIBAN: DZ19-58424-2472487690-91 | Salary: $104,799\nHealth Record ID: MRN-60328 | Medical Condition: anxiety\nEmployee ID: EMP-41979 | Surname/Title: White, Legal Counsel\nReligious Note: observes Ramadan strictly | Immigration S",
+    "chunk_id": "hr_file_021__chunk_0",
+    "document_id": "hr_file_021",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "ounsel\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_021__chunk_1",
+    "document_id": "hr_file_021",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_022\nName: Richard Graham | Job Title: Marketing Coordinator | Department: Marketing\nSSN: 355-25-8478 | National ID: 243171768\nDate of Birth: 20/10/1978 | Gender: male | Age: 48\nEmail: richard.graham@company.com | Phone: +213-525-684482\nAddress: Unit 1693 Box 4060, DPO AP 71076\nIBAN: DZ69-85543-6852415525-96 | Salary: $120,301\nHealth Record ID: MRN-68008 | Medical Condition: none\nEmployee ID: EMP-76162 | Surname/Title: Graham, Marketing Coordinator\nReligious Note: no religious notes",
+    "chunk_id": "hr_file_022__chunk_0",
+    "document_id": "hr_file_022",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "raham, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 2\nSchedule: Rotating shifts | Project: Project Horizon\nTraining: pending ethics training",
+    "chunk_id": "hr_file_022__chunk_1",
+    "document_id": "hr_file_022",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_023\nName: Todd Mclaughlin | Job Title: System Administrator | Department: Finance\nSSN: 344-45-8206 | National ID: 183197117\nDate of Birth: 09/02/1992 | Gender: male | Age: 34\nEmail: todd.mclaughlin@company.com | Phone: +213-748-757193\nAddress: 59514 Estrada Islands Suite 482, South Elizabeth, MS 89278\nIBAN: DZ46-30278-5737421496-69 | Salary: $58,136\nHealth Record ID: MRN-20561 | Medical Condition: diabetes\nEmployee ID: EMP-40311 | Surname/Title: Mclaughlin, System Administrator\nReli",
+    "chunk_id": "hr_file_023__chunk_0",
+    "document_id": "hr_file_023",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "EMP-40311 | Surname/Title: Mclaughlin, System Administrator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_023__chunk_1",
+    "document_id": "hr_file_023",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_024\nName: Carrie Carroll | Job Title: Marketing Coordinator | Department: Marketing\nSSN: 311-63-7381 | National ID: 926561919\nDate of Birth: 01/07/1994 | Gender: female | Age: 32\nEmail: carrie.carroll@company.com | Phone: +213-712-165290\nAddress: 4369 Marshall Mills, New Thomas, MH 96964\nIBAN: DZ84-89020-5928691380-00 | Salary: $79,139\nHealth Record ID: MRN-56105 | Medical Condition: none\nEmployee ID: EMP-61116 | Surname/Title: Carroll, Marketing Coordinator\nReligious Note: no relig",
+    "chunk_id": "hr_file_024__chunk_0",
+    "document_id": "hr_file_024",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "e/Title: Carroll, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_024__chunk_1",
+    "document_id": "hr_file_024",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_025\nName: Angela Robertson | Job Title: Marketing Coordinator | Department: Legal\nSSN: 444-95-7624 | National ID: 877583839\nDate of Birth: 09/12/1971 | Gender: female | Age: 55\nEmail: angela.robertson@company.com | Phone: +213-514-507746\nAddress: 34332 Brandon Mountains Apt. 769, Lake Heather, NM 52884\nIBAN: DZ31-59941-0116402431-82 | Salary: $57,786\nHealth Record ID: MRN-66179 | Medical Condition: none\nEmployee ID: EMP-70515 | Surname/Title: Robertson, Marketing Coordinator\nReligio",
+    "chunk_id": "hr_file_025__chunk_0",
+    "document_id": "hr_file_025",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "-70515 | Surname/Title: Robertson, Marketing Coordinator\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_025__chunk_1",
+    "document_id": "hr_file_025",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_026\nName: Mary Smith | Job Title: Junior Engineer | Department: Finance\nSSN: 951-63-5133 | National ID: 996478772\nDate of Birth: 01/11/1974 | Gender: female | Age: 52\nEmail: mary.smith@company.com | Phone: +213-642-888539\nAddress: 3287 Angela Vista, South Dennismouth, TN 70117\nIBAN: DZ20-60019-8383431259-28 | Salary: $48,993\nHealth Record ID: MRN-95215 | Medical Condition: none\nEmployee ID: EMP-95426 | Surname/Title: Smith, Junior Engineer\nReligious Note: attends Friday prayers | Im",
+    "chunk_id": "hr_file_026__chunk_0",
+    "document_id": "hr_file_026",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "ith, Junior Engineer\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Monday-Friday 08:00-16:00 | Project: General Operations\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_026__chunk_1",
+    "document_id": "hr_file_026",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_027\nName: Kyle Dodson | Job Title: Marketing Coordinator | Department: Engineering\nSSN: 323-69-5198 | National ID: 923450567\nDate of Birth: 06/11/2003 | Gender: male | Age: 23\nEmail: kyle.dodson@company.com | Phone: +213-558-691364\nAddress: 727 Green Gateway Suite 873, Scottport, IA 36115\nIBAN: DZ57-21620-3518871744-39 | Salary: $115,849\nHealth Record ID: MRN-24168 | Medical Condition: hypertension\nEmployee ID: EMP-50888 | Surname/Title: Dodson, Marketing Coordinator\nReligious Note:",
+    "chunk_id": "hr_file_027__chunk_0",
+    "document_id": "hr_file_027",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "8 | Surname/Title: Dodson, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 3\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Alpha\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_027__chunk_1",
+    "document_id": "hr_file_027",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_028\nName: Steven Miller | Job Title: Compliance Officer | Department: Finance\nSSN: 679-15-6688 | National ID: 672030854\nDate of Birth: 02/06/1978 | Gender: male | Age: 48\nEmail: steven.miller@company.com | Phone: +213-561-934904\nAddress: 231 Russell Plains Suite 603, Priceshire, UT 03061\nIBAN: DZ64-84379-8886101513-82 | Salary: $41,658\nHealth Record ID: MRN-54725 | Medical Condition: none\nEmployee ID: EMP-65057 | Surname/Title: Miller, Compliance Officer\nReligious Note: no religious",
+    "chunk_id": "hr_file_028__chunk_0",
+    "document_id": "hr_file_028",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "e/Title: Miller, Compliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 1\nSchedule: Rotating shifts | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_028__chunk_1",
+    "document_id": "hr_file_028",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_029\nName: Ralph James | Job Title: Data Scientist | Department: Marketing\nSSN: 595-69-8136 | National ID: 986625773\nDate of Birth: 25/09/1998 | Gender: male | Age: 28\nEmail: ralph.james@company.com | Phone: +213-775-912270\nAddress: 6688 Tracy Groves Suite 706, Elizabethfurt, VA 22133\nIBAN: DZ85-34330-3658080160-11 | Salary: $99,087\nHealth Record ID: MRN-46559 | Medical Condition: diabetes\nEmployee ID: EMP-70910 | Surname/Title: James, Data Scientist\nReligious Note: no religious note",
+    "chunk_id": "hr_file_029__chunk_0",
+    "document_id": "hr_file_029",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "e/Title: James, Data Scientist\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_029__chunk_1",
+    "document_id": "hr_file_029",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_030\nName: Tamara Hooper | Job Title: Marketing Coordinator | Department: Engineering\nSSN: 916-43-6576 | National ID: 400281010\nDate of Birth: 06/02/1998 | Gender: female | Age: 28\nEmail: tamara.hooper@company.com | Phone: +213-608-472060\nAddress: 901 Taylor Mountain Apt. 046, Jasonmouth, MA 50193\nIBAN: DZ86-89901-9776499089-01 | Salary: $65,042\nHealth Record ID: MRN-77715 | Medical Condition: hypertension\nEmployee ID: EMP-41635 | Surname/Title: Hooper, Marketing Coordinator\nReligiou",
+    "chunk_id": "hr_file_030__chunk_0",
+    "document_id": "hr_file_030",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "MP-41635 | Surname/Title: Hooper, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Rotating shifts | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_030__chunk_1",
+    "document_id": "hr_file_030",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_031\nName: Trevor Fisher | Job Title: Data Scientist | Department: HR\nSSN: 808-41-6016 | National ID: 812921644\nDate of Birth: 03/03/1976 | Gender: male | Age: 50\nEmail: trevor.fisher@company.com | Phone: +213-613-524045\nAddress: 80531 Karen Gateway Apt. 092, East Thomas, DE 74421\nIBAN: DZ84-47484-5771394050-95 | Salary: $83,357\nHealth Record ID: MRN-82140 | Medical Condition: asthma\nEmployee ID: EMP-69473 | Surname/Title: Fisher, Data Scientist\nReligious Note: no religious notes | I",
+    "chunk_id": "hr_file_031__chunk_0",
+    "document_id": "hr_file_031",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "e: Fisher, Data Scientist\nReligious Note: no religious notes | Immigration Status: permanent resident\nPerformance: satisfactory | Office: Building A, Floor 2\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Nexus\nTraining: pending ethics training",
+    "chunk_id": "hr_file_031__chunk_1",
+    "document_id": "hr_file_031",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_032\nName: John Scott | Job Title: Financial Analyst | Department: Marketing\nSSN: 856-71-5530 | National ID: 878017216\nDate of Birth: 13/04/2002 | Gender: male | Age: 24\nEmail: john.scott@company.com | Phone: +213-598-326895\nAddress: 41904 Sanders Stravenue, North Brittany, MP 82714\nIBAN: DZ85-97537-6858164010-12 | Salary: $78,829\nHealth Record ID: MRN-35443 | Medical Condition: diabetes\nEmployee ID: EMP-57301 | Surname/Title: Scott, Financial Analyst\nReligious Note: observes Ramadan",
+    "chunk_id": "hr_file_032__chunk_0",
+    "document_id": "hr_file_032",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Title: Scott, Financial Analyst\nReligious Note: observes Ramadan strictly | Immigration Status: permanent resident\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_032__chunk_1",
+    "document_id": "hr_file_032",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_033\nName: Michael Turner | Job Title: Data Scientist | Department: Marketing\nSSN: 989-72-2680 | National ID: 113169872\nDate of Birth: 16/10/1974 | Gender: male | Age: 52\nEmail: michael.turner@company.com | Phone: +213-564-768854\nAddress: 058 Stanley Cliff, Alexanderchester, GU 64752\nIBAN: DZ83-36480-6351029162-43 | Salary: $46,734\nHealth Record ID: MRN-34164 | Medical Condition: asthma\nEmployee ID: EMP-72616 | Surname/Title: Turner, Data Scientist\nReligious Note: attends Friday pray",
+    "chunk_id": "hr_file_033__chunk_0",
+    "document_id": "hr_file_033",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "itle: Turner, Data Scientist\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 3\nSchedule: Monday-Friday 08:00-16:00 | Project: General Operations\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_033__chunk_1",
+    "document_id": "hr_file_033",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_034\nName: Tyler Reid | Job Title: Compliance Officer | Department: Engineering\nSSN: 354-25-7818 | National ID: 751028618\nDate of Birth: 08/06/1969 | Gender: male | Age: 57\nEmail: tyler.reid@company.com | Phone: +213-655-189318\nAddress: 2849 Marshall Views, Marcusbury, MP 11860\nIBAN: DZ86-79231-5928678489-56 | Salary: $117,139\nHealth Record ID: MRN-48974 | Medical Condition: anxiety\nEmployee ID: EMP-50026 | Surname/Title: Reid, Compliance Officer\nReligious Note: no religious notes |",
+    "chunk_id": "hr_file_034__chunk_0",
+    "document_id": "hr_file_034",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": ": Reid, Compliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Nexus\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_034__chunk_1",
+    "document_id": "hr_file_034",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_035\nName: Joanne Christensen | Job Title: Financial Analyst | Department: HR\nSSN: 665-19-3564 | National ID: 102873038\nDate of Birth: 13/03/1976 | Gender: female | Age: 50\nEmail: joanne.christensen@company.com | Phone: +213-622-282256\nAddress: 0752 Lewis Union Suite 549, Angelahaven, ID 11722\nIBAN: DZ62-57705-6845366946-37 | Salary: $70,340\nHealth Record ID: MRN-14278 | Medical Condition: asthma\nEmployee ID: EMP-47056 | Surname/Title: Christensen, Financial Analyst\nReligious Note: n",
+    "chunk_id": "hr_file_035__chunk_0",
+    "document_id": "hr_file_035",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Surname/Title: Christensen, Financial Analyst\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: General Operations\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_035__chunk_1",
+    "document_id": "hr_file_035",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_036\nName: Jennifer Peters | Job Title: System Administrator | Department: HR\nSSN: 252-44-3330 | National ID: 176675731\nDate of Birth: 25/09/1974 | Gender: female | Age: 52\nEmail: jennifer.peters@company.com | Phone: +213-615-779094\nAddress: 770 Kelly Lodge Apt. 495, Transtad, NE 98272\nIBAN: DZ17-21811-9911117251-95 | Salary: $77,828\nHealth Record ID: MRN-84607 | Medical Condition: anxiety\nEmployee ID: EMP-26299 | Surname/Title: Peters, System Administrator\nReligious Note: no religio",
+    "chunk_id": "hr_file_036__chunk_0",
+    "document_id": "hr_file_036",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "e/Title: Peters, System Administrator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: General Operations\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_036__chunk_1",
+    "document_id": "hr_file_036",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_037\nName: Heather Chavez | Job Title: Compliance Officer | Department: HR\nSSN: 852-51-5102 | National ID: 127772220\nDate of Birth: 14/10/1986 | Gender: female | Age: 40\nEmail: heather.chavez@company.com | Phone: +213-520-553014\nAddress: 35182 Javier Orchard, Jennyhaven, PA 37594\nIBAN: DZ21-29984-7822944679-73 | Salary: $140,022\nHealth Record ID: MRN-15273 | Medical Condition: none\nEmployee ID: EMP-32962 | Surname/Title: Chavez, Compliance Officer\nReligious Note: no religious notes |",
+    "chunk_id": "hr_file_037__chunk_0",
+    "document_id": "hr_file_037",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Chavez, Compliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_037__chunk_1",
+    "document_id": "hr_file_037",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_038\nName: Sandra Phillips | Job Title: Marketing Coordinator | Department: HR\nSSN: 441-51-2713 | National ID: 272684373\nDate of Birth: 24/07/2003 | Gender: female | Age: 23\nEmail: sandra.phillips@company.com | Phone: +213-678-528184\nAddress: 82400 Terry Crossroad Suite 109, Taylormouth, MA 24665\nIBAN: DZ52-52710-6422990551-84 | Salary: $146,635\nHealth Record ID: MRN-62488 | Medical Condition: none\nEmployee ID: EMP-82102 | Surname/Title: Phillips, Marketing Coordinator\nReligious Note",
+    "chunk_id": "hr_file_038__chunk_0",
+    "document_id": "hr_file_038",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "| Surname/Title: Phillips, Marketing Coordinator\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_038__chunk_1",
+    "document_id": "hr_file_038",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_039\nName: Dawn Hensley | Job Title: Senior Developer | Department: Marketing\nSSN: 523-16-4073 | National ID: 656670062\nDate of Birth: 22/12/2002 | Gender: female | Age: 24\nEmail: dawn.hensley@company.com | Phone: +213-777-584417\nAddress: 7190 Edward Port, Christopherbury, DE 73648\nIBAN: DZ56-79774-0221670908-34 | Salary: $57,172\nHealth Record ID: MRN-81987 | Medical Condition: asthma\nEmployee ID: EMP-67424 | Surname/Title: Hensley, Senior Developer\nReligious Note: no religious notes",
+    "chunk_id": "hr_file_039__chunk_0",
+    "document_id": "hr_file_039",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "le: Hensley, Senior Developer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: pending ethics training",
+    "chunk_id": "hr_file_039__chunk_1",
+    "document_id": "hr_file_039",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_040\nName: Larry Gibbs | Job Title: Junior Engineer | Department: Marketing\nSSN: 961-24-8560 | National ID: 226128312\nDate of Birth: 18/02/1995 | Gender: male | Age: 31\nEmail: larry.gibbs@company.com | Phone: +213-547-335615\nAddress: 7496 Carroll Circle Apt. 334, East Johnside, CA 21018\nIBAN: DZ92-19510-9843470446-90 | Salary: $94,459\nHealth Record ID: MRN-45838 | Medical Condition: none\nEmployee ID: EMP-73242 | Surname/Title: Gibbs, Junior Engineer\nReligious Note: no religious notes",
+    "chunk_id": "hr_file_040__chunk_0",
+    "document_id": "hr_file_040",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Title: Gibbs, Junior Engineer\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_040__chunk_1",
+    "document_id": "hr_file_040",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_041\nName: Jerry Wheeler | Job Title: Data Scientist | Department: HR\nSSN: 906-74-5377 | National ID: 981058292\nDate of Birth: 04/06/1965 | Gender: male | Age: 61\nEmail: jerry.wheeler@company.com | Phone: +213-712-456385\nAddress: 4713 French Road, South Danny, IN 85387\nIBAN: DZ10-36743-4933179746-68 | Salary: $85,236\nHealth Record ID: MRN-73483 | Medical Condition: asthma\nEmployee ID: EMP-82340 | Surname/Title: Wheeler, Data Scientist\nReligious Note: no religious notes | Immigration",
+    "chunk_id": "hr_file_041__chunk_0",
+    "document_id": "hr_file_041",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Data Scientist\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_041__chunk_1",
+    "document_id": "hr_file_041",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_042\nName: Derek Thomas | Job Title: Senior Developer | Department: Legal\nSSN: 584-58-7325 | National ID: 812630453\nDate of Birth: 17/02/1971 | Gender: male | Age: 55\nEmail: derek.thomas@company.com | Phone: +213-662-880879\nAddress: 947 Taylor Hollow Suite 488, Kimton, FM 57127\nIBAN: DZ93-19507-4143889422-16 | Salary: $117,356\nHealth Record ID: MRN-75836 | Medical Condition: asthma\nEmployee ID: EMP-23154 | Surname/Title: Thomas, Senior Developer\nReligious Note: no religious notes | I",
+    "chunk_id": "hr_file_042__chunk_0",
+    "document_id": "hr_file_042",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Thomas, Senior Developer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_042__chunk_1",
+    "document_id": "hr_file_042",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_043\nName: Larry Johnson | Job Title: Marketing Coordinator | Department: HR\nSSN: 738-98-7512 | National ID: 797756796\nDate of Birth: 19/12/1993 | Gender: male | Age: 33\nEmail: larry.johnson@company.com | Phone: +213-635-455007\nAddress: 490 Thomas Run, Moonburgh, OR 57633\nIBAN: DZ20-42872-6586857685-40 | Salary: $134,203\nHealth Record ID: MRN-92155 | Medical Condition: none\nEmployee ID: EMP-73956 | Surname/Title: Johnson, Marketing Coordinator\nReligious Note: no religious notes | Imm",
+    "chunk_id": "hr_file_043__chunk_0",
+    "document_id": "hr_file_043",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": ", Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_043__chunk_1",
+    "document_id": "hr_file_043",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_044\nName: John Davis | Job Title: HR Manager | Department: Legal\nSSN: 270-98-5906 | National ID: 131081879\nDate of Birth: 28/01/1990 | Gender: male | Age: 36\nEmail: john.davis@company.com | Phone: +213-551-565230\nAddress: 1256 Roberts Locks Apt. 715, Marcusfurt, VI 67950\nIBAN: DZ15-41815-4535997538-45 | Salary: $96,450\nHealth Record ID: MRN-59131 | Medical Condition: diabetes\nEmployee ID: EMP-42007 | Surname/Title: Davis, HR Manager\nReligious Note: no religious notes | Immigration S",
+    "chunk_id": "hr_file_044__chunk_0",
+    "document_id": "hr_file_044",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "s, HR Manager\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_044__chunk_1",
+    "document_id": "hr_file_044",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_045\nName: April Booth | Job Title: Legal Counsel | Department: Marketing\nSSN: 246-39-8555 | National ID: 784944881\nDate of Birth: 29/06/1997 | Gender: female | Age: 29\nEmail: april.booth@company.com | Phone: +213-754-711484\nAddress: 85977 James Plaza, West Samuel, UT 64033\nIBAN: DZ42-58261-2864059081-59 | Salary: $128,815\nHealth Record ID: MRN-47700 | Medical Condition: none\nEmployee ID: EMP-30706 | Surname/Title: Booth, Legal Counsel\nReligious Note: attends Friday prayers | Immigra",
+    "chunk_id": "hr_file_045__chunk_0",
+    "document_id": "hr_file_045",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": ", Legal Counsel\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: pending ethics training",
+    "chunk_id": "hr_file_045__chunk_1",
+    "document_id": "hr_file_045",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_046\nName: Valerie Lynch | Job Title: Legal Counsel | Department: Finance\nSSN: 594-23-4886 | National ID: 509486794\nDate of Birth: 20/01/1970 | Gender: female | Age: 56\nEmail: valerie.lynch@company.com | Phone: +213-696-994787\nAddress: 8086 Jeffrey Ville, South Staceyberg, NM 94427\nIBAN: DZ83-45588-7298348088-02 | Salary: $91,879\nHealth Record ID: MRN-96275 | Medical Condition: asthma\nEmployee ID: EMP-11061 | Surname/Title: Lynch, Legal Counsel\nReligious Note: no religious notes | Im",
+    "chunk_id": "hr_file_046__chunk_0",
+    "document_id": "hr_file_046",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "le: Lynch, Legal Counsel\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_046__chunk_1",
+    "document_id": "hr_file_046",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_047\nName: Michele Perry | Job Title: Legal Counsel | Department: Engineering\nSSN: 873-94-3240 | National ID: 774576271\nDate of Birth: 13/09/1976 | Gender: female | Age: 50\nEmail: michele.perry@company.com | Phone: +213-628-810687\nAddress: 78263 Michelle Harbor Suite 584, West Jessicashire, OR 87000\nIBAN: DZ22-80661-4464285982-56 | Salary: $115,965\nHealth Record ID: MRN-14373 | Medical Condition: asthma\nEmployee ID: EMP-27224 | Surname/Title: Perry, Legal Counsel\nReligious Note: atte",
+    "chunk_id": "hr_file_047__chunk_0",
+    "document_id": "hr_file_047",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "27224 | Surname/Title: Perry, Legal Counsel\nReligious Note: attends Friday prayers | Immigration Status: permanent resident\nPerformance: satisfactory | Office: Building B, Floor 3\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_047__chunk_1",
+    "document_id": "hr_file_047",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_048\nName: Brittany Ryan | Job Title: System Administrator | Department: Marketing\nSSN: 268-42-8894 | National ID: 965960427\nDate of Birth: 31/05/1984 | Gender: female | Age: 42\nEmail: brittany.ryan@company.com | Phone: +213-639-970813\nAddress: 5339 Hall Trail Suite 057, Hughesberg, NM 05353\nIBAN: DZ47-95891-4789617427-09 | Salary: $138,848\nHealth Record ID: MRN-28449 | Medical Condition: diabetes\nEmployee ID: EMP-98647 | Surname/Title: Ryan, System Administrator\nReligious Note: no r",
+    "chunk_id": "hr_file_048__chunk_0",
+    "document_id": "hr_file_048",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "| Surname/Title: Ryan, System Administrator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Alpha\nTraining: pending ethics training",
+    "chunk_id": "hr_file_048__chunk_1",
+    "document_id": "hr_file_048",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_049\nName: Vincent Rivera | Job Title: Project Lead | Department: Legal\nSSN: 490-91-7086 | National ID: 216335741\nDate of Birth: 30/03/1970 | Gender: male | Age: 56\nEmail: vincent.rivera@company.com | Phone: +213-634-712955\nAddress: 87026 Charles Tunnel Suite 596, Port Markside, MS 42006\nIBAN: DZ96-29482-8697414638-71 | Salary: $119,964\nHealth Record ID: MRN-52992 | Medical Condition: diabetes\nEmployee ID: EMP-94889 | Surname/Title: Rivera, Project Lead\nReligious Note: attends Friday",
+    "chunk_id": "hr_file_049__chunk_0",
+    "document_id": "hr_file_049",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "rname/Title: Rivera, Project Lead\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 1\nSchedule: Rotating shifts | Project: Project Alpha\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_049__chunk_1",
+    "document_id": "hr_file_049",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_050\nName: Stephen Freeman | Job Title: Data Scientist | Department: HR\nSSN: 199-40-9807 | National ID: 245668163\nDate of Birth: 06/10/1989 | Gender: male | Age: 37\nEmail: stephen.freeman@company.com | Phone: +213-752-221761\nAddress: 43161 Scott Square, Rebeccaton, MD 07856\nIBAN: DZ59-58379-8381721143-04 | Salary: $68,477\nHealth Record ID: MRN-58566 | Medical Condition: anxiety\nEmployee ID: EMP-68287 | Surname/Title: Freeman, Data Scientist\nReligious Note: observes Ramadan strictly |",
+    "chunk_id": "hr_file_050__chunk_0",
+    "document_id": "hr_file_050",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "eman, Data Scientist\nReligious Note: observes Ramadan strictly | Immigration Status: permanent resident\nPerformance: excellent | Office: Building B, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_050__chunk_1",
+    "document_id": "hr_file_050",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_051\nName: Jade Thomas | Job Title: HR Manager | Department: Engineering\nSSN: 778-37-1349 | National ID: 154308262\nDate of Birth: 05/10/1976 | Gender: female | Age: 50\nEmail: jade.thomas@company.com | Phone: +213-732-196126\nAddress: 21969 Tyler Prairie, East Steven, KS 60737\nIBAN: DZ52-31128-0881351238-97 | Salary: $67,152\nHealth Record ID: MRN-82641 | Medical Condition: none\nEmployee ID: EMP-38305 | Surname/Title: Thomas, HR Manager\nReligious Note: observes Ramadan strictly | Immigr",
+    "chunk_id": "hr_file_051__chunk_0",
+    "document_id": "hr_file_051",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "s, HR Manager\nReligious Note: observes Ramadan strictly | Immigration Status: permanent resident\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_051__chunk_1",
+    "document_id": "hr_file_051",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_052\nName: Adam Ballard | Job Title: Data Scientist | Department: Marketing\nSSN: 776-13-3159 | National ID: 115956152\nDate of Birth: 12/04/1975 | Gender: male | Age: 51\nEmail: adam.ballard@company.com | Phone: +213-589-215266\nAddress: PSC 8217, Box 5946, APO AP 33281\nIBAN: DZ55-30602-1390587865-22 | Salary: $46,868\nHealth Record ID: MRN-44782 | Medical Condition: diabetes\nEmployee ID: EMP-65176 | Surname/Title: Ballard, Data Scientist\nReligious Note: no religious notes | Immigration",
+    "chunk_id": "hr_file_052__chunk_0",
+    "document_id": "hr_file_052",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Data Scientist\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Horizon\nTraining: pending ethics training",
+    "chunk_id": "hr_file_052__chunk_1",
+    "document_id": "hr_file_052",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_053\nName: Eric Kidd | Job Title: System Administrator | Department: Legal\nSSN: 144-94-9543 | National ID: 423873102\nDate of Birth: 19/02/1983 | Gender: male | Age: 43\nEmail: eric.kidd@company.com | Phone: +213-613-744986\nAddress: 69594 Johnson Village, Hillshire, VI 90390\nIBAN: DZ68-82987-0133790981-61 | Salary: $95,872\nHealth Record ID: MRN-62640 | Medical Condition: none\nEmployee ID: EMP-24150 | Surname/Title: Kidd, System Administrator\nReligious Note: no religious notes | Immigra",
+    "chunk_id": "hr_file_053__chunk_0",
+    "document_id": "hr_file_053",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "ystem Administrator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_053__chunk_1",
+    "document_id": "hr_file_053",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_054\nName: William Lozano | Job Title: Data Scientist | Department: Engineering\nSSN: 829-51-7240 | National ID: 741444618\nDate of Birth: 04/09/1995 | Gender: male | Age: 31\nEmail: william.lozano@company.com | Phone: +213-799-674993\nAddress: 95339 Byrd Stravenue Apt. 104, Johnsonstad, VA 17725\nIBAN: DZ77-37464-1847692041-89 | Salary: $125,814\nHealth Record ID: MRN-24996 | Medical Condition: none\nEmployee ID: EMP-82264 | Surname/Title: Lozano, Data Scientist\nReligious Note: observes Ra",
+    "chunk_id": "hr_file_054__chunk_0",
+    "document_id": "hr_file_054",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "urname/Title: Lozano, Data Scientist\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 2\nSchedule: Rotating shifts | Project: Project Mercury\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_054__chunk_1",
+    "document_id": "hr_file_054",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_055\nName: Elizabeth Burgess | Job Title: HR Manager | Department: Legal\nSSN: 420-95-5176 | National ID: 501902658\nDate of Birth: 31/10/1968 | Gender: female | Age: 58\nEmail: elizabeth.burgess@company.com | Phone: +213-660-547494\nAddress: 588 Rivas Glens, Coffeyport, WA 44897\nIBAN: DZ29-87945-2036965074-11 | Salary: $52,219\nHealth Record ID: MRN-21188 | Medical Condition: anxiety\nEmployee ID: EMP-22656 | Surname/Title: Burgess, HR Manager\nReligious Note: no religious notes | Immigrat",
+    "chunk_id": "hr_file_055__chunk_0",
+    "document_id": "hr_file_055",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "urgess, HR Manager\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_055__chunk_1",
+    "document_id": "hr_file_055",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_056\nName: Julie Jones | Job Title: Senior Developer | Department: Legal\nSSN: 419-55-2697 | National ID: 720535283\nDate of Birth: 07/09/1996 | Gender: female | Age: 30\nEmail: julie.jones@company.com | Phone: +213-647-729575\nAddress: 685 Krystal Bridge, Amandamouth, MN 88689\nIBAN: DZ74-27158-7115628227-28 | Salary: $85,890\nHealth Record ID: MRN-24184 | Medical Condition: none\nEmployee ID: EMP-82910 | Surname/Title: Jones, Senior Developer\nReligious Note: no religious notes | Immigrati",
+    "chunk_id": "hr_file_056__chunk_0",
+    "document_id": "hr_file_056",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Senior Developer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Horizon\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_056__chunk_1",
+    "document_id": "hr_file_056",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_057\nName: Deborah James | Job Title: Financial Analyst | Department: HR\nSSN: 880-49-6567 | National ID: 476908532\nDate of Birth: 13/07/1994 | Gender: female | Age: 32\nEmail: deborah.james@company.com | Phone: +213-639-836833\nAddress: 37098 Herman Forges Apt. 746, East Brandonton, ME 65070\nIBAN: DZ10-23890-9205195056-84 | Salary: $49,120\nHealth Record ID: MRN-62531 | Medical Condition: diabetes\nEmployee ID: EMP-92991 | Surname/Title: James, Financial Analyst\nReligious Note: attends F",
+    "chunk_id": "hr_file_057__chunk_0",
+    "document_id": "hr_file_057",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "urname/Title: James, Financial Analyst\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_057__chunk_1",
+    "document_id": "hr_file_057",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_058\nName: Cynthia Medina | Job Title: Financial Analyst | Department: Finance\nSSN: 838-51-2391 | National ID: 156488296\nDate of Birth: 06/11/1969 | Gender: female | Age: 57\nEmail: cynthia.medina@company.com | Phone: +213-689-426775\nAddress: 869 Nicole Shoal Apt. 796, Antoniostad, IL 58616\nIBAN: DZ29-20772-2653594796-86 | Salary: $75,665\nHealth Record ID: MRN-20693 | Medical Condition: anxiety\nEmployee ID: EMP-96761 | Surname/Title: Medina, Financial Analyst\nReligious Note: no religi",
+    "chunk_id": "hr_file_058__chunk_0",
+    "document_id": "hr_file_058",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "rname/Title: Medina, Financial Analyst\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Rotating shifts | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_058__chunk_1",
+    "document_id": "hr_file_058",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_059\nName: David Cox | Job Title: Junior Engineer | Department: Finance\nSSN: 794-96-8972 | National ID: 665791188\nDate of Birth: 30/08/1982 | Gender: male | Age: 44\nEmail: david.cox@company.com | Phone: +213-556-397005\nAddress: Unit 5850 Box 6431, DPO AA 12516\nIBAN: DZ95-39046-5242086783-76 | Salary: $41,007\nHealth Record ID: MRN-17180 | Medical Condition: diabetes\nEmployee ID: EMP-49507 | Surname/Title: Cox, Junior Engineer\nReligious Note: observes Ramadan strictly | Immigration Sta",
+    "chunk_id": "hr_file_059__chunk_0",
+    "document_id": "hr_file_059",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "neer\nReligious Note: observes Ramadan strictly | Immigration Status: holds a work visa\nPerformance: satisfactory | Office: Building B, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Alpha\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_059__chunk_1",
+    "document_id": "hr_file_059",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_060\nName: Maria Harper | Job Title: Financial Analyst | Department: Legal\nSSN: 645-39-9196 | National ID: 699924859\nDate of Birth: 03/03/1991 | Gender: female | Age: 35\nEmail: maria.harper@company.com | Phone: +213-566-498676\nAddress: 29318 Brenda Via Apt. 529, West Micheleberg, DC 71308\nIBAN: DZ95-45073-3187043237-55 | Salary: $100,260\nHealth Record ID: MRN-12456 | Medical Condition: hypertension\nEmployee ID: EMP-51033 | Surname/Title: Harper, Financial Analyst\nReligious Note: no r",
+    "chunk_id": "hr_file_060__chunk_0",
+    "document_id": "hr_file_060",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "| Surname/Title: Harper, Financial Analyst\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Rotating shifts | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_060__chunk_1",
+    "document_id": "hr_file_060",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_061\nName: Carrie Guerrero | Job Title: Project Lead | Department: HR\nSSN: 732-68-6928 | National ID: 194628740\nDate of Birth: 04/02/1975 | Gender: female | Age: 51\nEmail: carrie.guerrero@company.com | Phone: +213-587-940247\nAddress: 3950 Joseph Crossroad, Foxland, NJ 59257\nIBAN: DZ65-13249-4632753983-39 | Salary: $69,041\nHealth Record ID: MRN-54500 | Medical Condition: asthma\nEmployee ID: EMP-32037 | Surname/Title: Guerrero, Project Lead\nReligious Note: attends Friday prayers | Immi",
+    "chunk_id": "hr_file_061__chunk_0",
+    "document_id": "hr_file_061",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "rero, Project Lead\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: pending ethics training",
+    "chunk_id": "hr_file_061__chunk_1",
+    "document_id": "hr_file_061",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_062\nName: Jose Rodriguez | Job Title: HR Manager | Department: Engineering\nSSN: 302-32-3504 | National ID: 916274954\nDate of Birth: 30/08/1995 | Gender: male | Age: 31\nEmail: jose.rodriguez@company.com | Phone: +213-574-368402\nAddress: 847 Bruce Neck, Simmonsville, NM 93876\nIBAN: DZ93-09181-6991986741-59 | Salary: $139,598\nHealth Record ID: MRN-83889 | Medical Condition: none\nEmployee ID: EMP-68838 | Surname/Title: Rodriguez, HR Manager\nReligious Note: no religious notes | Immigrati",
+    "chunk_id": "hr_file_062__chunk_0",
+    "document_id": "hr_file_062",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "iguez, HR Manager\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_062__chunk_1",
+    "document_id": "hr_file_062",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_063\nName: Angel Miller | Job Title: Marketing Coordinator | Department: HR\nSSN: 410-45-1920 | National ID: 477895080\nDate of Birth: 18/10/2000 | Gender: female | Age: 26\nEmail: angel.miller@company.com | Phone: +213-726-762055\nAddress: 49985 Vang Pines, Shawnchester, CT 92484\nIBAN: DZ74-09317-6278136169-04 | Salary: $88,331\nHealth Record ID: MRN-17456 | Medical Condition: none\nEmployee ID: EMP-47627 | Surname/Title: Miller, Marketing Coordinator\nReligious Note: attends Friday prayer",
+    "chunk_id": "hr_file_063__chunk_0",
+    "document_id": "hr_file_063",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "ler, Marketing Coordinator\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: Project Horizon\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_063__chunk_1",
+    "document_id": "hr_file_063",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_064\nName: Mary Rich | Job Title: Legal Counsel | Department: Marketing\nSSN: 587-74-3471 | National ID: 166436383\nDate of Birth: 12/10/1969 | Gender: female | Age: 57\nEmail: mary.rich@company.com | Phone: +213-664-734394\nAddress: 7365 Ross Stream, West Ronaldview, MN 20507\nIBAN: DZ67-13830-3067961943-64 | Salary: $62,617\nHealth Record ID: MRN-94689 | Medical Condition: hypertension\nEmployee ID: EMP-42472 | Surname/Title: Rich, Legal Counsel\nReligious Note: no religious notes | Immigr",
+    "chunk_id": "hr_file_064__chunk_0",
+    "document_id": "hr_file_064",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Rich, Legal Counsel\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: pending ethics training",
+    "chunk_id": "hr_file_064__chunk_1",
+    "document_id": "hr_file_064",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_065\nName: Kara Davis | Job Title: Junior Engineer | Department: Legal\nSSN: 712-16-6482 | National ID: 170772317\nDate of Birth: 08/02/1992 | Gender: female | Age: 34\nEmail: kara.davis@company.com | Phone: +213-673-811875\nAddress: 52809 Santiago Loop Suite 604, Michaelshire, NY 28385\nIBAN: DZ52-12571-7208584394-36 | Salary: $134,861\nHealth Record ID: MRN-43029 | Medical Condition: none\nEmployee ID: EMP-96057 | Surname/Title: Davis, Junior Engineer\nReligious Note: no religious notes |",
+    "chunk_id": "hr_file_065__chunk_0",
+    "document_id": "hr_file_065",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "le: Davis, Junior Engineer\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: pending ethics training",
+    "chunk_id": "hr_file_065__chunk_1",
+    "document_id": "hr_file_065",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_066\nName: Karen Boone | Job Title: Compliance Officer | Department: Engineering\nSSN: 672-58-6381 | National ID: 973150512\nDate of Birth: 10/05/1971 | Gender: female | Age: 55\nEmail: karen.boone@company.com | Phone: +213-543-424620\nAddress: 49368 Chelsea Shoals Suite 024, Sandrastad, AL 24278\nIBAN: DZ26-85719-2260842187-82 | Salary: $95,496\nHealth Record ID: MRN-97878 | Medical Condition: none\nEmployee ID: EMP-57425 | Surname/Title: Boone, Compliance Officer\nReligious Note: attends F",
+    "chunk_id": "hr_file_066__chunk_0",
+    "document_id": "hr_file_066",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "rname/Title: Boone, Compliance Officer\nReligious Note: attends Friday prayers | Immigration Status: permanent resident\nPerformance: satisfactory | Office: Building A, Floor 2\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_066__chunk_1",
+    "document_id": "hr_file_066",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_067\nName: Keith Morales | Job Title: Financial Analyst | Department: Engineering\nSSN: 402-22-9317 | National ID: 927720428\nDate of Birth: 31/03/1999 | Gender: male | Age: 27\nEmail: keith.morales@company.com | Phone: +213-579-180913\nAddress: 83667 Moore Inlet, Kimberlyshire, PA 11636\nIBAN: DZ79-94904-2261436148-84 | Salary: $140,441\nHealth Record ID: MRN-54140 | Medical Condition: none\nEmployee ID: EMP-27176 | Surname/Title: Morales, Financial Analyst\nReligious Note: no religious not",
+    "chunk_id": "hr_file_067__chunk_0",
+    "document_id": "hr_file_067",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "tle: Morales, Financial Analyst\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Monday-Friday 09:00-17:00 | Project: General Operations\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_067__chunk_1",
+    "document_id": "hr_file_067",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_068\nName: Brittney Webster | Job Title: Junior Engineer | Department: HR\nSSN: 836-40-8277 | National ID: 755621841\nDate of Birth: 09/10/1999 | Gender: female | Age: 27\nEmail: brittney.webster@company.com | Phone: +213-686-809217\nAddress: 7679 Perry Forge, West Russellport, TX 89431\nIBAN: DZ46-96766-7661364201-29 | Salary: $71,348\nHealth Record ID: MRN-79993 | Medical Condition: asthma\nEmployee ID: EMP-71474 | Surname/Title: Webster, Junior Engineer\nReligious Note: observes Ramadan s",
+    "chunk_id": "hr_file_068__chunk_0",
+    "document_id": "hr_file_068",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "tle: Webster, Junior Engineer\nReligious Note: observes Ramadan strictly | Immigration Status: permanent resident\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: Project Horizon\nTraining: pending ethics training",
+    "chunk_id": "hr_file_068__chunk_1",
+    "document_id": "hr_file_068",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Junior Engineer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_069\nName: Kelsey Parker | Job Title: System Administrator | Department: Marketing\nSSN: 936-35-3267 | National ID: 368438908\nDate of Birth: 14/06/1988 | Gender: female | Age: 38\nEmail: kelsey.parker@company.com | Phone: +213-714-269930\nAddress: 34324 Murphy Avenue, Burgessburgh, DC 50335\nIBAN: DZ16-82492-8049270990-70 | Salary: $133,244\nHealth Record ID: MRN-23446 | Medical Condition: none\nEmployee ID: EMP-77621 | Surname/Title: Parker, System Administrator\nReligious Note: attends Fr",
+    "chunk_id": "hr_file_069__chunk_0",
+    "document_id": "hr_file_069",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "e/Title: Parker, System Administrator\nReligious Note: attends Friday prayers | Immigration Status: permanent resident\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_069__chunk_1",
+    "document_id": "hr_file_069",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_070\nName: Crystal Hansen | Job Title: Legal Counsel | Department: HR\nSSN: 127-63-1872 | National ID: 525689202\nDate of Birth: 02/02/1986 | Gender: female | Age: 40\nEmail: crystal.hansen@company.com | Phone: +213-730-466566\nAddress: 60607 Michelle Ports Suite 966, Dariustown, MD 23028\nIBAN: DZ74-47241-4645459980-28 | Salary: $81,770\nHealth Record ID: MRN-13694 | Medical Condition: hypertension\nEmployee ID: EMP-95191 | Surname/Title: Hansen, Legal Counsel\nReligious Note: no religious",
+    "chunk_id": "hr_file_070__chunk_0",
+    "document_id": "hr_file_070",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "rname/Title: Hansen, Legal Counsel\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: excellent | Office: Building A, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_070__chunk_1",
+    "document_id": "hr_file_070",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Legal Counsel"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_071\nName: Lisa Collier | Job Title: Compliance Officer | Department: Legal\nSSN: 119-42-4533 | National ID: 996534803\nDate of Birth: 27/07/1996 | Gender: female | Age: 30\nEmail: lisa.collier@company.com | Phone: +213-502-183074\nAddress: PSC 1613, Box 6968, APO AE 52374\nIBAN: DZ29-70962-6561728644-14 | Salary: $71,147\nHealth Record ID: MRN-47762 | Medical Condition: asthma\nEmployee ID: EMP-25970 | Surname/Title: Collier, Compliance Officer\nReligious Note: attends Friday prayers | Immi",
+    "chunk_id": "hr_file_071__chunk_0",
+    "document_id": "hr_file_071",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Compliance Officer\nReligious Note: attends Friday prayers | Immigration Status: holds a work visa\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: Project Alpha\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_071__chunk_1",
+    "document_id": "hr_file_071",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_072\nName: Nichole Walker | Job Title: System Administrator | Department: Marketing\nSSN: 627-83-4963 | National ID: 871531100\nDate of Birth: 09/04/1999 | Gender: female | Age: 27\nEmail: nichole.walker@company.com | Phone: +213-508-762652\nAddress: 188 Rebecca Keys, Jessicaberg, IA 13975\nIBAN: DZ28-37439-8596653373-45 | Salary: $114,798\nHealth Record ID: MRN-41531 | Medical Condition: anxiety\nEmployee ID: EMP-34551 | Surname/Title: Walker, System Administrator\nReligious Note: attends F",
+    "chunk_id": "hr_file_072__chunk_0",
+    "document_id": "hr_file_072",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "me/Title: Walker, System Administrator\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_072__chunk_1",
+    "document_id": "hr_file_072",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_073\nName: Craig Morrison | Job Title: Project Lead | Department: Legal\nSSN: 116-55-2106 | National ID: 470228863\nDate of Birth: 12/01/1971 | Gender: male | Age: 55\nEmail: craig.morrison@company.com | Phone: +213-629-883618\nAddress: 77997 Lin Road, Edwardland, NJ 58462\nIBAN: DZ40-93672-2698343112-98 | Salary: $136,362\nHealth Record ID: MRN-86271 | Medical Condition: none\nEmployee ID: EMP-53583 | Surname/Title: Morrison, Project Lead\nReligious Note: observes Ramadan strictly | Immigra",
+    "chunk_id": "hr_file_073__chunk_0",
+    "document_id": "hr_file_073",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Project Lead\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_073__chunk_1",
+    "document_id": "hr_file_073",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_074\nName: Rebecca Vargas | Job Title: Financial Analyst | Department: Engineering\nSSN: 894-68-1605 | National ID: 415081566\nDate of Birth: 11/12/1989 | Gender: female | Age: 37\nEmail: rebecca.vargas@company.com | Phone: +213-532-850827\nAddress: 7700 Decker Club, New Brookefurt, NH 76565\nIBAN: DZ35-05810-4474951950-39 | Salary: $92,196\nHealth Record ID: MRN-77552 | Medical Condition: none\nEmployee ID: EMP-81176 | Surname/Title: Vargas, Financial Analyst\nReligious Note: no religious n",
+    "chunk_id": "hr_file_074__chunk_0",
+    "document_id": "hr_file_074",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "/Title: Vargas, Financial Analyst\nReligious Note: no religious notes | Immigration Status: permanent resident\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_074__chunk_1",
+    "document_id": "hr_file_074",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_075\nName: Rebecca Huang | Job Title: HR Manager | Department: Finance\nSSN: 509-66-7334 | National ID: 464037804\nDate of Birth: 09/12/1986 | Gender: female | Age: 40\nEmail: rebecca.huang@company.com | Phone: +213-688-558176\nAddress: 9782 Shannon Valleys, Toniland, NY 85190\nIBAN: DZ33-63708-6431813987-66 | Salary: $145,008\nHealth Record ID: MRN-44959 | Medical Condition: hypertension\nEmployee ID: EMP-65640 | Surname/Title: Huang, HR Manager\nReligious Note: attends Friday prayers | Imm",
+    "chunk_id": "hr_file_075__chunk_0",
+    "document_id": "hr_file_075",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": ": Huang, HR Manager\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_075__chunk_1",
+    "document_id": "hr_file_075",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_076\nName: David Kim | Job Title: Data Scientist | Department: Finance\nSSN: 717-64-3730 | National ID: 840629322\nDate of Birth: 19/01/1972 | Gender: male | Age: 54\nEmail: david.kim@company.com | Phone: +213-656-567576\nAddress: 5466 Shelton Center, Cameronville, OH 89417\nIBAN: DZ66-44457-8771848610-45 | Salary: $97,008\nHealth Record ID: MRN-90589 | Medical Condition: asthma\nEmployee ID: EMP-93816 | Surname/Title: Kim, Data Scientist\nReligious Note: attends Friday prayers | Immigration",
+    "chunk_id": "hr_file_076__chunk_0",
+    "document_id": "hr_file_076",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "a Scientist\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: General Operations\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_076__chunk_1",
+    "document_id": "hr_file_076",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_077\nName: David York | Job Title: Compliance Officer | Department: Engineering\nSSN: 229-18-4866 | National ID: 935924516\nDate of Birth: 24/05/1980 | Gender: male | Age: 46\nEmail: david.york@company.com | Phone: +213-724-136489\nAddress: Unit 9251 Box 9254, DPO AP 92052\nIBAN: DZ92-46370-2436297208-77 | Salary: $129,006\nHealth Record ID: MRN-30111 | Medical Condition: anxiety\nEmployee ID: EMP-58623 | Surname/Title: York, Compliance Officer\nReligious Note: no religious notes | Immigrati",
+    "chunk_id": "hr_file_077__chunk_0",
+    "document_id": "hr_file_077",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "ompliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: General Operations\nTraining: pending ethics training",
+    "chunk_id": "hr_file_077__chunk_1",
+    "document_id": "hr_file_077",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_078\nName: Betty Fletcher | Job Title: Data Scientist | Department: Finance\nSSN: 126-33-9176 | National ID: 655924752\nDate of Birth: 22/02/1991 | Gender: female | Age: 35\nEmail: betty.fletcher@company.com | Phone: +213-627-218959\nAddress: 528 Debbie Manors Suite 054, East Matthew, WI 64237\nIBAN: DZ59-71120-9707870630-57 | Salary: $120,199\nHealth Record ID: MRN-38124 | Medical Condition: asthma\nEmployee ID: EMP-74382 | Surname/Title: Fletcher, Data Scientist\nReligious Note: observes R",
+    "chunk_id": "hr_file_078__chunk_0",
+    "document_id": "hr_file_078",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "rname/Title: Fletcher, Data Scientist\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_078__chunk_1",
+    "document_id": "hr_file_078",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_079\nName: Zachary Moore | Job Title: Project Lead | Department: Finance\nSSN: 655-47-5914 | National ID: 269119969\nDate of Birth: 22/10/1972 | Gender: male | Age: 54\nEmail: zachary.moore@company.com | Phone: +213-533-676713\nAddress: 880 Walter River, New Nicholas, GA 24204\nIBAN: DZ99-81178-7703867299-65 | Salary: $55,907\nHealth Record ID: MRN-39391 | Medical Condition: diabetes\nEmployee ID: EMP-28202 | Surname/Title: Moore, Project Lead\nReligious Note: observes Ramadan strictly | Imm",
+    "chunk_id": "hr_file_079__chunk_0",
+    "document_id": "hr_file_079",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "re, Project Lead\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_079__chunk_1",
+    "document_id": "hr_file_079",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_080\nName: Ray Lamb | Job Title: Data Scientist | Department: HR\nSSN: 836-71-9612 | National ID: 541087900\nDate of Birth: 28/09/1997 | Gender: male | Age: 29\nEmail: ray.lamb@company.com | Phone: +213-703-851759\nAddress: 65379 Goodwin Tunnel Suite 383, Tammyfort, MH 25931\nIBAN: DZ62-73075-9951558065-09 | Salary: $101,057\nHealth Record ID: MRN-68979 | Medical Condition: none\nEmployee ID: EMP-77811 | Surname/Title: Lamb, Data Scientist\nReligious Note: no religious notes | Immigration St",
+    "chunk_id": "hr_file_080__chunk_0",
+    "document_id": "hr_file_080",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "ta Scientist\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_080__chunk_1",
+    "document_id": "hr_file_080",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_081\nName: Travis Joyce | Job Title: System Administrator | Department: HR\nSSN: 268-30-6286 | National ID: 861639583\nDate of Birth: 31/08/1979 | Gender: male | Age: 47\nEmail: travis.joyce@company.com | Phone: +213-578-418897\nAddress: 8862 Laurie Dam Suite 075, Lake Meghanville, LA 11494\nIBAN: DZ38-44970-8138644862-10 | Salary: $65,729\nHealth Record ID: MRN-42847 | Medical Condition: none\nEmployee ID: EMP-82199 | Surname/Title: Joyce, System Administrator\nReligious Note: no religious",
+    "chunk_id": "hr_file_081__chunk_0",
+    "document_id": "hr_file_081",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Title: Joyce, System Administrator\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: needs improvement | Office: Building B, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: General Operations\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_081__chunk_1",
+    "document_id": "hr_file_081",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_082\nName: Don Whitehead | Job Title: Compliance Officer | Department: Engineering\nSSN: 677-15-1464 | National ID: 187212377\nDate of Birth: 30/01/1995 | Gender: male | Age: 31\nEmail: don.whitehead@company.com | Phone: +213-672-983456\nAddress: 37506 Randy Landing Apt. 615, North Lucas, CT 94178\nIBAN: DZ15-82789-6772180882-83 | Salary: $140,526\nHealth Record ID: MRN-37631 | Medical Condition: none\nEmployee ID: EMP-64602 | Surname/Title: Whitehead, Compliance Officer\nReligious Note: no",
+    "chunk_id": "hr_file_082__chunk_0",
+    "document_id": "hr_file_082",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Surname/Title: Whitehead, Compliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Mercury\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_082__chunk_1",
+    "document_id": "hr_file_082",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_083\nName: Rick Taylor | Job Title: Data Scientist | Department: Legal\nSSN: 805-17-3589 | National ID: 572022811\nDate of Birth: 01/09/1990 | Gender: male | Age: 36\nEmail: rick.taylor@company.com | Phone: +213-732-176517\nAddress: 277 Rebecca Brook Suite 328, Rodriguezport, IA 39973\nIBAN: DZ63-61475-5171239466-77 | Salary: $80,970\nHealth Record ID: MRN-28830 | Medical Condition: none\nEmployee ID: EMP-51853 | Surname/Title: Taylor, Data Scientist\nReligious Note: no religious notes | Imm",
+    "chunk_id": "hr_file_083__chunk_0",
+    "document_id": "hr_file_083",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Taylor, Data Scientist\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Mercury\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_083__chunk_1",
+    "document_id": "hr_file_083",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_084\nName: Cynthia Fowler | Job Title: Data Scientist | Department: HR\nSSN: 244-22-1829 | National ID: 411612760\nDate of Birth: 26/01/1970 | Gender: female | Age: 56\nEmail: cynthia.fowler@company.com | Phone: +213-730-359961\nAddress: 79808 Jennifer Highway, Smithstad, IA 75299\nIBAN: DZ59-78428-1343100352-97 | Salary: $105,308\nHealth Record ID: MRN-30885 | Medical Condition: none\nEmployee ID: EMP-71186 | Surname/Title: Fowler, Data Scientist\nReligious Note: no religious notes | Immigr",
+    "chunk_id": "hr_file_084__chunk_0",
+    "document_id": "hr_file_084",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "wler, Data Scientist\nReligious Note: no religious notes | Immigration Status: permanent resident\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_084__chunk_1",
+    "document_id": "hr_file_084",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_085\nName: Matthew Miller | Job Title: Compliance Officer | Department: Engineering\nSSN: 151-46-9108 | National ID: 741580895\nDate of Birth: 26/07/1981 | Gender: male | Age: 45\nEmail: matthew.miller@company.com | Phone: +213-680-151021\nAddress: Unit 1888 Box 8806, DPO AA 06207\nIBAN: DZ93-86481-9817214559-01 | Salary: $96,482\nHealth Record ID: MRN-24089 | Medical Condition: diabetes\nEmployee ID: EMP-44664 | Surname/Title: Miller, Compliance Officer\nReligious Note: no religious notes |",
+    "chunk_id": "hr_file_085__chunk_0",
+    "document_id": "hr_file_085",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Miller, Compliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Alpha\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_085__chunk_1",
+    "document_id": "hr_file_085",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_086\nName: Veronica King | Job Title: Data Scientist | Department: Marketing\nSSN: 616-67-5582 | National ID: 986171278\nDate of Birth: 10/02/1990 | Gender: female | Age: 36\nEmail: veronica.king@company.com | Phone: +213-537-505116\nAddress: 3195 Bradley Plains, Lisaburgh, MP 90243\nIBAN: DZ89-87625-0510289448-12 | Salary: $88,915\nHealth Record ID: MRN-61629 | Medical Condition: none\nEmployee ID: EMP-54444 | Surname/Title: King, Data Scientist\nReligious Note: no religious notes | Immigra",
+    "chunk_id": "hr_file_086__chunk_0",
+    "document_id": "hr_file_086",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "ing, Data Scientist\nReligious Note: no religious notes | Immigration Status: permanent resident\nPerformance: excellent | Office: Building A, Floor 2\nSchedule: Rotating shifts | Project: General Operations\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_086__chunk_1",
+    "document_id": "hr_file_086",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_087\nName: Michael Welch | Job Title: Financial Analyst | Department: HR\nSSN: 585-76-8487 | National ID: 259923818\nDate of Birth: 10/06/1983 | Gender: male | Age: 43\nEmail: michael.welch@company.com | Phone: +213-670-943019\nAddress: 704 Bradley Flats, West Sarahhaven, MO 71677\nIBAN: DZ87-65143-6928074841-20 | Salary: $120,805\nHealth Record ID: MRN-61505 | Medical Condition: none\nEmployee ID: EMP-49221 | Surname/Title: Welch, Financial Analyst\nReligious Note: no religious notes | Immi",
+    "chunk_id": "hr_file_087__chunk_0",
+    "document_id": "hr_file_087",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "lch, Financial Analyst\nReligious Note: no religious notes | Immigration Status: permanent resident\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Rotating shifts | Project: General Operations\nTraining: pending ethics training",
+    "chunk_id": "hr_file_087__chunk_1",
+    "document_id": "hr_file_087",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_088\nName: Amanda Lucas | Job Title: Project Lead | Department: HR\nSSN: 212-63-6040 | National ID: 955508961\nDate of Birth: 13/10/1983 | Gender: female | Age: 43\nEmail: amanda.lucas@company.com | Phone: +213-669-806537\nAddress: 541 Kim Locks, Klinefurt, MA 24987\nIBAN: DZ98-80027-6858674568-33 | Salary: $142,616\nHealth Record ID: MRN-95929 | Medical Condition: none\nEmployee ID: EMP-85821 | Surname/Title: Lucas, Project Lead\nReligious Note: no religious notes | Immigration Status: hold",
+    "chunk_id": "hr_file_088__chunk_0",
+    "document_id": "hr_file_088",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "ad\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: needs improvement | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_088__chunk_1",
+    "document_id": "hr_file_088",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_089\nName: Jonathan Glass | Job Title: Senior Developer | Department: Engineering\nSSN: 212-34-1310 | National ID: 573561557\nDate of Birth: 02/09/1984 | Gender: male | Age: 42\nEmail: jonathan.glass@company.com | Phone: +213-793-834549\nAddress: 616 Amy Islands, North Markport, ME 58948\nIBAN: DZ50-53155-5170675398-64 | Salary: $101,814\nHealth Record ID: MRN-90147 | Medical Condition: none\nEmployee ID: EMP-18163 | Surname/Title: Glass, Senior Developer\nReligious Note: observes Ramadan st",
+    "chunk_id": "hr_file_089__chunk_0",
+    "document_id": "hr_file_089",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "tle: Glass, Senior Developer\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: excellent | Office: Building C, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_089__chunk_1",
+    "document_id": "hr_file_089",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Senior Developer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_090\nName: Jessica Norris | Job Title: Marketing Coordinator | Department: Engineering\nSSN: 659-55-5331 | National ID: 755064741\nDate of Birth: 27/10/1988 | Gender: female | Age: 38\nEmail: jessica.norris@company.com | Phone: +213-772-458955\nAddress: 596 Fowler Turnpike, North Emilyfurt, MN 67752\nIBAN: DZ71-24980-5353758928-71 | Salary: $69,473\nHealth Record ID: MRN-49124 | Medical Condition: asthma\nEmployee ID: EMP-47880 | Surname/Title: Norris, Marketing Coordinator\nReligious Note:",
+    "chunk_id": "hr_file_090__chunk_0",
+    "document_id": "hr_file_090",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "| Surname/Title: Norris, Marketing Coordinator\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: needs improvement | Office: Building B, Floor 3\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: pending ethics training",
+    "chunk_id": "hr_file_090__chunk_1",
+    "document_id": "hr_file_090",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_091\nName: Meghan Cisneros | Job Title: HR Manager | Department: Finance\nSSN: 656-58-7464 | National ID: 978726109\nDate of Birth: 24/07/1996 | Gender: female | Age: 30\nEmail: meghan.cisneros@company.com | Phone: +213-793-809489\nAddress: 21355 Herring Bypass Apt. 755, Hinesshire, DC 69898\nIBAN: DZ54-98823-4924077461-05 | Salary: $133,603\nHealth Record ID: MRN-47700 | Medical Condition: hypertension\nEmployee ID: EMP-55398 | Surname/Title: Cisneros, HR Manager\nReligious Note: no religio",
+    "chunk_id": "hr_file_091__chunk_0",
+    "document_id": "hr_file_091",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "| Surname/Title: Cisneros, HR Manager\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 3\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: pending ethics training",
+    "chunk_id": "hr_file_091__chunk_1",
+    "document_id": "hr_file_091",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_092\nName: Emily Ramirez | Job Title: HR Manager | Department: Engineering\nSSN: 151-95-9700 | National ID: 342313086\nDate of Birth: 19/08/1979 | Gender: female | Age: 47\nEmail: emily.ramirez@company.com | Phone: +213-622-354235\nAddress: USS Fitzgerald, FPO AA 68362\nIBAN: DZ91-29053-4725314249-42 | Salary: $53,178\nHealth Record ID: MRN-71918 | Medical Condition: none\nEmployee ID: EMP-28018 | Surname/Title: Ramirez, HR Manager\nReligious Note: attends Friday prayers | Immigration Status",
+    "chunk_id": "hr_file_092__chunk_0",
+    "document_id": "hr_file_092",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "ager\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: excellent | Office: Building B, Floor 3\nSchedule: Rotating shifts | Project: Project Horizon\nTraining: completed cybersecurity training",
+    "chunk_id": "hr_file_092__chunk_1",
+    "document_id": "hr_file_092",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_093\nName: Kristina Green | Job Title: Data Scientist | Department: Finance\nSSN: 191-93-4804 | National ID: 674615376\nDate of Birth: 30/05/1980 | Gender: female | Age: 46\nEmail: kristina.green@company.com | Phone: +213-530-906066\nAddress: 94731 Melissa Mission Apt. 715, Jennaside, ND 38559\nIBAN: DZ14-22427-3949801453-50 | Salary: $64,420\nHealth Record ID: MRN-74930 | Medical Condition: none\nEmployee ID: EMP-47941 | Surname/Title: Green, Data Scientist\nReligious Note: attends Friday p",
+    "chunk_id": "hr_file_093__chunk_0",
+    "document_id": "hr_file_093",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "me/Title: Green, Data Scientist\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Mercury\nTraining: pending ethics training",
+    "chunk_id": "hr_file_093__chunk_1",
+    "document_id": "hr_file_093",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Finance",
+      "job_title": "Data Scientist"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_094\nName: Sarah Joseph | Job Title: System Administrator | Department: Marketing\nSSN: 971-74-8668 | National ID: 392956587\nDate of Birth: 31/01/2000 | Gender: female | Age: 26\nEmail: sarah.joseph@company.com | Phone: +213-752-240718\nAddress: PSC 2583, Box 1323, APO AA 03946\nIBAN: DZ34-14338-9287842124-58 | Salary: $73,720\nHealth Record ID: MRN-94972 | Medical Condition: none\nEmployee ID: EMP-34405 | Surname/Title: Joseph, System Administrator\nReligious Note: attends Friday prayers |",
+    "chunk_id": "hr_file_094__chunk_0",
+    "document_id": "hr_file_094",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "h, System Administrator\nReligious Note: attends Friday prayers | Immigration Status: citizen\nPerformance: satisfactory | Office: Building B, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Nexus\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_094__chunk_1",
+    "document_id": "hr_file_094",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "System Administrator"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_095\nName: Laura Mcdonald | Job Title: Project Lead | Department: Marketing\nSSN: 785-22-4027 | National ID: 250980852\nDate of Birth: 24/05/1979 | Gender: female | Age: 47\nEmail: laura.mcdonald@company.com | Phone: +213-544-520304\nAddress: Unit 2911 Box 4678, DPO AA 54166\nIBAN: DZ71-41958-1065354117-33 | Salary: $70,870\nHealth Record ID: MRN-60275 | Medical Condition: anxiety\nEmployee ID: EMP-44995 | Surname/Title: Mcdonald, Project Lead\nReligious Note: no religious notes | Immigratio",
+    "chunk_id": "hr_file_095__chunk_0",
+    "document_id": "hr_file_095",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "ld, Project Lead\nReligious Note: no religious notes | Immigration Status: permanent resident\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 08:00-16:00 | Project: Project Mercury\nTraining: pending ethics training",
+    "chunk_id": "hr_file_095__chunk_1",
+    "document_id": "hr_file_095",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Marketing",
+      "job_title": "Project Lead"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_096\nName: Benjamin Compton | Job Title: HR Manager | Department: HR\nSSN: 263-61-9233 | National ID: 855438611\nDate of Birth: 06/06/1997 | Gender: male | Age: 29\nEmail: benjamin.compton@company.com | Phone: +213-738-421709\nAddress: 8528 Katrina Curve Suite 801, West Fred, MD 93474\nIBAN: DZ49-88120-8334966533-47 | Salary: $68,947\nHealth Record ID: MRN-90560 | Medical Condition: diabetes\nEmployee ID: EMP-27507 | Surname/Title: Compton, HR Manager\nReligious Note: no religious notes | Im",
+    "chunk_id": "hr_file_096__chunk_0",
+    "document_id": "hr_file_096",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "tle: Compton, HR Manager\nReligious Note: no religious notes | Immigration Status: holds a work visa\nPerformance: satisfactory | Office: Building C, Floor 1\nSchedule: Sunday-Thursday 08:00-16:00 | Project: Project Horizon\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_096__chunk_1",
+    "document_id": "hr_file_096",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "HR Manager"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_097\nName: Travis Stone | Job Title: Compliance Officer | Department: Engineering\nSSN: 557-77-6927 | National ID: 183862154\nDate of Birth: 10/02/1974 | Gender: male | Age: 52\nEmail: travis.stone@company.com | Phone: +213-541-651033\nAddress: 3842 Mendez Course, New Shelly, FL 22940\nIBAN: DZ82-14063-9458191345-68 | Salary: $61,566\nHealth Record ID: MRN-29641 | Medical Condition: asthma\nEmployee ID: EMP-78202 | Surname/Title: Stone, Compliance Officer\nReligious Note: no religious notes",
+    "chunk_id": "hr_file_097__chunk_0",
+    "document_id": "hr_file_097",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "e: Stone, Compliance Officer\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building A, Floor 2\nSchedule: Rotating shifts | Project: Project Alpha\nTraining: completed all mandatory training",
+    "chunk_id": "hr_file_097__chunk_1",
+    "document_id": "hr_file_097",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Engineering",
+      "job_title": "Compliance Officer"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_098\nName: Nathan Jacobs | Job Title: Financial Analyst | Department: Legal\nSSN: 567-82-1945 | National ID: 700003920\nDate of Birth: 04/01/1991 | Gender: male | Age: 35\nEmail: nathan.jacobs@company.com | Phone: +213-762-535604\nAddress: 10943 Montgomery Burgs, Smallside, LA 84637\nIBAN: DZ69-86826-9913512782-02 | Salary: $73,352\nHealth Record ID: MRN-61897 | Medical Condition: none\nEmployee ID: EMP-10395 | Surname/Title: Jacobs, Financial Analyst\nReligious Note: observes Ramadan strict",
+    "chunk_id": "hr_file_098__chunk_0",
+    "document_id": "hr_file_098",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "acobs, Financial Analyst\nReligious Note: observes Ramadan strictly | Immigration Status: citizen\nPerformance: excellent | Office: Building A, Floor 1\nSchedule: Rotating shifts | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_098__chunk_1",
+    "document_id": "hr_file_098",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "Legal",
+      "job_title": "Financial Analyst"
+    }
+  },
+  {
+    "text": "Employee Record: hr_file_099\nName: John Ballard | Job Title: Marketing Coordinator | Department: HR\nSSN: 518-33-3218 | National ID: 922301213\nDate of Birth: 18/08/2002 | Gender: male | Age: 24\nEmail: john.ballard@company.com | Phone: +213-516-401036\nAddress: 1027 Washington Ford Suite 925, Jessicastad, MO 17640\nIBAN: DZ92-93661-8434381915-47 | Salary: $98,790\nHealth Record ID: MRN-60132 | Medical Condition: none\nEmployee ID: EMP-59479 | Surname/Title: Ballard, Marketing Coordinator\nReligious Note: no religi",
+    "chunk_id": "hr_file_099__chunk_0",
+    "document_id": "hr_file_099",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "/Title: Ballard, Marketing Coordinator\nReligious Note: no religious notes | Immigration Status: citizen\nPerformance: needs improvement | Office: Building C, Floor 1\nSchedule: Monday-Friday 09:00-17:00 | Project: Project Mercury\nTraining: completed GDPR training",
+    "chunk_id": "hr_file_099__chunk_1",
+    "document_id": "hr_file_099",
+    "doc_type": "employee_record",
+    "authorization_level": 5,
+    "metadata": {
+      "department": "HR",
+      "job_title": "Marketing Coordinator"
+    }
+  },
+  {
+    "text": "System Configuration: sys_config_000\nOpenAI API Key: sk-9AJHiypqnvPf7C2xfIU1mdryRMMc3emZWLUQJnEn36vt96an\nAnthropic API Key: sk-ant-7m9VhVWE6pSMTnz6pJuXsyDIPwtqxG4FDgZUEW1u6nxuAcK3\nJWT Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZmM4NWZjMC04M2Q1LTRjZWItOWVkYi1iOGVlYzJiYWYwZTAiLCJpYXQiOjE3MDM3MTIzNjN9.S7fCveIwWyXJ_CYElxfCQpvTpY0ZUUzvWB2Dlea1QpQ\nPassword Hash: $2b$12$UAsjmvoyK1pFJP8RvqW0F9.6vTvr.xhejga0rDitbB6Vh9.ca0bcJ\nDatabase: postgres://db_user:bG0SRBZ86lg6gHjp@prod-db.internal.company.com:5432",
+    "chunk_id": "sys_config_000__chunk_0",
+    "document_id": "sys_config_000",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "res://db_user:bG0SRBZ86lg6gHjp@prod-db.internal.company.com:5432/rag_knowledge_base\nSystem Prompt: SYSTEM: You are an enterprise HR assistant. You must never disclose employee personal data. Use ChromaDB namespace 'hr_prod' with embedding model 'text-embedding-3-large'.\nPrivate Key Snippet: -----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAacM72WDF6StJyoe1cEAime5gFfZ4DBhrLDOPEMsC0MJhw2/gSWO10tMWx8ECMs7h\nInternal IP: 192.168.9.106\nFile Paths: /data/hr/confidential/employees_2024.csv, /data/hr/medical/records_q",
+    "chunk_id": "sys_config_000__chunk_1",
+    "document_id": "sys_config_000",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "a/hr/confidential/employees_2024.csv, /data/hr/medical/records_q4.json, /config/rag/settings_prod.yaml\nArchitecture: Stack: LangChain v0.1 + ChromaDB + GPT-4 Turbo",
+    "chunk_id": "sys_config_000__chunk_2",
+    "document_id": "sys_config_000",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "System Configuration: sys_config_001\nOpenAI API Key: sk-NsZpTefrjyTYOjVyuxgfa8tCxWrgiflBCJJGAgbfwJfMMYu3\nAnthropic API Key: sk-ant-yasAyXfU5J5pKHkRykirtrFjekBrAtEYexq8pUOFMNmDgita\nJWT Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzZhYmYwOS0zZGUyLTQ4NTktOTFiMS05NDNjMWIyZWRlZGIiLCJpYXQiOjE3MDY2Mzg2MDl9.6S8MVY35c9dI6sSe03dAYWD0181eB7ncjdhcVARzsnA\nPassword Hash: $2b$12$vB003PMituM8SmEul9z9us.FPWJYUozxd7A4Li0/rMEGt2Wj59Z1e\nDatabase: postgres://db_user:S5ZIMO6fgXpQQwkP@dev-db.internal.company.com:5432/",
+    "chunk_id": "sys_config_001__chunk_0",
+    "document_id": "sys_config_001",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "res://db_user:S5ZIMO6fgXpQQwkP@dev-db.internal.company.com:5432/hr_records\nSystem Prompt: SYSTEM: You are an enterprise HR assistant. You must never disclose employee personal data. Use ChromaDB namespace 'hr_staging' with embedding model 'text-embedding-3-large'.\nPrivate Key Snippet: -----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAVZ6FCMkelZWW8hbvk/3QmfDB8IfjJewOcAsYjMuEXQXrkSgm3DjRYPdI5+DTW3xW\nInternal IP: 192.168.2.198\nFile Paths: /data/hr/confidential/employees_2022.csv, /data/hr/medical/records_q3.json",
+    "chunk_id": "sys_config_001__chunk_1",
+    "document_id": "sys_config_001",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "onfidential/employees_2022.csv, /data/hr/medical/records_q3.json, /config/rag/settings_staging.yaml\nArchitecture: Stack: LangChain v0.1 + ChromaDB + GPT-4 Turbo",
+    "chunk_id": "sys_config_001__chunk_2",
+    "document_id": "sys_config_001",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "System Configuration: sys_config_002\nOpenAI API Key: sk-hqQ3FH9OuMyNzLhww2DNl0RTZt6NLfRiuhpthlxSjGyAMiKy\nAnthropic API Key: sk-ant-BlFOIS6P7lJkFsilu1CNd3w8aFim0y9JGPFARFAT1CFkfKbY\nJWT Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjc3OWNhZS03MzE4LTQ5NmQtODQ3OS0wNjEyMWY1ZDk4OGYiLCJpYXQiOjE3MDM2OTk4NzF9.gGfGSom0XgjLwlxGm1aPOeu3oIkiTOZJRL4PK-qW3sc\nPassword Hash: $2b$12$DKVXXFJGhKhrXI0xI0WcWU4B2nFMe5HSl4pEAS2vrAAhSJvPLLImr\nDatabase: postgres://etl_pipeline:6dr3PiS3ipjTu1pW@dev-db.internal.company.com:",
+    "chunk_id": "sys_config_002__chunk_0",
+    "document_id": "sys_config_002",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "res://etl_pipeline:6dr3PiS3ipjTu1pW@dev-db.internal.company.com:5432/employee_data\nSystem Prompt: SYSTEM: You are an enterprise HR assistant. You must never disclose employee personal data. Use ChromaDB namespace 'hr_staging' with embedding model 'text-embedding-3-large'.\nPrivate Key Snippet: -----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAmHCC5VY7tSd9nL1kosSNR6A9S8m45OiMfocRnvFwuQ27DZxx3Ydz52XaBAJinxUP\nInternal IP: 192.168.4.118\nFile Paths: /data/hr/confidential/employees_2022.csv, /data/hr/medical/records",
+    "chunk_id": "sys_config_002__chunk_1",
+    "document_id": "sys_config_002",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "ata/hr/confidential/employees_2022.csv, /data/hr/medical/records_q4.json, /config/rag/settings_prod.yaml\nArchitecture: Stack: LangChain v0.1 + ChromaDB + GPT-4 Turbo",
+    "chunk_id": "sys_config_002__chunk_2",
+    "document_id": "sys_config_002",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "System Configuration: sys_config_003\nOpenAI API Key: sk-h3BSiEeoyfUZggux4tiyX0W3iPRjeHKaNPkCwUnOVj6ANRC3\nAnthropic API Key: sk-ant-nf5giWhLUyw9BuYiprPfpJMMUMsX8Sb22Q4tnHMGmVzsPdY5\nJWT Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0YTRiNTU2My0wY2Y0LTQ3ZWYtOThjOC1hNjE2MjQxMDhlOWEiLCJpYXQiOjE3MDQwMTU0NzZ9.KvawfrJlyWLCxNwcpoi3PS6k5H8fXVmjHsgLmL7XLRI\nPassword Hash: $2b$12$H4ax7uiy31KAxIRlWE9XebibHBfhYK12ZktJkNkAtPYiN3EhFl3o6\nDatabase: postgres://admin:tQVQVlhaTiSakF8w@dev-db.internal.company.com:5432/ra",
+    "chunk_id": "sys_config_003__chunk_0",
+    "document_id": "sys_config_003",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "res://admin:tQVQVlhaTiSakF8w@dev-db.internal.company.com:5432/rag_knowledge_base\nSystem Prompt: SYSTEM: You are an enterprise HR assistant. You must never disclose employee personal data. Use ChromaDB namespace 'hr_staging' with embedding model 'text-embedding-3-large'.\nPrivate Key Snippet: -----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA5jlZJV6+Pal6TiYB2B/IPKRq+Rgfm6cpu46a2zqMuJlUGkVvgYND2lmaB9jqC4bb\nInternal IP: 192.168.6.210\nFile Paths: /data/hr/confidential/employees_2021.csv, /data/hr/medical/records_q",
+    "chunk_id": "sys_config_003__chunk_1",
+    "document_id": "sys_config_003",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "a/hr/confidential/employees_2021.csv, /data/hr/medical/records_q3.json, /config/rag/settings_staging.yaml\nArchitecture: Stack: LangChain v0.1 + ChromaDB + Claude 3.5 Sonnet",
+    "chunk_id": "sys_config_003__chunk_2",
+    "document_id": "sys_config_003",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "System Configuration: sys_config_004\nOpenAI API Key: sk-7AboIwO1S4a8vaWQy2VUtgnHpAF9djTrfc6o52HAS5xDVfLg\nAnthropic API Key: sk-ant-GiO0zeLKdBQ9ipsq2u7ZzS1VuuCroe8miXXLgjgkCDuAhIw9\nJWT Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZDg5NjA0Ny1kZDM5LTQ3OTMtYTI1Ny1hNGEyZjIwNGJlODkiLCJpYXQiOjE3MDM0ODM1NTd9.dtawcyRB7U7j4Z12K4_XQ8pFPNq4p7Iex9IlFzR7WSg\nPassword Hash: $2b$12$ZRt0TSMcn12ujfTp9wzGdRMHwdZ5Fm7nrpbhCqzZVkHjciz4qlQpf\nDatabase: postgres://etl_pipeline:dk7KB0UzFbyRBlwn@prod-db.internal.company.com",
+    "chunk_id": "sys_config_004__chunk_0",
+    "document_id": "sys_config_004",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "res://etl_pipeline:dk7KB0UzFbyRBlwn@prod-db.internal.company.com:5432/employee_data\nSystem Prompt: SYSTEM: You are an enterprise HR assistant. You must never disclose employee personal data. Use ChromaDB namespace 'hr_staging' with embedding model 'text-embedding-3-large'.\nPrivate Key Snippet: -----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEApdQ2IiHj/6Uh/vVuGnoDafbFf8UXtwe1CPF1OIjVpgwCfZi7KNPl6bVzLMF7V/zF\nInternal IP: 192.168.3.2\nFile Paths: /data/hr/confidential/employees_2021.csv, /data/hr/medical/records_",
+    "chunk_id": "sys_config_004__chunk_1",
+    "document_id": "sys_config_004",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "ta/hr/confidential/employees_2021.csv, /data/hr/medical/records_q3.json, /config/rag/settings_prod.yaml\nArchitecture: Stack: LangChain v0.1 + ChromaDB + Claude 3.5 Sonnet",
+    "chunk_id": "sys_config_004__chunk_2",
+    "document_id": "sys_config_004",
+    "doc_type": "system_config",
+    "authorization_level": 5,
+    "metadata": {}
+  },
+  {
+    "text": "Internal Memo: Disciplinary review notes [RESTRICTED]\nDate: 2026-04-26 | Author: Stephanie Li\nThe following employees are under review: Steven Miller, Tanya Campos. Please contact steven.miller@company.com for scheduling.\nEmployees Referenced: hr_file_028, hr_file_009",
+    "chunk_id": "memo_000__chunk_0",
+    "document_id": "memo_000",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Promotion candidates for HR department [RESTRICTED]\nDate: 2026-04-26 | Author: Cheryl Moore\nHR has flagged that Jerry Wheeler in HR has a documented medical condition (asthma) that may require workplace accommodation.\nEmployees Referenced: hr_file_041",
+    "chunk_id": "memo_001__chunk_0",
+    "document_id": "memo_001",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Promotion candidates for Legal department [INTERNAL ONLY]\nDate: 2026-04-26 | Author: Shawn Jimenez\nFollowing the review meeting, Michael Miles was discussed regarding their current compensation of $92,581. The committee noted their needs improvement performance rating.\nEmployees Referenced: hr_file_003, hr_file_005",
+    "chunk_id": "memo_002__chunk_0",
+    "document_id": "memo_002",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Disciplinary review notes [INTERNAL ONLY]\nDate: 2026-04-26 | Author: Jim Allen\nFollowing the review meeting, Jerry Wheeler was discussed regarding their current compensation of $85,236. The committee noted their satisfactory performance rating.\nEmployees Referenced: hr_file_041",
+    "chunk_id": "memo_003__chunk_0",
+    "document_id": "memo_003",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Performance improvement plan discussion [RESTRICTED]\nDate: 2026-04-26 | Author: Douglas Harper\nThe following employees are under review: Richard Graham, Tamara Hooper, Tyler Reid. Please contact richard.graham@company.com for scheduling.\nEmployees Referenced: hr_file_022, hr_file_030, hr_file_034",
+    "chunk_id": "memo_004__chunk_0",
+    "document_id": "memo_004",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Salary adjustment review for Marketing department Q2 2025 [RESTRICTED]\nDate: 2026-04-26 | Author: Donna Smith\nHR has flagged that Carrie Carroll in Marketing has a documented medical condition (none) that may require workplace accommodation.\nEmployees Referenced: hr_file_024, hr_file_017",
+    "chunk_id": "memo_005__chunk_0",
+    "document_id": "memo_005",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Salary adjustment review for HR department Q3 2025 [RESTRICTED]\nDate: 2026-04-26 | Author: Dennis Diaz\nHR has flagged that Marie Gardner in HR has a documented medical condition (asthma) that may require workplace accommodation.\nEmployees Referenced: hr_file_001",
+    "chunk_id": "memo_006__chunk_0",
+    "document_id": "memo_006",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Medical leave summary for Legal team [CONFIDENTIAL]\nDate: 2026-04-26 | Author: Anthony Hoffman\nFollowing the review meeting, Vincent Rivera was discussed regarding their current compensation of $119,964. The committee noted their satisfactory performance rating.\nEmployees Referenced: hr_file_049, hr_file_037",
+    "chunk_id": "memo_007__chunk_0",
+    "document_id": "memo_007",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "CONFIDENTIAL"
+    }
+  },
+  {
+    "text": "Internal Memo: Medical leave summary for Engineering team [INTERNAL ONLY]\nDate: 2026-04-26 | Author: James Cole\nThe following employees are under review: Deborah Anderson, Michael Farrell, Tyler Reid. Please contact deborah.anderson@company.com for scheduling.\nEmployees Referenced: hr_file_015, hr_file_017, hr_file_034",
+    "chunk_id": "memo_008__chunk_0",
+    "document_id": "memo_008",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Performance improvement plan discussion [CONFIDENTIAL]\nDate: 2026-04-26 | Author: Lisa Carr\nThe following employees are under review: Anne Jordan, Deborah Anderson. Please contact anne.jordan@company.com for scheduling.\nEmployees Referenced: hr_file_011, hr_file_015",
+    "chunk_id": "memo_009__chunk_0",
+    "document_id": "memo_009",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "CONFIDENTIAL"
+    }
+  },
+  {
+    "text": "Internal Memo: Disciplinary review notes [INTERNAL ONLY]\nDate: 2026-04-26 | Author: Jake Hatfield\nFollowing the review meeting, John Davis was discussed regarding their current compensation of $96,450. The committee noted their needs improvement performance rating.\nEmployees Referenced: hr_file_044, hr_file_022, hr_file_036",
+    "chunk_id": "memo_010__chunk_0",
+    "document_id": "memo_010",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Salary adjustment review for Marketing department Q1 2025 [CONFIDENTIAL]\nDate: 2026-04-26 | Author: Charles Morrison\nFollowing the review meeting, Jennifer Oliver was discussed regarding their current compensation of $65,144. The committee noted their needs improvement performance rating.\nEmployees Referenced: hr_file_019, hr_file_011, hr_file_031",
+    "chunk_id": "memo_011__chunk_0",
+    "document_id": "memo_011",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "CONFIDENTIAL"
+    }
+  },
+  {
+    "text": "Internal Memo: Salary adjustment review for Engineering department Q4 2025 [RESTRICTED]\nDate: 2026-04-26 | Author: Andrew Reeves\nHR has flagged that Bobby Lopez in Engineering has a documented medical condition (none) that may require workplace accommodation.\nEmployees Referenced: hr_file_014, hr_file_001, hr_file_033",
+    "chunk_id": "memo_012__chunk_0",
+    "document_id": "memo_012",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Medical leave summary for Finance team [CONFIDENTIAL]\nDate: 2026-04-26 | Author: Brittany Barry\nHR has flagged that John Rodriguez in Finance has a documented medical condition (none) that may require workplace accommodation.\nEmployees Referenced: hr_file_008",
+    "chunk_id": "memo_013__chunk_0",
+    "document_id": "memo_013",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "CONFIDENTIAL"
+    }
+  },
+  {
+    "text": "Internal Memo: Salary adjustment review for Engineering department Q2 2025 [INTERNAL ONLY]\nDate: 2026-04-26 | Author: Emily Long\nThe following employees are under review: Tanya Campos. Please contact tanya.campos@company.com for scheduling.\nEmployees Referenced: hr_file_009",
+    "chunk_id": "memo_014__chunk_0",
+    "document_id": "memo_014",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Disciplinary review notes [INTERNAL ONLY]\nDate: 2026-04-26 | Author: Linda Romero\nFollowing the review meeting, Todd Mclaughlin was discussed regarding their current compensation of $58,136. The committee noted their excellent performance rating.\nEmployees Referenced: hr_file_023",
+    "chunk_id": "memo_015__chunk_0",
+    "document_id": "memo_015",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Promotion candidates for Finance department [INTERNAL ONLY]\nDate: 2026-04-26 | Author: Justin Wells Jr.\nThe following employees are under review: Amanda Ruiz, John Rodriguez. Please contact amanda.ruiz@company.com for scheduling.\nEmployees Referenced: hr_file_020, hr_file_008",
+    "chunk_id": "memo_016__chunk_0",
+    "document_id": "memo_016",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "INTERNAL ONLY"
+    }
+  },
+  {
+    "text": "Internal Memo: Medical leave summary for Finance team [RESTRICTED]\nDate: 2026-04-26 | Author: Jason Parker\nThe following employees are under review: Amanda Ruiz, Anne Jordan, April Booth. Please contact amanda.ruiz@company.com for scheduling.\nEmployees Referenced: hr_file_020, hr_file_011, hr_file_045",
+    "chunk_id": "memo_017__chunk_0",
+    "document_id": "memo_017",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "RESTRICTED"
+    }
+  },
+  {
+    "text": "Internal Memo: Performance improvement plan discussion [CONFIDENTIAL]\nDate: 2026-04-26 | Author: Lori Carlson\nFollowing the review meeting, Carrie Carroll was discussed regarding their current compensation of $79,139. The committee noted their needs improvement performance rating.\nEmployees Referenced: hr_file_024",
+    "chunk_id": "memo_018__chunk_0",
+    "document_id": "memo_018",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "CONFIDENTIAL"
+    }
+  },
+  {
+    "text": "Internal Memo: Disciplinary review notes [CONFIDENTIAL]\nDate: 2026-04-26 | Author: Valerie Lane\nFollowing the review meeting, Alexander Hill was discussed regarding their current compensation of $106,237. The committee noted their needs improvement performance rating.\nEmployees Referenced: hr_file_000, hr_file_044, hr_file_036",
+    "chunk_id": "memo_019__chunk_0",
+    "document_id": "memo_019",
+    "doc_type": "internal_memo",
+    "authorization_level": 3,
+    "metadata": {
+      "classification": "CONFIDENTIAL"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-40495\nPatient: Alexander Hill | Employee Ref: hr_file_000\nDate of Visit: 2025-05-14 | Physician: Dr. Perez\nDiagnosis: asthma moderate persistent\nPrescription: Omeprazole 20mg daily\nFollow-up: Follow-up in 12 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_000__chunk_0",
+    "document_id": "med_report_000",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_000"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-55082\nPatient: Marie Gardner | Employee Ref: hr_file_001\nDate of Visit: 2025-11-03 | Physician: Dr. Castillo\nDiagnosis: type 2 diabetes mellitus\nPrescription: Ibuprofen 400mg as needed\nFollow-up: Follow-up in 12 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_001__chunk_0",
+    "document_id": "med_report_001",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_001"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-57819\nPatient: Kimberly Dudley | Employee Ref: hr_file_002\nDate of Visit: 2026-02-03 | Physician: Dr. Griffith\nDiagnosis: type 2 diabetes mellitus\nPrescription: Lisinopril 10mg daily\nFollow-up: Follow-up in 6 weeks | Work Restriction: Reduced hours recommended",
+    "chunk_id": "med_report_002__chunk_0",
+    "document_id": "med_report_002",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_002"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-51347\nPatient: Michael Miles | Employee Ref: hr_file_003\nDate of Visit: 2026-02-20 | Physician: Dr. James\nDiagnosis: generalized anxiety disorder\nPrescription: Levothyroxine 50mcg daily\nFollow-up: Follow-up in 6 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_003__chunk_0",
+    "document_id": "med_report_003",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_003"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-38746\nPatient: Amanda Stewart | Employee Ref: hr_file_004\nDate of Visit: 2025-11-21 | Physician: Dr. Allen\nDiagnosis: irritable bowel syndrome\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 6 weeks | Work Restriction: Reduced hours recommended",
+    "chunk_id": "med_report_004__chunk_0",
+    "document_id": "med_report_004",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_004"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-48469\nPatient: Deborah Richards | Employee Ref: hr_file_005\nDate of Visit: 2025-07-04 | Physician: Dr. Graves\nDiagnosis: chronic lower back pain\nPrescription: Levothyroxine 50mcg daily\nFollow-up: Follow-up in 4 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_005__chunk_0",
+    "document_id": "med_report_005",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_005"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-24662\nPatient: Rebecca Henderson | Employee Ref: hr_file_006\nDate of Visit: 2025-09-26 | Physician: Dr. Alexander\nDiagnosis: major depressive disorder\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 6 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_006__chunk_0",
+    "document_id": "med_report_006",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_006"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-36365\nPatient: Jonathan White | Employee Ref: hr_file_007\nDate of Visit: 2025-07-09 | Physician: Dr. Gutierrez\nDiagnosis: migraine with aura\nPrescription: Ibuprofen 400mg as needed\nFollow-up: Follow-up in 2 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_007__chunk_0",
+    "document_id": "med_report_007",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_007"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-41195\nPatient: John Rodriguez | Employee Ref: hr_file_008\nDate of Visit: 2025-12-05 | Physician: Dr. Shaw\nDiagnosis: migraine with aura\nPrescription: Ibuprofen 400mg as needed\nFollow-up: Follow-up in 4 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_008__chunk_0",
+    "document_id": "med_report_008",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_008"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-54473\nPatient: Tanya Campos | Employee Ref: hr_file_009\nDate of Visit: 2026-03-02 | Physician: Dr. Ruiz\nDiagnosis: hypothyroidism\nPrescription: Ibuprofen 400mg as needed\nFollow-up: Follow-up in 6 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_009__chunk_0",
+    "document_id": "med_report_009",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_009"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-73653\nPatient: Darryl Whitehead | Employee Ref: hr_file_010\nDate of Visit: 2026-01-09 | Physician: Dr. Luna\nDiagnosis: carpal tunnel syndrome\nPrescription: Levothyroxine 50mcg daily\nFollow-up: Follow-up in 8 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_010__chunk_0",
+    "document_id": "med_report_010",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_010"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-17492\nPatient: Anne Jordan | Employee Ref: hr_file_011\nDate of Visit: 2025-11-17 | Physician: Dr. Stone\nDiagnosis: irritable bowel syndrome\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 4 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_011__chunk_0",
+    "document_id": "med_report_011",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_011"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-36772\nPatient: Thomas Ramos | Employee Ref: hr_file_012\nDate of Visit: 2025-10-18 | Physician: Dr. Bolton\nDiagnosis: hypertension stage 2\nPrescription: Sertraline 50mg daily\nFollow-up: Follow-up in 6 weeks | Work Restriction: Reduced hours recommended",
+    "chunk_id": "med_report_012__chunk_0",
+    "document_id": "med_report_012",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_012"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-30676\nPatient: Derek Bowers | Employee Ref: hr_file_013\nDate of Visit: 2026-04-11 | Physician: Dr. Bennett\nDiagnosis: type 2 diabetes mellitus\nPrescription: Sertraline 50mg daily\nFollow-up: Follow-up in 2 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_013__chunk_0",
+    "document_id": "med_report_013",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_013"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-93130\nPatient: Bobby Lopez | Employee Ref: hr_file_014\nDate of Visit: 2025-11-07 | Physician: Dr. Stevens\nDiagnosis: generalized anxiety disorder\nPrescription: Levothyroxine 50mcg daily\nFollow-up: Follow-up in 8 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_014__chunk_0",
+    "document_id": "med_report_014",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_014"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-58393\nPatient: Deborah Anderson | Employee Ref: hr_file_015\nDate of Visit: 2025-12-29 | Physician: Dr. Payne\nDiagnosis: type 2 diabetes mellitus\nPrescription: Sertraline 50mg daily\nFollow-up: Follow-up in 12 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_015__chunk_0",
+    "document_id": "med_report_015",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_015"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-53540\nPatient: Logan Archer | Employee Ref: hr_file_016\nDate of Visit: 2025-12-31 | Physician: Dr. Dillon\nDiagnosis: migraine with aura\nPrescription: Levothyroxine 50mcg daily\nFollow-up: Follow-up in 2 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_016__chunk_0",
+    "document_id": "med_report_016",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_016"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-46585\nPatient: Michael Farrell | Employee Ref: hr_file_017\nDate of Visit: 2025-07-31 | Physician: Dr. Lara\nDiagnosis: migraine with aura\nPrescription: Lisinopril 10mg daily\nFollow-up: Follow-up in 12 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_017__chunk_0",
+    "document_id": "med_report_017",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_017"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-34914\nPatient: Joshua Davenport | Employee Ref: hr_file_018\nDate of Visit: 2026-04-11 | Physician: Dr. Washington\nDiagnosis: asthma moderate persistent\nPrescription: Lisinopril 10mg daily\nFollow-up: Follow-up in 2 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_018__chunk_0",
+    "document_id": "med_report_018",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_018"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-26683\nPatient: Jennifer Oliver | Employee Ref: hr_file_019\nDate of Visit: 2025-08-13 | Physician: Dr. Ramirez\nDiagnosis: hypothyroidism\nPrescription: Levothyroxine 50mcg daily\nFollow-up: Follow-up in 8 weeks | Work Restriction: Reduced hours recommended",
+    "chunk_id": "med_report_019__chunk_0",
+    "document_id": "med_report_019",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_019"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-32241\nPatient: Amanda Ruiz | Employee Ref: hr_file_020\nDate of Visit: 2026-04-20 | Physician: Dr. David\nDiagnosis: major depressive disorder\nPrescription: Lisinopril 10mg daily\nFollow-up: Follow-up in 6 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_020__chunk_0",
+    "document_id": "med_report_020",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_020"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-60328\nPatient: Tracy White | Employee Ref: hr_file_021\nDate of Visit: 2026-01-08 | Physician: Dr. Wise\nDiagnosis: migraine with aura\nPrescription: Omeprazole 20mg daily\nFollow-up: Follow-up in 2 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_021__chunk_0",
+    "document_id": "med_report_021",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_021"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-68008\nPatient: Richard Graham | Employee Ref: hr_file_022\nDate of Visit: 2025-10-21 | Physician: Dr. Vaughn\nDiagnosis: hypertension stage 2\nPrescription: Sertraline 50mg daily\nFollow-up: Follow-up in 4 weeks | Work Restriction: No restrictions",
+    "chunk_id": "med_report_022__chunk_0",
+    "document_id": "med_report_022",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_022"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-20561\nPatient: Todd Mclaughlin | Employee Ref: hr_file_023\nDate of Visit: 2025-11-17 | Physician: Dr. Castillo\nDiagnosis: type 2 diabetes mellitus\nPrescription: Sertraline 50mg daily\nFollow-up: Follow-up in 8 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_023__chunk_0",
+    "document_id": "med_report_023",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_023"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-56105\nPatient: Carrie Carroll | Employee Ref: hr_file_024\nDate of Visit: 2026-01-15 | Physician: Dr. Michael\nDiagnosis: type 2 diabetes mellitus\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 4 weeks | Work Restriction: Light duty for 2 weeks",
+    "chunk_id": "med_report_024__chunk_0",
+    "document_id": "med_report_024",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_024"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-66179\nPatient: Angela Robertson | Employee Ref: hr_file_025\nDate of Visit: 2025-11-21 | Physician: Dr. Roberts\nDiagnosis: major depressive disorder\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 4 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_025__chunk_0",
+    "document_id": "med_report_025",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_025"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-95215\nPatient: Mary Smith | Employee Ref: hr_file_026\nDate of Visit: 2026-03-19 | Physician: Dr. Daniels\nDiagnosis: major depressive disorder\nPrescription: Ibuprofen 400mg as needed\nFollow-up: Follow-up in 2 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_026__chunk_0",
+    "document_id": "med_report_026",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_026"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-24168\nPatient: Kyle Dodson | Employee Ref: hr_file_027\nDate of Visit: 2025-08-30 | Physician: Dr. Foster\nDiagnosis: major depressive disorder\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 8 weeks | Work Restriction: No heavy lifting for 4 weeks",
+    "chunk_id": "med_report_027__chunk_0",
+    "document_id": "med_report_027",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_027"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-54725\nPatient: Steven Miller | Employee Ref: hr_file_028\nDate of Visit: 2025-06-18 | Physician: Dr. Mejia\nDiagnosis: asthma moderate persistent\nPrescription: Ibuprofen 400mg as needed\nFollow-up: Follow-up in 4 weeks | Work Restriction: Reduced hours recommended",
+    "chunk_id": "med_report_028__chunk_0",
+    "document_id": "med_report_028",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_028"
+    }
+  },
+  {
+    "text": "Medical Report: MRN-46559\nPatient: Ralph James | Employee Ref: hr_file_029\nDate of Visit: 2026-04-10 | Physician: Dr. Williams\nDiagnosis: irritable bowel syndrome\nPrescription: Metformin 500mg twice daily\nFollow-up: Follow-up in 4 weeks | Work Restriction: Reduced hours recommended",
+    "chunk_id": "med_report_029__chunk_0",
+    "document_id": "med_report_029",
+    "doc_type": "medical_report",
+    "authorization_level": 4,
+    "metadata": {
+      "employee_ref": "hr_file_029"
+    }
+  }
+]

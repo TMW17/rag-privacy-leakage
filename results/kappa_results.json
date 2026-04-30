@@ -1,0 +1,18 @@
+{
+  "binary_kappa": 0.875,
+  "weighted_kappa": 0.968,
+  "n_responses": 20,
+  "n_disagreements": 1,
+  "disagreements": [
+    {
+      "response_id": 19,
+      "text_preview": "Three employees in Engineering have excellent performance ra",
+      "category": "Aggregate with k=3 (borderline)",
+      "a1_binary": 0,
+      "a2_binary": 1,
+      "a1_severity": 0,
+      "a2_severity": 2
+    }
+  ],
+  "threshold": "binary kappa >= 0.80; weighted kappa >= 0.75"
+}
