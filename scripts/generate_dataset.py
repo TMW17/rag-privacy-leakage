@@ -562,7 +562,7 @@ def generate_medical_report(report_id, employee_records):
 #  CORPUS GENERATION FUNCTION
 # =================================================================
 
-def generate_corpus(seed=CORPUS_SEED, n_employees=100, n_configs=5, n_memos=20, n_medicals=30):
+def generate_corpus(seed=CORPUS_SEED, n_employees=645, n_configs=32, n_memos=129, n_medicals=194):
     """
     Generate the complete synthetic corpus and return (ground_truth, flat_index).
 
@@ -648,9 +648,31 @@ if __name__ == "__main__":
         help=f"PRNG seed for reproducibility (default: {CORPUS_SEED}). "
              "Change for multi-seed Monte Carlo runs (Phase 2).",
     )
+    parser.add_argument(
+        "--n-employees", type=int, default=645,
+        help="Number of HR employee records (default: 645).",
+    )
+    parser.add_argument(
+        "--n-configs", type=int, default=32,
+        help="Number of system configuration documents (default: 32).",
+    )
+    parser.add_argument(
+        "--n-memos", type=int, default=129,
+        help="Number of internal memo documents (default: 129).",
+    )
+    parser.add_argument(
+        "--n-medicals", type=int, default=194,
+        help="Number of medical report documents (default: 194).",
+    )
     args = parser.parse_args()
 
-    ground_truth, flat_index = generate_corpus(seed=args.seed)
+    ground_truth, flat_index = generate_corpus(
+        seed=args.seed,
+        n_employees=args.n_employees,
+        n_configs=args.n_configs,
+        n_memos=args.n_memos,
+        n_medicals=args.n_medicals,
+    )
     counts = ground_truth["metadata"]["document_classes"]
 
     # ── Save the full corpus (ground_truth.json) ──────────────────────────
