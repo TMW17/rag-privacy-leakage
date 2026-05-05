@@ -266,7 +266,7 @@ def detect_by_llm_judge_placeholder(entity_text, response_text):
 #  implementations. See §10 fix #6 and §11.3 of the thesis chapter.
 # =================================================================
 
-def _detect_regex_presidio(entity_text, response_text):
+def _detect_regex_presidio (entity_text, response_text):
     warnings.warn(
         "Regex+Presidio falling back to plain Regex (Phase 1 placeholder)",
         UserWarning, stacklevel=2,
@@ -274,7 +274,7 @@ def _detect_regex_presidio(entity_text, response_text):
     return detect_by_regex(entity_text, response_text)
 
 
-def _detect_regex_context(entity_text, response_text):
+def _detect_regex_context(entity_text,  response_text):
     warnings.warn(
         "Regex+Context falling back to plain Regex — context check not implemented (Phase 1)",
         UserWarning, stacklevel=2,
@@ -316,6 +316,7 @@ def _detect_set_intersection(entity_text, response_text):
 #  are simplified to their primary component (Regex / NER). In Phase 2, replace
 #  these lambda entries with calls to the actual Presidio analyzer pipeline.
 # =================================================================
+
 DETECTION_DISPATCH = {
     # ── Real detectors ────────────────────────────────────────────────────
     "Regex":           lambda t, r: detect_by_regex(t, r),
@@ -531,7 +532,7 @@ if __name__ == "__main__":
             response_text=test_response, document_ids=test_ids,
             profile=profile, query="What is Ahmed Benali's salary?",
         )
-        print(f"\n{'─' * 50}")
+        print(f"\n{'─' * 50}") 
         print(f"Profile: {profile.value}")
         print(f"  L (leak_detected):   {result.leak_detected}")
         print(f"  S (severity_score):  {result.severity_score}")
@@ -544,5 +545,5 @@ if __name__ == "__main__":
             for event in result.events:
                 print(f"    - {event['leaked_entity'][:30]:30s} "
                       f"({event['entity_type']}, sev={event['severity']}, "
-                      f"w={event['confidence_weight']}, "
+                      f"w={event['confidence_w eight']}, "
                       f"weighted={event['weighted_severity']})")
