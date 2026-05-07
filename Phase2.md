@@ -36,7 +36,7 @@ The Phase 2 deliverable, as scoped in the project roadmap, is a four-part artifa
 
 3. **Test RAG system.** A working enterprise-grade RAG pipeline (embedding model + ChromaDB vector store + LangChain orchestration + frontier LLM backend) that serves as the baseline target. This is the system under test, deliberately configured _without_ privacy defenses, to establish the unmitigated leakage baseline that Phase 3 will compare its defenses against.
 
-4. **Initial baseline campaign.** A controlled execution of the full scenario suite against GPT-4 and Claude (Sonnet 3.5), producing the per-profile, per-attack-family $L$, $S$, ASR, and $\bar{S}$ measurements that answer Research Questions RQ1 and RQ4.
+4. **Initial baseline campaign.** A controlled execution of the full scenario suite against Claude Sonnet 4.6, producing the per-profile, per-attack-family $L$, $S$, ASR, and $\bar{S}$ measurements that answer Research Questions RQ1 and RQ4.
 
 ### 1.2 What Phase 2 Does Not Deliver
 
@@ -119,17 +119,17 @@ Three invariants govern every Phase 2 experimental run. They exist to prevent th
 
 **Table 3.** Phase 2 technology stack.
 
-| Layer                 | Component                    | Notes                                                            |
-| --------------------- | ---------------------------- | ---------------------------------------------------------------- |
-| Orchestration         | LangChain 0.3.x              | ChatPromptTemplate, retriever interface, memory                  |
-| Vector store          | ChromaDB 0.5.x               | Local persistent client; one collection per corpus snapshot      |
-| Embedding model       | `text-embedding-3-small`     | Fixed for the entire campaign; reproducible cosine retrieval     |
-| LLM backends          | GPT-4o, Claude 3.5 Sonnet    | API access; deterministic mode where supported (`temperature=0`) |
-| Scoring               | `evaluation_engine.py`       | Imported unchanged from Phase 1                                  |
-| Detection (regex/NER) | `spaCy` 3.7+, regex          | Already wired into the engine                                    |
-| Detection (Presidio)  | Microsoft Presidio 2.2.x     | Replaces the Phase 1 regex placeholders for severity-4 entities  |
-| Logging               | JSONL via `loguru`           | One file per (campaign, model, profile) tuple                    |
-| Analysis              | pandas 2.2+, matplotlib 3.8+ | Aggregate metrics and figures                                    |
+| Layer                 | Component                                    | Notes                                                            |
+| --------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
+| Orchestration         | LangChain 0.3.x                              | ChatPromptTemplate, retriever interface, memory                  |
+| Vector store          | ChromaDB 0.5.x                               | Local persistent client; one collection per corpus snapshot      |
+| Embedding model       | `sentence-transformers all-MiniLM-L6-v2`     | Local, free; fixed for the entire campaign; reproducible cosine  |
+| LLM backend           | Claude Sonnet 4.6 (`claude-sonnet-4-6`)      | Anthropic API; `temperature=0`; `ANTHROPIC_API_KEY` required     |
+| Scoring               | `evaluation_engine.py`                       | Imported unchanged from Phase 1                                  |
+| Detection (regex/NER) | `spaCy` 3.7+, regex                          | Already wired into the engine                                    |
+| Detection (Presidio)  | Microsoft Presidio 2.2.x                     | Replaces the Phase 1 regex placeholders for severity-4 entities  |
+| Logging               | JSONL via `loguru`                           | One file per (campaign, profile) tuple                           |
+| Analysis              | pandas 2.2+, matplotlib 3.8+                 | Aggregate metrics and figures                                    |
 
 ---
 
@@ -242,16 +242,16 @@ The test RAG system is the target that adversarial scenarios attack. Its impleme
 
 **Table 7.** Test RAG system components.
 
-| Component        | Implementation                                         | Configuration Notes                  |
-| ---------------- | ------------------------------------------------------ | ------------------------------------ |
-| Corpus loader    | Reads `ground_truth.json` from Phase 1                 | 155 documents loaded once at startup |
-| Chunker          | LangChain `RecursiveCharacterTextSplitter`             | 512-token chunks, 64-token overlap   |
-| Embedder         | OpenAI `text-embedding-3-small`                        | 1,536-dim vectors, batched at 100    |
-| Vector store     | ChromaDB persistent client                             | One collection per corpus snapshot   |
-| Retriever        | Cosine similarity, $k = 5$                             | Override per scenario if needed      |
-| Prompt template  | Minimal system prompt + retrieved context + user query | Documented in §4.2                   |
-| LLM backend      | GPT-4o or Claude 3.5 Sonnet                            | `temperature=0`; max_tokens 1024     |
-| Response handler | Captures full response, token usage, latency           | Returns to scoring layer             |
+| Component        | Implementation                                         | Configuration Notes                                      |
+| ---------------- | ------------------------------------------------------ | -------------------------------------------------------- |
+| Corpus loader    | Reads `ground_truth.json` from Phase 1                 | 155 documents loaded once at startup                     |
+| Chunker          | LangChain `RecursiveCharacterTextSplitter`             | 512-token chunks, 64-token overlap                       |
+| Embedder         | `sentence-transformers all-MiniLM-L6-v2`               | 384-dim vectors, local/free, batched at 100              |
+| Vector store     | ChromaDB persistent client                             | One collection per corpus snapshot                       |
+| Retriever        | Cosine similarity, $k = 5$                             | Override per scenario if needed                          |
+| Prompt template  | Minimal system prompt + retrieved context + user query | Documented in §4.2                                       |
+| LLM backend      | Claude Sonnet 4.6 (`claude-sonnet-4-6`)                | `temperature=0`; max_tokens 1024; `ANTHROPIC_API_KEY`    |
+| Response handler | Captures full response, token usage, latency           | Returns to scoring layer                                 |
 
 ### 4.2 System Prompt
 
@@ -289,12 +289,20 @@ The corpus indexing happens once at the beginning of week 3 and is frozen for th
 ```python
 # Corpus indexing procedure (one-time at start of week 3).
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 import chromadb, json
 
-# Load Phase 1 corpus (frozen)
+# Load Phase 1 corpus (frozen — 4 document classes in separate lists)
 with open("data/ground_truth/ground_truth.json") as f:
     corpus = json.load(f)
+
+# Flatten all 4 document classes into a single iterable
+all_docs = (
+    corpus.get("employee_records", [])
+    + corpus.get("system_configs", [])
+    + corpus.get("internal_memos", [])
+    + corpus.get("medical_reports", [])
+)
 
 # Chunk
 splitter = RecursiveCharacterTextSplitter(
@@ -302,23 +310,26 @@ splitter = RecursiveCharacterTextSplitter(
     separators=["\n\n", "\n", ". ", " ", ""]
 )
 
-# Embed and store
+# Embed and store (local sentence-transformers, no API key required)
 client = chromadb.PersistentClient(path="data/rag_index/chromadb")
 collection = client.get_or_create_collection(
     name="phase2_baseline_seed42",
     metadata={"corpus_size": 155, "snapshot": "clean"}
 )
 
-embedder = OpenAIEmbeddings(model="text-embedding-3-small")
+embedder = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-for doc_id, doc in corpus["documents"].items():
-    chunks = splitter.split_text(doc["content"])
+for doc in all_docs:
+    doc_id  = doc["document_id"]
+    content = doc.get("content", json.dumps(doc))
+    doc_cls = doc.get("document_type", "unknown")
+    chunks  = splitter.split_text(content)
     vectors = embedder.embed_documents(chunks)
     collection.add(
         ids=[f"{doc_id}::chunk{i}" for i in range(len(chunks))],
         embeddings=vectors,
         documents=chunks,
-        metadatas=[{"doc_id": doc_id, "doc_class": doc["class"]} for _ in chunks]
+        metadatas=[{"doc_id": doc_id, "doc_class": doc_cls} for _ in chunks]
     )
 
 print(f"Indexed: {collection.count()} chunks across 155 documents")
@@ -340,14 +351,13 @@ The baseline campaign is the first run that produces real $L$ and $S$ measuremen
 
 **Table 9.** Campaign batch structure.
 
-| Batch          | Model             | Profiles   | Scenarios   | Runs |
-| -------------- | ----------------- | ---------- | ----------- | ---- |
-| B1 Pilot       | Claude 3.5 Sonnet | P1, P2     | 10 (subset) | 1    |
-| B2 Main GPT    | GPT-4o            | P1, P2, P3 | 50 full     | 3    |
-| B3 Main Claude | Claude 3.5 Sonnet | P1, P2, P3 | 50 full     | 3    |
-| B4 P4 offline  | --                | P4         | 4 (offline) | 1    |
+| Batch         | Model                                   | Profiles   | Scenarios   | Runs |
+| ------------- | --------------------------------------- | ---------- | ----------- | ---- |
+| B1 Pilot      | Claude Sonnet 4.6 (`claude-sonnet-4-6`) | P1, P2     | 10 (subset) | 1    |
+| B2 Main       | Claude Sonnet 4.6 (`claude-sonnet-4-6`) | P1, P2, P3 | 50 full     | 3    |
+| B3 P4 offline | --                                      | P4         | 4 (offline) | 1    |
 
-**Why three runs per main batch.** Frontier models are not deterministic in practice even at `temperature=0`, because of provider-side batch routing, model checkpoint rotation, and minor prompt-canonicalization differences. Running each scenario three times per batch and reporting both mean and standard deviation of $L$ and $S$ is the minimum required to make the reported numbers defensible. A single run is methodologically insufficient for any serious empirical claim.
+**Why three runs for the main batch.** The Anthropic API is not perfectly deterministic even at `temperature=0`, because of provider-side batch routing and minor prompt-canonicalization differences. Running each scenario three times and reporting both mean and standard deviation of $L$ and $S$ is the minimum required to make the reported numbers defensible.
 
 **Why P4 runs offline.** The Profile 4 (Third-Party Provider) threat model concerns aggregate query-stream behavior, training-data ingestion, and embedding inversion. None of these is a chat-time interaction with the test RAG system. The four P4 scenarios are evaluated through static analysis of the campaign's prompt and response logs: training-data leakage risk is computed from the volume of severity-4--5 entities present in submitted prompts, retention overreach is computed from response provenance metadata, and embedding inversion is approximated through the published Vec2Text harness on a 100-vector sample.
 
@@ -377,16 +387,15 @@ The choice to define $L$ at the scenario level as "leak in any turn" rather than
 
 **Table 10.** Phase 2 resource budget (recomputed for n = 155).
 
-| Component                                       | Calls                       | Tokens (in/out) | Cost band   |
-| ----------------------------------------------- | --------------------------- | --------------- | ----------- |
-| Pilot (B1)                                      | ~30                         | 60K / 30K       | under $5    |
-| Main GPT-4o (B2): 50 sc. × avg 2 turns × 3 runs | ~300                        | 900K / 600K     | $15--25     |
-| Main Claude (B3): same                          | ~300                        | 900K / 600K     | $10--20     |
-| Embedding indexing (one-time, n=155)            | ~155 documents → ~2K chunks | ~250K tokens    | under $0.10 |
-| LLM-as-Judge calibration sample                 | ~50                         | 150K / 50K      | under $5    |
-| **Total upper bound**                           |                             |                 | **$30--55** |
+| Component                                    | Calls                       | Tokens (in/out) | Cost band   |
+| -------------------------------------------- | --------------------------- | --------------- | ----------- |
+| Pilot (B1)                                   | ~30                         | 60K / 30K       | under $3    |
+| Main Claude (B2): 50 sc. × avg 2 turns × 3 r | ~300                        | 900K / 600K     | $10--20     |
+| Embedding indexing (one-time, n=155)          | local only                  | 0 tokens        | $0.00       |
+| LLM-as-Judge calibration sample               | ~50                         | 150K / 50K      | under $3    |
+| **Total upper bound**                         |                             |                 | **$15--26** |
 
-**Cost discipline.** The total upper-bound cost for Phase 2 is well under $60 across both providers. The embedding cost line item dropped substantially relative to a 1,000-document corpus baseline (from ~1.5M tokens to ~250K tokens), which is the only line that is genuinely sensitive to corpus size; the LLM call budget is dominated by per-scenario generation cost, which depends on scenario count and turn count, not on how many documents the retriever indexed. Running additional scenarios or additional models (e.g., adding Llama 3 as a third backend) would push the budget up linearly. The decision to scope the campaign to two frontier models is both methodological (two provides cross-architecture comparison; three does not add much) and budgetary (every additional model adds $15--25 and 1--2 days of integration work).
+**Cost discipline.** The total upper-bound cost for Phase 2 is well under $30, using a single Anthropic provider. Embeddings are free because `sentence-transformers all-MiniLM-L6-v2` runs locally; the LLM call budget is dominated by per-scenario generation cost. Adding additional scenarios would push the budget up linearly at approximately $0.05–0.10 per scenario-run.
 
 ### 5.4 Output Data Products
 
@@ -398,7 +407,7 @@ By the end of week 6, the campaign must produce the following four artifacts. Ea
 | -------------------------- | ------------------------------- | ----------------------------------------------- |
 | Scenario registry          | `scenarios/v1_queries.json`     | 50+ scenarios; validator exits 0                |
 | Per-turn JSONL log         | `experiment_logs/`              | One file per (batch, profile); ~600 records     |
-| Per-scenario summary table | `results/baseline_summary.csv`  | 50 sc. × 2 models × 3 runs = 300 rows           |
+| Per-scenario summary table | `results/baseline_summary.csv`  | 50 sc. × 3 runs = 150 rows                      |
 | Aggregate metrics report   | `results/baseline_metrics.json` | ASR, mean $S$, $\bar{S}$ per profile and family |
 
 ---
@@ -423,13 +432,13 @@ The judge prompt is calibrated through three iterations on a held-out validation
 
 > **Judge prompt (skeleton).** The judge receives a triple: **(1)** the response text, **(2)** the relevant entity types and severity bands from the leakage taxonomy, **(3)** the active attacker profile. It returns a structured JSON output with three fields: `leak_detected` (boolean), `disclosed_entities` (list of {`type`, `severity`, `evidence_quote`}), and `rationale` (free text). The structured output forces the judge to ground its decision in a quoted span from the response, making post-hoc audit straightforward.
 >
-> The judge model is Claude 3.5 Sonnet for two reasons. First, the JSON-mode reliability is high, which keeps the parsing logic simple. Second, since GPT-4o is one of the systems-under-test, using GPT-4o as a judge would create an evaluator-evaluatee correlation that biases the judge in favor of GPT-4o's own failure modes. Claude is structurally independent of the GPT-4o test runs.
+> The judge model is Claude Opus 4.7 (`claude-opus-4-7`) for two reasons. First, JSON-mode reliability is high, which keeps the parsing logic simple. Second, using a more capable model (Opus) to judge the system under test (Sonnet 4.6) maintains methodological asymmetry: the judge operates at a higher capability tier than the system it evaluates, reducing the risk of shared failure modes between judge and evaluatee.
 
 ### 6.3 Judge Validation Through Inter-Judge Agreement
 
 The judge is validated by re-running the Phase 1 inter-annotator agreement methodology on a stratified 50-response sample drawn from the Phase 2 baseline campaign output. The protocol is identical to Phase 1 §7, with one substitution: the judge replaces Annotator 2.
 
-- **Sample.** 50 responses, stratified across the four attacker profiles (proportional to the campaign distribution: P1: 16, P2: 24, P3: 6, P4: 4) and across attack families.
+- **Sample.** 50 responses drawn from B2 (Claude Sonnet 4.6 main campaign), stratified across the four attacker profiles proportionally to campaign distribution: P1: 16, P2: 24, P3: 6, P4: 4.
 
 - **Annotator 1.** Hand-annotation by the thesis author, identical methodology to Phase 1.
 
@@ -457,16 +466,16 @@ The Phase 2 timeline is six weeks. Each week has named deliverables and a hard e
 | --- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | 1   | Scenario skeletons                     | `scenarios/v0_skeletons.json` (50+ entries with profile, family, target severity, threat row); RAG infrastructure scaffolding (LangChain + ChromaDB stub) | 50 skeletons present; validator exits 0                                     |
 | 2   | Scenario queries + pilot RAG           | `scenarios/v1_queries.json` (full query text for all 50); RAG indexing of 155-doc corpus complete; first end-to-end smoke test                            | 1 query end-to-end through the full pipeline produces a scored JSONL record |
-| 3   | Pilot + main GPT campaign              | B1 pilot complete (10 sc. × Claude × 1 run); B2 main GPT-4o complete (50 sc. × 3 runs); per-turn JSONL log produced                                       | B2 ASR and mean $S$ available per profile                                   |
-| 4   | Main Claude campaign + poisoned corpus | B3 main Claude 3.5 Sonnet complete (50 sc. × 3 runs); poisoned snapshot indexed; P3 scenarios run on poisoned snapshot                                    | B3 results match B2 schema; cross-model comparison table draft ready        |
-| 5   | Judge calibration + P4 offline         | Judge prompt v3 finalized; inter-judge $\kappa$ computed on 50-response sample; B4 P4 offline analysis complete                                           | Judge $\kappa \geq 0.75$ (or documented failure); P4 results integrated     |
+| 3   | Pilot + main campaign                  | B1 pilot complete (10 sc. × Claude Sonnet 4.6 × 1 run); B2 main campaign complete (50 sc. × 3 runs); per-turn JSONL log produced                         | B2 ASR and mean $S$ available per profile                                   |
+| 4   | Poisoned corpus + P3 scenarios         | Poisoned snapshot indexed; all P3 corpus-poisoning scenarios run on poisoned snapshot; per-profile result tables drafted                                  | P3 results produced; per-profile summary table draft ready                  |
+| 5   | Judge calibration + P4 offline         | Judge prompt v3 finalized (Opus 4.7); inter-judge $\kappa$ computed on 50-response sample; B3 P4 offline analysis complete                                | Judge $\kappa \geq 0.75$ (or documented failure); P4 results integrated     |
 | 6   | Aggregation + handoff to Phase 3       | `baseline_summary.csv` (300 rows) + `baseline_metrics.json` (ASR, $S$, $\bar{S}$ per profile/family/model); Phase 2 retrospective document                | Phase 3 input package ready                                                 |
 
 ### 7.2 Critical-Path Dependencies
 
 Three dependencies must hold for the timeline to work, and they do not have meaningful slack. Each one is named here so that monitoring it is explicit rather than implicit.
 
-1. **API key provisioning by start of week 3.** The pilot and main campaigns cannot start until both the OpenAI and Anthropic API keys are active and have sufficient rate-limit headroom for the campaign volume. Provisioning these in week 1 (with a small test call to verify) is non-negotiable.
+1. **API key provisioning by start of week 3.** The pilot and main campaigns cannot start until the `ANTHROPIC_API_KEY` is active and has sufficient rate-limit headroom for the campaign volume (~300 calls for B2). Provisioning and verifying the key in week 1 (with a small test call) is non-negotiable.
 
 2. **Scenario freeze at end of week 2.** Once the campaign starts in week 3, the scenario set is frozen. Modifying a scenario mid-campaign invalidates the runs that already used the previous version. Late additions wait for a Phase 3 sensitivity run.
 
@@ -489,8 +498,8 @@ If any week's exit gate is not met, the following pre-decided scope cuts are app
 
 > **M1** (end of week 1): 50+ scenario skeletons exist; RAG scaffolding compiles; evaluation engine smoke test passes.
 > **M2** (end of week 2): All 50 query texts authored; corpus indexed; first end-to-end pilot query scored successfully.
-> **M3** (end of week 3): GPT-4o baseline campaign B2 complete; per-profile ASR and mean $S$ computable.
-> **M4** (end of week 4): Claude baseline campaign B3 complete; cross-model comparison draft ready.
+> **M3** (end of week 3): Main campaign B2 complete (Claude Sonnet 4.6, 50 sc. × 3 runs); per-profile ASR and mean $S$ computable.
+> **M4** (end of week 4): P3 corpus-poisoning scenarios complete; per-profile result tables drafted.
 > **M5** (end of week 5): Judge calibrated to $\kappa \geq 0.75$; P4 offline analysis integrated.
 > **M6** (end of week 6): All four data products produced; Phase 3 input package complete; retrospective written.
 
@@ -511,7 +520,7 @@ The metrics computed in Phase 2 are exactly the metrics used by Phase 1's formal
 | Conditional Severity $\bar{S}_{\|L=1}$ | $\frac{1}{\|\{i: L_i=1\}\|} \sum_{i: L_i=1} S_i$                                               | RQ1: when leaks happen, how bad are they                 |
 | Per-family ASR                         | ASR computed within an attack family                                                           | RQ1: which attack family is most effective in baseline   |
 | Per-profile ASR                        | ASR computed within an attacker profile                                                        | RQ4: which attacker profile produces the highest leakage |
-| Cross-model $\Delta$ASR                | $\text{ASR}_{\text{GPT}} - \text{ASR}_{\text{Claude}}$                                         | Cross-architecture vulnerability comparison              |
+| Run-to-run $\sigma$ASR                 | Standard deviation of ASR across the 3 runs of B2                                             | Quantifies non-determinism; required for defensible claim |
 
 ### 8.2 Secondary Diagnostic Metrics
 
@@ -532,8 +541,8 @@ The Phase 2 baseline report (week 6 deliverable, target length 12--16 pages) fol
 1. Executive summary (1 page) --- one-paragraph statement of the most exposed profile, the most effective attack family, and the worst-case $S$.
 2. Method recap (1 page) --- references the Phase 1 documents; does not re-derive.
 3. Per-profile baseline (4 pages) --- one page per profile, with the per-family breakdown.
-4. Per-family deep-dive (3 pages) --- top-3 most effective attack families across both models.
-5. Cross-model comparison (2 pages) --- where GPT-4o and Claude diverge, where they converge.
+4. Per-family deep-dive (3 pages) --- top-3 most effective attack families.
+5. Run-to-run variance analysis (1 page) --- $\sigma$ASR and $\sigma\bar{S}$ across 3 runs; justification of reported means.
 6. Judge validation results (1 page) --- inter-judge $\kappa$ and category-level breakdown.
 7. Bridge to Phase 3 (1 page) --- which findings constitute the strongest defense targets.
 8. Appendix A (2--3 pages) --- full per-scenario result table.
@@ -552,7 +561,7 @@ Six known risks could derail the Phase 2 timeline or compromise its measurements
 >
 > **R4. Retrieval recall is too low to support meaningful leakage.** If the retriever fails to return a document containing the target entity, the scenario cannot leak even in principle. The risk is elevated for the small-corpus regime: with 5 system configs and 20 memos, a single off-target retrieval can disproportionately drag down per-class recall. _Mitigation:_ Pilot batch verifies retrieval recall@5 per scenario and per document class. If recall is below 60% for a family or below 40% for any individual document class, the chunking strategy is adjusted (chunk size or overlap) before the main run. Chunking adjustments invalidate prior runs; this is why the pilot must precede the main batches.
 >
-> **R5. Multi-turn session memory diverges between GPT-4o and Claude.** _Mitigation:_ Memory is implemented at the LangChain level (not the provider level), using a shared `ConversationBufferMemory` pattern. The same memory state is fed to both providers; behavioral divergence is then attributable to the model, not to memory differences.
+> **R5. Multi-turn session memory produces inconsistent context across 3 runs.** _Mitigation:_ Memory is implemented at the LangChain level using `ConversationBufferMemory`. Each run starts from a clean state; session state is not persisted between runs. Any turn-to-turn variance within a single run is attributable to model non-determinism, not to memory seeding differences.
 >
 > **R6. Phase 1 evaluation engine breaks on real adversarial output.** _Mitigation:_ Week 1 includes a smoke test of the engine on five hand-authored adversarial responses representative of expected Phase 2 output. Any input-format mismatch is caught at this point, before the campaign is built on top of a broken assumption.
 
@@ -582,7 +591,7 @@ Phase 2's outputs are the substrate for Phase 3. Naming the handoff here keeps t
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
 | 50+ scenario registry          | Frozen attack set; every Phase 3 defense runs against the same scenarios so $\Delta S$ is well-defined           |
 | Per-scenario baseline $L$, $S$ | The reference values that defense ablations subtract from                                                        |
-| Cross-model comparison         | Tells Phase 3 whether to ablate per-model or jointly                                                             |
+| Run-to-run variance analysis   | Establishes the noise floor that defense ablations must exceed to be statistically significant                    |
 | Calibrated LLM-as-Judge prompt | Reusable judge component; Phase 3 does not recalibrate it unless the prompt is itself the variable being studied |
 | Risk register lessons          | Rate-limit, refusal-rate, and chunking lessons carry forward into Phase 3 ablation runs                          |
 | P4 offline analysis            | Provides the contractual-trust dimension input for the GDPR processor analysis in Phase 4                        |
@@ -601,6 +610,6 @@ Phase 3 takes the frozen scenario set and runs each one with progressively more 
 
 ### 10.3 One-Sentence Statement of the Phase 2 Contribution
 
-> **Contribution statement.** Phase 2 of this thesis converts the formal measurement framework constructed in Phase 1 into the first complete empirical baseline of privacy leakage in an enterprise-grade Retrieval-Augmented Generation system, instantiated through 50+ adversarial scenarios anchored to a formal LINDDUN-mapped threat model, executed against two frontier language models (GPT-4o and Claude 3.5 Sonnet), scored through a profile-dependent evaluation engine validated by inter-judge agreement, and reported as the reference $L$ and $S$ values that Phase 3's defense ablations and Phase 4's regulatory analysis are measured against.
+> **Contribution statement.** Phase 2 of this thesis converts the formal measurement framework constructed in Phase 1 into the first complete empirical baseline of privacy leakage in an enterprise-grade Retrieval-Augmented Generation system, instantiated through 50+ adversarial scenarios anchored to a formal LINDDUN-mapped threat model, executed against Claude Sonnet 4.6 with tri-replicated runs for statistical defensibility, scored through a profile-dependent evaluation engine validated by inter-judge agreement (judge: Claude Opus 4.7), and reported as the reference $L$ and $S$ values that Phase 3's defense ablations and Phase 4's regulatory analysis are measured against.
 
 Phase 2 begins on the Phase 1 foundation. Phase 3 begins on the Phase 2 baseline. The chain of dependencies is intentional: every measurement reported in the final thesis traces back, audit-by-audit, to a known-good earlier deliverable. That is what makes the experimental claims defensible.

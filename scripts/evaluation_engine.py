@@ -44,24 +44,27 @@ from scripts.config import ANNOTATIONS_FILE, AUTHORIZATION_LEVELS as _LEVELS_BY_
 
 class AttackerProfile(Enum):
     """
-    Three attacker profiles from the formal threat model (Chapter 2).
+    Four attacker profiles from the formal threat model (PROJECT.md §4).
 
     Each profile has a CVSS base score reflecting the inherent risk of that
     access level. The score drives the authorization threshold: higher-risk
     profiles have LOWER thresholds (stricter enforcement).
 
-    CVSS scores from Chapter 2 (Threat Model Document):
-      INTERNAL (6.5) — Authenticated user, limited scope; may leak low-severity
-                        behavioral data accidentally through natural-language queries.
-      EXTERNAL (8.2) — Unauthenticated, broad scope; any corpus disclosure is a
-                        violation because the attacker has zero authorized access.
-      ADMIN    (9.1) — Privileged access, can poison the corpus and exfiltrate
-                        config secrets; highest systemic danger despite lower
-                        per-query S because the main attack is pre-query poisoning.
+    CVSS scores from PROJECT.md §4:
+      INTERNAL     (6.5) — Authenticated user; may leak low-severity behavioral
+                            data accidentally through natural-language queries.
+      EXTERNAL     (8.2) — Unauthenticated, broad scope; any corpus disclosure
+                            is a violation (zero authorized access).
+      ADMIN        (9.1) — Privileged access; can poison corpus and exfiltrate
+                            config secrets via the chat interface.
+      THIRD_PARTY  (7.7) — Contractually integrated service (LLM API, vector-DB
+                            SaaS); threat is aggregate/cross-tenant inference of
+                            severity-4–5 data. GDPR Articles 28 & 44–49 profile.
     """
-    INTERNAL = "Internal"    # Profile 1: Curious Insider      (CVSS 6.5 Medium)
-    EXTERNAL = "External"    # Profile 2: External Adversary   (CVSS 8.2 High)
-    ADMIN    = "Admin"       # Profile 3: Privileged Admin     (CVSS 9.1 Critical)
+    INTERNAL    = "Internal"    # Profile 1: Curious Insider       (CVSS 6.5 Medium)
+    EXTERNAL    = "External"    # Profile 2: External Adversary    (CVSS 8.2 High)
+    ADMIN       = "Admin"       # Profile 3: Privileged Admin      (CVSS 9.1 Critical)
+    THIRD_PARTY = "ThirdParty"  # Profile 4: Third-Party Provider  (CVSS 7.7 High)
 
 
 @dataclass
@@ -545,5 +548,5 @@ if __name__ == "__main__":
             for event in result.events:
                 print(f"    - {event['leaked_entity'][:30]:30s} "
                       f"({event['entity_type']}, sev={event['severity']}, "
-                      f"w={event['confidence_w eight']}, "
+                      f"w={event['confidence_weight']}, "
                       f"weighted={event['weighted_severity']})")
