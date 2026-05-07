@@ -176,7 +176,7 @@ Distribution across attacker profiles is uneven by design. Profile 2 (External A
 
 ### The test system
 
-The RAG system under test is deliberately minimal: LangChain orchestration, ChromaDB vector store, OpenAI `text-embedding-3-small` embeddings, frontier LLM backend (GPT-4o and Claude 3.5 Sonnet for cross-architecture comparison). The system prompt is generic and contains no privacy instruction, no role restriction, no refusal policy. That is the point. Defensively crafted system prompts would already bake in protections that the defense evaluation is meant to measure separately. The baseline measures what the underlying model and retriever do without any added safety scaffolding, and every defense layer added later is measured as a reduction from this clean reference.
+The RAG system under test is deliberately minimal: LangChain orchestration, ChromaDB vector store, `sentence-transformers all-MiniLM-L6-v2` embeddings (local, free, 384-dim), frontier LLM backend (Claude Sonnet 4.6). The system prompt is generic and contains no privacy instruction, no role restriction, no refusal policy. That is the point. Defensively crafted system prompts would already bake in protections that the defense evaluation is meant to measure separately. The baseline measures what the underlying model and retriever do without any added safety scaffolding, and every defense layer added later is measured as a reduction from this clean reference.
 
 ### The evaluation engine
 
@@ -276,7 +276,7 @@ A research report that does not name its limitations is harder to trust than one
 
 **LLM-as-Judge is calibrated, not validated against legal ground truth.** The Arbitrator's judgments are anchored against a GDPR rubric and validated by inter-judge agreement against human annotators. They are not validated against actual regulatory enforcement decisions, which would require access to a corpus of adjudicated GDPR cases that does not currently exist in machine-readable form.
 
-**Frontier model determinism is imperfect.** Even at `temperature=0`, GPT-4o and Claude 3.5 Sonnet produce slightly different outputs across runs because of provider-side batch routing and minor prompt canonicalization. Every main batch is run three times and reported with both mean and standard deviation. A single-run number would be methodologically insufficient for any serious empirical claim, and any reader of the thesis should treat single-run numbers from other sources with the same skepticism.
+**Frontier model determinism is imperfect.** Even at `temperature=0`, Claude Sonnet 4.6 produces slightly different outputs across runs because of provider-side batch routing and minor prompt canonicalization. Every main batch is run three times and reported with both mean and standard deviation. A single-run number would be methodologically insufficient for any serious empirical claim, and any reader of the thesis should treat single-run numbers from other sources with the same skepticism.
 
 These limitations are not flaws to be glossed over. They are the envelope within which the results are valid, named explicitly so that a reader can decide for themselves whether the envelope contains their use case.
 

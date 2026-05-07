@@ -97,9 +97,9 @@ The end-to-end data flow for a single adversarial query is the following six-ste
 
 2. **Query submission.** The query is submitted to the Test RAG System through a ChatPromptTemplate built on LangChain. Profile-specific parameters (authentication header, rate limit, session-state policy) are applied at this layer.
 
-3. **Retrieval.** The retriever (ChromaDB with the embedding model fixed at `text-embedding-3-small`, $k = 5$ unless the scenario overrides) returns the top-$k$ document fragments. The returned document IDs are captured for the Evaluation Engine.
+3. **Retrieval.** The retriever (ChromaDB with the embedding model fixed at `sentence-transformers all-MiniLM-L6-v2`, $k = 5$ unless the scenario overrides) returns the top-$k$ document fragments. The returned document IDs are captured for the Evaluation Engine.
 
-4. **Generation.** The frontier LLM (GPT-4 or Claude 3.5 Sonnet) receives the system prompt, the retrieved context, and the user query, and produces a response. Both the prompt and the response are captured.
+4. **Generation.** The frontier LLM (Claude Sonnet 4.6 (`claude-sonnet-4-6`)) receives the system prompt, the retrieved context, and the user query, and produces a response. Both the prompt and the response are captured.
 
 5. **Scoring.** The Evaluation Engine takes (`response_text`, `retrieved_doc_ids`, `profile`) and returns the leakage event list, the binary $L$, and the severity score $S$.
 
@@ -219,7 +219,7 @@ The 50 scenarios are authored in three passes, with each pass producing a versio
 
 2. **Pass 2 --- Query text authoring (week 2).** Each placeholder is replaced with the actual adversarial query text or multi-turn sequence. References to specific employees, departments, or document classes use deterministic identifiers from the Phase 1 corpus index, so that each scenario targets a known retrievable entity. The deliverable is `scenarios/v1_queries.json`.
 
-3. **Pass 3 --- Pilot validation (week 2 end).** A 10-scenario pilot batch is run against a single model (Claude 3.5 Sonnet) with no defenses. Each scenario is checked for three properties: the query produces a non-trivial response (the model does not hard-refuse), the retrieval returns the expected document class, and the evaluation engine produces an interpretable $L$ and $S$. Scenarios that fail any of these checks are reauthored before the full run begins.
+3. **Pass 3 --- Pilot validation (week 2 end).** A 10-scenario pilot batch is run against a single model (Claude Sonnet 4.6) with no defenses. Each scenario is checked for three properties: the query produces a non-trivial response (the model does not hard-refuse), the retrieval returns the expected document class, and the evaluation engine produces an interpretable $L$ and $S$. Scenarios that fail any of these checks are reauthored before the full run begins.
 
 ### 3.6 Scenario Validation Suite
 
@@ -553,7 +553,7 @@ The Phase 2 baseline report (week 6 deliverable, target length 12--16 pages) fol
 
 Six known risks could derail the Phase 2 timeline or compromise its measurements. Each is named here together with its mitigation. The risk register lives in the project repository at `docs/PHASE2_RISKS.md` and is updated weekly during Phase 2.
 
-> **R1. API rate limits or quota exhaustion mid-campaign.** _Mitigation:_ Apply for tier-2 access on both OpenAI and Anthropic in week 1. Monitor cumulative spend and throttle campaign batches if approaching 80% of the budget. Persist all responses immediately to disk so a partial run can be resumed without re-paying for completed scenarios.
+> **R1. API rate limits or quota exhaustion mid-campaign.** _Mitigation:_ Apply for tier-2 access on Anthropic in week 1. Monitor cumulative spend and throttle campaign batches if approaching 80% of the budget. Persist all responses immediately to disk so a partial run can be resumed without re-paying for completed scenarios.
 >
 > **R2. Frontier model refuses to engage with adversarial scenarios.** _Mitigation:_ The pilot batch (B1, 10 scenarios) explicitly tests this. If refusal rates exceed 25%, the affected scenarios are reauthored with softer framing (educational / fictional wrappers per family F7) before the main campaign. Hard refusals are themselves a measurement: they get logged with $L = 0$, $S = 0$ and a refusal flag, contributing to the per-model robustness comparison.
 >
