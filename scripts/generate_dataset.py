@@ -232,14 +232,6 @@ MEDICAL_CONDITIONS = [
 
 PERFORMANCE_RATINGS = ["excellent", "satisfactory", "needs improvement"]
 
-# "no religious notes" appears 3 times → majority have no data.
-# Only entries with actual religious content are annotated.
-RELIGIOUS_AFFILIATIONS = [
-    "attends Friday prayers",
-    "observes Ramadan strictly",
-    "no religious notes", "no religious notes", "no religious notes"
-]
-
 # "citizen" appears 4 times → most employees are citizens.
 # Only non-citizen statuses are annotated.
 IMMIGRATION_STATUSES = [
@@ -365,7 +357,6 @@ def generate_employee_record(doc_id):
         "salary":             random.randint(40000, 150000),
         "medical_condition":  random.choice(MEDICAL_CONDITIONS),
         "employee_id":        f"EMP-{random.randint(10000, 99999)}",
-        "religious_note":     random.choice(RELIGIOUS_AFFILIATIONS),
         "immigration_status": random.choice(IMMIGRATION_STATUSES),
 
         # ── Severity 2 — Low ─────────────────────────────────────────────

@@ -27,7 +27,7 @@ Code/
 ├── scripts/                   ← Phase 1 pipeline (frozen artifacts — do not modify)
 │   ├── config.py              ← ALL paths and constants (single source of truth)
 │   ├── generate_dataset.py    ← Step 1: generate 155-doc corpus
-│   ├── annotate_dataset.py    ← Step 2: annotate 2,315 PII entities
+│   ├── annotate_dataset.py    ← Step 2: annotate 2,280 PII entities
 │   ├── evaluation_engine.py   ← Core metric library: L, S, AttackerProfile
 │   ├── reidentification_risk.py   ← k-anonymity / l-diversity analysis
 │   ├── kappa_validation.py    ← inter-annotator agreement (Cohen's κ)
@@ -43,7 +43,7 @@ Code/
 │   ├── ground_truth/          ← FROZEN Phase 1 outputs (never regenerate without reason)
 │   │   ├── ground_truth.json              155 documents, 4 classes
 │   │   ├── ground_truth_index.json        flat doc_id → document lookup
-│   │   └── ground_truth_annotations.json  2,315 entity-level PII annotations
+│   │   └── ground_truth_annotations.json  2,280 entity-level PII annotations
 │   ├── rag_index/
 │   │   └── chromadb/          ← Phase 2 ChromaDB vector store (built at week 3 start)
 │   └── synthetic/             ← reserved for future datasets
@@ -112,7 +112,7 @@ make clean && make    # force full rebuild from scratch
 | Script                     | Reads                           | Writes                                         | Notes                       |
 | -------------------------- | ------------------------------- | ---------------------------------------------- | --------------------------- |
 | `generate_dataset.py`      | nothing                         | `ground_truth.json`, `ground_truth_index.json` | seed=42, deterministic      |
-| `annotate_dataset.py`      | `ground_truth.json`             | `ground_truth_annotations.json`                | 2,315 entities, 37 types    |
+| `annotate_dataset.py`      | `ground_truth.json`             | `ground_truth_annotations.json`                | 2,280 entities, 37 types    |
 | `reidentification_risk.py` | `ground_truth.json`             | `results/reidentification_risk.json`           | k-anon / l-diversity        |
 | `kappa_validation.py`      | nothing (built-in test set)     | `results/kappa_results.json`                   | κ=0.875, κ_w=0.968          |
 | `validate_ground_truth.py` | both ground truth files         | exits 0 or 1                                   | **gate before Phase 2**     |
@@ -196,7 +196,7 @@ all_docs = (corpus["employee_records"] + corpus["system_configs"]
 
 | Phase                      | Status          | Output                                                   |
 | -------------------------- | --------------- | -------------------------------------------------------- |
-| Phase 1 — Corpus & metrics | **Complete**    | 155 docs, 2,315 annotations, κ=0.875                     |
+| Phase 1 — Corpus & metrics | **Complete**    | 155 docs, 2,280 annotations, κ=0.875                     |
 | Phase 2 — Attack framework | **In progress** | Scenarios (wk 1–2), RAG system (wk 3), campaign (wk 3–5) |
 | Phase 3 — Defense ablation | Not started     | Presidio, NeMo Guardrails, output filter, retrieval ACL  |
 | Phase 4 — Reporting        | Not started     | Thesis + Best Practices Guide                            |

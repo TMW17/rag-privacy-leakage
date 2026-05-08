@@ -164,16 +164,10 @@ def annotate_employee_record(record):
     entities.append(make_entity(record["employee_id"],     "EMPLOYEE_ID", "employee_id"))
 
     # ── Conditional annotations ───────────────────────────────────────────
-    # These three fields use sentinel values ("none", "no religious notes",
-    # "citizen") to indicate the absence of sensitive data. We SKIP annotation
-    # for these default values to avoid false positives: if the RAG response
-    # says "citizen", that alone is not a privacy leak.
-    # Only non-default values (actual medical conditions, religious notes,
-    # non-citizen statuses) carry privacy risk and should be annotated.
+    # These fields use sentinel values ("none", "citizen") to indicate absence
+    # of sensitive data. Only non-default values carry privacy risk.
     if record["medical_condition"] != "none":
         entities.append(make_entity(record["medical_condition"], "MEDICAL", "medical_condition"))
-    if "no religious" not in record["religious_note"]:
-        entities.append(make_entity(record["religious_note"], "RELIGIOUS", "religious_note"))
     if record["immigration_status"] != "citizen":
         entities.append(make_entity(record["immigration_status"], "IMMIGRATION", "immigration_status"))
 

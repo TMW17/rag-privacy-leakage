@@ -121,7 +121,7 @@ Every entity type the system might leak is classified along six dimensions: name
 
 - **Severity 5 (Critical) — direct system compromise or full identity exposure.** SSN, national ID, API key, JWT, password hash, database connection string, private cryptographic key, full system prompt, credit card number.
 - **Severity 4 (High) — direct personal identification or special-category data.** Email, full name, phone, home address, date of birth, IBAN, health record ID, passport number, internal IP address, recoverable embedding.
-- **Severity 3 (Medium) — sensitive inference and indirect exposure.** Salary, medical condition, employee ID, religious affiliation, immigration status, partial address, age plus gender combination, internal file path, system architecture detail.
+- **Severity 3 (Medium) — sensitive inference and indirect exposure.** Salary, medical condition, employee ID, immigration status, partial address, age plus gender combination, internal file path, system architecture detail.
 - **Severity 2 (Low) — behavioral patterns and contextual signals.** Performance review sentiment, department name alone, job title alone, work schedule, office location, project assignment, training completion status.
 
 The taxonomy is not freestanding — it is the operational interface between the threat model (which says "linkability is a privacy threat") and the evaluation engine (which says "if I see _this entity_ in the response, score it like _this_"). Without a fixed taxonomy, every change in evaluation logic would silently shift the headline numbers, and cross-experiment comparisons would be impossible.
@@ -146,7 +146,7 @@ The experimental corpus contains **155 synthetic documents** generated determini
 
 Some documents intentionally cross-reference each other. Medical reports carry an `employee_ref` field pointing to a specific HR record; internal memos list `employees_referenced` by document ID. This is a deliberate test for cross-document linkability — when the retriever returns both an employee record and the matching medical report in one query, the response can place identity next to diagnosis, which a single-document retrieval would never do.
 
-Every entity of PII across all 155 documents is annotated against the taxonomy: 2,315 entity-level annotations in total. The annotations are the _answer key_ the evaluation engine checks every model response against. The distribution across severity bands is 235 critical / 865 high / 515 medium / 700 low, with all five primary LINDDUN categories represented (Identifiability dominant at 1,160, Unawareness at 500, Disclosure at 290, Detectability at 225, Linkability at 140).
+Every entity of PII across all 155 documents is annotated against the taxonomy: 2,280 entity-level annotations in total. The annotations are the _answer key_ the evaluation engine checks every model response against. The distribution across severity bands is 235 critical / 865 high / 480 medium / 700 low, with all five primary LINDDUN categories represented (Identifiability dominant at 1,160, Unawareness at 500, Disclosure at 260, Detectability at 225, Linkability at 135).
 
 ### What synthetic data does and does not give us
 
@@ -182,7 +182,7 @@ The RAG system under test is deliberately minimal: LangChain orchestration, Chro
 
 The engine is the single most important computational component of the entire framework. Given a model response, the list of document IDs the retriever returned, and the active attacker profile, it determines whether unauthorized PII leaked and, if so, how severely. It works _post-hoc_: the system under test produces its response without any interference from the engine, which keeps the system under test and the measurement instrument methodologically independent.
 
-Internally the engine has four layers. An annotation loader reads the 2,315-entity ground truth once at startup and builds an O(1) index from document ID to entity list. A detection layer dispatches across multiple methods (regex for deterministic identifiers like SSN and IBAN, NER for named entities, keyword-with-context for medically and behaviorally cued leakage, LLM-as-Judge for paraphrased and semantically encoded disclosures). A method dispatcher routes each annotation's prescribed detection method to the corresponding detector function. A core evaluator iterates over retrieved documents, applies the profile-specific authorization threshold from Definition 1, and accumulates the weighted severity score from Definition 2 in a single pass.
+Internally the engine has four layers. An annotation loader reads the 2,280-entity ground truth once at startup and builds an O(1) index from document ID to entity list. A detection layer dispatches across multiple methods (regex for deterministic identifiers like SSN and IBAN, NER for named entities, keyword-with-context for medically and behaviorally cued leakage, LLM-as-Judge for paraphrased and semantically encoded disclosures). A method dispatcher routes each annotation's prescribed detection method to the corresponding detector function. A core evaluator iterates over retrieved documents, applies the profile-specific authorization threshold from Definition 1, and accumulates the weighted severity score from Definition 2 in a single pass.
 
 The same engine instance evaluates the baseline run, every defense ablation, and the full-stack configuration. This is what makes the `ΔS` metric valid as a comparison rather than as separately calibrated numbers — every reading uses the same instrument.
 
@@ -288,7 +288,7 @@ This file is the explanation of the project. The deep treatment lives in compani
 
 - **`Phase2.md`** — the active phase plan, including the 50+ scenario suite construction, the test RAG implementation, the baseline campaign structure, the LLM-as-Judge calibration, and the six-week timeline with hard exit gates.
 - **`docs/Threat_Model.pdf`** — the full four-attacker threat model with CVSS vectors, per-profile attack instances, LINDDUN mappings, the leakage taxonomy (Table 6.1), and the operational attack-objective table.
-- **`docs/Formal_Leakage_Definitions_and_Ground_Truth.pdf`** — the formal foundations chapter, including the synthetic corpus generation, the 2,315-entity annotation protocol, the evaluation engine architecture, the re-identification analysis, and the inter-annotator validation.
+- **`docs/Formal_Leakage_Definitions_and_Ground_Truth.pdf`** — the formal foundations chapter, including the synthetic corpus generation, the 2,280-entity annotation protocol, the evaluation engine architecture, the re-identification analysis, and the inter-annotator validation.
 - **`docs/State_Of_The_Art.pdf`** — the literature review, fifty primary sources organized into five thematic pillars with explicit residual-gap analysis per pillar.
 - **`docs/GenAI_Privacy_Project_Roadmap.pdf`** — the original six-month plan as submitted to the supervisor.
 - **`CLAUDE.md`** _(if you created it from the previous PROJECT.md)_ — operational guidance for AI coding agents working on the codebase: script contracts, invariants, conventions, frozen-artifact lists.
