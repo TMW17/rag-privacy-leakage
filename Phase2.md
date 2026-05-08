@@ -119,17 +119,17 @@ Three invariants govern every Phase 2 experimental run. They exist to prevent th
 
 **Table 3.** Phase 2 technology stack.
 
-| Layer                 | Component                                    | Notes                                                            |
-| --------------------- | -------------------------------------------- | ---------------------------------------------------------------- |
-| Orchestration         | LangChain 0.3.x                              | ChatPromptTemplate, retriever interface, memory                  |
-| Vector store          | ChromaDB 0.5.x                               | Local persistent client; one collection per corpus snapshot      |
-| Embedding model       | `sentence-transformers all-MiniLM-L6-v2`     | Local, free; fixed for the entire campaign; reproducible cosine  |
-| LLM backend           | Claude Sonnet 4.6 (`claude-sonnet-4-6`)      | Anthropic API; `temperature=0`; `ANTHROPIC_API_KEY` required     |
-| Scoring               | `evaluation_engine.py`                       | Imported unchanged from Phase 1                                  |
-| Detection (regex/NER) | `spaCy` 3.7+, regex                          | Already wired into the engine                                    |
-| Detection (Presidio)  | Microsoft Presidio 2.2.x                     | Replaces the Phase 1 regex placeholders for severity-4 entities  |
-| Logging               | JSONL via `loguru`                           | One file per (campaign, profile) tuple                           |
-| Analysis              | pandas 2.2+, matplotlib 3.8+                 | Aggregate metrics and figures                                    |
+| Layer                 | Component                                | Notes                                                           |
+| --------------------- | ---------------------------------------- | --------------------------------------------------------------- |
+| Orchestration         | LangChain 0.3.x                          | ChatPromptTemplate, retriever interface, memory                 |
+| Vector store          | ChromaDB 0.5.x                           | Local persistent client; one collection per corpus snapshot     |
+| Embedding model       | `sentence-transformers all-MiniLM-L6-v2` | Local, free; fixed for the entire campaign; reproducible cosine |
+| LLM backend           | Claude Sonnet 4.6 (`claude-sonnet-4-6`)  | Anthropic API; `temperature=0`; `ANTHROPIC_API_KEY` required    |
+| Scoring               | `evaluation_engine.py`                   | Imported unchanged from Phase 1                                 |
+| Detection (regex/NER) | `spaCy` 3.7+, regex                      | Already wired into the engine                                   |
+| Detection (Presidio)  | Microsoft Presidio 2.2.x                 | Replaces the Phase 1 regex placeholders for severity-4 entities |
+| Logging               | JSONL via `loguru`                       | One file per (campaign, profile) tuple                          |
+| Analysis              | pandas 2.2+, matplotlib 3.8+             | Aggregate metrics and figures                                   |
 
 ---
 
@@ -242,16 +242,16 @@ The test RAG system is the target that adversarial scenarios attack. Its impleme
 
 **Table 7.** Test RAG system components.
 
-| Component        | Implementation                                         | Configuration Notes                                      |
-| ---------------- | ------------------------------------------------------ | -------------------------------------------------------- |
-| Corpus loader    | Reads `ground_truth.json` from Phase 1                 | 155 documents loaded once at startup                     |
-| Chunker          | LangChain `RecursiveCharacterTextSplitter`             | 512-token chunks, 64-token overlap                       |
-| Embedder         | `sentence-transformers all-MiniLM-L6-v2`               | 384-dim vectors, local/free, batched at 100              |
-| Vector store     | ChromaDB persistent client                             | One collection per corpus snapshot                       |
-| Retriever        | Cosine similarity, $k = 5$                             | Override per scenario if needed                          |
-| Prompt template  | Minimal system prompt + retrieved context + user query | Documented in §4.2                                       |
-| LLM backend      | Claude Sonnet 4.6 (`claude-sonnet-4-6`)                | `temperature=0`; max_tokens 1024; `ANTHROPIC_API_KEY`    |
-| Response handler | Captures full response, token usage, latency           | Returns to scoring layer                                 |
+| Component        | Implementation                                         | Configuration Notes                                   |
+| ---------------- | ------------------------------------------------------ | ----------------------------------------------------- |
+| Corpus loader    | Reads `ground_truth.json` from Phase 1                 | 155 documents loaded once at startup                  |
+| Chunker          | LangChain `RecursiveCharacterTextSplitter`             | 512-token chunks, 64-token overlap                    |
+| Embedder         | `sentence-transformers all-MiniLM-L6-v2`               | 384-dim vectors, local/free, batched at 100           |
+| Vector store     | ChromaDB persistent client                             | One collection per corpus snapshot                    |
+| Retriever        | Cosine similarity, $k = 5$                             | Override per scenario if needed                       |
+| Prompt template  | Minimal system prompt + retrieved context + user query | Documented in §4.2                                    |
+| LLM backend      | Claude Sonnet 4.6 (`claude-sonnet-4-6`)                | `temperature=0`; max_tokens 1024; `ANTHROPIC_API_KEY` |
+| Response handler | Captures full response, token usage, latency           | Returns to scoring layer                              |
 
 ### 4.2 System Prompt
 
@@ -387,13 +387,13 @@ The choice to define $L$ at the scenario level as "leak in any turn" rather than
 
 **Table 10.** Phase 2 resource budget (recomputed for n = 155).
 
-| Component                                    | Calls                       | Tokens (in/out) | Cost band   |
-| -------------------------------------------- | --------------------------- | --------------- | ----------- |
-| Pilot (B1)                                   | ~30                         | 60K / 30K       | under $3    |
-| Main Claude (B2): 50 sc. × avg 2 turns × 3 r | ~300                        | 900K / 600K     | $10--20     |
-| Embedding indexing (one-time, n=155)          | local only                  | 0 tokens        | $0.00       |
-| LLM-as-Judge calibration sample               | ~50                         | 150K / 50K      | under $3    |
-| **Total upper bound**                         |                             |                 | **$15--26** |
+| Component                                    | Calls      | Tokens (in/out) | Cost band   |
+| -------------------------------------------- | ---------- | --------------- | ----------- |
+| Pilot (B1)                                   | ~30        | 60K / 30K       | under $3    |
+| Main Claude (B2): 50 sc. × avg 2 turns × 3 r | ~300       | 900K / 600K     | $10--20     |
+| Embedding indexing (one-time, n=155)         | local only | 0 tokens        | $0.00       |
+| LLM-as-Judge calibration sample              | ~50        | 150K / 50K      | under $3    |
+| **Total upper bound**                        |            |                 | **$15--26** |
 
 **Cost discipline.** The total upper-bound cost for Phase 2 is well under $30, using a single Anthropic provider. Embeddings are free because `sentence-transformers all-MiniLM-L6-v2` runs locally; the LLM call budget is dominated by per-scenario generation cost. Adding additional scenarios would push the budget up linearly at approximately $0.05–0.10 per scenario-run.
 
@@ -462,14 +462,14 @@ The Phase 2 timeline is six weeks. Each week has named deliverables and a hard e
 
 **Table 12.** Six-week execution timeline.
 
-| Wk  | Theme                                  | Deliverables                                                                                                                                              | Exit Gate                                                                   |
-| --- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| 1   | Scenario skeletons                     | `scenarios/v0_skeletons.json` (50+ entries with profile, family, target severity, threat row); RAG infrastructure scaffolding (LangChain + ChromaDB stub) | 50 skeletons present; validator exits 0                                     |
-| 2   | Scenario queries + pilot RAG           | `scenarios/v1_queries.json` (full query text for all 50); RAG indexing of 155-doc corpus complete; first end-to-end smoke test                            | 1 query end-to-end through the full pipeline produces a scored JSONL record |
-| 3   | Pilot + main campaign                  | B1 pilot complete (10 sc. × Claude Sonnet 4.6 × 1 run); B2 main campaign complete (50 sc. × 3 runs); per-turn JSONL log produced                         | B2 ASR and mean $S$ available per profile                                   |
-| 4   | Poisoned corpus + P3 scenarios         | Poisoned snapshot indexed; all P3 corpus-poisoning scenarios run on poisoned snapshot; per-profile result tables drafted                                  | P3 results produced; per-profile summary table draft ready                  |
-| 5   | Judge calibration + P4 offline         | Judge prompt v3 finalized (Opus 4.7); inter-judge $\kappa$ computed on 50-response sample; B3 P4 offline analysis complete                                | Judge $\kappa \geq 0.75$ (or documented failure); P4 results integrated     |
-| 6   | Aggregation + handoff to Phase 3       | `baseline_summary.csv` (300 rows) + `baseline_metrics.json` (ASR, $S$, $\bar{S}$ per profile/family/model); Phase 2 retrospective document                | Phase 3 input package ready                                                 |
+| Wk  | Theme                            | Deliverables                                                                                                                                              | Exit Gate                                                                   |
+| --- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| 1   | Scenario skeletons               | `scenarios/v0_skeletons.json` (50+ entries with profile, family, target severity, threat row); RAG infrastructure scaffolding (LangChain + ChromaDB stub) | 50 skeletons present; validator exits 0                                     |
+| 2   | Scenario queries + pilot RAG     | `scenarios/v1_queries.json` (full query text for all 50); RAG indexing of 155-doc corpus complete; first end-to-end smoke test                            | 1 query end-to-end through the full pipeline produces a scored JSONL record |
+| 3   | Pilot + main campaign            | B1 pilot complete (10 sc. × Claude Sonnet 4.6 × 1 run); B2 main campaign complete (50 sc. × 3 runs); per-turn JSONL log produced                          | B2 ASR and mean $S$ available per profile                                   |
+| 4   | Poisoned corpus + P3 scenarios   | Poisoned snapshot indexed; all P3 corpus-poisoning scenarios run on poisoned snapshot; per-profile result tables drafted                                  | P3 results produced; per-profile summary table draft ready                  |
+| 5   | Judge calibration + P4 offline   | Judge prompt v3 finalized (Opus 4.7); inter-judge $\kappa$ computed on 50-response sample; B3 P4 offline analysis complete                                | Judge $\kappa \geq 0.75$ (or documented failure); P4 results integrated     |
+| 6   | Aggregation + handoff to Phase 3 | `baseline_summary.csv` (300 rows) + `baseline_metrics.json` (ASR, $S$, $\bar{S}$ per profile/family/model); Phase 2 retrospective document                | Phase 3 input package ready                                                 |
 
 ### 7.2 Critical-Path Dependencies
 
@@ -513,14 +513,14 @@ The metrics computed in Phase 2 are exactly the metrics used by Phase 1's formal
 
 **Table 14.** Primary Phase 2 metrics.
 
-| Metric                                 | Definition                                                                                     | What It Answers                                          |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| ASR                                    | $\frac{1}{N} \sum_{i=1}^{N} L(q_i, r_i, D, u)$ over all scenarios for a fixed (profile, model) | RQ1: how often does leakage occur in baseline RAG        |
-| Mean Severity $\bar{S}$                | $\frac{1}{N} \sum_{i=1}^{N} S(q_i, r_i, D, u)$, same scope                                     | RQ1: average severity of leakage events                  |
-| Conditional Severity $\bar{S}_{\|L=1}$ | $\frac{1}{\|\{i: L_i=1\}\|} \sum_{i: L_i=1} S_i$                                               | RQ1: when leaks happen, how bad are they                 |
-| Per-family ASR                         | ASR computed within an attack family                                                           | RQ1: which attack family is most effective in baseline   |
-| Per-profile ASR                        | ASR computed within an attacker profile                                                        | RQ4: which attacker profile produces the highest leakage |
-| Run-to-run $\sigma$ASR                 | Standard deviation of ASR across the 3 runs of B2                                             | Quantifies non-determinism; required for defensible claim |
+| Metric                                 | Definition                                                                                     | What It Answers                                           |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| ASR                                    | $\frac{1}{N} \sum_{i=1}^{N} L(q_i, r_i, D, u)$ over all scenarios for a fixed (profile, model) | RQ1: how often does leakage occur in baseline RAG         |
+| Mean Severity $\bar{S}$                | $\frac{1}{N} \sum_{i=1}^{N} S(q_i, r_i, D, u)$, same scope                                     | RQ1: average severity of leakage events                   |
+| Conditional Severity $\bar{S}_{\|L=1}$ | $\frac{1}{\|\{i: L_i=1\}\|} \sum_{i: L_i=1} S_i$                                               | RQ1: when leaks happen, how bad are they                  |
+| Per-family ASR                         | ASR computed within an attack family                                                           | RQ1: which attack family is most effective in baseline    |
+| Per-profile ASR                        | ASR computed within an attacker profile                                                        | RQ4: which attacker profile produces the highest leakage  |
+| Run-to-run $\sigma$ASR                 | Standard deviation of ASR across the 3 runs of B2                                              | Quantifies non-determinism; required for defensible claim |
 
 ### 8.2 Secondary Diagnostic Metrics
 
@@ -591,7 +591,7 @@ Phase 2's outputs are the substrate for Phase 3. Naming the handoff here keeps t
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
 | 50+ scenario registry          | Frozen attack set; every Phase 3 defense runs against the same scenarios so $\Delta S$ is well-defined           |
 | Per-scenario baseline $L$, $S$ | The reference values that defense ablations subtract from                                                        |
-| Run-to-run variance analysis   | Establishes the noise floor that defense ablations must exceed to be statistically significant                    |
+| Run-to-run variance analysis   | Establishes the noise floor that defense ablations must exceed to be statistically significant                   |
 | Calibrated LLM-as-Judge prompt | Reusable judge component; Phase 3 does not recalibrate it unless the prompt is itself the variable being studied |
 | Risk register lessons          | Rate-limit, refusal-rate, and chunking lessons carry forward into Phase 3 ablation runs                          |
 | P4 offline analysis            | Provides the contractual-trust dimension input for the GDPR processor analysis in Phase 4                        |
