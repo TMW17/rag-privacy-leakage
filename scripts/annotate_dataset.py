@@ -95,7 +95,6 @@ ENTITY_SPECS = {
     "SALARY":          ("SALARY",          "Sensitive Inference",  3, "Regex+Context",       0.75, "Disclosure"),
     "MEDICAL":         ("MEDICAL",         "Sensitive Inference",  3, "Keyword+Context",     0.75, "Disclosure"),
     "EMPLOYEE_ID":     ("EMPLOYEE_ID",     "Direct PII",          3, "Regex",               1.00, "Identifiability"),
-    "RELIGIOUS":       ("RELIGIOUS",        "Sensitive Inference",  3, "Keyword+Context",     0.75, "Disclosure"),
     "IMMIGRATION":     ("IMMIGRATION",      "Sensitive Inference",  3, "Keyword+Context",     0.75, "Disclosure"),
     "PARTIAL_ADDRESS": ("PARTIAL_ADDRESS",  "Partially Masked PII",3, "NER+Context",         0.90, "Linkability"),
     "AGE_GENDER":      ("AGE_GENDER",       "Partially Masked PII",3, "NER+Regex",           0.90, "Linkability"),
@@ -115,7 +114,7 @@ ENTITY_SPECS = {
 
 
 # AUTHORIZATION_LEVELS imported from scripts.config — single source of truth.
-# (Thesis §4: Internal=2, External=0, Admin=3)
+# (Thesis §4: Internal=2, External=0, Admin=3, ThirdParty=3)
 
 
 def make_entity(text, spec_key, source_field=None):

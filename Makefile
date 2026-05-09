@@ -15,7 +15,7 @@ all: data/ground_truth/ground_truth.json \
 data/ground_truth/ground_truth.json:
 	python scripts/generate_dataset.py
 
-# Step 2 — annotate with 2,315 entity-level PII labels
+# Step 2 — annotate with 2,280 entity-level PII labels
 data/ground_truth/ground_truth_annotations.json: data/ground_truth/ground_truth.json
 	python scripts/annotate_dataset.py
 

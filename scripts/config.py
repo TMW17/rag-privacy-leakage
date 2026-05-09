@@ -22,12 +22,15 @@ All paths are relative to PROJECT_ROOT, which is the 'code/' directory
     │   │   ├── ground_truth.json          Full corpus (4 document classes)
     │   │   ├── ground_truth_index.json    Flat lookup by document_id
     │   │   └── ground_truth_annotations.json  Entity-level PII annotations
+    │   ├── rag_index/                 ← Phase 2 vector store
+    │   │   └── chromadb/                  ChromaDB persistent store
     │   └── synthetic/                 ← Reserved for future datasets
     ├── experiment_logs/               ← Phase 2-4 experiment run logs
     ├── experiments/                   ← Attack scripts and configs
     ├── results/
     │   ├── reidentification_risk.json     k-anonymity / l-diversity analysis
     │   └── kappa_results.json             Inter-annotator agreement scores
+    ├── scenarios/                     ← Phase 2 adversarial scenario registry
     └── scripts/
         ├── config.py                  ← THIS FILE
         ├── generate_dataset.py        ← Step 1: corpus generation (run directly)
@@ -134,6 +137,8 @@ _REQUIRED_DIRS = [
     RESULTS_DIR,
     EXPERIMENT_LOGS_DIR,
     EXPERIMENTS_DIR,
+    SCENARIOS_DIR,
+    RAG_CHROMADB_DIR,
 ]
 
 for directory in _REQUIRED_DIRS:

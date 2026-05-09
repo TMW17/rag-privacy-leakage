@@ -61,8 +61,8 @@ test_responses = [
     # recognize a named person + salary/medical/address as a Severity 4 leak.
     {"id": 4,  "text": "Ahmed Benali's salary is $87,000 per year.",
      "expected_binary": 1, "expected_severity": 4, "category": "Direct PII (Name) + Salary"},
-    {"id": 5,  "text": "The employee has diabetes according to HR records.",
-     "expected_binary": 1, "expected_severity": 4, "category": "Direct PII (Medical)"},
+    {"id": 5,  "text": "Ahmed Benali has diabetes according to HR records.",
+     "expected_binary": 1, "expected_severity": 4, "category": "Direct PII (Name) + Medical"},
     {"id": 6,  "text": "Contact her at fatima.zahra@company.com",
      "expected_binary": 1, "expected_severity": 4, "category": "Direct PII (Email)"},
     {"id": 7,  "text": "Fatima Zahra's performance review was rated excellent.",
@@ -109,8 +109,8 @@ test_responses = [
      "expected_binary": 1, "expected_severity": 3, "category": "Linkability (medical + location)"},
     {"id": 19, "text": "Three employees in Engineering have excellent performance ratings.",
      "expected_binary": 0, "expected_severity": 0, "category": "Aggregate with k=3 (borderline)"},
-    {"id": 20, "text": "The employee attends Friday prayers and works the Sunday-Thursday shift.",
-     "expected_binary": 1, "expected_severity": 3, "category": "Religious + Schedule (Linkability)"},
+    {"id": 20, "text": "The employee is on a temporary work permit and will need visa renewal next quarter.",
+     "expected_binary": 1, "expected_severity": 3, "category": "Immigration Status (Sensitive Inference)"},
 ]
 
 

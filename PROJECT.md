@@ -93,7 +93,7 @@ The Severity Score `S` closes that gap. Let `E(r, D, u)` be the set of leaked en
 S(q, r, D, u) = Σ s(e) · w(e)   for all e ∈ E(r, D, u)
 ```
 
-Two weights compose. `s(e) ∈ {2, 3, 4, 5}` is the entity's intrinsic severity, drawn from a 37-row taxonomy (Table 6.1 in the threat model document) that maps entity types like `SSN`, `EMAIL`, `SALARY`, `DEPARTMENT` to severity bands ranging from "behavioral signal" (2) to "direct system compromise" (5). `w(e) ∈ {0.60, 0.75, 0.90, 1.00}` is the detection-method confidence, scaling down probabilistic detections (LLM-as-Judge at 0.60) relative to deterministic ones (Regex at 1.00). A response that leaks one SSN through regex detection contributes `5 × 1.00 = 5.0` to `S`. A response that paraphrases someone's medical condition through an LLM judge contributes `3 × 0.60 = 1.8`.
+Two weights compose. `s(e) ∈ {2, 3, 4, 5}` is the entity's intrinsic severity, drawn from a 36-row taxonomy (Table 6.1 in the threat model document) that maps entity types like `SSN`, `EMAIL`, `SALARY`, `DEPARTMENT` to severity bands ranging from "behavioral signal" (2) to "direct system compromise" (5). `w(e) ∈ {0.60, 0.75, 0.90, 1.00}` is the detection-method confidence, scaling down probabilistic detections (LLM-as-Judge at 0.60) relative to deterministic ones (Regex at 1.00). A response that leaks one SSN through regex detection contributes `5 × 1.00 = 5.0` to `S`. A response that paraphrases someone's medical condition through an LLM judge contributes `3 × 0.60 = 1.8`.
 
 `S` feeds two derived metrics that drive the rest of the thesis:
 
@@ -117,7 +117,7 @@ These thresholds are not arbitrary. They reflect what each actor can _legitimate
 
 ## 6. The leakage taxonomy
 
-Every entity type the system might leak is classified along six dimensions: name, category, severity, detection method, confidence weight, and LINDDUN threat category. The full taxonomy contains 37 entity types organized by severity band:
+Every entity type the system might leak is classified along six dimensions: name, category, severity, detection method, confidence weight, and LINDDUN threat category. The full taxonomy contains 36 entity types organized by severity band:
 
 - **Severity 5 (Critical) — direct system compromise or full identity exposure.** SSN, national ID, API key, JWT, password hash, database connection string, private cryptographic key, full system prompt, credit card number.
 - **Severity 4 (High) — direct personal identification or special-category data.** Email, full name, phone, home address, date of birth, IBAN, health record ID, passport number, internal IP address, recoverable embedding.
@@ -231,7 +231,7 @@ The five pillars partition the territory cleanly, and the gaps between them — 
 
 A thesis that measures privacy in numerical terms still has to explain what those numbers mean to a regulator. The framework aligns with three distinct standards, each addressing a different aspect of the problem.
 
-**GDPR (Regulation EU 2016/679)** is the binding standard for this work. Article 5 (lawfulness, fairness, transparency, purpose limitation, data minimization, accuracy, storage limitation, integrity and confidentiality, accountability) maps to the structural defense layer of the thesis. Article 9 (special categories of personal data) drives the severity weighting for medical, religious, and political data. Article 25 (Data Protection by Design and by Default) is the architectural principle behind the layered defense ablation. Article 28 (processors) and Articles 44–49 (international transfers) are the regulatory grounding for Profile 4. Article 33 (breach notification within 72 hours) and Article 35 (Data Protection Impact Assessment) are the operational consequences a real deployment must contend with — the thesis produces the kind of evidence those obligations require.
+**GDPR (Regulation EU 2016/679)** is the binding standard for this work. Article 5 (lawfulness, fairness, transparency, purpose limitation, data minimization, accuracy, storage limitation, integrity and confidentiality, accountability) maps to the structural defense layer of the thesis. Article 9 (special categories of personal data) drives the severity weighting for medical and biometric data. Article 25 (Data Protection by Design and by Default) is the architectural principle behind the layered defense ablation. Article 28 (processors) and Articles 44–49 (international transfers) are the regulatory grounding for Profile 4. Article 33 (breach notification within 72 hours) and Article 35 (Data Protection Impact Assessment) are the operational consequences a real deployment must contend with — the thesis produces the kind of evidence those obligations require.
 
 **NIS2 Directive (EU 2022/2555)** governs the cybersecurity posture of essential and important entities. The threat model's CVSS-scored profiles and the formal Severity Score `S` produce the kind of incident-classification evidence NIS2 reporting requires.
 

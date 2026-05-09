@@ -14,7 +14,7 @@
 
 > **Project:** Generative AI, Privacy & Personal Data --- Mapping and Reducing Data Leakage in Retrieval-Augmented Generation Systems.
 >
-> **Scope of this document:** This roadmap operationalizes the four-component Phase 2 deliverable: (1) the development of 50+ adversarial scenarios, (2) the synthetic PII corpus integration, (3) the test RAG system implementation, and (4) the initial baseline campaign against GPT-4 and Claude. Every scenario, dataset, and infrastructure component is anchored to a specific deliverable from Phase 1 and to a row in the operational attack-objective mapping established in the Threat Model.
+> **Scope of this document:** This roadmap operationalizes the four-component Phase 2 deliverable: (1) the development of 50+ adversarial scenarios, (2) the synthetic PII corpus integration, (3) the test RAG system implementation, and (4) the initial baseline campaign against Claude Sonnet 4.6. Every scenario, dataset, and infrastructure component is anchored to a specific deliverable from Phase 1 and to a row in the operational attack-objective mapping established in the Threat Model.
 >
 > **Prerequisites:** Phase 1 is complete. The 155-document synthetic corpus, the 2,280-entity ground truth annotations, the formal definitions $L$ and $S$, the profile-dependent evaluation engine, and the inter-annotator agreement validation ($\kappa = 0.875$, $\kappa_w = 0.968$) are all available as frozen, reusable artifacts. Phase 2 builds on this foundation; it does not regenerate it.
 >

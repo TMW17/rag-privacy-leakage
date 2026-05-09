@@ -3130,13 +3130,11 @@ one is discussed in detail in the section where it matters most:
   salary--age, medical--occupation, and locale-specific dependencies
   that this corpus does not encode.
 
-- **Five entity types from Table 6.1 receive no annotated instances**
+- **Four entity types from Table 6.1 receive no annotated instances**
   (). Two are scope decisions tied to the Algerian HR context
   (`CREDIT_CARD`, `PASSPORT_ID`); two are computed-attribute types
   whose risk is measured at dataset level (`QUASI_IDENTIFIER`,
-  `PARTIAL_ADDRESS`); one is a deliberate corpus design decision
-  (`RELIGIOUS`) excluding special-category religious data from the
-  baseline synthetic corpus.
+  `PARTIAL_ADDRESS`).
 
 - **The LLM-as-Judge detector is currently a substring placeholder**
   (). Phase 1 severity scores depending on it are biased downward and
@@ -3643,7 +3641,7 @@ ENTITY_SPECS = {
     "SSN":   ("SSN","Direct PII", 5,"Regex", 1.00,"Identifiability"),
     "PERSON":("PERSON","Direct PII",4,"NER",  0.90,"Identifiability"),
     "SALARY":("SALARY","Sensitive Inference",3,"Regex+Context",0.75,"Disclosure"),
-    ...  # 37 entity types total
+    ...  # 36 entity types total
 }
 
 # Authorization levels (Definition 1 thresholds)
@@ -3673,7 +3671,7 @@ ANNOTATION GENERATION COMPLETE
   Total entities tagged:     2,280
 
   Coverage against Table 6.1:
-    Entity types used: 32 / 37
+    Entity types used: 32 / 36
     Severity 5 (Critical): 235 entities
     Severity 4 (High):     865 entities
     Severity 3 (Medium):   480 entities
@@ -3701,15 +3699,14 @@ Internal Memos & 20 & ${\sim}45$ & ${\sim}2$ & 3\
 
 ### Coverage Gap: Entity Types Without Annotated Instances {#subsec:coverage-gap}
 
-The annotation pipeline instantiates 32 of the 37 entity types defined
-in Table 6.1 of the Threat Model. Five types are present in the
+The annotation pipeline instantiates 32 of the 36 entity types defined
+in Table 6.1 of the Threat Model. Four types are present in the
 specification dictionary but receive zero annotated instances in the
 corpus, and we name them explicitly here rather than leaving the gap
 inside a terminal output line.
 
-The five are `CREDIT_CARD` (severity 5), `PASSPORT_ID` (severity 4),
-`QUASI_IDENTIFIER` (severity 4), `PARTIAL_ADDRESS` (severity 3), and
-`RELIGIOUS` (severity 3). Their absence falls into two distinct
+The four are `CREDIT_CARD` (severity 5), `PASSPORT_ID` (severity 4),
+`QUASI_IDENTIFIER` (severity 4), and `PARTIAL_ADDRESS` (severity 3). Their absence falls into two distinct
 categories, each requiring a different justification.
 
 The first two are **scope decisions tied to the Algerian enterprise
@@ -3746,19 +3743,11 @@ This is a methodological choice, not an oversight: aggregate statistical
 risks belong in aggregate statistical analyses, while per-response
 evaluation belongs in the response-level engine.
 
-The fifth zero-instance type, `RELIGIOUS`, reflects a deliberate corpus
-design decision. Religious affiliation is a GDPR Article 9 special
-category, but the synthetic generation pipeline does not produce
-religious note fields in employee records, avoiding the generation of
-potentially stigmatizing data patterns while keeping the corpus scoped
-to the Algerian enterprise HR context. The type remains in the taxonomy
-specification for completeness; Phase 2 attack scenarios do not target
-it.
 
-The five uncovered types should be read as **documented per-entity scope
+The four uncovered types should be read as **documented per-entity scope
 boundaries** of Phase 2 attack scenarios, not as gaps in the threat
 model itself. Phase 2 does not generate adversarial queries that target
-passport numbers, credit cards, or religious affiliation, but every
+passport numbers or credit cards, but every
 quasi-identifier-style attack remains in scope through the linkability
 scenarios derived from Table 9.
 
