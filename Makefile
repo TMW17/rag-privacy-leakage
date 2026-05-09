@@ -19,6 +19,8 @@ data/ground_truth/ground_truth.json:
 data/ground_truth/ground_truth_annotations.json: data/ground_truth/ground_truth.json
 	python scripts/annotate_dataset.py
 
+# Step 3 (evaluation_engine.py) is a library — imported by experiments, not run directly
+
 # Step 4 — k-anonymity / l-diversity re-identification analysis
 results/reidentification_risk.json: data/ground_truth/ground_truth.json
 	python scripts/reidentification_risk.py
