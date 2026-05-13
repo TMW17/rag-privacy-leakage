@@ -294,5 +294,3 @@ This file is the explanation of the project. The deep treatment lives in compani
 - **`CLAUDE.md`** _(if you created it from the previous PROJECT.md)_ — operational guidance for AI coding agents working on the codebase: script contracts, invariants, conventions, frozen-artifact lists.
 
 When deeper detail is needed on any topic touched in this file, the relevant document above is the next read. This file is the _map_; those are the _territory_.
-
-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

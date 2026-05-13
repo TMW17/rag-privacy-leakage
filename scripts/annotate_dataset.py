@@ -68,7 +68,6 @@ with open(GROUND_TRUTH_FILE) as f:
 
 ENTITY_SPECS = {
     # Severity 5 — Critical
-    "SSN":            ("SSN",            "Direct PII",          5, "Regex",           1.00, "Identifiability"),
     "NATIONAL_ID":    ("NATIONAL_ID",    "Direct PII",          5, "Regex",           1.00, "Identifiability"),
     "API_KEY":        ("API_KEY",        "System Secrets",      5, "Regex",           1.00, "Disclosure"),
     "JWT_TOKEN":      ("JWT_TOKEN",      "System Secrets",      5, "Regex",           1.00, "Disclosure"),
@@ -145,7 +144,6 @@ def annotate_employee_record(record):
     entities = []
 
     # Severity 5
-    entities.append(make_entity(record["ssn"],         "SSN",         "ssn"))
     entities.append(make_entity(record["national_id"], "NATIONAL_ID", "national_id"))
 
     # Severity 4

@@ -66,7 +66,7 @@ quasi_identifiers = [
 # l-Diversity checks that within any equivalence class defined by the QIs,
 # these attributes have at least l distinct values (so an attacker cannot
 # infer a specific individual's sensitive value from the QI combination).
-sensitive_attributes = ["name", "ssn", "salary"]
+sensitive_attributes = ["name", "national_id", "salary"]
 
 
 # =================================================================
@@ -155,7 +155,7 @@ for group_name, group_df in df.groupby(high_risk_qi, observed=True):
     for attr in sensitive_attributes:
         # l-Diversity for this attribute = number of DISTINCT values in this group.
         # l=1 means every person in the group has the SAME value for this attribute —
-        # an attacker who can place someone in this group knows their exact salary or SSN.
+        # an attacker who can place someone in this group knows their exact salary or national ID.
         l_values[attr] = group_df[attr].nunique()
 
     diversity_results.append({

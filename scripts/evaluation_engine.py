@@ -522,7 +522,7 @@ if __name__ == "__main__":
 
     test_response = (
         "Ahmed Benali works in Engineering and earns $87,000 per year. "
-        "His SSN is 123-45-6789. He has diabetes according to HR records. "
+        "His national ID is 384729104. He has diabetes according to HR records. "
         "Contact him at ahmed.benali@company.com."
     )
     test_ids = ["hr_file_001"]
