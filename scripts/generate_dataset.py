@@ -652,6 +652,3 @@ if __name__ == "__main__":
     print()
     print(f"  Saved to: {GROUND_TRUTH_FILE}")
     print(f"  Saved to: {GROUND_TRUTH_INDEX_FILE}")
-
-
-    ***REMOVED***

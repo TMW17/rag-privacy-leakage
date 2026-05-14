@@ -349,7 +349,7 @@ If reasoning alone suffices to reconstruct private data, then
 model-level privacy guarantees (differential privacy, unlearning) are
 insufficient, and pipeline-level defenses become essential.
 Mireshghallah & Li's position paper names the gap but offers no
-empirical testbed, which is what the thesis's 2,280-entity ground-truth
+empirical testbed, which is what the thesis's 2,190-entity ground-truth
 corpus is designed to fill.
 :::
 
@@ -3010,7 +3010,7 @@ Reducing Data Leakage in Retrieval-Augmented Generation Systems.
 metrics ($L$ and $S$) that form the formal measurement framework for all
 experiments that follow. It introduces the 155-document synthetic ground
 truth corpus stratified across four document classes, describes the
-2,280-entity annotation protocol, explains the profile-dependent
+2,190-entity annotation protocol, explains the profile-dependent
 evaluation engine, presents the re-identification risk analysis, and
 validates the taxonomic objectivity through inter-annotator agreement
 ($\kappa = 0.875$, $\kappa_w = 0.968$).
@@ -3055,7 +3055,7 @@ step, organized into seven interconnected methodological tasks:
     specific segment of the formal threat model from the preceding
     chapters ().
 
-3.  Development of a 2,280-entity annotation protocol that creates a
+3.  Development of a 2,190-entity annotation protocol that creates a
     one-to-one mapping between every PII field in the corpus and its
     corresponding row in the leakage taxonomy ().
 
@@ -3081,7 +3081,7 @@ L3.3cm L2.2cm L6.6cm **File** & **Location** & **Role**\
 (4 classes)\
 `ground_truth_` `index.json` & `data/` `ground_truth/` & Flat $O(1)$
 lookup by document ID\
-`ground_truth_` `annotations.json` & `data/` `ground_truth/` & 2,280
+`ground_truth_` `annotations.json` & `data/` `ground_truth/` & 2,190
 entity-level PII annotations\
 `generate_dataset.py` & `scripts/` & Corpus generator (seed 42)\
 `annotate_dataset.py` & `scripts/` & Entity annotation pipeline\
@@ -3668,21 +3668,21 @@ def annotate_internal_memo(memo):     ...  # cross-references
 ```{style="termstyle"}
 ANNOTATION GENERATION COMPLETE
   Total documents annotated: 155
-  Total entities tagged:     2,280
+  Total entities tagged:     2,190
 
   Coverage against Table 6.1:
-    Entity types used: 32 / 36
-    Severity 5 (Critical): 235 entities
+    Entity types used: 30 / 35
+    Severity 5 (Critical): 135 entities
     Severity 4 (High):     865 entities
-    Severity 3 (Medium):   480 entities
+    Severity 3 (Medium):   490 entities
     Severity 2 (Low):      700 entities
 
   LINDDUN category distribution:
-    Identifiability: 1,160
+    Identifiability: 1,060
     Unawareness:       500
-    Disclosure:        260
+    Disclosure:        264
     Detectability:     225
-    Linkability:       135
+    Linkability:       141
 ```
 
 :::
@@ -3690,23 +3690,23 @@ ANNOTATION GENERATION COMPLETE
 ::: tabular
 L3.5cm C2cm C2cm C2.5cm C2.5cm **Document Class** & **Count** &
 **Entities** & **Avg per Doc** & **Max Severity**\
-Employee Records & 100 & ${\sim}2{,}085$ & ${\sim}21$ & 5\
+Employee Records & 100 & ${\sim}2{,}000$ & ${\sim}20$ & 5\
 System Configs & 5 & ${\sim}60$ & ${\sim}12$ & 5\
 Medical Reports & 30 & 90 & 3 & 4\
-Internal Memos & 20 & ${\sim}45$ & ${\sim}2$ & 3\
-**Total** & **155** & **2,280** & **14.7** & **5**\
+Internal Memos & 20 & ${\sim}40$ & ${\sim}2$ & 3\
+**Total** & **155** & **2,190** & **14.1** & **5**\
 :::
 
 ### Coverage Gap: Entity Types Without Annotated Instances {#subsec:coverage-gap}
 
-The annotation pipeline instantiates 32 of the 36 entity types defined
-in Table 6.1 of the Threat Model. Four types are present in the
+The annotation pipeline instantiates 30 of the 35 entity types defined
+in Table 6.1 of the Threat Model. Five types are present in the
 specification dictionary but receive zero annotated instances in the
 corpus, and we name them explicitly here rather than leaving the gap
 inside a terminal output line.
 
-The four are `CREDIT_CARD` (severity 5), `PASSPORT_ID` (severity 4),
-`QUASI_IDENTIFIER` (severity 4), and `PARTIAL_ADDRESS` (severity 3). Their absence falls into two distinct
+The five are `CREDIT_CARD` (severity 5), `PASSPORT_ID` (severity 4),
+`QUASI_IDENTIFIER` (severity 4), `PARTIAL_ADDRESS` (severity 3), and `MEMBERSHIP` (severity 3). Their absence falls into two distinct
 categories, each requiring a different justification.
 
 The first two are **scope decisions tied to the Algerian enterprise
@@ -4105,8 +4105,8 @@ Combination** & **$k_{\min}$** & **Unique** & **Risk**\
 [**Critical**]{style="color: accent"}\
 :::
 
-The worst combination (department + salary range + age range + office
-location) uniquely identifies **85 out of 100 employees** without ever
+The worst combination (department + medical condition + age range + office
+location) uniquely identifies **84 out of 100 employees** without ever
 asking for a name, Social Security Number, or any other directly
 identifying attribute. This shows that the Linkability threat is not a
 theoretical worry but a concretely measurable and quantifiable
@@ -4586,7 +4586,7 @@ the annotations & Pass\
 Linkability, Detectability, Unawareness) appear & Pass\
 4 & Confidence Weights & Every $w(e)$ matches the expected value for its
 detection method as defined in Definition 2 & Pass\
-5 & Entity Volume & Total annotated entities exceeds 500 (actual: 2,280)
+5 & Entity Volume & Total annotated entities exceeds 500 (actual: 2,190)
 & Pass\
 6 & Cross-References & All 30 medical report $\to$ employee links
 resolve to valid document IDs & Pass\
@@ -4606,7 +4606,7 @@ GROUND TRUTH VALIDATION SUITE
 4. Confidence Weight Consistency:
    All confidence weights match Table 6.1 (mismatches: 0)
 5. Entity Count Sanity:
-   Total entities: 2280 (need >500)
+   Total entities: 2190 (need >500)
 6. Cross-Document Reference Validation:
    Medical report -> employee refs: 30/30 valid
 
@@ -4637,7 +4637,7 @@ the Phase 2 RAG system retrieves against. Every adversarial query in the
 50+ attack scenarios runs over this exact corpus, and the deterministic
 seed guarantees identical retrieval outcomes across reruns, a property
 that matters for reproducibility audits and committee verification. The
-2,280-entity annotation file is the answer key that drives automatic
+2,190-entity annotation file is the answer key that drives automatic
 scoring. No human re-annotation happens during attack execution; the
 evaluation engine reads the annotations directly, which is what allows
 Phase 2 to scale to thousands of query-response pairs without
@@ -4651,7 +4651,7 @@ separately calibrated numbers. The re-identification risk analysis seeds
 the Phase 2 linkability scenarios for Profile 1: rather than designing
 multi-turn linkability attacks ad hoc, Phase 2 uses the empirically
 validated quasi-identifier sets from as the attack-vector specification.
-The four-attribute combination that uniquely identifies 85 of 100
+The four-attribute combination that uniquely identifies 84 of 100
 employees is, quite literally, the attack target.
 
 The inter-annotator agreement validation establishes the taxonomic
