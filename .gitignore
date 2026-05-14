@@ -24,3 +24,13 @@ htmlcov/
 
 # OS
 .DS_Store
+
+# Phase 2 generated artifacts (keep directories, ignore contents)
+data/rag_index/chromadb/*
+!data/rag_index/chromadb/.gitkeep
+data/rag_index/poisoned_chromadb/*
+!data/rag_index/poisoned_chromadb/.gitkeep
+experiment_logs/*.jsonl
+results/baseline/*.csv
+results/judge_validation/*.csv
+results/p4_offline/*.csv
