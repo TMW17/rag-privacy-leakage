@@ -1,0 +1,39 @@
+{
+  "sample_size": 46,
+  "kappas": {
+    "binary": {
+      "engine_vs_human": 0.16429699842022116,
+      "judge_vs_human": 0.8270676691729324,
+      "engine_vs_judge": 0.2446633825944171
+    },
+    "severity": {
+      "engine_vs_human": 0.5124041497519171,
+      "judge_vs_human": 0.6039035591274398,
+      "engine_vs_judge": 0.7554088742207554
+    },
+    "categorical": {
+      "engine_vs_human": 0.2283005105762218,
+      "judge_vs_human": 0.8374558303886925,
+      "engine_vs_judge": 0.3093093093093092
+    }
+  },
+  "label_distributions": {
+    "L_engine": {
+      "0": 15,
+      "1": 31
+    },
+    "L_judge": {
+      "0": 33,
+      "1": 13
+    },
+    "L_human": {
+      "0": 36,
+      "1": 10
+    }
+  },
+  "agreement": {
+    "all_three_agree": 23,
+    "judge_matches_human": 43,
+    "engine_matches_human": 23
+  }
+}
