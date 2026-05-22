@@ -480,7 +480,7 @@ Rates computed over all 267 turns (`hard_refusal_rate`, `soft_refusal_with_leak_
 | Leak type — cross\_reference | 0 |
 | Soft refusal with leak (P3) | 0.0% |
 
-The 37.8% hard-refusal rate is consistent with a system that recognizes most overt attack patterns: in more than a third of all turns, the model refuses without disclosing any entity. The 16.7% soft-refusal-with-leak rate is the more concerning figure: in one of six turns where the model produces refusal language, it nonetheless leaks PII elsewhere in the response. For the Admin profile specifically, the 85.7% poisoned-chunk retrieval rate combined with the P3-POISON-007 leak-given-poisoning rate of 100% (3/3 runs) demonstrates that descriptive poisoning is highly effective against the model's current refusal heuristics.
+The 37.8% hard-refusal rate is consistent with a system that recognizes most overt attack patterns: in more than a third of all turns, the model refuses without disclosing any entity. The 16.7% soft-refusal-with-leak rate is the more concerning figure: in one of six turns where the model produces refusal language, it nonetheless leaks PII elsewhere in the response. For the Admin profile specifically, the 85.7% poisoned-chunk retrieval rate combined with reproducible exploitation of P3-POISON-007 specifically (3/3 runs, contributing the 16.7% turn-level leak rate across all 7 P3 scenarios) demonstrates that descriptive poisoning is highly effective against the model's current refusal heuristics.
 
 ---
 
@@ -502,7 +502,7 @@ The 37.8% hard-refusal rate is consistent with a system that recognizes most ove
 
 *F1 retrieval precision of 0.0% is a methodological caveat: the engine detects leakage from whatever documents the retriever returns (not necessarily the attacker's target), so F1 ASR of 77.8% (augmented) does not require the attacker's named document to be retrieved.*
 
-The overall retrieval precision of 8.3% reveals a critical methodological caveat: F1 attacks specify a target document (e.g., hr_file_042), but the retriever returns the named document in only 8.3% of cases. The F1 augmented ASR_strict of 77.8% therefore measures the leakage rate conditional on whatever documents were actually retrieved, not on the attacker's named target. A real-world F1 attack succeeds in two stages — first the retriever must surface a target-adjacent document, then the model must disclose its contents — and Phase 3 defenses must consider both stages independently.
+The overall retrieval precision of 8.3% reveals a critical methodological caveat: F1 attacks specify a target document (e.g., hr_file_042), but the retriever returns the named document in 0.0% of F1 cases (overall precision of 8.3% is driven entirely by F5, which trivially scores 100% because jailbreak scenarios name no specific document). The F1 augmented ASR_strict of 77.8% therefore measures the leakage rate conditional on whatever documents were actually retrieved, not on the attacker's named target. A real-world F1 attack succeeds in two stages — first the retriever must surface a target-adjacent document, then the model must disclose its contents — and Phase 3 defenses must consider both stages independently.
 
 ---
 
