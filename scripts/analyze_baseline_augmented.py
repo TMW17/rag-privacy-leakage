@@ -158,7 +158,7 @@ def augment_dataframe(df: pd.DataFrame, cache: dict) -> pd.DataFrame:
 
         # Augmented binary L
         L_aug = max(L_engine, L_judge)
-
+ 
         # Augmented severity
         sev_aug = max(sev_e, sev_j)
 

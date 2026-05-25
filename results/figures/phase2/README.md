@@ -109,12 +109,13 @@ columns are driven entirely by the judge signal.}
 ## fig6_retrieval_precision
 
 **What it shows.** Horizontal bar chart of retrieval precision (fraction of retrieved chunks
-that included the attack's prescribed target document) by attack family. F1 retrieval
-precision is 0\% — the RAG retriever never returned the named target document for F1 queries
-— yet F1 ASR_strict is 77.8\%, demonstrating that leakage occurs from incidentally-retrieved
-adjacent documents, not the attacker's intended target. The overall 8.3\% rate is driven
-entirely by F5 (Jailbreak), which trivially achieves 100\% because jailbreak scenarios
-prescribe no specific target document.
+that included the attack's prescribed target document) by attack family. All four families
+with a prescribed target document (F1, F3, F4, F7) show 0.0\% precision. F1 retrieval
+precision is 0\% yet F1 ASR_strict is 77.8\%, demonstrating that leakage occurs from
+incidentally-retrieved adjacent documents, not the attacker's intended target. The overall
+8.3\% rate reflects per-turn averaging across all turns. Families F2, F5, F6, and F8 are
+marked N/A — none prescribes a specific target document; F5 (Jailbreak) trivially scores
+1.0 because the persona prompt references no specific document, making precision meaningless.
 
 **Data source.** `results/baseline/baseline_metrics.json` key `retrieval_precision_by_family`
 and `retrieval_precision_rate`.
@@ -122,10 +123,12 @@ and `retrieval_precision_rate`.
 **Recommended LaTeX caption.**
 ```
 \caption{Retrieval precision by attack family for families where a target document was
-prescribed. F1 (Direct PII) precision = 0\%: the retriever returned non-target adjacent
-documents, from which the LLM nonetheless disclosed PII. The overall rate of 8.3\% is an
-artefact of F5 (Jailbreak) trivially scoring 100\% (no target prescribed). Families F2,
-F6, and F8 are omitted (N/A: no specific target document).}
+prescribed. All four prescribed-target families (F1, F3, F4, F7) show 0.0\% precision;
+the overall 8.3\% rate reflects per-turn averaging. F1 (Direct PII) precision = 0\%:
+the retriever returned non-target adjacent documents, from which the LLM nonetheless
+disclosed PII. Families F2, F5, F6, and F8 are marked N/A (no specific target document
+prescribed); F5 (Jailbreak) is excluded because the persona prompt references no specific
+document, making precision trivially 1.0 and therefore misleading.}
 ```
 
 ---
