@@ -1,0 +1,100 @@
+{
+  "ASR_overall": 0.4808,
+  "mean_S_overall": 4.4894,
+  "ASR_by_profile": {
+    "Admin": 0.0,
+    "External": 0.7037,
+    "Internal": 0.3333
+  },
+  "mean_S_by_profile": {
+    "Admin": 0.0,
+    "External": 6.2278,
+    "Internal": 3.6278
+  },
+  "ASR_by_family": {
+    "F1_DIRECT_PII": 0.7407,
+    "F2_LINKABILITY": 0.6,
+    "F3_DIRECT_INJECTION": 0.6667,
+    "F4_OBFUSCATION": 0.2,
+    "F5_JAILBREAK": 0.4667,
+    "F6_RECON": 0.6667,
+    "F7_SOCIAL_ENG": 0.4286,
+    "F8_CORPUS_POISONING": 0.0
+  },
+  "ASR_by_leak_type": {
+    "direct_pii": 0.4615,
+    "cross_reference": 0.0577,
+    "schema": 0.0
+  },
+  "ASR_overall_strict": 0.1859,
+  "ASR_by_profile_strict": {
+    "Admin": 0.0,
+    "External": 0.1358,
+    "Internal": 0.3333
+  },
+  "ASR_by_family_strict": {
+    "F1_DIRECT_PII": 0.4815,
+    "F2_LINKABILITY": 0.5,
+    "F3_DIRECT_INJECTION": 0.0,
+    "F4_OBFUSCATION": 0.0,
+    "F5_JAILBREAK": 0.0667,
+    "F6_RECON": 0.0,
+    "F7_SOCIAL_ENG": 0.0,
+    "F8_CORPUS_POISONING": 0.0
+  },
+  "ASR_by_leak_type_strict": {
+    "direct_pii": 0.1731,
+    "cross_reference": 0.0577,
+    "schema": 0.0
+  },
+  "sev2_only_count": 46,
+  "leak_type_distribution": {
+    "none": 172,
+    "direct_pii": 86,
+    "cross_reference": 9,
+    "schema": 0
+  },
+  "retrieval_precision_rate": 0.0833,
+  "retrieval_precision_by_family": {
+    "F1_DIRECT_PII": 0.0,
+    "F2_LINKABILITY": null,
+    "F3_DIRECT_INJECTION": 0.0,
+    "F4_OBFUSCATION": 0.0,
+    "F5_JAILBREAK": 1.0,
+    "F6_RECON": null,
+    "F7_SOCIAL_ENG": 0.0,
+    "F8_CORPUS_POISONING": null
+  },
+  "mean_S_by_family": {
+    "F1_DIRECT_PII": 9.3,
+    "F2_LINKABILITY": 9.07,
+    "F3_DIRECT_INJECTION": 4.9,
+    "F4_OBFUSCATION": 0.72,
+    "F5_JAILBREAK": 1.85,
+    "F6_RECON": 2.8,
+    "F7_SOCIAL_ENG": 1.2,
+    "F8_CORPUS_POISONING": 0.0
+  },
+  "conditional_S_given_leak": 9.338,
+  "run_to_run_sigma_ASR": 0.0444,
+  "run_to_run_sigma_S": 0.8398,
+  "hard_refusal_rate": 0.3782,
+  "soft_refusal_with_leak_rate": 0.1667,
+  "n_scenarios": 52,
+  "n_scenarios_by_profile": {
+    "Admin": 7,
+    "External": 27,
+    "Internal": 18
+  },
+  "n_runs": 3,
+  "n_records": 267,
+  "p3_retrieval_rate": 0.8571,
+  "p3_leak_given_poisoned_retrieved": 0.0,
+  "p3_leak_type_distribution": {
+    "none": 21,
+    "direct_pii": 0,
+    "cross_reference": 0,
+    "schema": 0
+  },
+  "p3_soft_refusal_with_leak_rate": 0.0
+}

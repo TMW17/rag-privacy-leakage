@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "script": "analyze_p4_offline.py",
+    "n_docs": 155,
+    "n_turns_b2_clean": 246,
+    "n_turns_b2_poisoned": 21,
+    "n_scenarios": 45,
+    "sources": {
+      "annotations": "data/ground_truth/ground_truth_annotations.json",
+      "b2_clean": "experiment_logs/B2_CLEAN_main-w3.jsonl",
+      "b2_poisoned": "experiment_logs/B2_POISONED_poisoned-w4.jsonl"
+    }
+  },
+  "metric1_training_leakage_proxy": {
+    "n_docs": 155,
+    "chunks_with_any_pii": 155,
+    "chunks_with_high_pii": 142,
+    "mean_pii_per_chunk": 9.6129,
+    "pii_density_pct": 100.0
+  },
+  "metric2_retention_overreach": {
+    "n_turns": 246,
+    "mean_excess_entity_types": 0.4228,
+    "p95_excess_entity_types": 2,
+    "max_excess_entity_types": 3,
+    "turns_with_excess_gt_2": 8,
+    "pct_turns_with_excess_gt_2": 3.252
+  },
+  "metric3_cross_doc_linkability": {
+    "n_scenarios": 45,
+    "total_unique_doc_pairs": 1126,
+    "mean_doc_pairs_per_scenario": 34.4889,
+    "max_pair_count": 6,
+    "top_5_most_linked_doc_pairs": [
+      {
+        "doc_a": "hr_file_035",
+        "doc_b": "hr_file_090",
+        "count": 6
+      },
+      {
+        "doc_a": "hr_file_051",
+        "doc_b": "hr_file_059",
+        "count": 5
+      },
+      {
+        "doc_a": "hr_file_059",
+        "doc_b": "hr_file_090",
+        "count": 5
+      },
+      {
+        "doc_a": "hr_file_002",
+        "doc_b": "hr_file_097",
+        "count": 5
+      },
+      {
+        "doc_a": "memo_001",
+        "doc_b": "memo_010",
+        "count": 5
+      }
+    ],
+    "mean_chain_length": 8.0,
+    "max_chain_length": 16
+  },
+  "metric4_vec2text_inversion_risk": {
+    "n_high_value_targets": 130,
+    "pct_corpus_high_value": 83.871,
+    "top_5_highest_value_docs": [
+      {
+        "document_id": "hr_file_000",
+        "document_type": "employee_record",
+        "n_sev3_entities": 14
+      },
+      {
+        "document_id": "hr_file_007",
+        "document_type": "employee_record",
+        "n_sev3_entities": 14
+      },
+      {
+        "document_id": "hr_file_012",
+        "document_type": "employee_record",
+        "n_sev3_entities": 14
+      },
+      {
+        "document_id": "hr_file_015",
+        "document_type": "employee_record",
+        "n_sev3_entities": 14
+      },
+      {
+        "document_id": "hr_file_016",
+        "document_type": "employee_record",
+        "n_sev3_entities": 14
+      }
+    ],
+    "WARNING": "TARGET ENUMERATION ONLY \u2014 no vec2text inversion attack was run. These documents are candidate targets for a future Phase 3 embedding inversion experiment; no reconstruction has been attempted here."
+  }
+}
