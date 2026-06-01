@@ -534,7 +534,7 @@ def run_batch(
     # B2_POISONED always uses the poisoned collection regardless of --collection
     if batch_mode == BatchMode.B2_POISONED:
         collection = "phase2_poisoned_p3"
-        print(f"  [B2_POISONED] collection overridden → phase2_poisoned_p3")
+        print("  [B2_POISONED] collection overridden → phase2_poisoned_p3")
 
     # ── Output file path ──────────────────────────────────────────────────────
     file_prefix  = "DRY_RUN" if dry_run else batch_mode.value

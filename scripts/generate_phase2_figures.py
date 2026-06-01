@@ -342,18 +342,19 @@ def fig5_severity_distribution(turns: list = None, judge: dict = None) -> None:
     Column definitions (matching report §5.4):
       Engine    — all turns where L_engine=1, grouped by max engine severity
       Judge     — all turns where L_judge=1, grouped by max judge severity
-                  (includes turns where engine also fired; total=60 per §5.4)
+                  (includes turns where engine also fired; total=57)
       Augmented — all turns where L_aug=1, grouped by max augmented severity
     """
-    # Values from report §5.4 (authoritative).  The raw log computation gives
-    # Judge sev=2=1 / total=57 because the 17 pilot-B1-w3 duplicate cache entries
-    # are correctly excluded by run_id-aware matching; §5.4 was generated with an
-    # earlier version of the script that counted all 60 raw L_judge=1 cache entries.
-    # These hardcoded values keep the figure consistent with the published table.
+    # Authoritative values over the 267-turn baseline (the 17-turn pilot is
+    # excluded, per §4.2).  Verified by joining the B2 engine logs with the full
+    # judge cache: Judge L=1 = 57 (sev2=1, sev3=16, sev4=40) and Augmented = 115
+    # (sev2=59, sev3=16, sev4=40).  An earlier draft of §5.4 reported Judge=60 /
+    # Augmented=118 because it counted the pilot turns in the judge cache; those
+    # totals are corrected here and in the report table to match this figure.
     sev_levels = [2, 3, 4]
-    e_vals = [63, 10, 22]   # Engine L=1 by max severity  (from engine logs)
-    j_vals = [4,  16, 40]   # Judge  L=1 by max severity  (§5.4 / 60 total)
-    a_vals = [62, 16, 40]   # Augmented L=1 by max sev    (§5.4 / 118 total)
+    e_vals = [63, 10, 22]   # Engine L=1 by max severity  (total 95)
+    j_vals = [1,  16, 40]   # Judge  L=1 by max severity  (total 57)
+    a_vals = [59, 16, 40]   # Augmented L=1 by max sev    (total 115)
 
     x = np.arange(len(sev_levels))
     width = 0.25
@@ -391,7 +392,7 @@ def fig5_severity_distribution(turns: list = None, judge: dict = None) -> None:
     ax.yaxis.grid(True, linestyle="--", linewidth=0.5, alpha=0.6)
 
     fig.text(0.5, -0.03,
-             "Engine fires on sev=2 in 66% of L=1 turns; judge fires on sev=2 in only 7% (4/60)",
+             "Engine fires on sev=2 in 66% of L=1 turns (63/95); judge fires on sev=2 in only 2% (1/57)",
              ha="center", fontsize=9, style="italic")
 
     plt.tight_layout()
@@ -410,12 +411,14 @@ def fig6_retrieval_precision(engine: dict) -> None:
         "F3_DIRECT_INJECTION": "F3 — Direct Prompt Injection",
         "F4_OBFUSCATION":      "F4 — Obfuscated Query",
         "F7_SOCIAL_ENG":       "F7 — Social Engineering",
+        "F5_JAILBREAK":        "F5 — Jailbreak / Role-Play",
     }
-    # N/A families (no target doc prescribed) — F5 included: persona prompt
-    # references no specific document, so precision trivially 1.0 (misleading).
+    # N/A families: scenarios prescribe no single target document, so retrieval
+    # precision is undefined.  F5 is NOT here: its jailbreak scenario names a
+    # specific target (hr_file_007) and the retriever returned it in all 3 runs,
+    # so F5 is a genuine 100% (3/3) and supplies all 3 of the 36 named-target hits.
     na_families = {
         "F2_LINKABILITY":      "F2 — Cross-Doc Linkability",
-        "F5_JAILBREAK":        "F5 — Jailbreak / Role-Play",
         "F6_RECON":            "F6 — System Reconnaissance",
         "F8_CORPUS_POISONING": "F8 — Corpus Poisoning",
     }
@@ -467,9 +470,9 @@ def fig6_retrieval_precision(engine: dict) -> None:
     ax.xaxis.grid(True, linestyle="--", linewidth=0.5, alpha=0.6)
 
     fig.text(0.5, -0.04,
-             "All families with a prescribed target document show 0.0% precision; "
-             "the overall 8.3% rate reflects per-turn averaging. "
-             "F1 ASR measures leakage from retrieved docs, not the attacker's target doc.",
+             "3 of 36 named-target turns retrieved the correct document (8.3%); all 3 hits are F5. "
+             "F1/F3/F4/F7 never retrieved their named target. "
+             "F1 ASR therefore measures leakage from retrieved docs, not the attacker's target doc.",
              ha="center", fontsize=9, style="italic", wrap=True)
 
     plt.tight_layout()
@@ -589,27 +592,26 @@ columns are driven entirely by the judge signal.}
 
 ## fig6_retrieval_precision
 
-**What it shows.** Horizontal bar chart of retrieval precision (fraction of retrieved chunks
-that included the attack's prescribed target document) by attack family. All four families
-with a prescribed target document (F1, F3, F4, F7) show 0.0\\% precision. F1 retrieval
-precision is 0\\% yet F1 ASR_strict is 77.8\\%, demonstrating that leakage occurs from
-incidentally-retrieved adjacent documents, not the attacker's intended target. The overall
-8.3\\% rate reflects per-turn averaging across all turns. Families F2, F5, F6, and F8 are
-marked N/A — none prescribes a specific target document; F5 (Jailbreak) trivially scores
-1.0 because the persona prompt references no specific document, making precision meaningless.
+**What it shows.** Horizontal bar chart of retrieval precision (fraction of named-target
+turns in which the retriever returned the prescribed target document) by attack family.
+Of the 36 named-target turns, only 3 retrieved the correct document (8.3% overall), and
+all 3 are F5 (Jailbreak) turns of P1-JAIL-001, which named hr_file_007 and retrieved it in
+all 3 runs (F5 = 100%, 3/3). F1, F3, F4, and F7 never retrieved their named target (0%).
+F1 retrieval precision is 0\\% yet F1 ASR_strict is 77.8\\%, demonstrating that leakage
+occurs from incidentally-retrieved adjacent documents, not the attacker's intended target.
+Families F2, F6, and F8 are marked N/A — none prescribes a single target document.
 
 **Data source.** `results/baseline/baseline_metrics.json` key `retrieval_precision_by_family`
 and `retrieval_precision_rate`.
 
 **Recommended LaTeX caption.**
 ```
-\\caption{Retrieval precision by attack family for families where a target document was
-prescribed. All four prescribed-target families (F1, F3, F4, F7) show 0.0\\% precision;
-the overall 8.3\\% rate reflects per-turn averaging. F1 (Direct PII) precision = 0\\%:
-the retriever returned non-target adjacent documents, from which the LLM nonetheless
-disclosed PII. Families F2, F5, F6, and F8 are marked N/A (no specific target document
-prescribed); F5 (Jailbreak) is excluded because the persona prompt references no specific
-document, making precision trivially 1.0 and therefore misleading.}
+\\caption{Retrieval precision by attack family. Of the 36 named-target turns, the retriever
+returned the correct document in only 3 (8.3\\% overall); all 3 hits are F5 (Jailbreak),
+whose scenario named hr_file_007 and retrieved it in all 3 runs. F1, F3, F4, and F7 never
+retrieved their named target (0\\%). F1 precision = 0\\% yet F1 ASR_strict = 77.8\\%: the
+retriever returned non-target adjacent documents, from which the LLM nonetheless disclosed
+PII. Families F2, F6, and F8 are marked N/A (no single target document prescribed).}
 ```
 
 ---

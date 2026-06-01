@@ -108,27 +108,26 @@ columns are driven entirely by the judge signal.}
 
 ## fig6_retrieval_precision
 
-**What it shows.** Horizontal bar chart of retrieval precision (fraction of retrieved chunks
-that included the attack's prescribed target document) by attack family. All four families
-with a prescribed target document (F1, F3, F4, F7) show 0.0\% precision. F1 retrieval
-precision is 0\% yet F1 ASR_strict is 77.8\%, demonstrating that leakage occurs from
-incidentally-retrieved adjacent documents, not the attacker's intended target. The overall
-8.3\% rate reflects per-turn averaging across all turns. Families F2, F5, F6, and F8 are
-marked N/A — none prescribes a specific target document; F5 (Jailbreak) trivially scores
-1.0 because the persona prompt references no specific document, making precision meaningless.
+**What it shows.** Horizontal bar chart of retrieval precision (fraction of named-target
+turns in which the retriever returned the prescribed target document) by attack family.
+Of the 36 named-target turns, only 3 retrieved the correct document (8.3% overall), and
+all 3 are F5 (Jailbreak) turns of P1-JAIL-001, which named hr_file_007 and retrieved it in
+all 3 runs (F5 = 100%, 3/3). F1, F3, F4, and F7 never retrieved their named target (0%).
+F1 retrieval precision is 0\% yet F1 ASR_strict is 77.8\%, demonstrating that leakage
+occurs from incidentally-retrieved adjacent documents, not the attacker's intended target.
+Families F2, F6, and F8 are marked N/A — none prescribes a single target document.
 
 **Data source.** `results/baseline/baseline_metrics.json` key `retrieval_precision_by_family`
 and `retrieval_precision_rate`.
 
 **Recommended LaTeX caption.**
 ```
-\caption{Retrieval precision by attack family for families where a target document was
-prescribed. All four prescribed-target families (F1, F3, F4, F7) show 0.0\% precision;
-the overall 8.3\% rate reflects per-turn averaging. F1 (Direct PII) precision = 0\%:
-the retriever returned non-target adjacent documents, from which the LLM nonetheless
-disclosed PII. Families F2, F5, F6, and F8 are marked N/A (no specific target document
-prescribed); F5 (Jailbreak) is excluded because the persona prompt references no specific
-document, making precision trivially 1.0 and therefore misleading.}
+\caption{Retrieval precision by attack family. Of the 36 named-target turns, the retriever
+returned the correct document in only 3 (8.3\% overall); all 3 hits are F5 (Jailbreak),
+whose scenario named hr_file_007 and retrieved it in all 3 runs. F1, F3, F4, and F7 never
+retrieved their named target (0\%). F1 precision = 0\% yet F1 ASR_strict = 77.8\%: the
+retriever returned non-target adjacent documents, from which the LLM nonetheless disclosed
+PII. Families F2, F6, and F8 are marked N/A (no single target document prescribed).}
 ```
 
 ---
