@@ -1,0 +1,9 @@
+{
+  "fresh_k5_strict": 0.4074,
+  "canonical_engine_strict": 0.4815,
+  "fresh_k5_inclusive": 0.7037,
+  "canonical_engine_inclusive": 0.7407,
+  "abs_diff_strict": 0.0741,
+  "tolerance": 0.15,
+  "within_tolerance": true
+}

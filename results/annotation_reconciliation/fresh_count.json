@@ -1,0 +1,58 @@
+{
+  "description": "Fresh re-run of scripts/annotate_dataset.py logic on the frozen seed-42 corpus (data/ground_truth/ground_truth.json).",
+  "total_entities": 2190,
+  "distinct_types_in_annotations": 31,
+  "entity_spec_count": 35,
+  "severity_histogram": {
+    "5": 135,
+    "4": 865,
+    "3": 490,
+    "2": 700
+  },
+  "linddun_histogram": {
+    "Identifiability": 1060,
+    "Unawareness": 500,
+    "Disclosure": 264,
+    "Detectability": 225,
+    "Linkability": 141
+  },
+  "per_type": {
+    "ADDRESS": 100,
+    "AGE_GENDER": 100,
+    "API_KEY": 10,
+    "ARCHITECTURE": 5,
+    "CROSS_REFERENCE": 41,
+    "DB_CONN_STRING": 5,
+    "DEPARTMENT": 100,
+    "DOB": 100,
+    "EMAIL": 100,
+    "EMPLOYEE_ID": 100,
+    "FILE_PATH": 15,
+    "HEALTH_RECORD_ID": 130,
+    "IBAN": 100,
+    "IMMIGRATION": 36,
+    "INTERNAL_IP": 5,
+    "JOB_TITLE": 100,
+    "JWT_TOKEN": 5,
+    "MEDICAL": 93,
+    "NATIONAL_ID": 100,
+    "OFFICE_LOCATION": 100,
+    "PASSWORD_HASH": 5,
+    "PERFORMANCE": 100,
+    "PERSON": 130,
+    "PHONE": 100,
+    "PRIVATE_KEY": 5,
+    "PROJECT": 100,
+    "SALARY": 100,
+    "SURNAME_TITLE": 100,
+    "SYSTEM_PROMPT": 5,
+    "TRAINING": 100,
+    "WORK_SCHEDULE": 100
+  },
+  "integrity_check": {
+    "matches_frozen_annotations_file": true,
+    "frozen_meta_total_entities": 2190,
+    "frozen_meta_entity_spec_count": 35
+  },
+  "reproduces_document": "State B (2,190) \u2014 Phase 2 report / Phase1.md / frozen artifacts"
+}

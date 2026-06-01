@@ -1,0 +1,664 @@
+\documentclass[12pt, a4paper]{article}
+
+% ── Encoding and fonts ──
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ── Math ──
+\usepackage{amsmath, amssymb}
+
+% ── Layout ──
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\tolerance=1500
+\hbadness=3000
+\emergencystretch=1em
+
+% ── Colors (two only: navy = primary, accent = secondary) ──
+\usepackage[table, dvipsnames]{xcolor}
+\definecolor{navy}{HTML}{1B2A4A}
+\definecolor{accent}{HTML}{8B2E2E}
+\definecolor{lightgray}{HTML}{F4F5F7}
+
+% ── Tables ──
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{longtable}
+
+% ── Captions ──
+\usepackage{caption}
+\captionsetup{font=small, labelfont={bf, color=navy}, textfont={color=black}, skip=6pt}
+
+% ── Lists ──
+\usepackage{enumitem}
+
+% ── Boxes ──
+\usepackage[most]{tcolorbox}
+
+% ── Hyperlinks ──
+\usepackage[colorlinks=true, linkcolor=navy, citecolor=navy, urlcolor=accent, bookmarks=true]{hyperref}
+\hfuzz=1.5pt
+\usepackage{cleveref}
+
+% ── Column types ──
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% ── Headings (two-color scheme: navy for section heads, accent for rule) ──
+\titleformat{\section}{\color{navy}\Large\bfseries}{\thesection}{0.7em}{}[\vspace{-0.4em}{\color{accent!70}\rule{\textwidth}{0.8pt}}]
+\titleformat{\subsection}{\color{navy}\large\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\color{navy}\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
+
+% ── Boxes ──
+\newtcolorbox{notebox}{enhanced, breakable, colback=white, colframe=navy!40, boxrule=0.5pt, arc=2pt,
+  borderline west={2.5pt}{0pt}{accent!70}, left=10pt, right=8pt, top=6pt, bottom=6pt}
+
+\newtcolorbox{prosebox}{enhanced, breakable, colback=gray!3, colframe=gray!40, boxrule=0.5pt, arc=2pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt}
+
+\newtcolorbox{gapbox}[1][]{enhanced, breakable, colback=accent!3, colframe=accent!60, boxrule=0.8pt,
+  arc=2pt, fonttitle=\bfseries\color{white}, coltitle=white, colbacktitle=accent!80,
+  toptitle=3pt, bottomtitle=3pt, left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
+
+\newtcolorbox{critbox}{enhanced, breakable, colback=navy!4, colframe=navy!45, boxrule=0.4pt,
+  arc=2pt, borderline west={2pt}{0pt}{navy!70}, left=10pt, right=8pt, top=5pt, bottom=5pt,
+  fontupper=\small}
+
+\newtcolorbox{transitionbox}[1][]{enhanced, breakable, colback=navy!4, colframe=navy!55, boxrule=0.6pt,
+  arc=2pt, fonttitle=\bfseries\color{white}, coltitle=white, colbacktitle=navy!75,
+  toptitle=3pt, bottomtitle=3pt, left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
+
+% ── Header / Footer ──
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navy!80}\textit{State of the Art, Security, Privacy and Evaluation in RAG Systems}}
+\fancyhead[R]{\small\color{navy!80}\textit{TADJ Mohamed Walid}}
+\fancyfoot[C]{\small\color{gray} \thepage\;/\;\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{navy!40}\leaders\hrule height \headrulewidth\hfill}}
+
+% ══════════════════════════════════════════════════════════
+\begin{document}
+% ══════════════════════════════════════════════════════════
+
+% ── TITLE PAGE ──
+\begin{titlepage}
+\begin{center}
+\vspace*{1.2cm}
+{\small\color{navy!80}\textsc{National Higher School of Computer Science, ESI Sidi Bel Abb\`{e}s}}\\[0.15cm]
+{\small\color{navy!80}\textsc{Artificial Intelligence and Data Science $\cdot$ Academic Year 2025--2026}}
+\vspace{0.5cm}
+{\color{navy}\rule{\textwidth}{1.2pt}}
+\vspace{1.6cm}
+
+{\color{navy}\Huge\bfseries State of the Art}
+
+\vspace{0.5cm}
+{\color{navy!85}\LARGE Security Threats, Privacy Risks, and\\[0.15cm] Evaluation Paradigms in\\[0.15cm] Retrieval-Augmented Generation Systems:\\[0.15cm] A Thematic Literature Review}
+
+\vspace{2cm}
+\begin{prosebox}
+{\small\textbf{Project:} Generative AI, Privacy \& Personal Data, Mapping and Reducing Data Leakage in Retrieval-Augmented Generation Systems.
+
+\medskip
+\textbf{Scope of this chapter.} The following pages bring together a critical synthesis of 50 primary sources published between 2021 and 2026. The material is grouped into five thematic pillars: RAG-specific vulnerabilities, PII memorization and leakage in large language models, prompt injection taxonomies and attack families, defense mechanisms and guardrail architectures, and LLM-as-Judge evaluation paradigms. The goal is not a flat catalogue. For each work we ask two questions. How methodologically robust is the contribution, measured against a common yardstick of reproducibility, empirical grounding, threat-model formality, and RAG-specificity? And what gap does it still leave open that the present thesis can close?}
+\end{prosebox}
+\vfill
+{\color{navy}\rule{\textwidth}{1.2pt}}
+\end{center}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════
+%  INTRODUCTION (unnumbered)
+% ══════════════════════════════════════════════════════════
+
+\section*{Introduction}
+\phantomsection
+\addcontentsline{toc}{section}{Introduction}
+\label{sec:soa-intro}
+
+When large language models (LLMs) are coupled with external knowledge retrieval, what we now call Retrieval-Augmented Generation (RAG), a new class of privacy and security concerns emerges that neither the LLM safety community nor the information retrieval community has fully tackled on its own. On one side, the evidence that language models memorize verbatim fragments of training data, including personally identifiable information (PII), is by now incontrovertible. On the other, prompt injection has been shown to steer LLM behavior through cleverly crafted adversarial inputs. The substantive research problem sits in the collision of these two phenomena inside a RAG pipeline, where an LLM generates answers based on dynamically retrieved documents that may contain sensitive data. The resulting attack surface is larger than the union of the individual surfaces, because the retriever itself becomes an attacker-controllable channel.
+
+This chapter is a structured, critical walk through the literature sitting at that intersection. Rather than a chronological reading of papers, the review is organized around five thematic pillars that together map out the research territory surrounding this thesis:
+
+\begin{enumerate}[leftmargin=2em, itemsep=3pt]
+  \item \textbf{RAG-Specific Vulnerabilities} (\Cref{sec:rag-vuln}): how the retrieval--generation pipeline opens up attack surfaces (indirect prompt injection, corpus poisoning, retriever-layer backdoors) that simply do not exist in standalone LLM deployments.
+  \item \textbf{PII Memorization and Leakage in LLMs} (\Cref{sec:pii-leakage}): the evidence that language models memorize training data, the scaling laws that govern this phenomenon, and the growing distinction between memorization-based and reasoning-based privacy violations.
+  \item \textbf{Prompt Injection Taxonomies and Attack Families} (\Cref{sec:pi-taxonomy}): the classification schemes proposed for the fast-growing space of adversarial prompt techniques, from the OWASP industry standard to academic systematizations.
+  \item \textbf{Defense Mechanisms and Guardrail Architectures} (\Cref{sec:defenses}): protective measures ranging from static input filters to programmable guardrail toolkits and multi-agent safety frameworks.
+  \item \textbf{LLM-as-Judge and Multi-Agent Evaluation} (\Cref{sec:llm-judge}): using language models to evaluate other language models, and the shift toward multi-agent debate and arbitration.
+\end{enumerate}
+
+Each pillar ends with an explicit list of the methodological gaps the current literature leaves open. \Cref{sec:synthesis} then pulls these together into a unified research positioning statement, including a single sentence that captures the original contribution of this thesis relative to the 50 surveyed works.
+
+\begin{notebox}
+\textbf{A note on 2026 references.} This thesis surveys a fast-moving field. Some 2026 citations are arXiv preprints that have not yet completed peer review, while others are peer-reviewed journal publications. The first mention of each 2026 work carries a footnote with the verified publication status. Peer-reviewed entries cite their DOI; preprints cite their arXiv identifier and are labelled as such. Preprints are admissible evidence for a literature review of an emerging field, but their claims are treated as provisional.
+\end{notebox}
+
+
+% ══════════════════════════════════════════════════════════
+%  2 — RAG VULNERABILITIES
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\section{RAG-Specific Vulnerabilities}
+\label{sec:rag-vuln}
+
+\subsection{The Emergence of Indirect Prompt Injection}
+
+The work that really kicked things off was by Greshake et al.\ (2023), who introduced and formalized \emph{Indirect Prompt Injection} (IPI) as a new class of attack aimed specifically at systems that pull in external content and pass it to an LLM. The key difference from direct prompt injection is that the adversary does not tamper with the user's input. Instead, they plant adversarial instructions inside documents that the retriever picks up later. Using qualitative demonstrations on Bing Chat, Greshake et al.\ showed that a RAG system could be tricked into following arbitrary instructions hidden in third-party web pages. The threat model for any LLM-integrated application that consumes external data was changed from that point on.
+
+\begin{critbox}
+\textit{Reading this paper carefully}, one notices that its contribution is conceptual rather than empirical. The paper is a threat-model manifesto supported by proof-of-concept demonstrations, not a controlled benchmark. Its lasting value is the vocabulary it gave the field (the IPI paradigm) rather than measurable attack-success figures, and any subsequent work that cites it as empirical evidence overstates what was actually demonstrated.
+\end{critbox}
+
+Before Greshake et al., Perez and Ribeiro (2022) had already laid some conceptual groundwork by formalizing \emph{Goal Hijacking} and \emph{Prompt Leaking} as distinct attack objectives in the direct-injection setting, and by introducing the PROMPTINJECT testing framework. Their approach, assembling prompts in a modular way and systematically swapping injection payloads across 35 application scenarios, gave us the first quantitative baselines for how often direct prompt injection actually succeeds.
+
+\begin{critbox}
+\textit{PROMPTINJECT matters as the methodological ancestor of measurable injection evaluation}, and its modular payload-swapping pattern is the one we reuse in Phase 2. The scope, however, is strictly the user-input channel. The retrieval context is out of frame, which means PROMPTINJECT cannot be transposed to indirect attacks without substantive extension: the injection no longer originates from a user we can model but from a document we cannot necessarily trust.
+\end{critbox}
+
+\subsection{From Qualitative Demonstrations to Quantitative Benchmarking}
+
+Systematic benchmarking, as opposed to scattered demonstrations, is largely the contribution of Yi et al.\ (2024), who built the \textbf{BIPIA} benchmark. This was the first large-scale dataset designed specifically to test the robustness of LLMs against indirect prompt injection. Their core insight was pinpointing \emph{instruction vs.\ data confusion} as the root cause of IPI. The LLM cannot distinguish between instructions issued by the system and content pulled from retrieved documents. Quantitative evaluation across GPT, Llama, and Vicuna families showed every model tested to be significantly vulnerable, with attack-success rates varying by model architecture and document type.
+
+\begin{critbox}
+\textit{Genuine methodological advance here}: BIPIA moves the field from anecdote to reproducible measurement. The benchmark is, however, task-centric rather than privacy-centric. Attack success is defined at the level of ``did the injected instruction execute?'', which is not the same question as ``did a sensitive entity get disclosed?''. Applied directly to RAG privacy, BIPIA is a useful precedent for reproducibility discipline, but its task-completion metric has to be swapped out for a PII-specific severity score $S$ to match the thesis's privacy focus.
+\end{critbox}
+
+Liu et al.\ (2025) then pushed the attacker methodology further with \textbf{HOUYI}, an iterative three-component attack system (Framework Component, Separator, Disruptor) built for black-box exploitation of commercial applications. Tested across 36 real-world services, HOUYI broke production systems even when they had multiple defense layers.
+
+\begin{critbox}
+\textit{HOUYI is the technical blueprint for the Attacker Agent}, with one caveat that matters a lot in practice. HOUYI optimizes for task-hijack success. The thesis's Attacker Agent has to optimize for PII-specific disclosure, a weaker and subtler signal than generic task completion. Directly replicating HOUYI would maximize the wrong objective, so the reward function has to be redesigned from scratch.
+\end{critbox}
+
+\subsection{Corpus Poisoning and Retriever-Layer Attacks}
+
+A parallel category of RAG vulnerability targets not the prompt but the data-ingestion layer. Xue et al.\ (2024) found that an adversary with write access to the knowledge base can craft specially optimized passages (using Corpus Optimization Procedures, COP/MCOP) that reliably land in top retrieval positions, letting the attacker control the context fed to the LLM. Their work also introduced \emph{Alignment as an Attack} (AaaA), showing that the very mechanism meant to make LLMs helpful can be turned against them. Clop and Teglia (2024) went further by targeting the retriever itself, demonstrating that fine-tuning backdoors can be planted directly in the embedding model. Their controlled comparison on Llama-3 and Mistral showed the retriever-layer attacks to be stealthier and harder to detect than prompt-level alternatives.
+
+\begin{critbox}
+\textit{What these two papers share is a blind spot}: both stop at generic corpus manipulation, and neither asks whether the poisoning payload can be engineered to extract a specific category of PII on demand. In enterprise RAG the practical threat is not output manipulation in the generic sense. It is an attacker using corpus poisoning to systematically drain HR, medical, or financial records. Our Privileged Admin profile (P3) targets exactly this shift from output manipulation to targeted PII exfiltration, which the existing literature does not operationalize.
+\end{critbox}
+
+\subsection{Formal Threat Modeling and Adversarial Foundations}
+
+Perhaps the most theoretically ambitious contribution to RAG security is Arzanipour et al.\ (2025), who present the first formal threat model with rigorous mathematical definitions for RAG-specific privacy threats, including Membership Inference and corpus poisoning. They develop a two-dimensional adversary taxonomy (Model Access $\times$ Adversarial Knowledge) along with document-level differential-privacy definitions.
+
+\begin{critbox}
+\textit{The Arzanipour paper reads as the theoretical counterpart to our empirical framework}: they provide the definitions, we provide the ground truth. The authors themselves are up-front about the limitation, which is that the paper offers no large-scale empirical test of its formalisms. This asymmetry between formal theory and empirical validation is exactly the gap this thesis positions itself to close for a targeted subset of the space, namely PII leakage under three attacker profiles.
+\end{critbox}
+
+At the model level, Wei et al.\ (2023) gave us the theoretical basis for understanding \emph{why} safety-aligned LLMs remain vulnerable even after training-time interventions. They pinpointed two fundamental failure modes of LLM safety training, \emph{Competing Objectives} and \emph{Mismatched Generalization}, and showed through hypothesis-driven jailbreak experiments (Prefix Injection, Base64 encoding) on GPT-4 and Claude v1.3 that these predictions hold up empirically. Their focus is model-level safety rather than RAG-specific threats, but the failure-mode taxonomy directly shapes the Attacker Agent's strategy selection in this thesis: each attack family in our design exploits one or both of the failure modes they described.
+
+\subsection{Contemporary Synthesis and Pillar Assessment}
+
+The most recent comprehensive overview of the RAG vulnerability landscape is Gulyamov et al.\ (2026)\footnote{Peer-reviewed journal article. Published in \emph{Information} 17(1), art.~54 (MDPI), received 25 Oct 2025, accepted 31 Dec 2025, published online 7 Jan 2026, as part of the special issue ``Emerging Trends in AI-Driven Cyber Security and Digital Forensics.'' DOI \href{https://doi.org/10.3390/info17010054}{10.3390/info17010054}. A preceding preprint exists on Preprints.org, but the journal version is the version of record.}, who compile a taxonomy of direct and indirect attacks alongside the \textbf{PALADIN} five-layer defense framework. Their systematic review covers 45 primary sources and industry CVEs from 2023--2025, and documents notable real-world incidents including GitHub Copilot's CVE-2025-53773 (CVSS 9.6) and the CamoLeak exploit.
+
+\begin{critbox}
+\textit{Being a secondary study, PALADIN contributes no original empirical data.} For our purposes that makes it a landscape counterpart rather than a benchmark. PALADIN maps what practitioners think defense-in-depth should look like. The thesis measures what defense-in-depth actually achieves under controlled PII-specific ground truth. The two frameworks are therefore methodologically orthogonal. PALADIN answers ``what layers should exist?'' while this thesis answers ``what does the security-utility trade-off actually look like when you deploy them?'' One additional caveat is worth recording: the paper's author affiliations are predominantly in law departments rather than computer-security labs, which is atypical for a technical defense framework and is one reason we treat it as a landscape reference rather than a primary empirical source.
+\end{critbox}
+
+\begin{gapbox}[Residual Gaps, RAG Vulnerabilities]
+Despite all the progress covered above, four methodological gaps remain in this pillar:
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item No study so far has used a formal privacy framework (such as LINDDUN) to categorize RAG-specific leakage events by threat type and severity.
+  \item Quantitative benchmarking of PII leakage rates, as a distinct concern from general task hijacking or information steering, is still missing.
+  \item Nobody has yet implemented an automated multi-agent evaluation setup to systematically measure how different attack families interact with different defense configurations.
+  \item The formal threat models proposed by Arzanipour et al.\ have not been put to the test against a controlled ground-truth corpus.
+\end{enumerate}
+\end{gapbox}
+
+
+% ══════════════════════════════════════════════════════════
+%  3 — PII LEAKAGE IN LLMs
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\section{PII Memorization and Leakage in Large Language Models}
+\label{sec:pii-leakage}
+
+\subsection{Foundational Evidence of Training Data Memorization}
+
+The landmark study by Carlini et al.\ (2021) was the one that proved LLMs memorize word-for-word fragments of their training data, including PII such as names, phone numbers, email addresses, and physical addresses. The authors generated over 200{,}000 samples from GPT-2, checked them against internet sources and known training corpora, and showed that memorization is not a rare fluke but a systematic property of how neural language models work. The likelihood-ratio method they used for ranking and spotting leaked sequences remains the canonical extraction methodology.
+
+In a follow-up, Carlini et al.\ (2023) discovered that memorization scales log-linearly with three factors: model capacity, how often data gets repeated, and context length.
+
+\begin{critbox}
+\textit{Both Carlini papers are foundational}, but they measure memorization of a static model in isolation. There is no retriever, no user query, no downstream task. For RAG the third scaling factor, context length, is the most worrying one, because a retriever routinely supplies the model with long, context-rich prefixes from the organizational knowledge base. Carlini et al.'s own findings therefore \emph{imply} that RAG should amplify PII extraction without \emph{demonstrating} it. Nakka et al.\ (\S\ref{subsec:rag-amplification}) later fill in the experimental gap, and the thesis operationalizes the effect under controlled ground truth.
+\end{critbox}
+
+\subsection{Beyond Verbatim Memorization: Reasoning-Based Leakage}
+
+An important shift came from Sander et al.\ (2025), who showed that instruction-following capability, rather than raw verbatim memorization, is what drives most PII leakage in chat-based deployments. By fine-tuning LLMs on synthetic PII and comparing raw memorization (prefix completion) against chat-based extraction (question-answering), they found the chat modality pulls out considerably more PII. The model's reasoning and instruction-following abilities can therefore be weaponized to reconstruct private data even when verbatim memorization is low.
+
+Mireshghallah and Li (2025) reinforced this through a longitudinal review of 1{,}322 AI/ML privacy papers published between 2016 and 2025. They documented a strong ``memorization bias'' in the community: most privacy studies focus on verbatim extraction, while \emph{Context Leakage} and \emph{Aggregation}, the exact mechanisms that matter most for RAG, have barely been studied.
+
+\begin{critbox}
+\textit{Sander et al.\ deliver what is likely the most consequential empirical result for this thesis}, because the finding directly undermines the assumption that ``don't memorize PII'' is a sufficient defense strategy. If reasoning alone suffices to reconstruct private data, then model-level privacy guarantees (differential privacy, unlearning) are insufficient, and pipeline-level defenses become essential. Mireshghallah \& Li's position paper names the gap but offers no empirical testbed, which is what the thesis's 2{,}315-entity ground-truth corpus is designed to fill.
+\end{critbox}
+
+\subsection{The RAG Amplification Effect}
+\label{subsec:rag-amplification}
+
+Nakka et al.\ (2025) provided direct experimental evidence that external context makes memorized-data extraction worse. Working with GPT-J-6B and the Enron email corpus, they showed that \emph{in-domain grounding}, which means feeding the model unrelated text from the same dataset, drastically boosts the extraction of memorized PII such as phone numbers and email addresses. The authors did not, however, examine whether a normal, benign RAG pipeline might unintentionally produce this grounding effect as a side-effect of ordinary retrieval.
+
+\begin{critbox}
+\textit{This is a sharp illustration of how ``offensive research'' scenarios fail to capture the dual-use risk of RAG.} The same retrieval mechanism that improves answer quality in the benign case acts as an unintentional extraction primer in the adversarial one. Our benign-retrieval baseline (zero prompt injection, no corpus poisoning) is specifically designed to quantify this effect, which is a dimension Nakka et al.\ do not cover.
+\end{critbox}
+
+\subsection{Inherited Risks and the Unlearning Paradox}
+
+Zhang et al.\ (2025) showed that knowledge distillation, a widely used technique for producing smaller, faster models, carries over the memorization and membership-inference risks from the teacher model. Borkar (2023) uncovered a related and rather troubling problem: fine-tuning not only keeps pre-training leaks intact but can introduce new ones, and attempts to ``unlearn'' specific data can sometimes backfire, making previously safe information vulnerable. This is what the author calls an \emph{unlearning paradox}.
+
+\begin{critbox}
+\textit{Zhang et al.\ and Borkar together build a strong negative case}: post-hoc model-level fixes for privacy leakage are structurally unreliable. The observation matters because it is the strongest available argument for moving the locus of defense from the model weights to the RAG pipeline (guardrails, sanitization, output filtering, judges), which is precisely the architectural stance of this thesis.
+\end{critbox}
+
+\subsection{Automated Red-Teaming and Agent-Based Extraction}
+
+The most recent development in this area is the shift from manual extraction to automated, agent-driven red-teaming. Nie et al.\ (2025) built \textbf{LeakAgent}, a reinforcement-learning-based attacker that figures out extraction strategies on its own through Proximal Policy Optimization (PPO). Trained as a Llama-3-8B agent going after GPT-3.5, LeakAgent showed that automated agents can stumble upon novel attack strategies that human red-teamers miss entirely. Wang et al.\ (2025) extended this kind of work to interaction memory, identifying \emph{Interaction Memory} as a privacy risk distinct from training memory and introducing the MEXTRA attack. Li et al.\ (2024) built \textbf{LLM-PBE}, a unified toolkit benchmarking data extraction, membership inference, and PII leakage across more than ten open-source model families.
+
+\begin{critbox}
+\textit{LeakAgent proves the feasibility of an autonomous attacker}, and its methodology is the direct precedent for our Attacker Agent. The paper operates, however, in an open environment with no defender and no judge, and a complete evaluation needs all three. LLM-PBE treats the model as static and does not account for the dynamic retrieval interactions of a RAG pipeline. The thesis's Attacker-Defender-Arbitrator loop is designed to combine LeakAgent's autonomy with LLM-PBE's benchmark discipline inside a RAG architecture, a combination neither paper attempts.
+\end{critbox}
+
+\begin{gapbox}[Residual Gaps, PII Leakage]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item Current studies look at memorization within model weights in isolation. None of them examines how context provided by a RAG retriever interacts with internal memorization to amplify or redirect leakage.
+  \item No study has used a multi-agent ecosystem (Attacker + Defender + Arbitrator) to autonomously discover, defend against, and judge PII leaks in a RAG pipeline.
+  \item The legal severity of leaks (GDPR Article classification, LINDDUN threat category) is not taken into account in any existing benchmark.
+  \item The ``reasoning-based leakage'' that Sander et al.\ identified has not been tested within a RAG architecture where the retriever supplies the contextual grounding.
+\end{enumerate}
+\end{gapbox}
+
+% ── TRANSITION FROM PILLAR 2 TO PILLAR 3 ──
+\begin{transitionbox}[Transition from Pillar 2 to Pillar 3]
+Pillars 2 and 3 can be confused because both describe scenarios in which sensitive information ends up in model output. The distinction this thesis uses throughout is the following. Pillar 2 is about \emph{what} can leak: it identifies the content that models retain (verbatim memorization, reasoning-reconstructable inferences, context-grounded recombinations) and documents the conditions under which that content becomes retrievable. In short, it is a theory of the leakage substrate. Pillar 3 is about \emph{how} an adversary causes leakage: it identifies the grammar of adversarial input (direct injection, indirect injection, obfuscation, jailbreaking, manipulation level) and classifies the techniques by which an attacker can exercise that substrate. It is a theory of the leakage trigger. Inside an attack pipeline, Pillar 3 techniques are the verbs and Pillar 2 phenomena are the objects. A prompt-injection payload (Pillar 3) is only dangerous insofar as it can mobilize a memorized or reasoning-reconstructable entity (Pillar 2) into the response. The thesis uses this distinction operationally: the Attacker Agent is parameterized over a Pillar 3 technique set, and success is measured against a Pillar 2 disclosure signal.
+\end{transitionbox}
+
+
+% ══════════════════════════════════════════════════════════
+%  4 — PROMPT INJECTION TAXONOMY
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\section{Prompt Injection: Taxonomies and Attack Families}
+\label{sec:pi-taxonomy}
+
+\subsection{Industry-Standard Classification}
+
+The \textbf{OWASP Top 10 for LLM Applications (2025)} set the main industry taxonomy, formally separating Direct Prompt Injection (LLM01) from Indirect Prompt Injection as the two principal attack categories. The classification was put together through a collaborative effort involving security practitioners worldwide, and it serves as the structural backbone for both academic research and industry mitigation work.
+
+\begin{critbox}
+\textit{OWASP is a static reference document}, with no empirical benchmarks, no automated testing methodology, no reproducibility clause. Its value is normative in the sense that it standardizes vocabulary for the community, but it measures nothing. For an experimental thesis that makes OWASP a mapping target rather than an evaluation yardstick, and that is exactly how we use it.
+\end{critbox}
+
+\subsection{Academic Systematizations}
+
+Duarte et al.\ (2026)\footnote{Peer-reviewed journal article. Published in \emph{IEEE Access}, vol.~14, pp.~12875--12899 (2026). DOI \href{https://doi.org/10.1109/ACCESS.2026.3656849}{10.1109/ACCESS.2026.3656849}. \emph{IEEE Access} is an open-access peer-reviewed journal.} propose a taxonomy built on four manipulation levels (character, word, sentence, and semantic) crossed with adversarial intent, paying particular attention to how attacks escalate from simple string substitutions to complex semantic manipulations that exploit the model's reasoning. The paper also covers indirect injections via JSON/XML and tool-assisted or multimodal exploits.
+
+Correia et al.\ (2026)\footnote{arXiv preprint, not peer-reviewed as of April 2026. arXiv:2601.22240 [cs.CR], submitted 29 Jan 2026. Available at \url{https://arxiv.org/abs/2601.22240}. No DOI has been minted. The manuscript uses an Elsevier-style template, but no evidence of submission, acceptance, or publication at a peer-reviewed venue was found.} assembled what appears to be the largest catalog of prompt-injection defenses currently available, analyzing 88 primary studies and sorting the interventions into training-time, deployment-time, and evaluation-time categories. They propose an expanded NIST taxonomy that stands as the most thorough defensive classification we have seen. One especially telling finding is that specialized interventions against indirect prompt injection, the kind that matters most for RAG systems, remain significantly underexplored relative to defenses against direct injection.
+
+Wang et al.\ (2026)\footnote{arXiv preprint (Systematization of Knowledge), not peer-reviewed as of April 2026. arXiv:2602.10453 [cs.CR, cs.CL], submitted 11 Feb 2026. Available at \url{https://arxiv.org/abs/2602.10453}. The first author's own homepage labels the work as an arXiv preprint. The SoK format is typically submitted to top-tier security venues (IEEE S\&P, USENIX Security, CCS, NDSS), though no evidence of acceptance was located.} produced a comprehensive Systematization of Knowledge for LLM-agent prompt injection. They introduced the \textbf{AgentPI} benchmark and identified the \emph{Security-Utility-Latency trilemma}, a three-way trade-off that every practical defense deployment has to contend with. Their headline empirical finding is that no current defense simultaneously achieves high trustworthiness, high utility, and low latency, and that many apparently effective defenses work only by suppressing contextual inputs that real-world agents legitimately depend on.
+
+\begin{critbox}
+\textit{Read collectively}, Duarte et al., Correia et al., and Wang et al.\ form the most up-to-date picture of the attack and defense landscape, and between them they partition the space cleanly: Duarte on attack mechanics, Correia on defenses, Wang on agent-context evaluation. The three works share a limitation that is critical for our purposes, however. None of them speaks the language of privacy. Duarte et al.\ classify attacks by linguistic manipulation level. Correia et al.\ classify defenses by lifecycle stage. Wang et al.\ identify a performance trilemma. What is missing from all three is a mapping to privacy-specific outcomes: which attack family causes which category of PII to leak, under which formal threat model, evaluated against which regulatory baseline (GDPR article, LINDDUN category). That is the gap Pillar 1's LINDDUN-mapped taxonomy and Pillar 3's attack-to-leakage mapping together close. A further observation matters on the epistemic side: two of the three works remain preprints, so their claims carry less evidential weight than the peer-reviewed Duarte et al.\ paper, and the thesis treats them accordingly.
+\end{critbox}
+
+\subsection{Evolutionary Perspectives}
+
+Mao et al.\ (2025) traced how the attack surface has evolved from text-only LLMs through multimodal models to autonomous-agent systems, introducing a permission-based jailbreak taxonomy that reflects the growing capabilities and risks of each architectural generation. Yi et al.\ (2024) proposed a complementary dual-axis taxonomy that organizes attacks along Black-box vs.\ White-box and Prompt-level vs.\ Model-level dimensions. Bayhan (2025) contributed a classification based on source and goal, distinguishing attacks by where they come from (direct user input vs.\ injected document content) and what they aim to achieve (data leakage vs.\ remote code execution). Xu and Parhi (2025) contributed what is probably the most comprehensive lifecycle-oriented taxonomy, mapping attack vectors onto every phase of the model lifecycle from pre-training through inference.
+
+Rao et al.\ (2026) showed that lightweight semantic classifiers (SVMs) can outperform heavyweight LLM-based guardrails on latency-sensitive jailbreak detection. Huang et al.\ (2025) extended the threat model beyond digital systems to LLM-controlled robotics, introducing the \emph{Embodiment Gap} vulnerability.
+
+\begin{critbox}
+\textit{What makes these four taxonomies valuable is precisely that they are complementary rather than competing}, and a single ``one-true-taxonomy'' would likely be worse. Complementarity has a cost, though. No single existing taxonomy is sufficient for a privacy-centric evaluation, so this thesis combines them: Yi et al.'s axes for the attack-family matrix, Xu \& Parhi's lifecycle framing for defense placement, and Mao et al.'s permission dimension as a severity modifier. Rao et al.'s SVM result is especially instructive, because it warns against the common assumption that more architectural sophistication (an LLM guardrail) automatically buys more security, and it sets a practical latency baseline for the input-screening layer of any defense architecture.
+\end{critbox}
+
+\begin{gapbox}[Residual Gaps, Prompt Injection Taxonomy]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item Existing taxonomies classify attacks by technical mechanism, not by privacy-specific outcome (which attack families cause which categories of PII to leak).
+  \item None of the taxonomies integrates a formal privacy framework like LINDDUN to categorize the privacy consequences of each attack family.
+  \item The Security-Utility-Latency trilemma identified by Wang et al.\ (2026) has not been empirically quantified for privacy-specific defense setups in RAG systems.
+  \item There is no controlled experimental comparison of how effective different attack families are across distinct attacker profiles with different access levels.
+\end{enumerate}
+\end{gapbox}
+
+
+% ══════════════════════════════════════════════════════════
+%  5 — DEFENSE MECHANISMS
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\section{Defense Mechanisms and Guardrail Architectures}
+\label{sec:defenses}
+
+A methodological note is in order before we review the individual defense works. Compared with the other pillars in this chapter, the defense literature is systematically less mature in its measurement practices. The attack pillars (1 and 3) are anchored by reproducible benchmarks such as BIPIA and AgentPI; the memorization pillar (2) has produced scaling laws and formal extraction protocols; the judge pillar (5) has produced controlled correlation studies against human annotators. The defense pillar, by contrast, is dominated by tool releases (NeMo Guardrails, Llama Guard) and taxonomies (Akheel, Dong et al., Cui et al.), with comparatively few controlled empirical studies that measure defense effectiveness under matched conditions. The result is an asymmetric literature. We know how to attack in measurable terms, and we are less sure, in measurable terms, how well we can defend. One of the explicit goals of this thesis is to rebalance this asymmetry for the privacy-specific sub-problem. That intent motivates both the controlled experimental design (\S\ref{sec:synthesis}) and the continuous severity metric $S$ that allows us to quantify what binary ASR cannot.
+
+\subsection{Programmable Guardrail Frameworks}
+
+Rebedea et al.\ (2023) introduced \textbf{NeMo Guardrails}, the first major open-source toolkit for programmable LLM safety. It is built around Colang, a domain-specific language that lets developers define input moderation rails, output filtering rails, and topic control flows as declarative programs. When tested against Anthropic's red-teaming dataset, it showed solid efficacy.
+
+\begin{critbox}
+\textit{NeMo's limitations are structural rather than incidental.} There are three worth calling out. First, the framework is fundamentally static: Colang flows cannot adapt to an evolving adversary; they can only be re-authored by a human. Second, its efficacy numbers are reported against generic jailbreak datasets, not privacy-specific ones, and there is no published NeMo evaluation on a PII-leakage benchmark. Third, the toolkit is evaluated by its authors rather than by independent benchmarkers, so the efficacy figures should be read as upper bounds. For RAG privacy, NeMo is therefore best treated as a component whose contribution has to be re-measured in context, not a solution whose numbers transfer. That is a considerably weaker methodological footing than, say, BIPIA offers on the attack side.
+\end{critbox}
+
+Akheel (2025) surveyed the guardrail landscape and organized it into a multi-layer taxonomy, comparing the main toolkits (NeMo Guardrails, Llama Guard, Guardrails AI) and flagging the \emph{Utility vs.\ Censorship} trade-off as the central design tension.
+
+\begin{critbox}
+\textit{Akheel's contribution is classificatory, not empirical.} The review is useful as a map of the field, and it provides no measurement. The trade-off it names (utility vs.\ censorship) is diagnostic only, with no numbers, no Pareto frontier, and no operating-point recommendation. A good attack-pillar analogue (Yi et al.\ BIPIA) would produce a Pareto frontier. Akheel's review does not.
+\end{critbox}
+
+\subsection{Systematic Benchmarking of Defense Effectiveness}
+
+Zizzo et al.\ (2025) carried out what is probably the most rigorous empirical test of guardrail effectiveness to date, benchmarking \textbf{15 different guardrail implementations} against diverse adversarial datasets. Their main finding is uncomfortable for the field: simple baselines frequently beat complex out-of-distribution detection methods. The result challenges the intuition that architectural sophistication automatically buys better defense, and it provides the single strongest empirical justification for the systematic, controlled benchmarking approach taken in this thesis.
+
+\begin{critbox}
+\textit{Zizzo et al.\ is the methodological gold standard for the defense pillar}, and the paper should be read as a corrective to the tool-release culture. Its principal limit is scope. The datasets used are general-purpose jailbreak sets, not privacy-specific ground truth. The thesis extends Zizzo et al.'s discipline to the privacy case and introduces the continuous severity metric $S$ so that defenses can be compared not just on binary success but on how badly a leak fails when it fails.
+\end{critbox}
+
+Wang et al.\ (2025) introduced the \textbf{SEU} (Security, Effectiveness, Usability) evaluation framework along with the first comprehensive 6-axis guardrail taxonomy. Clement (2025) extended the defense perspective into the software development lifecycle, proposing a DevSecOps-integrated framework for continuous security assurance.
+
+\begin{critbox}
+\textit{SEU matters because it forces explicit multi-axis trade-offs}, which the Akheel taxonomy does not do. Its limitation is operational: the framework is evaluative rather than generative. It tells you how to score a defense without telling you how to design one. We adopt SEU's discipline for reporting our defense-configuration results. Clement's DevSecOps framework is organizational rather than technical. For a research thesis it is orthogonal to our concerns, though it is likely relevant to the industry deliverable, namely the Best Practices Guide.
+\end{critbox}
+
+\subsection{Instruction Detection and Reactive Defenses}
+
+Wen et al.\ (2025) came up with \textbf{InstructDetector}, a white-box defense that taps into internal LLM ``behavioral states'' (hidden-layer activations and gradients) to spot indirect prompt injection. By training an MLP classifier on model activations, they achieved strong detection rates on the BIPIA and LaMini datasets.
+
+\begin{critbox}
+\textit{InstructDetector is the technically strongest reactive defense in the surveyed literature}, and it still has two architectural limitations that matter for our use case. The first is that it performs binary detection (instruction vs.\ no instruction), and does not answer the classification question the Arbitrator asks, which is whether a detected instruction would actually cause a PII leak. That is a strictly stronger problem. The second limitation is that the approach requires white-box access to hidden states. In production RAG settings where the LLM is consumed as a black-box API (Claude, GPT-4), that constraint is binding. We treat InstructDetector as a reference ceiling for white-box detection and build our Arbitrator to handle the harder downstream question at black-box cost.
+\end{critbox}
+
+\subsection{Multi-Agent Safety Frameworks}
+
+The architecturally most relevant precedents for this thesis come from multi-agent safety frameworks. Shen et al.\ (2025) developed \textbf{PANDAGUARD}, a modular, plugin-based system with dedicated Attacker, Defender, and Judge agents for evaluating jailbreaks. Their evaluation covered 19 attack methods and 12 defense mechanisms across multiple LLM interfaces. Chen et al.\ (2025) introduced \textbf{TeleAI-Safety}, with two notable innovations: RADAR, a multi-agent debate mechanism for safety evaluation, and Morpheus, an automated attack agent. Their benchmark evaluated 19 attacks and 29 defenses across 14 models using a curated 12-category risk dataset.
+
+\begin{critbox}
+\textit{The sharpest way to situate the thesis is against these two frameworks}, because their architectures most closely anticipate ours. Both PANDAGUARD and TeleAI-Safety target general jailbreak safety (``did the model say something it should not have said?'') without a formal privacy metric and without PII-specific ground truth. Neither uses a formal regulatory framework such as GDPR or LINDDUN to define what a violation actually is. And neither is profile-dependent: they do not measure how the same response constitutes a violation for an external adversary while being acceptable for an authorized employee. The thesis's Attacker-Defender-Arbitrator loop is, in structural terms, an adaptation of the PANDAGUARD and TeleAI-Safety architecture to a problem those frameworks do not address, namely profile-dependent, regulation-aligned, PII-specific leakage evaluation in RAG.
+\end{critbox}
+
+\subsection{Cross-Pillar Methodological Stocktake}
+\label{subsec:pillar-stocktake}
+
+Stepping back from the individual works, the defense pillar is the methodologically weakest of the five, as flagged at the top of this section. The attack pillars are anchored by reproducible benchmarks (BIPIA, AgentPI). The memorization pillar is anchored by scaling laws (Carlini et al.\ 2023) and formal extraction protocols (LLM-PBE). The judge pillar is anchored by correlation studies against human annotators (Zheng et al.\ 2023). The defense pillar is anchored by tool releases (NeMo Guardrails, Llama Guard) and taxonomies (Akheel 2025, Dong et al.\ 2024, Cui et al.\ 2024, Chowdhury et al.\ 2024), with only Zizzo et al.\ (2025) approaching the empirical rigor that characterizes the other pillars, and even Zizzo et al.\ tests against generic jailbreaks rather than privacy. The practical consequence is that most deployed defenses in enterprise RAG are evaluated against claims their developers make, rather than against independent, privacy-specific, controlled benchmarks. Closing this gap for the sub-problem of PII leakage in RAG is a first-order contribution of this thesis.
+
+\begin{gapbox}[Residual Gaps, Defense Mechanisms]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item Current guardrail frameworks (NeMo, Llama Guard) rely on static, pre-programmed rules. None supports dynamic, context-dependent negotiation between Attacker, Defender, and Arbitrator agents.
+  \item No existing study has evaluated defense combinations specifically against PII leakage in RAG systems, as opposed to general jailbreak or content-safety scenarios.
+  \item Multi-agent safety frameworks like PANDAGUARD and TeleAI-Safety have not been applied to the specific challenge of GDPR/PII compliance in RAG architectures.
+  \item The security-utility trade-off has not been measured using a formal, continuous severity metric ($\Delta S$) across multiple defense configurations.
+\end{enumerate}
+\end{gapbox}
+
+
+% ══════════════════════════════════════════════════════════
+%  6 — LLM-AS-JUDGE
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\section{LLM-as-Judge and Multi-Agent Evaluation}
+\label{sec:llm-judge}
+
+\subsection{Foundational Validation}
+
+The idea of using LLMs to evaluate other LLMs was put on solid empirical footing by Zheng et al.\ (2023), who showed that GPT-4 agrees with human expert judgments more than 80\% of the time on the MT-Bench and Chatbot Arena benchmarks. They also identified three systematic biases (position bias, verbosity bias, and self-enhancement bias) that limit how much one can trust a single-model evaluation.
+
+\begin{critbox}
+\textit{Zheng et al.\ is the foundational correlation study for LLM-as-Judge}, and its limits (stated explicitly by the authors) are our point of departure. The evaluation looked only at ``helpfulness'' and general chat quality. Safety and regulatory compliance were out of scope. Transferring Zheng et al.'s methodology to a compliance setting (GDPR/PII) is non-trivial, because it requires constructing a gold standard that reflects legal judgments rather than preference judgments, which is a fundamentally different kind of ground truth than Zheng et al.\ assembled.
+\end{critbox}
+
+Li et al.\ (2024) built the most comprehensive taxonomy of LLM-based evaluation methods, organizing the field across five angles: functionality, methodology, applications, meta-evaluation, and limitations. One particularly useful finding is what they call the \emph{explanation-rating reliability boost}: when you make the judge explain its reasoning before giving a score, accuracy goes up noticeably. This insight directly shapes how we design the Arbitrator in this thesis.
+
+\subsection{The Evolution Toward Multi-Agent Judgment}
+
+Yu (2025) formally laid out the \textbf{Agent-as-a-Judge} paradigm, tracing its development from single-model pointwise scoring through pairwise comparison to multi-agent step-by-step evaluation. The trajectory reflects a growing awareness that complex evaluation tasks (such as deciding whether a RAG response amounts to a GDPR violation) need to be broken down into specialized sub-tasks handled by different agents.
+
+Li et al.\ (2025) put this idea into practice with a three-stage meta-judge pipeline (General Public, Expert, Critic) that audits and corrects individual judgments. Testing it on JudgeBench, hierarchical multi-agent judgment performs substantially better than single-agent evaluation when the assessment task is complex and multi-dimensional. Chen et al.\ (2025) introduced \textbf{MAJ-EVAL}, a framework that automatically pulls evaluation personas from documents and then orchestrates multi-agent debate to reach agreement.
+
+\begin{critbox}
+\textit{The line from Zheng et al.\ (single judge) through Li et al.\ (meta-judge) to Chen et al.\ (document-grounded personas) is the most methodologically convincing evolution across all five pillars}, with each paper addressing a documented limitation of its predecessor. The remaining gap for our use case is narrow but critical. None of these frameworks has been instantiated with regulatory personas (Data Protection Officer, Legal Counsel, Auditor) grounded in GDPR rubrics and deployed inside a RAG pipeline. Closing this specific gap is the Arbitrator's job.
+\end{critbox}
+
+\subsection{Bias, Calibration, and Reliability}
+
+Ma et al.\ (2025) flagged a serious architectural risk. Multi-agent debate can amplify biases instead of canceling them out, especially position and verbosity biases, through what amounts to an echo-chamber effect. Meta-Judge approaches, where a supervising agent reviews individual judgments, turned out to be considerably more resistant to this problem. Kim et al.\ (2025) tackled the calibration problem by introducing \textbf{ObjexMT}, a benchmark for latent objective extraction and confidence calibration in multi-turn settings. Their evaluation of 14+ models showed that most LLMs have poor metacognitive calibration. They tend to be confident when they are wrong and uncertain when they are right.
+
+\begin{critbox}
+\textit{Ma et al.'s finding has a direct architectural consequence for this thesis.} Debate-based arbitration is methodologically risky unless counteracted by a meta-judge layer or a strict external constraint. We adopt the hierarchical design partly on this evidence. Kim et al.'s calibration result is equally consequential: any Arbitrator confidence score has to be calibrated against a held-out set, not trusted at face value, a discipline absent from most prior multi-agent judge work.
+\end{critbox}
+
+Cao et al.\ (2025) developed an automated pipeline for designing task-specific, personalized multi-agent judges, showing that judge personas can be generated algorithmically rather than hand-crafted. Mushtaq et al.\ (2025) provided a proof-of-concept that checklist-driven multi-agent systems can carry out structured quality assessment, demonstrating PRISMA-aligned evaluation of systematic literature reviews. Yehudai et al.\ (2025) surveyed the entire agent-evaluation ecosystem and explicitly called out the absence of ``organizational policy compliance'' in multi-agent evaluation scenarios as a major open frontier, which is an independent confirmation of the gap this thesis is designed to close.
+
+\begin{gapbox}[Residual Gaps, LLM-as-Judge]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item No existing LLM-as-Judge system has been designed for real-time GDPR/PII compliance evaluation inside a RAG pipeline.
+  \item Multi-agent debate has been shown to amplify biases. Whether providing a strict external legal constraint (a GDPR rubric) would counteract this echo-chamber effect is still unknown.
+  \item Confidence calibration for privacy-specific judgments has not been studied.
+  \item The Agent-as-a-Judge paradigm has not been used as an autonomous arbitrator that dynamically mediates between attacker and defender agents in a privacy context.
+\end{enumerate}
+\end{gapbox}
+
+
+% ══════════════════════════════════════════════════════════
+%  7 — SYNTHESIS AND RESEARCH POSITIONING
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\section{Synthesis and Research Gap Identification}
+\label{sec:synthesis}
+
+\subsection{Cross-Pillar Gap Analysis}
+
+Looking across the five pillars reviewed above, a clear pattern emerges. Each subfield has made real methodological progress within its own boundaries, but the intersection of these subfields, where RAG-specific attacks meet PII-specific privacy metrics, formal threat taxonomies, layered defense configurations, and automated multi-agent evaluation, remains largely uncharted. \Cref{tab:gap-matrix} maps the five recurring cross-cutting gaps against the research questions of this thesis.
+
+\begin{table}[H]
+\centering
+\caption{Cross-cutting research gaps mapped to thesis research questions.}
+\label{tab:gap-matrix}
+\footnotesize
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{C{0.5cm} L{6.5cm} C{1.2cm} L{4.5cm}}
+\toprule
+\rowcolor{navy!85}
+\color{white}\textbf{\#} &
+\color{white}\textbf{Gap} &
+\color{white}\textbf{RQ} &
+\color{white}\textbf{Addressed By} \\
+\midrule
+G1 & No formal privacy framework (LINDDUN) applied to RAG leakage classification & RQ1 & Formal leakage definitions ($L$, $S$) with LINDDUN-mapped severity taxonomy \\
+G2 & No empirical comparison of defense combinations against PII-specific attacks in RAG & RQ2 & Controlled experiments with layered defense configurations and $\Delta S$ measurement \\
+G3 & No multi-agent Arbitrator for automated, real-time PII leak adjudication & RQ3 & Three-agent framework (Attacker, Defender, Arbitrator) with consensus-based judgment \\
+G4 & No controlled comparison of attack effectiveness across differentiated attacker profiles & RQ4 & Three-profile threat model with profile-dependent evaluation engine \\
+G5 & No quantification of the security-utility trade-off using continuous privacy metrics in RAG & RQ5 & Residual risk measurement ($\bar{S}_{\text{full-stack}}$) under full defense deployment \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Positioning of This Thesis}
+
+\begin{notebox}
+This thesis sits at the intersection of five active research areas (RAG security, PII privacy, prompt injection, defense engineering, and multi-agent evaluation), none of which, on its own, tackles the full problem. The contribution here is not a brand-new attack technique or a brand-new defense mechanism in isolation. It is the construction of a unified experimental framework, built out of five complementary capabilities:
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item Privacy leakage in RAG systems is formalized using the mathematically precise definitions $L$ and $S$, both rooted in the LINDDUN threat taxonomy.
+  \item A profile-dependent evaluation engine measures leakage while distinguishing between three attacker archetypes, each with different access levels and motivations.
+  \item Multiple adversarial families (prompt injection, jailbreaking, corpus poisoning) are exercised systematically through an autonomous Attacker Agent.
+  \item Defense is provided through layered configurations (Presidio PII detection, NeMo Guardrails, output filtering), whose combined effectiveness is quantified with the $\Delta S$ metric.
+  \item Final adjudication is carried out by a multi-agent judge system designed to reduce false positives and produce a GDPR-aligned severity assessment.
+\end{enumerate}
+
+No existing work in the surveyed literature brings all five of these capabilities together within a single experimental framework applied to RAG systems.
+\end{notebox}
+
+\begin{transitionbox}[Original Contribution, the One-Sentence Statement]
+Of the 50 primary sources surveyed, none simultaneously couples (i) a mathematically formalized, LINDDUN-aligned privacy-leakage metric pair $(L, S)$ with (ii) a profile-dependent evaluation engine that distinguishes three attacker archetypes with different authorization levels and (iii) an autonomous Attacker-Defender-Arbitrator loop grounded in a controlled PII ground-truth corpus, and this three-way integration (formal privacy metric $\times$ profile-dependence $\times$ autonomous multi-agent evaluation, applied to RAG) is the original contribution of this thesis.
+\end{transitionbox}
+
+The value proposition is convergence rather than invention. Every individual component exists somewhere in the literature. None of the 50 surveyed works combines them in the configuration above, and several components, particularly the profile-dependent evaluation engine and the GDPR-grounded Arbitrator, are independently flagged as open frontiers by the surveyed community itself (Yehudai et al.\ 2025; Correia et al.\ 2026).
+
+
+% ══════════════════════════════════════════════════════════
+%  APPENDIX — ANNOTATION TABLE
+% ══════════════════════════════════════════════════════════
+
+\newpage
+\appendix
+\section{Literature Annotation Matrix}
+\label{app:annotation}
+
+The table below presents the full annotation matrix used to build the thematic synthesis in the preceding sections. Each entry records the citation, the research questions it maps to, its key contribution, the gap it leaves relative to this thesis, and how relevant we judged it to be. Entries are grouped by thematic cluster. Publication status for 2026 entries is indicated in the body text of the relevant section; the matrix intentionally keeps the status footnotes out to avoid visual crowding.
+
+\begin{small}
+\begin{longtable}{L{3cm} C{1.2cm} L{3.5cm} L{3.5cm} C{1.5cm}}
+\caption{Complete literature annotation matrix (50 sources, 2021--2026).}
+\label{tab:annotation-matrix} \\
+\toprule
+\rowcolor{navy!85}
+\color{white}\textbf{Citation} &
+\color{white}\textbf{RQ} &
+\color{white}\textbf{Key Contribution} &
+\color{white}\textbf{Gap Identified} &
+\color{white}\textbf{Relevance} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{navy!85}
+\color{white}\textbf{Citation} &
+\color{white}\textbf{RQ} &
+\color{white}\textbf{Key Contribution} &
+\color{white}\textbf{Gap Identified} &
+\color{white}\textbf{Relevance} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\small\textit{Continued on next page}} \\
+\bottomrule
+\endfoot
+\bottomrule
+\endlastfoot
+
+\rowcolor{lightgray}
+\multicolumn{5}{l}{\textbf{\color{navy}Cluster 1: RAG Vulnerabilities}} \\
+\midrule
+
+Greshake et al.\ (2023) & RQ1 & Formalized Indirect Prompt Injection for RAG & No LINDDUN framework, no PII benchmarking & High \\
+\rowcolor{lightgray}
+Liu et al.\ (2025) & RQ1, 3 & HOUYI framework: iterative black-box attack & No PII taxonomy, no Arbitrator & High \\
+Perez \& Ribeiro (2022) & RQ1 & Goal Hijacking; PROMPTINJECT framework & No RAG context, no LINDDUN & High \\
+\rowcolor{lightgray}
+Wei et al.\ (2023) & RQ1 & Competing Objectives failure modes & Model-level only, no RAG pipeline & High \\
+Yi et al.\ (2024) & RQ1, 2, 4 & BIPIA benchmark for IPI & Task-based, no PII taxonomy & Very High \\
+\rowcolor{lightgray}
+Xue et al.\ (2024) & RQ1, 4 & Corpus poisoning; AaaA attack & No LINDDUN, no multi-agent judge & High \\
+Arzanipour et al.\ (2025) & RQ1, 3 & First formal RAG threat model & Purely theoretical, no empirical benchmark & Very High \\
+\rowcolor{lightgray}
+Gulyamov et al.\ (2026) \emph{[journal]} & RQ1, 2 & PALADIN defense framework & Secondary study, no original data & High \\
+Wen et al.\ (2025) & RQ2 & InstructDetector: white-box IPI defense & Binary only, no PII classification & Very High \\
+\rowcolor{lightgray}
+Clop \& Teglia (2024) & RQ1 & Retriever-layer backdoors & No PII taxonomy, no Arbitrator & High \\
+
+\midrule
+\rowcolor{lightgray}
+\multicolumn{5}{l}{\textbf{\color{navy}Cluster 2: PII Leakage in LLMs}} \\
+\midrule
+
+Carlini et al.\ (2021) & RQ1, 5 & Proved verbatim PII memorization in LLMs & GPT-2 only, no RAG pipeline & Critical \\
+\rowcolor{lightgray}
+Carlini et al.\ (2023) & RQ1, 5 & Log-linear memorization scaling laws & Static memorization, no RAG interaction & Critical \\
+Mireshghallah \& Li (2025) & RQ1, 5 & 5-part privacy taxonomy; memorization bias & Position paper, no empirical testbed & Very High \\
+\rowcolor{lightgray}
+Borkar (2023) & RQ1, 2 & Fine-tuning preserves and creates leaks & Model weights only, no RAG pipeline & High \\
+Zhang et al.\ (2025) & RQ1, 5 & Student models inherit teacher's PII risks & No RAG evaluation & High \\
+\rowcolor{lightgray}
+Sander et al.\ (2025) & RQ1, 5 & Reasoning $>$ memorization for PII leakage & Synthetic data, no RAG architecture & Very High \\
+Nakka et al.\ (2025) & RQ1 & In-domain grounding amplifies PII extraction & No benign RAG evaluation & High \\
+\rowcolor{lightgray}
+Nie et al.\ (2025) & RQ1, 3 & LeakAgent: RL-based automated attacker & Attacker only, no Defender/Arbitrator & Very High \\
+Li et al.\ (2024) & RQ2, 3 & LLM-PBE: unified privacy benchmark toolkit & Static model evaluation, no RAG dynamics & Very High \\
+\rowcolor{lightgray}
+Wang et al.\ (2025) & RQ1, 2 & MEXTRA attack; Interaction Memory risk & Session memory only, no knowledge base & Very High \\
+
+\midrule
+\rowcolor{lightgray}
+\multicolumn{5}{l}{\textbf{\color{navy}Cluster 3: Prompt Injection Taxonomy}} \\
+\midrule
+
+OWASP (2025) & RQ1, 4 & Industry taxonomy for LLM attacks & Static document, no empirical benchmark & Critical \\
+\rowcolor{lightgray}
+Duarte et al.\ (2026) \emph{[journal]} & RQ1, 4 & 4-level manipulation taxonomy & No RAG-specific evaluation & Critical \\
+Correia et al.\ (2026) \emph{[preprint]} & RQ1, 2, 4 & Expanded NIST taxonomy; 88-study catalog & Indirect PI defenses underexplored & Critical \\
+\rowcolor{lightgray}
+Wang et al.\ (2026) \emph{[preprint]} & RQ1, 4 & AgentPI benchmark; Security-Utility-Latency trilemma & No multi-agent Arbitrator loop & Very High \\
+Mao et al.\ (2025) & RQ1, 4 & Evolutionary attack surface taxonomy & No real-time RAG arbitration & Critical \\
+\rowcolor{lightgray}
+Yi et al.\ (2024) & RQ1, 4 & Dual-axis attack/defense taxonomy & Static snapshot, no autonomous loop & Critical \\
+Rao et al.\ (2026) & RQ2, 4, 5 & SVM outperforms LLM guardrails in latency & Input screening only, no PII arbitration & High \\
+\rowcolor{lightgray}
+Xu \& Parhi (2025) & RQ1, 4 & Full lifecycle attack taxonomy & No multi-agent Arbitrator & Critical \\
+Huang et al.\ (2025) & RQ1, 2, 4 & Embodiment Gap; physical harm via PI & Not applied to RAG document context & Critical \\
+\rowcolor{lightgray}
+Bayhan (2025) & RQ1, 4 & PI taxonomy by source and goal & No functional Arbitrator architecture & Critical \\
+
+\midrule
+\rowcolor{lightgray}
+\multicolumn{5}{l}{\textbf{\color{navy}Cluster 4: Defense Mechanisms}} \\
+\midrule
+
+Rebedea et al.\ (2023) & RQ2, 5 & NeMo Guardrails toolkit & Static Colang flows, no dynamic negotiation & Critical \\
+\rowcolor{lightgray}
+Dong et al.\ (2024) & RQ2, 4 & Safeguarding taxonomy & General LLM safety, no RAG PII focus & Critical \\
+Akheel (2025) & RQ2, 4, 5 & Multi-layer guardrail taxonomy & No autonomous GDPR Arbitrator & High \\
+\rowcolor{lightgray}
+Zizzo et al.\ (2025) & RQ1, 2, 4, 5 & Benchmarked 15 guardrails & Static tools, no dynamic agent loop & Very High \\
+Clement (2025) & RQ2, 4, 5 & DevSecOps-integrated LLM framework & SDLC focus, no user-facing RAG loop & High \\
+\rowcolor{lightgray}
+Chowdhury et al.\ (2024) & RQ1, 4 & Attack/defense comparative survey & No RAG privacy management & High \\
+Cui et al.\ (2024) & RQ1, 2, 4 & 4-module risk taxonomy & No Attacker-Defender-Arbitrator loop & Critical \\
+\rowcolor{lightgray}
+Wang et al.\ (2025) & RQ2, 4, 5 & SEU framework; 6-axis guardrail taxonomy & No PII/GDPR-specific evaluation & Critical \\
+Shen et al.\ (2025) & RQ2, 4, 5 & PANDAGUARD: multi-agent jailbreak framework & General safety, not PII/GDPR specific & Critical \\
+\rowcolor{lightgray}
+Chen et al.\ (2025) & RQ2, 4, 5 & TeleAI-Safety; RADAR multi-agent debate & General safety, not RAG PII leakage & Critical \\
+
+\midrule
+\rowcolor{lightgray}
+\multicolumn{5}{l}{\textbf{\color{navy}Cluster 5: LLM-as-Judge}} \\
+\midrule
+
+Zheng et al.\ (2023) & RQ2, 5 & GPT-4 as human-proxy judge; bias analysis & Helpfulness only, no safety/GDPR & Critical \\
+\rowcolor{lightgray}
+Yu (2025) & RQ2, 5 & Agent-as-a-Judge paradigm & Generic tool, not applied to RAG PII & Critical \\
+Li et al.\ (2024) & RQ2, 5 & 5-perspective evaluation taxonomy & No RAG-specific Arbitrator & Critical \\
+\rowcolor{lightgray}
+Li et al.\ (2025) & RQ2, 5 & 3-stage meta-judge pipeline & General accuracy, not GDPR/PII & Critical \\
+Chen et al.\ (2025) & RQ2, 5 & MAJ-EVAL: document-grounded personas & No Legal/GDPR stakeholder personas & Critical \\
+\rowcolor{lightgray}
+Mushtaq et al.\ (2025) & RQ2, 5 & PRISMA-aligned MAS for SLR assessment & No privacy/PII evaluation & High \\
+Cao et al.\ (2025) & RQ2, 5 & Automated personalized MA-Judge design & No regulatory persona automation & Critical \\
+\rowcolor{lightgray}
+Ma et al.\ (2025) & RQ5 & Multi-agent debate amplifies biases & No GDPR rubric bias test & High \\
+Yehudai et al.\ (2025) & RQ2, 5 & Agent evaluation ecosystem mapping & Explicitly identifies compliance gap & Critical \\
+\rowcolor{lightgray}
+Kim et al.\ (2025) & RQ2, 5 & ObjexMT: confidence calibration benchmark & Jailbreak focus, not PII leakage & High \\
+
+\end{longtable}
+\end{small}
+
+\end{document}

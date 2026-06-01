@@ -1,0 +1,6 @@
+k,ASR_inclusive_engine,ASR_strict_engine,target_retrieval_rate,mean_unique_docs,n_units
+1,0.8519,0.6667,0.0,1.0,27
+3,0.8148,0.5926,0.0,3.0,27
+5,0.7037,0.4074,0.0,4.92,27
+10,0.5926,0.1481,0.0,9.85,27
+20,0.8519,0.4074,0.2,19.38,27

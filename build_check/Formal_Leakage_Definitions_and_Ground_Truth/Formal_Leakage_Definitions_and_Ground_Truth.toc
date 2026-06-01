@@ -1,0 +1,43 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Project Directory Layout}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Scope and Limitations of This Chapter}{4}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Formal Leakage Definitions}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Definition 1 --- Binary Privacy Leakage Function}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Definition 2 --- Continuous Leakage Severity Score}{8}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Comparison of the Two Metrics}{10}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Ground Truth Corpus}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Document Classes}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Cross-Document References}{12}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Generator Script: \texttt {generate\_dataset.py}}{12}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}What Synthetic Data Cannot Capture}{13}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Entity-Level Annotation Protocol}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Annotation Schema}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Conditional Annotation Rules}{14}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Annotation Pipeline: \texttt {annotate\_dataset.py}}{14}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Annotation Results}{15}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Coverage Gap: Entity Types Without Annotated Instances}{16}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Evaluation Engine}{18}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Role and Purpose}{18}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Four-Layer Architecture}{18}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Important Limitation: The LLM-as-Judge Placeholder}{19}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Evaluation Algorithm}{20}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Profile-Dependent Behavior}{21}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Batch Evaluation}{23}{subsection.5.6}%
+\contentsline {section}{\numberline {6}Re-identification Risk Analysis}{24}{section.6}%
+\contentsline {subsection}{\numberline {6.1}$k$-Anonymity Analysis}{24}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}$l$-Diversity Analysis (Original Result)}{24}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Interpreting the 100\% Result: Why It Was Mathematically Forced}{25}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Inter-Annotator Agreement}{27}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Rationale for This Validation}{27}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Methodology}{27}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Statistical Measures and Their Computation}{28}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Measure 1 --- Cohen's Kappa (Binary Agreement)}{28}{subsubsection.7.3.1}%
+\contentsline {subsubsection}{\numberline {7.3.2}Measure 2 --- Weighted Cohen's Kappa (Severity Agreement)}{29}{subsubsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.4}Results}{30}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Per-Category Breakdown}{31}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Disagreement Analysis and Taxonomic Refinement}{31}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}Significance of This Validation}{31}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}Why These Numbers May Drop in Phase~2}{32}{subsection.7.8}%
+\contentsline {section}{\numberline {8}Automated Consistency Validation}{34}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Validation Checks and Results}{34}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Conclusion and Bridge to Phase~2}{35}{section.9}%

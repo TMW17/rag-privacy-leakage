@@ -1,0 +1,103 @@
+{
+  "state_A": {
+    "label": "Phase 1 .tex terminal box",
+    "provenance": "git 1a19e73 ground_truth_annotations.json == Formal_Leakage_Definitions_and_Ground_Truth.tex L703-719",
+    "total_entities": 2315,
+    "distinct_types": 33,
+    "entity_spec_count": 37
+  },
+  "state_B": {
+    "label": "Phase 2 report / Phase1.md / frozen artifacts",
+    "provenance": "fresh re-run (this script) == frozen ground_truth_annotations.json == git HEAD",
+    "total_entities": 2190,
+    "distinct_types": 31,
+    "entity_spec_count": 35
+  },
+  "git_cross_check_state_A": "MATCH",
+  "per_type_diff": {
+    "CROSS_REFERENCE": {
+      "A_2315": 40,
+      "B_2190": 41,
+      "delta_B_minus_A": 1
+    },
+    "IMMIGRATION": {
+      "A_2315": 29,
+      "B_2190": 36,
+      "delta_B_minus_A": 7
+    },
+    "MEDICAL": {
+      "A_2315": 83,
+      "B_2190": 93,
+      "delta_B_minus_A": 10
+    },
+    "RELIGIOUS": {
+      "A_2315": 43,
+      "B_2190": 0,
+      "delta_B_minus_A": -43
+    },
+    "SSN": {
+      "A_2315": 100,
+      "B_2190": 0,
+      "delta_B_minus_A": -100
+    }
+  },
+  "per_severity_diff": {
+    "5": {
+      "A_2315": 235,
+      "B_2190": 135,
+      "delta_B_minus_A": -100
+    },
+    "4": {
+      "A_2315": 865,
+      "B_2190": 865,
+      "delta_B_minus_A": 0
+    },
+    "3": {
+      "A_2315": 515,
+      "B_2190": 490,
+      "delta_B_minus_A": -25
+    },
+    "2": {
+      "A_2315": 700,
+      "B_2190": 700,
+      "delta_B_minus_A": 0
+    }
+  },
+  "per_linddun_diff": {
+    "Identifiability": {
+      "A_2315": 1160,
+      "B_2190": 1060,
+      "delta_B_minus_A": -100
+    },
+    "Unawareness": {
+      "A_2315": 500,
+      "B_2190": 500,
+      "delta_B_minus_A": 0
+    },
+    "Disclosure": {
+      "A_2315": 290,
+      "B_2190": 264,
+      "delta_B_minus_A": -26
+    },
+    "Detectability": {
+      "A_2315": 225,
+      "B_2190": 225,
+      "delta_B_minus_A": 0
+    },
+    "Linkability": {
+      "A_2315": 140,
+      "B_2190": 141,
+      "delta_B_minus_A": 1
+    }
+  },
+  "net_delta_B_minus_A": -125,
+  "removed_types": [
+    "RELIGIOUS",
+    "SSN"
+  ],
+  "reshuffled_types": [
+    "CROSS_REFERENCE",
+    "IMMIGRATION",
+    "MEDICAL"
+  ]
+}
