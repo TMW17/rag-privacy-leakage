@@ -11,6 +11,7 @@ build/
 # Environments
 .env
 .venv/
+.venv-presidio/
 venv/
 
 # Test / coverage
@@ -34,3 +35,6 @@ experiment_logs/*.jsonl
 results/baseline/*.csv
 results/judge_validation/*.csv
 results/p4_offline/*.csv
+
+# External datasets (large, local-only — never commit)
+data/external/

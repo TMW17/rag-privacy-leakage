@@ -1,0 +1,309 @@
+{
+  "generated_at": "2026-06-01T19:18:02",
+  "source_annotations": "data/ground_truth/ground_truth_annotations.json",
+  "total_entities": 2190,
+  "distinct_types": 31,
+  "entity_specs_declared": 35,
+  "note_spec_gap": "metadata declares 35 specs; 31 types produced entities (4 specs generated 0)",
+  "offsets_present_in_answer_key": false,
+  "step4_matching_design": "No char offsets in answer key -> reconstruct each document from ground_truth_index.json, locate each GT entity's text string, mark detected if a Presidio span overlaps an occurrence (any-label AND correct-label both reported).",
+  "presidio": {
+    "analyzer_version": "2.2.359",
+    "supported_global_entities": [
+      "PERSON",
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "IBAN_CODE",
+      "IP_ADDRESS",
+      "LOCATION",
+      "DATE_TIME",
+      "CREDIT_CARD",
+      "CRYPTO",
+      "MEDICAL_LICENSE",
+      "URL",
+      "MAC_ADDRESS",
+      "NRP"
+    ],
+    "docs": "https://microsoft.github.io/presidio/supported_entities/"
+  },
+  "classification_legend": {
+    "out_of_box": "Presidio default recognizer expected to detect",
+    "out_of_box_partial": "NER/broad coverage; partial detection expected",
+    "custom_needed": "No usable default; requires subtask-3 custom PatternRecognizer",
+    "not_detectable_default": "No Presidio default; out of scope for subtask-3 custom set"
+  },
+  "types": [
+    {
+      "type": "PERSON",
+      "count": 130,
+      "severity": 4,
+      "presidio_label": "PERSON",
+      "classification": "out_of_box",
+      "note": "NER-based; default spaCy model"
+    },
+    {
+      "type": "HEALTH_RECORD_ID",
+      "count": 130,
+      "severity": 4,
+      "presidio_label": "(custom) HEALTH_RECORD_ID",
+      "classification": "custom_needed",
+      "note": "No Presidio default; subtask-3 PatternRecognizer"
+    },
+    {
+      "type": "NATIONAL_ID",
+      "count": 100,
+      "severity": 5,
+      "presidio_label": "(custom) NNI_DZ",
+      "classification": "custom_needed",
+      "note": "Algerian NNI; no generic NATIONAL_ID (US_SSN etc. are country-specific, won't match DZ)"
+    },
+    {
+      "type": "EMAIL",
+      "count": 100,
+      "severity": 4,
+      "presidio_label": "EMAIL_ADDRESS",
+      "classification": "out_of_box",
+      "note": "Regex + RFC-822 validation"
+    },
+    {
+      "type": "PHONE",
+      "count": 100,
+      "severity": 4,
+      "presidio_label": "PHONE_NUMBER",
+      "classification": "out_of_box",
+      "note": "phonenumbers lib; may need DZ region config for full recall"
+    },
+    {
+      "type": "ADDRESS",
+      "count": 100,
+      "severity": 4,
+      "presidio_label": "LOCATION",
+      "classification": "out_of_box_partial",
+      "note": "NER LOCATION; full street addresses only partially covered"
+    },
+    {
+      "type": "DOB",
+      "count": 100,
+      "severity": 4,
+      "presidio_label": "DATE_TIME",
+      "classification": "out_of_box",
+      "note": "Broad: DATE_TIME flags all dates, not only DOB (precision caveat)"
+    },
+    {
+      "type": "IBAN",
+      "count": 100,
+      "severity": 4,
+      "presidio_label": "IBAN_CODE",
+      "classification": "out_of_box",
+      "note": "Presidio HAS IBAN_CODE (checksum); task listed IBAN as custom -> verify DZ IBAN passes mod-97 in step 4, build custom only if it misses"
+    },
+    {
+      "type": "SURNAME_TITLE",
+      "count": 100,
+      "severity": 4,
+      "presidio_label": "PERSON",
+      "classification": "out_of_box_partial",
+      "note": "PERSON NER may catch surname; honorific title not a PII label"
+    },
+    {
+      "type": "SALARY",
+      "count": 100,
+      "severity": 3,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No MONEY/SALARY default recognizer"
+    },
+    {
+      "type": "EMPLOYEE_ID",
+      "count": 100,
+      "severity": 3,
+      "presidio_label": "(custom) EMPLOYEE_ID",
+      "classification": "custom_needed",
+      "note": "No Presidio default; subtask-3 PatternRecognizer"
+    },
+    {
+      "type": "AGE_GENDER",
+      "count": 100,
+      "severity": 3,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "AGE explicitly unsupported; gender ~ NRP only"
+    },
+    {
+      "type": "PERFORMANCE",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Semantic, not a PII entity"
+    },
+    {
+      "type": "DEPARTMENT",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Org metadata, no default"
+    },
+    {
+      "type": "JOB_TITLE",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No default"
+    },
+    {
+      "type": "WORK_SCHEDULE",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No default"
+    },
+    {
+      "type": "OFFICE_LOCATION",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": "LOCATION",
+      "classification": "out_of_box_partial",
+      "note": "May surface via LOCATION NER"
+    },
+    {
+      "type": "PROJECT",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No default"
+    },
+    {
+      "type": "TRAINING",
+      "count": 100,
+      "severity": 2,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No default"
+    },
+    {
+      "type": "MEDICAL",
+      "count": 93,
+      "severity": 3,
+      "presidio_label": "MEDICAL_LICENSE",
+      "classification": "out_of_box_partial",
+      "note": "Only licenses via default; clinical terms need transformers medical NER (not in default spaCy)"
+    },
+    {
+      "type": "CROSS_REFERENCE",
+      "count": 41,
+      "severity": 3,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No default"
+    },
+    {
+      "type": "IMMIGRATION",
+      "count": 36,
+      "severity": 3,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No default"
+    },
+    {
+      "type": "FILE_PATH",
+      "count": 15,
+      "severity": 3,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "No FILE_PATH entity (URL is distinct)"
+    },
+    {
+      "type": "API_KEY",
+      "count": 10,
+      "severity": 5,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Secret; no default (would need custom regex, not in subtask-3 set)"
+    },
+    {
+      "type": "JWT_TOKEN",
+      "count": 5,
+      "severity": 5,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Secret; no default"
+    },
+    {
+      "type": "PASSWORD_HASH",
+      "count": 5,
+      "severity": 5,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Secret; no default"
+    },
+    {
+      "type": "DB_CONN_STRING",
+      "count": 5,
+      "severity": 5,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Secret; no default"
+    },
+    {
+      "type": "SYSTEM_PROMPT",
+      "count": 5,
+      "severity": 5,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Not PII"
+    },
+    {
+      "type": "PRIVATE_KEY",
+      "count": 5,
+      "severity": 5,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Secret; CRYPTO is wallet-address, different"
+    },
+    {
+      "type": "INTERNAL_IP",
+      "count": 5,
+      "severity": 4,
+      "presidio_label": "IP_ADDRESS",
+      "classification": "out_of_box",
+      "note": "Regex + checksum"
+    },
+    {
+      "type": "ARCHITECTURE",
+      "count": 5,
+      "severity": 3,
+      "presidio_label": null,
+      "classification": "not_detectable_default",
+      "note": "Not a PII entity"
+    }
+  ],
+  "summary_by_classification": {
+    "out_of_box": {
+      "types": 6,
+      "entities": 535
+    },
+    "custom_needed": {
+      "types": 3,
+      "entities": 330
+    },
+    "out_of_box_partial": {
+      "types": 4,
+      "entities": 393
+    },
+    "not_detectable_default": {
+      "types": 18,
+      "entities": 932
+    }
+  },
+  "custom_recognizers_required_for_subtask3": [
+    "NATIONAL_ID (Algerian NNI)",
+    "EMPLOYEE_ID",
+    "HEALTH_RECORD_ID",
+    "IBAN (verify default IBAN_CODE covers DZ in step 4; build custom only if it misses)"
+  ]
+}

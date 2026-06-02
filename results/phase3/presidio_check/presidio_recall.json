@@ -1,0 +1,523 @@
+{
+  "task": "Phase 3 / Task 0.1 — Presidio detection recall (MEASUREMENT ONLY, no redaction)",
+  "recognizer_set": "bin_a",
+  "n_custom_recognizers": 13,
+  "environment": {
+    "python": "3.11 (.venv-presidio)",
+    "presidio_analyzer": "2.2.362",
+    "presidio_anonymizer": "2.2.362",
+    "spacy": "3.8.14",
+    "spacy_model": "en_core_web_lg",
+    "spacy_model_version": "3.8.0"
+  },
+  "real_presidio_call": true,
+  "method": {
+    "corpus_text": "results/phase3/presidio_check/corpus_text.json (reconstructed via frozen Phase-2 build_index._TEXT_BUILDERS)",
+    "matching": "entity flagged if a Presidio span overlaps an occurrence of the answer-key text in the document; verbatim match, with 5+ digit numeric fallback for formatted values (e.g. '$43,905' -> '43905')",
+    "recall_any": "detected by ANY Presidio label (redaction-relevant: anything flagged would be redacted)",
+    "recall_correct_label": "detected by the SEMANTICALLY correct label only",
+    "precision_note": "LOWER BOUND only — the answer key does not annotate every PII type, so legitimate detections of un-annotated types (DATE_TIME, LOCATION, URL, NRP, ...) count as false positives",
+    "score_threshold": "Presidio default (all results with score > 0)"
+  },
+  "custom_recognizers": [
+    {
+      "entity": "NNI_DZ",
+      "pattern": "\\b\\d{9}\\b",
+      "base_score": 0.4,
+      "context": [
+        "national",
+        "national id",
+        "nni",
+        "nin",
+        "id national"
+      ]
+    },
+    {
+      "entity": "EMPLOYEE_ID",
+      "pattern": "\\bEMP-\\d{5}\\b",
+      "base_score": 0.85,
+      "context": [
+        "employee",
+        "employee id",
+        "staff",
+        "emp"
+      ]
+    },
+    {
+      "entity": "HEALTH_RECORD_ID",
+      "pattern": "\\bMRN-\\d{5}\\b",
+      "base_score": 0.85,
+      "context": [
+        "health",
+        "medical",
+        "patient",
+        "record",
+        "mrn"
+      ]
+    },
+    {
+      "entity": "IBAN_DZ",
+      "pattern": "\\bDZ\\d{2}-\\d{5}-\\d{10}-\\d{2}\\b",
+      "base_score": 0.9,
+      "context": [
+        "iban",
+        "bank",
+        "account"
+      ]
+    }
+  ],
+  "iban_code_default_catches_dz": false,
+  "iban_code_test_sample": "DZ23-86758-8963334018-54",
+  "overall": {
+    "total_entities": 2190,
+    "gate_recall_threshold": 0.9,
+    "sev>=3_answer_key": 1490,
+    "sev>=3_not_locatable_in_corpus": 100,
+    "sev>=3_answer_key_locatable": 1390,
+    "sev>=3_recall_correct_label_all": 0.7785,
+    "sev>=3_recall_correct_label_locatable": 0.8345,
+    "sev>=3_recall_any_label_all": 0.8027,
+    "sev>=3_recall_any_label_locatable": 0.8604,
+    "gate_pass": false,
+    "gate_pass_detail": {
+      "correct_label_all": false,
+      "correct_label_locatable": false,
+      "any_label_all": false,
+      "any_label_locatable": false
+    }
+  },
+  "precision_estimate_lower_bound": 0.8921,
+  "total_presidio_detections": 3022,
+  "detections_overlapping_a_gt_entity": 2696,
+  "detection_label_histogram": {
+    "DATE_TIME": 394,
+    "US_DRIVER_LICENSE": 359,
+    "PERSON": 340,
+    "US_BANK_NUMBER": 200,
+    "US_SSN": 200,
+    "URL": 176,
+    "CROSS_REFERENCE": 171,
+    "HEALTH_RECORD_ID": 130,
+    "FILE_PATH": 117,
+    "LOCATION": 114,
+    "EMAIL_ADDRESS": 109,
+    "PHONE_DZ": 100,
+    "IBAN_DZ": 100,
+    "SALARY": 100,
+    "EMPLOYEE_ID": 100,
+    "NNI_DZ": 100,
+    "US_PASSPORT": 100,
+    "PHONE_NUMBER": 58,
+    "UK_NHS": 15,
+    "API_KEY": 10,
+    "JWT_TOKEN": 5,
+    "PASSWORD_HASH": 5,
+    "DB_CONN_STRING": 5,
+    "PRIVATE_KEY": 5,
+    "IP_ADDRESS": 5,
+    "US_ITIN": 3,
+    "NRP": 1
+  },
+  "types_flagged_recall_below_0.90": [
+    "ADDRESS",
+    "SURNAME_TITLE",
+    "AGE_GENDER",
+    "PERFORMANCE",
+    "DEPARTMENT",
+    "JOB_TITLE",
+    "WORK_SCHEDULE",
+    "OFFICE_LOCATION",
+    "PROJECT",
+    "TRAINING",
+    "MEDICAL",
+    "IMMIGRATION",
+    "SYSTEM_PROMPT"
+  ],
+  "per_type": [
+    {
+      "type": "PERSON",
+      "severity": 4,
+      "answer_key": 130,
+      "detected_any_label": 130,
+      "detected_correct_label": 130,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "PERSON"
+      ]
+    },
+    {
+      "type": "HEALTH_RECORD_ID",
+      "severity": 4,
+      "answer_key": 130,
+      "detected_any_label": 130,
+      "detected_correct_label": 130,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "HEALTH_RECORD_ID"
+      ]
+    },
+    {
+      "type": "NATIONAL_ID",
+      "severity": 5,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "NNI_DZ"
+      ]
+    },
+    {
+      "type": "EMAIL",
+      "severity": 4,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "EMAIL_ADDRESS"
+      ]
+    },
+    {
+      "type": "PHONE",
+      "severity": 4,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "PHONE_DZ",
+        "PHONE_NUMBER"
+      ]
+    },
+    {
+      "type": "ADDRESS",
+      "severity": 4,
+      "answer_key": 100,
+      "detected_any_label": 89,
+      "detected_correct_label": 60,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.89,
+      "recall_correct_label": 0.6,
+      "expected_presidio_labels": [
+        "LOCATION"
+      ]
+    },
+    {
+      "type": "DOB",
+      "severity": 4,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "DATE_TIME"
+      ]
+    },
+    {
+      "type": "IBAN",
+      "severity": 4,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "IBAN_CODE",
+        "IBAN_DZ"
+      ]
+    },
+    {
+      "type": "SURNAME_TITLE",
+      "severity": 4,
+      "answer_key": 100,
+      "detected_any_label": 51,
+      "detected_correct_label": 49,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.51,
+      "recall_correct_label": 0.49,
+      "expected_presidio_labels": [
+        "PERSON"
+      ]
+    },
+    {
+      "type": "SALARY",
+      "severity": 3,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "SALARY"
+      ]
+    },
+    {
+      "type": "EMPLOYEE_ID",
+      "severity": 3,
+      "answer_key": 100,
+      "detected_any_label": 100,
+      "detected_correct_label": 100,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "EMPLOYEE_ID"
+      ]
+    },
+    {
+      "type": "AGE_GENDER",
+      "severity": 3,
+      "answer_key": 100,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 100,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "PERFORMANCE",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "DEPARTMENT",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "JOB_TITLE",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "WORK_SCHEDULE",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 76,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.76,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "OFFICE_LOCATION",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": [
+        "LOCATION"
+      ]
+    },
+    {
+      "type": "PROJECT",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 30,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.3,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "TRAINING",
+      "severity": 2,
+      "answer_key": 100,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "MEDICAL",
+      "severity": 3,
+      "answer_key": 93,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": [
+        "MEDICAL_LICENSE"
+      ]
+    },
+    {
+      "type": "CROSS_REFERENCE",
+      "severity": 3,
+      "answer_key": 41,
+      "detected_any_label": 41,
+      "detected_correct_label": 41,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "CROSS_REFERENCE"
+      ]
+    },
+    {
+      "type": "IMMIGRATION",
+      "severity": 3,
+      "answer_key": 36,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "FILE_PATH",
+      "severity": 3,
+      "answer_key": 15,
+      "detected_any_label": 15,
+      "detected_correct_label": 15,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "FILE_PATH"
+      ]
+    },
+    {
+      "type": "API_KEY",
+      "severity": 5,
+      "answer_key": 10,
+      "detected_any_label": 10,
+      "detected_correct_label": 10,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "API_KEY"
+      ]
+    },
+    {
+      "type": "JWT_TOKEN",
+      "severity": 5,
+      "answer_key": 5,
+      "detected_any_label": 5,
+      "detected_correct_label": 5,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "JWT_TOKEN"
+      ]
+    },
+    {
+      "type": "PASSWORD_HASH",
+      "severity": 5,
+      "answer_key": 5,
+      "detected_any_label": 5,
+      "detected_correct_label": 5,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "PASSWORD_HASH"
+      ]
+    },
+    {
+      "type": "DB_CONN_STRING",
+      "severity": 5,
+      "answer_key": 5,
+      "detected_any_label": 5,
+      "detected_correct_label": 5,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "DB_CONN_STRING"
+      ]
+    },
+    {
+      "type": "SYSTEM_PROMPT",
+      "severity": 5,
+      "answer_key": 5,
+      "detected_any_label": 0,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 0.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    },
+    {
+      "type": "PRIVATE_KEY",
+      "severity": 5,
+      "answer_key": 5,
+      "detected_any_label": 5,
+      "detected_correct_label": 5,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "PRIVATE_KEY"
+      ]
+    },
+    {
+      "type": "INTERNAL_IP",
+      "severity": 4,
+      "answer_key": 5,
+      "detected_any_label": 5,
+      "detected_correct_label": 5,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 1.0,
+      "expected_presidio_labels": [
+        "IP_ADDRESS"
+      ]
+    },
+    {
+      "type": "ARCHITECTURE",
+      "severity": 3,
+      "answer_key": 5,
+      "detected_any_label": 5,
+      "detected_correct_label": 0,
+      "answer_key_text_not_locatable": 0,
+      "recall_any": 1.0,
+      "recall_correct_label": 0.0,
+      "expected_presidio_labels": null
+    }
+  ]
+}

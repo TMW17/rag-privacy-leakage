@@ -1,0 +1,84 @@
+{
+  "task": "Phase 3 — multi-model LLM-judge ensemble (judge_v2, all judges)",
+  "n_records": 46,
+  "effective_ensemble": "2-judge: Claude (reused canonical v2) + openai/gpt-oss-120b:free. Judge C DROPPED — both free Qwen variants (qwen3-next-80b-a3b-instruct:free, qwen3-coder:free) persistently 429-throttled.",
+  "judges": {
+    "A_claude": "claude-opus-4-7 (reused canonical v2 verdicts)",
+    "B": "openai/gpt-oss-120b:free",
+    "C": "qwen/qwen3-coder:free"
+  },
+  "notes": {
+    "free_tier_substitution": "Original DeepSeek-R1 / Qwen3-235B have NO free OpenRouter slug. BOTH free Qwen variants attempted for Judge C were persistently 429-throttled upstream (qwen3-next-80b-a3b-instruct:free AND qwen3-coder:free, 4/4 probe calls 429). Judge C therefore DROPPED — this is a 2-JUDGE ensemble: Claude (reused canonical v2) + openai/gpt-oss-120b:free. The 13 paid verdicts (DeepSeek-R1 x10, Qwen3-235B x3) in paid_partial_poc.json stand as the partial cross-vendor PoC.",
+    "paid_partial_poc": "paid_partial_poc.json holds 13 verdicts (DeepSeek-R1 x10, Qwen3-235B x3) from the paid run before credits ran out — a documented partial cross-vendor PoC, NOT merged into this free-tier ensemble.",
+    "scaling_warning": "Free tier (~50 req/day, heavy throttling) will NOT scale to the Task 2.3 full 32-config judged batch — that needs a separate cost/strategy decision."
+  },
+  "correctness_gate": {
+    "claude_vs_human_kappa": 0.827068,
+    "canonical": 0.8270676691729324,
+    "reproduced": true
+  },
+  "abstentions": {
+    "B_gptoss120b_free": 0,
+    "C_qwen3coder_free": 46
+  },
+  "arbitration_escalations": 3,
+  "arbitrated_equals_majority": false,
+  "kappas": {
+    "claude_vs_human": 0.827068,
+    "B_vs_human": 0.776699,
+    "C_vs_human": null,
+    "pairwise_claude_B": 0.842825,
+    "pairwise_claude_C": null,
+    "pairwise_B_C": null,
+    "fleiss_3judge": null,
+    "fleiss_n_complete": 0
+  },
+  "rule_comparison": {
+    "claude_only": {
+      "leak_rate": 0.2826,
+      "n_flagged": 13,
+      "FPR_on_negatives": 0.0833,
+      "FP_count": 3,
+      "n_neg": 36,
+      "recall_on_positives": 1.0,
+      "TP_count": 10,
+      "n_pos": 10
+    },
+    "majority": {
+      "leak_rate": 0.2609,
+      "n_flagged": 12,
+      "FPR_on_negatives": 0.0556,
+      "FP_count": 2,
+      "n_neg": 36,
+      "recall_on_positives": 1.0,
+      "TP_count": 10,
+      "n_pos": 10
+    },
+    "any_flags": {
+      "leak_rate": 0.3261,
+      "n_flagged": 15,
+      "FPR_on_negatives": 0.1389,
+      "FP_count": 5,
+      "n_neg": 36,
+      "recall_on_positives": 1.0,
+      "TP_count": 10,
+      "n_pos": 10
+    },
+    "arbitrated": {
+      "leak_rate": 0.2826,
+      "n_flagged": 13,
+      "FPR_on_negatives": 0.0833,
+      "FP_count": 3,
+      "n_neg": 36,
+      "recall_on_positives": 1.0,
+      "TP_count": 10,
+      "n_pos": 10
+    }
+  },
+  "RQ3_seed": {
+    "claude_only_FPR": 0.0833,
+    "arbitrated_FPR": 0.0833,
+    "claude_only_recall": 1.0,
+    "arbitrated_recall": 1.0
+  }
+}
