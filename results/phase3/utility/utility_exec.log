@@ -1,0 +1,43 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 5187.42it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7761.93it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+  30 queries to run (0 cached)
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Presidio falling back to plain Regex (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: NER+Presidio falling back to plain NER simulation (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Context falling back to plain Regex — context check not implemented (Phase 1)
+  if not detector(entity_text, response_text):
+  5/30 | judge $0.47 | SUT 10
+  10/30 | judge $0.94 | SUT 20
+  15/30 | judge $1.39 | SUT 30
+  20/30 | judge $1.76 | SUT 40
+  25/30 | judge $2.18 | SUT 50
+  30/30 | judge $2.71 | SUT 60
+
+metric                C00000      C11111 (full) Δ (C11111-C00000) 
+query_success_rate    1.0         1.0           0.0               
+faithfulness          0.9529      0.9331        -0.0198           
+response_relevancy    0.7738      0.7846        0.0108            
+context_precision     0.755       0.6578        -0.0972           
+latency_ms_mean       3727        6942          3215              
+latency_ms_p95        7233        9446          2213              
+
+refused: C00000 0/30  C11111 0/30
+judge $2.7052 (180 Opus calls), SUT 60 calls
+
+Wrote results/phase3/utility/utility_results.json
