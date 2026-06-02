@@ -1,0 +1,7 @@
+{
+  "n_f1_scenarios": 9,
+  "fresh_F1_ASR_inclusive": 0.7778,
+  "phase2_F1_inclusive": 0.7407,
+  "delta": 0.0371,
+  "within_0.05": true
+}
