@@ -1,0 +1,453 @@
+{
+  "metadata": {
+    "name": "config_set6",
+    "purpose": "6 selected ablation cells for the Phase-3 defense ablation (a subset of the 2^5 = 32-config space).",
+    "ablation_dimensions": [
+      "L1_input_filter",
+      "L2_retrieval_redaction",
+      "L3_conversation_refusal",
+      "L4_output_filter",
+      "L5_provenance_check"
+    ],
+    "ablation_space_size": 32,
+    "n_cells_defined": 6,
+    "n_future_work": 26,
+    "sut": "claude-sonnet-4-6 temp=0 max_tokens=1024 (frozen); embedding all-MiniLM-L6-v2; ChromaDB top-k=5; chunk 512/64; seed 42; same 57 scenarios.",
+    "frozen_phase2_baseline_for_C00000": {
+      "ASR_strict_augmented": 0.288,
+      "F1": 0.778,
+      "judge_human_kappa": 0.827
+    }
+  },
+  "notes": {
+    "context_minimization": "INERT STUB — no effect. NOT an ablation dimension (kept out of the 5-bit space so a no-op toggle does not silently inflate it). C11111's defense_config sets it True for completeness, flagged inert; 'full stack' = 5 effective layers L1-L5, not 6.",
+    "sanitized_index": "Intentionally NOT a cell here. Index-time sanitization is a PREVENTIVE defense (PII never enters the store) vs these REACTIVE query-time layers; it is evaluated as a SEPARATE comparison (C00000 baseline vs sanitized-only) to keep the preventive-vs-reactive story clean.",
+    "future_work": "The other 26 of 32 5-bit configs are documented future work (see future_work_configs).",
+    "confidence_threshold_and_audit_log": "NOT part of the 5-bit ablation. confidence_threshold is a separate tunable (severity-S circuit-breaker, default 10.0); audit_log is non-transforming logging. Both default False here; toggle independently."
+  },
+  "cells": [
+    {
+      "id": "C00000",
+      "bit_vector": "00000",
+      "bit_layout": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "bits": {
+        "L1_input_filter": 0,
+        "L2_retrieval_redaction": 0,
+        "L3_conversation_refusal": 0,
+        "L4_output_filter": 0,
+        "L5_provenance_check": 0
+      },
+      "active_layers": [],
+      "n_active_effective": 0,
+      "defense_config": {
+        "L1_input_filter": false,
+        "L2_retrieval_redaction": false,
+        "L3_conversation_refusal": false,
+        "L4_output_filter": false,
+        "L5_provenance_check": false,
+        "context_minimization": false,
+        "confidence_threshold": false,
+        "audit_log": false
+      },
+      "reuse_phase2": true,
+      "description": "Baseline — REUSE Phase 2 canonical results (generate nothing)."
+    },
+    {
+      "id": "C10000",
+      "bit_vector": "10000",
+      "bit_layout": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "bits": {
+        "L1_input_filter": 1,
+        "L2_retrieval_redaction": 0,
+        "L3_conversation_refusal": 0,
+        "L4_output_filter": 0,
+        "L5_provenance_check": 0
+      },
+      "active_layers": [
+        "L1_input_filter"
+      ],
+      "n_active_effective": 1,
+      "defense_config": {
+        "L1_input_filter": true,
+        "L2_retrieval_redaction": false,
+        "L3_conversation_refusal": false,
+        "L4_output_filter": false,
+        "L5_provenance_check": false,
+        "context_minimization": false,
+        "confidence_threshold": false,
+        "audit_log": false
+      },
+      "reuse_phase2": false,
+      "description": "L1 input filter only (regex+classifier rail)."
+    },
+    {
+      "id": "C01000",
+      "bit_vector": "01000",
+      "bit_layout": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "bits": {
+        "L1_input_filter": 0,
+        "L2_retrieval_redaction": 1,
+        "L3_conversation_refusal": 0,
+        "L4_output_filter": 0,
+        "L5_provenance_check": 0
+      },
+      "active_layers": [
+        "L2_retrieval_redaction"
+      ],
+      "n_active_effective": 1,
+      "defense_config": {
+        "L1_input_filter": false,
+        "L2_retrieval_redaction": true,
+        "L3_conversation_refusal": false,
+        "L4_output_filter": false,
+        "L5_provenance_check": false,
+        "context_minimization": false,
+        "confidence_threshold": false,
+        "audit_log": false
+      },
+      "reuse_phase2": false,
+      "description": "L2 retrieval redaction only (Presidio on chunks)."
+    },
+    {
+      "id": "C00100",
+      "bit_vector": "00100",
+      "bit_layout": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "bits": {
+        "L1_input_filter": 0,
+        "L2_retrieval_redaction": 0,
+        "L3_conversation_refusal": 1,
+        "L4_output_filter": 0,
+        "L5_provenance_check": 0
+      },
+      "active_layers": [
+        "L3_conversation_refusal"
+      ],
+      "n_active_effective": 1,
+      "defense_config": {
+        "L1_input_filter": false,
+        "L2_retrieval_redaction": false,
+        "L3_conversation_refusal": true,
+        "L4_output_filter": false,
+        "L5_provenance_check": false,
+        "context_minimization": false,
+        "confidence_threshold": false,
+        "audit_log": false
+      },
+      "reuse_phase2": false,
+      "description": "L3 conversation-state refusal only (engine-based)."
+    },
+    {
+      "id": "C01100",
+      "bit_vector": "01100",
+      "bit_layout": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "bits": {
+        "L1_input_filter": 0,
+        "L2_retrieval_redaction": 1,
+        "L3_conversation_refusal": 1,
+        "L4_output_filter": 0,
+        "L5_provenance_check": 0
+      },
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal"
+      ],
+      "n_active_effective": 2,
+      "defense_config": {
+        "L1_input_filter": false,
+        "L2_retrieval_redaction": true,
+        "L3_conversation_refusal": true,
+        "L4_output_filter": false,
+        "L5_provenance_check": false,
+        "context_minimization": false,
+        "confidence_threshold": false,
+        "audit_log": false
+      },
+      "reuse_phase2": false,
+      "recommended": true,
+      "description": "L2 + L3 (recommended primary defense)."
+    },
+    {
+      "id": "C11111",
+      "bit_vector": "11111",
+      "bit_layout": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "bits": {
+        "L1_input_filter": 1,
+        "L2_retrieval_redaction": 1,
+        "L3_conversation_refusal": 1,
+        "L4_output_filter": 1,
+        "L5_provenance_check": 1
+      },
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ],
+      "n_active_effective": 5,
+      "defense_config": {
+        "L1_input_filter": true,
+        "L2_retrieval_redaction": true,
+        "L3_conversation_refusal": true,
+        "L4_output_filter": true,
+        "L5_provenance_check": true,
+        "context_minimization": true,
+        "confidence_threshold": false,
+        "audit_log": false
+      },
+      "reuse_phase2": false,
+      "full_stack": true,
+      "inert_toggles": [
+        "context_minimization"
+      ],
+      "full_config_bitmap": {
+        "L1_input_filter": 1,
+        "L2_retrieval_redaction": 1,
+        "L3_conversation_refusal": 1,
+        "L4_output_filter": 1,
+        "L5_provenance_check": 1,
+        "context_minimization": 1
+      },
+      "full_stack_note": "context_minimization is set True in defense_config for completeness but is an INERT STUB (no effect). Effective active layers = the 5 numbered layers L1-L5; do NOT over-read 'full stack' as a 6th working defense.",
+      "description": "Full stack — all five numbered layers L1-L5 (context_minimization on-but-inert)."
+    }
+  ],
+  "future_work_configs": [
+    {
+      "bit_vector": "00001",
+      "active_layers": [
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "00010",
+      "active_layers": [
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "00011",
+      "active_layers": [
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "00101",
+      "active_layers": [
+        "L3_conversation_refusal",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "00110",
+      "active_layers": [
+        "L3_conversation_refusal",
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "00111",
+      "active_layers": [
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "01001",
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "01010",
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "01011",
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "01101",
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "01110",
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "01111",
+      "active_layers": [
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "10001",
+      "active_layers": [
+        "L1_input_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "10010",
+      "active_layers": [
+        "L1_input_filter",
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "10011",
+      "active_layers": [
+        "L1_input_filter",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "10100",
+      "active_layers": [
+        "L1_input_filter",
+        "L3_conversation_refusal"
+      ]
+    },
+    {
+      "bit_vector": "10101",
+      "active_layers": [
+        "L1_input_filter",
+        "L3_conversation_refusal",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "10110",
+      "active_layers": [
+        "L1_input_filter",
+        "L3_conversation_refusal",
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "10111",
+      "active_layers": [
+        "L1_input_filter",
+        "L3_conversation_refusal",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "11000",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction"
+      ]
+    },
+    {
+      "bit_vector": "11001",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "11010",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L4_output_filter"
+      ]
+    },
+    {
+      "bit_vector": "11011",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L4_output_filter",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "11100",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal"
+      ]
+    },
+    {
+      "bit_vector": "11101",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L5_provenance_check"
+      ]
+    },
+    {
+      "bit_vector": "11110",
+      "active_layers": [
+        "L1_input_filter",
+        "L2_retrieval_redaction",
+        "L3_conversation_refusal",
+        "L4_output_filter"
+      ]
+    }
+  ]
+}
