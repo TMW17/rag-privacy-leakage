@@ -21,7 +21,9 @@ wrapper code path that could diverge).  Around that atomic core:
 
   * L1_input_filter      — real seam on the *inbound query string* (no-op stub).
   * L4_output_filter     — real seam on the *outbound response string* (no-op stub).
-  * confidence_threshold — real seam on the *outbound response string* (no-op stub).
+  * confidence_threshold — REAL: response-level circuit-breaker; suppresses/flags answers whose
+                           engine leak-severity S exceeds conf_threshold. audit_log writes a
+                           structured per-turn record (verdict/severity/source) to results/phase3/audit/.
 
 The MID-FLOW layers (L5_provenance_check, context_minimization, L2_retrieval_redaction,
 L3_conversation_refusal) act on retrieved context / message state BEFORE the SUT call.
@@ -51,9 +53,11 @@ import sys
 import time
 from collections import defaultdict
 from dataclasses import dataclass, asdict, field, replace, fields
+from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
+_AUDIT_DIR = os.path.join(ROOT, "results", "phase3", "audit")
 
 from scripts.rag_system import (  # noqa: E402
     RAGSystem, RAGResponse, _SYSTEM_PROMPT_TEMPLATE, _LLM_MODEL,
@@ -93,7 +97,6 @@ class DefenseConfig:
 # Mid-flow layers that act before the SUT (cannot affect the atomic core in Sprint 0)
 _MID_FLOW = ("L5_provenance_check", "context_minimization",
              "L2_retrieval_redaction", "L3_conversation_refusal")
-_STUB_NOOP = "STUB no-op (passthrough)"
 _STUB_MIDFLOW = ("STUB no-op — INERT in Sprint 0; real effect requires the Sprint-1 "
                  "retrieve()/generate() split (SUT already ran on original context)")
 
@@ -144,6 +147,12 @@ _L3_REFUSAL_TEXT = (
     "HR through the appropriate authorized channel."
 )
 
+_CONF_SUPPRESS_TEXT = (
+    "I'm sorry, but I can't share that response. A confidence check flagged the drafted answer "
+    "as exceeding the configured risk threshold for personal-data disclosure, so the whole "
+    "response was suppressed. Please contact HR through an authorized channel."
+)
+
 
 @dataclass
 class L3Config:
@@ -172,7 +181,8 @@ class DefensePipeline:
     """
 
     def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
-                 l3_config: "L3Config" = None, l4_mode: str = "redact", l5_acl: bool = True):
+                 l3_config: "L3Config" = None, l4_mode: str = "redact", l5_acl: bool = True,
+                 conf_threshold: float = 10.0, conf_mode: str = "suppress"):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
@@ -181,9 +191,14 @@ class DefensePipeline:
             raise ValueError("l4_mode must be 'redact' or 'suppress'")
         self.l4_mode = l4_mode
         self.l5_acl = l5_acl   # role-based ACL within L5 (separable; provenance always on when L5 on)
+        if conf_mode not in ("suppress", "flag"):
+            raise ValueError("conf_mode must be 'suppress' or 'flag'")
+        self.conf_threshold = conf_threshold   # confidence_threshold gates on engine severity S
+        self.conf_mode = conf_mode
         self.audit_records = []          # pipeline's OWN per-turn log (separate from runner)
         self._scenario_id = None
         self._run_index = 0
+        self._family = None
         self._turn = 0
         self._l3_state = defaultdict(set)   # per-conversation: doc_id -> {sev>=3 entity_types}
         self.last_l1 = None
@@ -192,9 +207,10 @@ class DefensePipeline:
         self.last_l4 = None
         self.last_l5 = None
 
-    def begin_scenario(self, scenario_id: str, run_index: int = 0):
+    def begin_scenario(self, scenario_id: str, run_index: int = 0, family: str = None):
         self._scenario_id = scenario_id
         self._run_index = run_index
+        self._family = family               # attack family (F1..F8) for the audit record
         self._turn = 0
         self._l3_state = defaultdict(set)   # sensitivity state is per-conversation
 
@@ -248,31 +264,55 @@ class DefensePipeline:
         else:
             log("L4_output_filter", False, "skip(disabled)")
 
+        # Engine verdict on the (post-L4) candidate response — the risk signal for
+        # confidence_threshold AND the verdict/severity/source for audit_log. Computed once,
+        # reused. FREE (no SUT). Skipped entirely when neither toggle is on → baseline stays cheap.
+        eng = None
+        if self.cfg.confidence_threshold or self.cfg.audit_log:
+            eng = check_response_for_leakage(response_text=text,
+                                             document_ids=resp.retrieved_doc_ids,
+                                             profile=profile, query=user_query)
+
+        conf_info = None
         if self.cfg.confidence_threshold:
-            text = self._confidence_threshold(text)
-            log("confidence_threshold", True, _STUB_NOOP)
+            text, conf_info = self._confidence_threshold(text, eng)
+            log("confidence_threshold", True, conf_info["action"])
         else:
             log("confidence_threshold", False, "skip(disabled)")
 
         # VERBATIM passthrough when text unchanged → byte-identical baseline
         out = resp if text == resp.response_text else replace(resp, response_text=text)
 
-        # ── pipeline's own per-turn record (does NOT touch run_single_scenario) ─
+        # ── pipeline's own structured per-turn record (does NOT touch run_single_scenario) ─
         rec = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "scenario_id": self._scenario_id,
             "run_id": self.run_id,
             "run_index": self._run_index,
             "turn_index": self._turn,
+            "profile": getattr(profile, "value", str(profile)),
+            "family": self._family,
             "config": asdict(self.cfg),
             "active_layers": self.cfg.active_layers(),
             "is_baseline": self.cfg.is_baseline(),
-            "retrieved_doc_ids": resp.retrieved_doc_ids,
             "layers_fired": [s["layer"] for s in steps if s["fired"]],
+            "retrieved_doc_ids": resp.retrieved_doc_ids,
+            # engine verdict on the candidate response (None when neither conf/audit toggle is on)
+            "verdict": (None if eng is None else ("leak" if eng.leak_detected else "no_leak")),
+            "severity_S": (None if eng is None else eng.severity_score),
+            "source": (None if eng is None else
+                       [{"doc_id": e.get("document_id"), "entity_type": e.get("entity_type"),
+                         "severity": e.get("severity")} for e in (eng.events or [])]),
+            "confidence_threshold": conf_info,
             "response_modified": text != resp.response_text,
             # detailed step-by-step trail only when the audit_log toggle is on
             "audit_trail": steps if self.cfg.audit_log else None,
         }
         self.audit_records.append(rec)
+        if self.cfg.audit_log:
+            os.makedirs(_AUDIT_DIR, exist_ok=True)
+            with open(os.path.join(_AUDIT_DIR, f"{self.run_id}.jsonl"), "a") as fh:
+                fh.write(json.dumps(rec) + "\n")
         self._turn += 1
         return out
 
@@ -427,9 +467,31 @@ class DefensePipeline:
             return (_L4_SUPPRESS_TEXT if stats["n_redacted"] > 0 else text), info
         return res["redacted"][0], info
 
-    def _confidence_threshold(self, text):
-        # Sprint 1: gate/redact low-confidence disclosures. No-op now.
-        return text
+    def _confidence_threshold(self, text, eng):
+        """Response-level circuit-breaker. Gates on the engine leak-SEVERITY score
+        S = Σ s(e)·w(e) (which already folds in both per-entity severity and detection-method
+        confidence weight) as the risk signal. If S > self.conf_threshold:
+          mode 'suppress' → replace the whole response with a refusal;
+          mode 'flag'     → keep the text, but the audit record carries the over-threshold flag.
+        Coarser than L4 (entity-level redaction): a whole-response gate for high-aggregate-risk
+        answers. Returns (text, info).
+
+        NAMING CAVEAT: S is a severity-WEIGHTED leakage magnitude, NOT a calibrated model
+        confidence (it is not P(leak) from a probabilistic classifier). The config field is named
+        'confidence_threshold' for config consistency, but it should be described in the writeup as
+        a severity / risk-score circuit-breaker. The default conf_threshold=10.0 is ARBITRARY —
+        report it as a TUNABLE in the ablation (the security–utility tradeoff shifts with it); do
+        not let 10.0 become an unexamined constant in the results."""
+        S = float(eng.severity_score) if eng is not None else 0.0
+        over = S > self.conf_threshold
+        info = {"metric": "leak_severity_S", "value": S, "threshold": self.conf_threshold,
+                "mode": self.conf_mode, "over_threshold": over}
+        if over and self.conf_mode == "suppress":
+            info["action"] = f"SUPPRESSED (S={S} > {self.conf_threshold})"
+            return _CONF_SUPPRESS_TEXT, info
+        info["action"] = (f"FLAGGED (S={S} > {self.conf_threshold}; text kept)" if over
+                          else f"pass (S={S} <= {self.conf_threshold})")
+        return text, info
 
 
 def make_query_fn(rag: RAGSystem, config: DefenseConfig, run_id: str = "defense"):
