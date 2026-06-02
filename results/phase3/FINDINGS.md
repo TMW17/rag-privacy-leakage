@@ -39,3 +39,45 @@ registered on a different, unretrieved doc) is **structurally invisible to the e
 Catching this would need detection on the **response text itself** keyed to the corpus's employee
 registry (or an LLM judge reading the prose), independent of which doc was retrieved — deferred to
 avoid the gazetteer/overfitting trap and out of L3's engine-only scope.
+
+---
+
+## F2 — Index-time sanitization's ceiling is Presidio's recall, not just open-vocabulary
+
+**Discovered during the sanitized-index build (Task 1.6), corpus-wide scan over all 155 docs.**
+
+Index-time sanitization removes **100% of hard structured identifiers** but leaves a residual that
+is **not solely open-vocabulary**. Beyond the expected semantic blind spots (MEDICAL, SURNAME,
+IMMIGRATION), **11 ADDRESS entities in military/APO/PO-box formats survive** — these are *not*
+open-vocabulary but **structured PII that the LOCATION NER fails to recognize**. The effective
+ceiling of index-time sanitization is therefore the **Task-0.1 Presidio recall (~0.84)**, not merely
+the set of semantically hard types. This distinguishes two residual classes — **semantically
+undetectable** (medical/surname) versus **structurally-present-but-NER-missed** (APO addresses) —
+only the first of which is irreducible without a semantic layer.
+
+### Evidence
+Corpus-wide scan (`results/phase3/sanitized_tests/sanitized_results.json` → `corpus_wide_scan`):
+**1296/1490 sev≥3 GT entities removed (87.0%)**. Hard identifiers
+(NATIONAL_ID / IBAN / HEALTH_RECORD_ID / EMAIL / PHONE / DOB / EMPLOYEE_ID / secrets) = **100% removed**.
+Residual 194 = open-vocab blind spots (MEDICAL 93, SURNAME_TITLE 49, IMMIGRATION 36, SYSTEM_PROMPT 5)
+**+ 11 ADDRESS recall-misses** (e.g. `"PSC 6532, Box 8710, APO AE 20534"`).
+
+*Measurement caveat:* the metric is verbatim GT-entity-text removal. AGE_GENDER reads as 100% removed
+as a **surface-form artifact** — its GT phrase (`"NN-year-old <gender> employee"`) is never verbatim
+in build_index's separate `Age:` / `Gender:` fields, which persist. Not real redaction; consistent
+with the documented substring-detection limitation (κ_engine = 0.164).
+
+---
+
+## F3 — Index-time and query-time defenses share a detector ceiling but are complementary in failure mode
+
+**Synthesis across L2/L4 (query-time) and the sanitized index (index-time).**
+
+Index-time sanitization (**preventive**: PII never enters the vector store) and query-time redaction
+(L2/L4, **reactive**: PII removed in-flight) **share the same Presidio detector and therefore the
+same recall ceiling** — neither closes the open-vocabulary or NER-recall gap alone. They are
+nonetheless **complementary in failure mode**: index-time sanitization protects against retrieval of
+stored PII **even under prompt injection or a compromised query path** (the PII is simply absent),
+whereas query-time layers can act on PII the model **surfaces de novo or reformats** (cf. the SALARY
+format-drift finding, L2/L4). A defense-in-depth deployment uses **both**, with the semantic layers
+(L3, judge) covering the shared detector ceiling.

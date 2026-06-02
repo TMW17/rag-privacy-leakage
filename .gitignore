@@ -31,6 +31,8 @@ data/rag_index/chromadb/*
 !data/rag_index/chromadb/.gitkeep
 data/rag_index/poisoned_chromadb/*
 !data/rag_index/poisoned_chromadb/.gitkeep
+data/rag_index/sanitized_chromadb/*
+!data/rag_index/sanitized_chromadb/.gitkeep
 experiment_logs/*.jsonl
 results/baseline/*.csv
 results/judge_validation/*.csv
