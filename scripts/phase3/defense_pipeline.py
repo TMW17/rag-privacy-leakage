@@ -45,6 +45,7 @@ generation (system-prompt template + ``messages`` + Sonnet 4.6 @ temp=0/max_toke
 inserting L5/context_minimization/L2 between them and L3 into message assembly.  All-False
 must still match baseline; the decomposed path is validated by re-running this GUARD.
 """
+import json
 import os
 import sys
 import time
@@ -96,6 +97,35 @@ _STUB_NOOP = "STUB no-op (passthrough)"
 _STUB_MIDFLOW = ("STUB no-op — INERT in Sprint 0; real effect requires the Sprint-1 "
                  "retrieve()/generate() split (SUT already ran on original context)")
 
+# ── L5 provenance + role-based ACL references ────────────────────────────────
+_CLEARANCE = {"Internal": 2, "External": 0, "Admin": 3}   # P1 / P2 / P3 clearance levels
+_L5_REFS = None
+
+
+def _load_l5_refs():
+    """Return (trusted_allow_list:set of 155 doc_ids, doc_id->max_severity). Cached."""
+    global _L5_REFS
+    if _L5_REFS is None:
+        idx = json.load(open(os.path.join(ROOT, "data/ground_truth/ground_truth_index.json")))
+        ann = json.load(open(os.path.join(ROOT, "data/ground_truth/ground_truth_annotations.json")))
+        allow = set(idx.keys())
+        maxsev = {a["document_id"]: int(a.get("max_severity", 0) or 0)
+                  for a in ann["annotations"]}
+        _L5_REFS = (allow, maxsev)
+    return _L5_REFS
+
+
+def l5_decision(doc_id, profile_value, acl=True):
+    """Per-doc L5 decision: 'quarantine' (not in the trusted 155 allow-list),
+    'acl_block' (doc max_severity > profile clearance), or 'pass'.
+    profile_value is 'Internal' | 'External' | 'Admin'."""
+    allow, maxsev = _load_l5_refs()
+    if doc_id not in allow:
+        return "quarantine"
+    if acl and maxsev.get(doc_id, 99) > _CLEARANCE.get(profile_value, 0):
+        return "acl_block"
+    return "pass"
+
 _L1_BLOCK_TEXT = (
     "I can't process that request. It was flagged by the input filter as a likely prompt-"
     "injection or jailbreak attempt and was blocked before reaching the system."
@@ -142,7 +172,7 @@ class DefensePipeline:
     """
 
     def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
-                 l3_config: "L3Config" = None, l4_mode: str = "redact"):
+                 l3_config: "L3Config" = None, l4_mode: str = "redact", l5_acl: bool = True):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
@@ -150,6 +180,7 @@ class DefensePipeline:
         if l4_mode not in ("redact", "suppress"):
             raise ValueError("l4_mode must be 'redact' or 'suppress'")
         self.l4_mode = l4_mode
+        self.l5_acl = l5_acl   # role-based ACL within L5 (separable; provenance always on when L5 on)
         self.audit_records = []          # pipeline's OWN per-turn log (separate from runner)
         self._scenario_id = None
         self._run_index = 0
@@ -159,6 +190,7 @@ class DefensePipeline:
         self.last_l3 = None
         self.last_l2 = None
         self.last_l4 = None
+        self.last_l5 = None
 
     def begin_scenario(self, scenario_id: str, run_index: int = 0):
         self._scenario_id = scenario_id
@@ -253,13 +285,13 @@ class DefensePipeline:
             include=["documents", "metadatas", "distances"],
         )
         chunks = list(cr["documents"][0])
+        chunk_doc_ids = [m.get("doc_id", "") for m in cr["metadatas"][0]]
         seen, doc_ids = set(), []
-        for m in cr["metadatas"][0]:
-            d = m.get("doc_id", "")
+        for d in chunk_doc_ids:
             if d and d not in seen:
                 seen.add(d)
                 doc_ids.append(d)
-        return chunks, doc_ids
+        return chunks, chunk_doc_ids, doc_ids
 
     def _generate(self, user_query, chunks, conversation_history):
         """Mirror RAGSystem.query generation exactly (reuse its client + prompt + model)."""
@@ -275,12 +307,42 @@ class DefensePipeline:
         return RAGResponse(text, [], chunks, ms,
                            r.usage.input_tokens, r.usage.output_tokens, r.model_dump())
 
+    def _l5_filter(self, chunks, chunk_doc_ids, profile):
+        """Drop chunks whose doc is not in the trusted 155 allow-list (provenance
+        quarantine) and — if self.l5_acl — whose doc max_severity exceeds the profile's
+        clearance (role-based ACL). Returns (kept_chunks, kept_doc_ids, audit_info)."""
+        allow, maxsev = _load_l5_refs()
+        clearance = _CLEARANCE.get(getattr(profile, "value", profile), 0)
+        kept_chunks, kept_ids, quarantined, acl_blocked = [], [], [], []
+        for ch, d in zip(chunks, chunk_doc_ids):
+            if d not in allow:
+                quarantined.append(d)
+            elif self.l5_acl and maxsev.get(d, 99) > clearance:
+                acl_blocked.append(d)
+            else:
+                kept_chunks.append(ch)
+                kept_ids.append(d)
+        seen, doc_ids = set(), []
+        for d in kept_ids:
+            if d and d not in seen:
+                seen.add(d)
+                doc_ids.append(d)
+        info = {"quarantined": sorted(set(quarantined)), "acl_blocked": sorted(set(acl_blocked)),
+                "clearance": clearance, "acl_on": self.l5_acl, "kept_doc_ids": doc_ids}
+        return kept_chunks, doc_ids, info
+
     def _decomposed_query(self, q, profile, conversation_history, log):
-        chunks, doc_ids = self._retrieve(q)
+        chunks, chunk_doc_ids, doc_ids = self._retrieve(q)
         log(f"retrieve_k={self.rag.k}", True,
             "decomposed retrieval (reuses RAGSystem embedder+collection)")
+        # L5 provenance quarantine (+ optional role-based ACL) — REAL, before context build
         if self.cfg.L5_provenance_check:
-            log("L5_provenance_check", True, _STUB_MIDFLOW)
+            chunks, doc_ids, l5info = self._l5_filter(chunks, chunk_doc_ids, profile)
+            self.last_l5 = l5info
+            log("L5_provenance_check", True,
+                f"quarantined={l5info['quarantined']} acl_blocked={l5info['acl_blocked']} "
+                f"(acl={'on' if self.l5_acl else 'off'}, clearance={l5info['clearance']}, "
+                f"kept={len(doc_ids)})")
         else:
             log("L5_provenance_check", False, "skip(disabled)")
         if self.cfg.context_minimization:
