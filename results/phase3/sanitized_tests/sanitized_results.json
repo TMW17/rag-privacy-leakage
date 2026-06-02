@@ -115,6 +115,41 @@
     "SURNAME_TITLE",
     "SYSTEM_PROMPT"
   ],
+  "index_structure_check": {
+    "criterion_original_FLAWED": "same chunk count as clean index",
+    "criterion_corrected": "same doc count (155) + same chunking config (all-MiniLM-L6-v2, 512/64) + no docs dropped",
+    "clean_chunks": 265,
+    "sanitized_chunks": 260,
+    "chunk_delta": -5,
+    "docs_clean": 155,
+    "docs_sanitized": 155,
+    "docs_dropped": [],
+    "docs_with_fewer_chunks": {
+      "sys_config_000": [
+        3,
+        2
+      ],
+      "sys_config_001": [
+        3,
+        2
+      ],
+      "sys_config_002": [
+        3,
+        2
+      ],
+      "sys_config_003": [
+        3,
+        2
+      ],
+      "sys_config_004": [
+        3,
+        2
+      ]
+    },
+    "chunking_config_identical": true,
+    "delta_cause": "redact-before-chunk: the 5 sys_config docs hold long secrets (JWT/private-key/DB-conn/API-key/password-hash); replacing them with short placeholders shrinks the text below a 512-char boundary (3->2 chunks). This is EVIDENCE of secret redaction, NOT content loss — short-PII docs (employee/medical/memo) are unchanged. A byte-identical chunk structure after redacting real secrets would be suspicious.",
+    "PASS": true
+  },
   "corpus_wide_scan": {
     "total_sev>=3_entities": 1490,
     "removed": 1296,

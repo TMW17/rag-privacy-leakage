@@ -81,3 +81,13 @@ stored PII **even under prompt injection or a compromised query path** (the PII 
 whereas query-time layers can act on PII the model **surfaces de novo or reformats** (cf. the SALARY
 format-drift finding, L2/L4). A defense-in-depth deployment uses **both**, with the semantic layers
 (L3, judge) covering the shared detector ceiling.
+
+---
+
+**Build note (sanitized index, Task 1.6):** redact-*before*-chunk shrinks chunk counts for documents
+dominated by long secrets — the 5 `sys_config_*` docs each drop **3 → 2 chunks** because placeholders
+(`<JWT_TOKEN>`, `<PRIVATE_KEY>`, …) are shorter than the secrets they replace (clean **265** →
+sanitized **260**). This is a benign structural difference (same 155 docs, same 512/64 chunking
+config, none dropped) and is in fact *evidence the secret redaction fired* — not content loss. The
+roadmap's original "same chunk count" criterion was therefore wrong; the correct invariant is same
+doc count + same chunking config + no docs dropped.
