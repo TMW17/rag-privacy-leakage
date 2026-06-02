@@ -48,7 +48,8 @@ must still match baseline; the decomposed path is validated by re-running this G
 import os
 import sys
 import time
-from dataclasses import dataclass, asdict, replace, fields
+from collections import defaultdict
+from dataclasses import dataclass, asdict, field, replace, fields
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
@@ -58,6 +59,9 @@ from scripts.rag_system import (  # noqa: E402
 )
 # 3.14-safe: presidio_bridge runs Presidio in a .venv-presidio SUBPROCESS (no spaCy here).
 from scripts.phase3.presidio_bridge import redact as _presidio_redact  # noqa: E402
+# L3 reuses the frozen evaluation engine (real-PII, per-document attribution; catches
+# MEDICAL via Keyword+Context; FP-safe). Engine import pulls in NO spaCy/Presidio.
+from scripts.evaluation_engine import check_response_for_leakage  # noqa: E402
 
 
 # =============================================================================
@@ -90,6 +94,26 @@ _STUB_NOOP = "STUB no-op (passthrough)"
 _STUB_MIDFLOW = ("STUB no-op — INERT in Sprint 0; real effect requires the Sprint-1 "
                  "retrieve()/generate() split (SUT already ran on original context)")
 
+_L3_REFUSAL_TEXT = (
+    "I'm sorry, but I can't provide that. Combining an individual's identity with their "
+    "sensitive attributes (e.g. salary, medical, or other protected details) would disclose "
+    "personal information beyond what this interface is authorized to share. Please contact "
+    "HR through the appropriate authorized channel."
+)
+
+
+@dataclass
+class L3Config:
+    """TUNABLE conversation-refusal thresholds (engine-based, per-document person).
+
+    Default: refuse if (NAME + a sev>=4 *attribute* in one turn) OR (>=2 distinct sev>=3
+    disclosures accumulated about one person across the conversation). The NAME itself is a
+    sev>=3 disclosure, so 'name + salary(sev3)' = 2 distinct sev>=3 -> rule_b fires.
+    """
+    rule_a_name_plus_sev4: bool = True
+    rule_b_cumulative_sev3: int = 2
+    name_types: tuple = ("PERSON", "SURNAME_TITLE")
+
 
 # =============================================================================
 # DefensePipeline
@@ -104,19 +128,25 @@ class DefensePipeline:
     pipeline's own per-turn audit records are joinable to the runner's records.
     """
 
-    def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense"):
+    def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
+                 l3_config: "L3Config" = None):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
+        self.l3cfg = l3_config or L3Config()
         self.audit_records = []          # pipeline's OWN per-turn log (separate from runner)
         self._scenario_id = None
         self._run_index = 0
         self._turn = 0
+        self._l3_state = defaultdict(set)   # per-conversation: doc_id -> {sev>=3 entity_types}
+        self.last_l3 = None
+        self.last_l2 = None
 
     def begin_scenario(self, scenario_id: str, run_index: int = 0):
         self._scenario_id = scenario_id
         self._run_index = run_index
         self._turn = 0
+        self._l3_state = defaultdict(set)   # sensitivity state is per-conversation
 
     # ── query_fn compatible with run_single_scenario ─────────────────────────
     def query(self, user_query, profile, conversation_history=None) -> RAGResponse:
@@ -236,13 +266,55 @@ class DefensePipeline:
                 f"redacted {n_red} sev>=3 spans across {len(chunks)} chunks (.venv-presidio)")
         else:
             log("L2_retrieval_redaction", False, "skip(disabled)")
-        if self.cfg.L3_conversation_refusal:
-            log("L3_conversation_refusal", True, _STUB_MIDFLOW)
-        else:
-            log("L3_conversation_refusal", False, "skip(disabled)")
         gen = self._generate(q, chunks, conversation_history)
         log("LLM_SUT", True, "claude-sonnet-4-6 temp=0 max_tokens=1024 (decomposed generate)")
-        return replace(gen, retrieved_doc_ids=doc_ids)
+        gen = replace(gen, retrieved_doc_ids=doc_ids)
+
+        # ── L3 conversation-state refusal (REAL; engine-based, per-document person) ──
+        if self.cfg.L3_conversation_refusal:
+            refuse, reason = self._l3_gate(gen.response_text, doc_ids, profile, q)
+            self.last_l3 = {"refused": refuse, "reason": reason}
+            if refuse:
+                gen = replace(gen, response_text=_L3_REFUSAL_TEXT)
+                log("L3_conversation_refusal", True,
+                    f"REFUSED — {reason['rule']} on {reason['doc_id']} types={reason['types']}")
+            else:
+                log("L3_conversation_refusal", True, "evaluated; under threshold (no refusal)")
+        else:
+            log("L3_conversation_refusal", False, "skip(disabled)")
+        return gen
+
+    def _l3_gate(self, response_text, doc_ids, profile, query):
+        """Engine-based conversation-state gate (real-PII, per-document attribution).
+
+        Updates the per-conversation sensitivity state and returns (refuse, reason).
+        rule_a: a NAME (PERSON/SURNAME) + a sev>=4 NON-name attribute in THIS turn.
+        rule_b: >= rule_b_cumulative_sev3 distinct sev>=3 entity types accumulated about
+                one document across the conversation (the NAME itself counts as one).
+        """
+        res = check_response_for_leakage(response_text=response_text, document_ids=doc_ids,
+                                         profile=profile, query=query)
+        per_doc = defaultdict(lambda: {"name": False, "sev4_attr": False, "sev3": set()})
+        for e in (res.events or []):
+            d = e.get("document_id")
+            et = e.get("entity_type")
+            sev = e.get("severity", 0)
+            if sev >= 3:
+                per_doc[d]["sev3"].add(et)
+            if et in self.l3cfg.name_types:
+                per_doc[d]["name"] = True
+            elif sev >= 4:
+                per_doc[d]["sev4_attr"] = True
+        for d, info in per_doc.items():          # accumulate ALL docs' state first
+            self._l3_state[d] |= info["sev3"]
+        for d, info in per_doc.items():           # then evaluate thresholds
+            if self.l3cfg.rule_a_name_plus_sev4 and info["name"] and info["sev4_attr"]:
+                return True, {"rule": "A_name+sev4_attr", "doc_id": d,
+                              "types": sorted(info["sev3"])}
+            if len(self._l3_state[d]) >= self.l3cfg.rule_b_cumulative_sev3:
+                return True, {"rule": f"B_cumulative>={self.l3cfg.rule_b_cumulative_sev3}",
+                              "doc_id": d, "types": sorted(self._l3_state[d])}
+        return False, None
 
     # ── layer stubs (HONEST no-ops; real logic = Sprint 1) ───────────────────
     def _l1_input_filter(self, q):

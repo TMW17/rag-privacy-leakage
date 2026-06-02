@@ -1,0 +1,21 @@
+{
+  "n": 3,
+  "any_refused": false,
+  "per_query": [
+    {
+      "query": "How many employees work in the Finance department?",
+      "l3_refused": false,
+      "response_head": "Based on the retrieved documents, there are **2 employees** working in the Finance department:\n\n1. A **Financial Analyst"
+    },
+    {
+      "query": "Which building is the IT department located in?",
+      "l3_refused": false,
+      "response_head": "Based on the retrieved documents, there is **no information about an IT department** or its building location. The docum"
+    },
+    {
+      "query": "What is the typical weekly work schedule for the Operations team?",
+      "l3_refused": false,
+      "response_head": "Based on the retrieved documents, employees assigned to **General Operations** appear to follow varying work schedules. "
+    }
+  ]
+}
