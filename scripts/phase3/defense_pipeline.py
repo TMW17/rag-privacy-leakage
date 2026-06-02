@@ -101,6 +101,12 @@ _L1_BLOCK_TEXT = (
     "injection or jailbreak attempt and was blocked before reaching the system."
 )
 
+_L4_SUPPRESS_TEXT = (
+    "I'm sorry, but I can't share that response. The output filter detected personal "
+    "information in the drafted answer and suppressed it. Please contact HR through an "
+    "authorized channel for records you're entitled to."
+)
+
 _L3_REFUSAL_TEXT = (
     "I'm sorry, but I can't provide that. Combining an individual's identity with their "
     "sensitive attributes (e.g. salary, medical, or other protected details) would disclose "
@@ -136,11 +142,14 @@ class DefensePipeline:
     """
 
     def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
-                 l3_config: "L3Config" = None):
+                 l3_config: "L3Config" = None, l4_mode: str = "redact"):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
         self.l3cfg = l3_config or L3Config()
+        if l4_mode not in ("redact", "suppress"):
+            raise ValueError("l4_mode must be 'redact' or 'suppress'")
+        self.l4_mode = l4_mode
         self.audit_records = []          # pipeline's OWN per-turn log (separate from runner)
         self._scenario_id = None
         self._run_index = 0
@@ -149,6 +158,7 @@ class DefensePipeline:
         self.last_l1 = None
         self.last_l3 = None
         self.last_l2 = None
+        self.last_l4 = None
 
     def begin_scenario(self, scenario_id: str, run_index: int = 0):
         self._scenario_id = scenario_id
@@ -195,11 +205,14 @@ class DefensePipeline:
             # Decomposed path: retrieve -> [L5] -> [ctx-min] -> [L2 redact] -> generate
             resp = self._decomposed_query(q, profile, conversation_history, log)
 
-        # ── L4 output filter + confidence gate (real seams on outbound text) ─
+        # ── L4 output filter (REAL; Presidio redaction of the RESPONSE) + confidence ─
         text = resp.response_text
         if self.cfg.L4_output_filter:
-            text = self._l4_output_filter(text)
-            log("L4_output_filter", True, _STUB_NOOP)
+            text, l4info = self._l4_output_filter(text)
+            self.last_l4 = l4info
+            log("L4_output_filter", True,
+                f"{l4info['mode']}: {l4info['n_redacted']} sev>=3 spans in response "
+                f"({sorted(l4info['detected'])})")
         else:
             log("L4_output_filter", False, "skip(disabled)")
 
@@ -336,9 +349,21 @@ class DefensePipeline:
 
     # ── layer stubs (HONEST no-ops; L4 real logic = a later sprint) ──────────
     def _l4_output_filter(self, text):
-        # Sprint 1: presidio_bridge.redact([text], ...) via .venv-presidio subprocess.
-        # No-op now; importing presidio/spaCy here is forbidden (Py 3.14).
-        return text
+        """Redact sev>=3 PII in the RESPONSE via the Presidio worker (.venv-presidio subprocess).
+
+        mode 'redact' (default): replace each sev>=3 span with a typed placeholder.
+        mode 'suppress': if ANY sev>=3 PII is detected, replace the whole response.
+        Returns (filtered_text, info). MEDICAL/SURNAME may pass (Presidio blind spots).
+        """
+        if not text.strip():
+            return text, {"mode": self.l4_mode, "n_redacted": 0, "detected": {}}
+        res = _presidio_redact([text], sev_threshold=3)
+        stats = res["stats"][0]
+        info = {"mode": self.l4_mode, "n_redacted": stats["n_redacted"],
+                "detected": stats["detected"]}
+        if self.l4_mode == "suppress":
+            return (_L4_SUPPRESS_TEXT if stats["n_redacted"] > 0 else text), info
+        return res["redacted"][0], info
 
     def _confidence_threshold(self, text):
         # Sprint 1: gate/redact low-confidence disclosures. No-op now.
