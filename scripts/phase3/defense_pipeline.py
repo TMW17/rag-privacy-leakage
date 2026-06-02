@@ -62,6 +62,8 @@ from scripts.phase3.presidio_bridge import redact as _presidio_redact  # noqa: E
 # L3 reuses the frozen evaluation engine (real-PII, per-document attribution; catches
 # MEDICAL via Keyword+Context; FP-safe). Engine import pulls in NO spaCy/Presidio.
 from scripts.evaluation_engine import check_response_for_leakage  # noqa: E402
+# L1 input rail — regex+classifier FALLBACK (NeMo Guardrails unsupported on Py 3.14). Pure stdlib.
+from scripts.phase3.l1_filter import classify_input as _l1_classify, ENGINE as _L1_ENGINE  # noqa: E402
 
 
 # =============================================================================
@@ -93,6 +95,11 @@ _MID_FLOW = ("L5_provenance_check", "context_minimization",
 _STUB_NOOP = "STUB no-op (passthrough)"
 _STUB_MIDFLOW = ("STUB no-op — INERT in Sprint 0; real effect requires the Sprint-1 "
                  "retrieve()/generate() split (SUT already ran on original context)")
+
+_L1_BLOCK_TEXT = (
+    "I can't process that request. It was flagged by the input filter as a likely prompt-"
+    "injection or jailbreak attempt and was blocked before reaching the system."
+)
 
 _L3_REFUSAL_TEXT = (
     "I'm sorry, but I can't provide that. Combining an individual's identity with their "
@@ -139,6 +146,7 @@ class DefensePipeline:
         self._run_index = 0
         self._turn = 0
         self._l3_state = defaultdict(set)   # per-conversation: doc_id -> {sev>=3 entity_types}
+        self.last_l1 = None
         self.last_l3 = None
         self.last_l2 = None
 
@@ -155,16 +163,26 @@ class DefensePipeline:
         def log(layer, fired, action):
             steps.append({"layer": layer, "fired": fired, "action": action})
 
-        # ── L1 input filter (real seam on inbound query) ─────────────────────
+        # ── L1 input rail (BLOCKING gate on inbound query) ───────────────────
         q = user_query
+        l1_blocked, l1_signals = False, []
         if self.cfg.L1_input_filter:
-            q = self._l1_input_filter(user_query)
-            log("L1_input_filter", True, _STUB_NOOP)
+            l1_blocked, l1_signals = _l1_classify(user_query)
+            self.last_l1 = {"blocked": l1_blocked, "engine": _L1_ENGINE, "signals": l1_signals}
+            cats = [s["category"] for s in l1_signals]
+            log("L1_input_filter", True,
+                f"BLOCKED {cats}" if l1_blocked else f"allowed ({_L1_ENGINE})")
         else:
             log("L1_input_filter", False, "skip(disabled)")
 
         # ── retrieve(k) + mid-flow layers + SUT ──────────────────────────────
-        if not any(getattr(self.cfg, n) for n in _MID_FLOW):
+        if l1_blocked:
+            # short-circuit: blocked attacks never reach retrieval or the SUT (no API call)
+            for layer in _MID_FLOW:
+                log(layer, False, "skip(L1-blocked)")
+            log("LLM_SUT", False, "skip(L1-blocked)")
+            resp = RAGResponse(_L1_BLOCK_TEXT, [], [], 0, 0, 0, {})
+        elif not any(getattr(self.cfg, n) for n in _MID_FLOW):
             # No mid-flow layer active → atomic frozen rag.query() == baseline.
             for layer in _MID_FLOW:
                 log(layer, False, "skip(disabled)")
@@ -316,11 +334,7 @@ class DefensePipeline:
                               "doc_id": d, "types": sorted(self._l3_state[d])}
         return False, None
 
-    # ── layer stubs (HONEST no-ops; real logic = Sprint 1) ───────────────────
-    def _l1_input_filter(self, q):
-        # Sprint 1: screen/transform the query (jailbreak/PII-in-query). No-op now.
-        return q
-
+    # ── layer stubs (HONEST no-ops; L4 real logic = a later sprint) ──────────
     def _l4_output_filter(self, text):
         # Sprint 1: presidio_bridge.redact([text], ...) via .venv-presidio subprocess.
         # No-op now; importing presidio/spaCy here is forbidden (Py 3.14).
