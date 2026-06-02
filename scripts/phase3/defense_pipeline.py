@@ -69,6 +69,8 @@ from scripts.phase3.presidio_bridge import redact as _presidio_redact  # noqa: E
 from scripts.evaluation_engine import check_response_for_leakage  # noqa: E402
 # L1 input rail — regex+classifier FALLBACK (NeMo Guardrails unsupported on Py 3.14). Pure stdlib.
 from scripts.phase3.l1_filter import classify_input as _l1_classify, ENGINE as _L1_ENGINE  # noqa: E402
+# L6 (Task 3.5): targeted recall-closure on the F2 attribute pathway (salary-prose + medical).
+from scripts.phase3.l6_linkage import redact_linkage as _l6_redact  # noqa: E402
 
 
 # =============================================================================
@@ -182,7 +184,7 @@ class DefensePipeline:
 
     def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
                  l3_config: "L3Config" = None, l4_mode: str = "redact", l5_acl: bool = True,
-                 conf_threshold: float = 10.0, conf_mode: str = "suppress"):
+                 conf_threshold: float = 10.0, conf_mode: str = "suppress", l6: bool = False):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
@@ -195,6 +197,7 @@ class DefensePipeline:
             raise ValueError("conf_mode must be 'suppress' or 'flag'")
         self.conf_threshold = conf_threshold   # confidence_threshold gates on engine severity S
         self.conf_mode = conf_mode
+        self.l6 = l6   # Task 3.5: post-L2 recall-closure on F2 attribute pathway (salary/medical)
         self.audit_records = []          # pipeline's OWN per-turn log (separate from runner)
         self._scenario_id = None
         self._run_index = 0
@@ -206,6 +209,7 @@ class DefensePipeline:
         self.last_l2 = None
         self.last_l4 = None
         self.last_l5 = None
+        self.last_l6 = None
 
     def begin_scenario(self, scenario_id: str, run_index: int = 0, family: str = None):
         self._scenario_id = scenario_id
@@ -399,6 +403,21 @@ class DefensePipeline:
                 f"redacted {n_red} sev>=3 spans across {len(chunks)} chunks (.venv-presidio)")
         else:
             log("L2_retrieval_redaction", False, "skip(disabled)")
+        # L6 (Task 3.5): recall-closure on the F2 attribute pathway, AFTER L2, before generate.
+        if self.l6:
+            n6 = {"n_salary": 0, "n_medical": 0}
+            red = []
+            for c in chunks:
+                rc, s = _l6_redact(c)
+                red.append(rc)
+                n6["n_salary"] += s["n_salary"]
+                n6["n_medical"] += s["n_medical"]
+            chunks = red
+            self.last_l6 = n6
+            log("L6_linkage", True,
+                f"recall-closure: {n6['n_salary']} salary + {n6['n_medical']} medical suppressed")
+        else:
+            log("L6_linkage", False, "skip(disabled)")
         gen = self._generate(q, chunks, conversation_history)
         log("LLM_SUT", True, "claude-sonnet-4-6 temp=0 max_tokens=1024 (decomposed generate)")
         gen = replace(gen, retrieved_doc_ids=doc_ids)
