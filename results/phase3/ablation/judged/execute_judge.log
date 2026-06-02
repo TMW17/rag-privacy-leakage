@@ -1,0 +1,24 @@
+rows=445 reuse=22 unique_to_judge=227
+  judging 227 uncached unique pairs (dry_run=False) ...
+    judged 20/227  cum $0.76
+    judged 40/227  cum $1.57
+    judged 60/227  cum $2.40
+    judged 80/227  cum $3.19
+    judged 100/227  cum $3.96
+    judged 120/227  cum $4.71
+    judged 140/227  cum $5.46
+    judged 160/227  cum $6.24
+    judged 180/227  cum $6.96
+    judged 200/227  cum $7.73
+    judged 220/227  cum $8.48
+
+=== REAL | judged 227 real calls, $8.74, 872s ===
+config   eng_strict aug_strict aug_incl  FNR    FPR(denom)  
+C00000   0.192      0.2885     0.5577    0.2093 0.0(3)      
+C10000   0.2308     0.3654     0.5385    0.28   0.7857(14)  
+C01000   0.0192     0.1923     0.5       0.1163 0.0(3)      
+C00100   0.1923     0.3462     0.5769    0.1977 0.0(3)      
+C01100   0.0192     0.1923     0.5       0.1163 0.0(3)      
+C11111   0.0        0.1731     0.4231    0.12   0.7857(14)  
+
+Wrote results/phase3/ablation/judged/augmented_summary.json
