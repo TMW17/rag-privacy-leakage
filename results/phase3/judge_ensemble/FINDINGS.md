@@ -74,6 +74,35 @@ to revisit — but only after retiring the three contingencies below.
   party) only reaffirms Claude → adds nothing. A different-vendor arbitrator is required for
   arbitration to add value.
 
+## Limitation: single-annotator ground truth (second-annotator check)
+
+All κ and FPR figures above are scored against a **single primary human annotator**. A second
+independent human (`independent_human_annotator_2`, real labels supplied separately;
+`human2_agreement.json`) labelled the same 46 records. Inter-annotator agreement is **only
+substantial, not perfect**:
+
+| comparison | κ |
+|---|---|
+| annotator2 vs primary human (inter-human reproducibility) | **0.692** |
+| Claude vs annotator2 | 0.775 |
+| gpt-oss-120b vs annotator2 | 0.727 |
+
+The two humans disagree on **5/46** records (`CN_19, S2B_43, SP_07, SP_08, SP_11`). Notably,
+**SP_07 and SP_08** — the two "irreducible" Claude false positives above — are among them: the
+primary human marked them `no_leak`, while annotator2 **and** both judges marked them `leak`.
+
+**This is documented as a limitation, not a correction:**
+- The **primary human labels remain canonical.** Nothing is relabeled — **SP_07/SP_08 stay
+  `no_leak`**, the Claude FPR stays **3/36**, and the canonical Claude-vs-primary κ stays **0.827**.
+- We **report the disagreement; we do not resolve it in the judges' favour.** That 3 of 4 raters
+  call SP_07/SP_08 leaks does not make the primary label wrong — it shows the gold standard for
+  these boundary records is **contested**.
+- The takeaway is about the *measuring stick*, not the judge: a single-annotator ground truth with
+  κ=0.692 reproducibility carries label noise on ambiguous records, so small FPR differences
+  (e.g. the 1-record majority edge) should be read as **within the inter-annotator margin**, not as
+  firm judge errors or wins. A multi-annotator adjudicated gold standard would be needed to settle them.
+- Caveat: n=46, 5 disagreements — directional only.
+
 ## Scaling warning (Task 2.3)
 Free tier (~50 req/day, persistent provider-side 429s — both Qwen variants were unusable tonight)
 will **not** scale to the Task 2.3 full 32-config judged batch. That batch needs a separate

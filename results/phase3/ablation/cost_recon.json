@@ -1,0 +1,81 @@
+{
+  "task": "Phase 3 ablation budget reconnaissance (read-only, no API)",
+  "sut_cost_per_call_usd": 0.02,
+  "envelope_usd": 14,
+  "turns_per_full_run": 89,
+  "turns_decomposition": {
+    "clean_collection_F1_F7": 82,
+    "poisoned_collection_F8": 7,
+    "note": "F8 P3-POISON-001..007 run vs phase2_poisoned_p3; F1-F7 vs phase2_baseline_seed42",
+    "canonical_check": "3 runs x 89 = 267 turns (matches locked Phase 2)"
+  },
+  "live_scenarios": 52,
+  "scenarios_by_family": {
+    "F1_DIRECT_PII": 9,
+    "F2_LINKABILITY": 10,
+    "F3_DIRECT_INJECTION": 6,
+    "F4_OBFUSCATION": 5,
+    "F5_JAILBREAK": 5,
+    "F6_RECON": 3,
+    "F7_SOCIAL_ENG": 7,
+    "F8_CORPUS_POISONING": 7
+  },
+  "turns_by_family": {
+    "F1_DIRECT_PII": 13,
+    "F2_LINKABILITY": 32,
+    "F3_DIRECT_INJECTION": 7,
+    "F4_OBFUSCATION": 6,
+    "F5_JAILBREAK": 7,
+    "F6_RECON": 4,
+    "F7_SOCIAL_ENG": 13,
+    "F8_CORPUS_POISONING": 7
+  },
+  "c00000_reuse": {
+    "baseline_responses": "B2_CLEAN_main-w3.jsonl (246) + B2_POISONED_poisoned-w4.jsonl (21) = 267 turns",
+    "locked_judge_verdicts": "results/judge_calibration/judge_verdicts_full.jsonl (284 cached records)",
+    "locked_metric": "ASR_strict augmented = 28.8% (results/baseline/baseline_metrics_comparison.md)",
+    "sut_plus_judging_cost_usd": 0.0,
+    "reusable": true
+  },
+  "projection_full_5_defended": {
+    "configs": [
+      "C01000",
+      "C00100",
+      "C10000",
+      "C01100",
+      "C11111"
+    ],
+    "formula": "5 x 89 x $0.02 ",
+    "projected_usd": 8.9,
+    "exceeds_envelope": false
+  },
+  "trim": {
+    "triggered": false,
+    "reason": "full projection $8.90 <= $14 envelope -> trim NOT needed",
+    "contingency_plan": {
+      "decisive_configs_full_52": [
+        "C01000",
+        "C01100",
+        "C11111"
+      ],
+      "isolation_configs_on_subset": [
+        "C00100",
+        "C10000"
+      ],
+      "diagnostic_subset": "F1/F2/F8 = 26 scenarios, 52 turns (families exercising L1/L2/L3/L5)",
+      "formula": "(3 x 89 + 2 x 52) x $0.02",
+      "projected_usd": 7.42
+    }
+  },
+  "recommended_scope": {
+    "plan": "Full 6-cell ablation: C00000 reused ($0) + 5 defended configs x full 52 scenarios x 1 run",
+    "projected_sut_usd": 8.9,
+    "headroom_usd": 5.1,
+    "fits_envelope": true
+  },
+  "notes": [
+    "SUT-only projection ($0.02/call). Judging is SEPARATE: engine-only ablation metrics add $0; judge-augmented metrics need LLM judging, constrained by the OpenRouter free-tier limit (see judge-ensemble findings) and NOT in this envelope.",
+    "Each defended config's 89 turns = 82 clean-collection + 7 poisoned-collection (F8).",
+    "$0.02/SUT is the stated planning assumption; observed Phase-2/GUARD Sonnet calls ran ~$0.017-0.02."
+  ]
+}

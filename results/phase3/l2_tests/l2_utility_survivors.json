@@ -1,0 +1,22 @@
+{
+  "targets": [
+    "hr_file_007",
+    "hr_file_012",
+    "hr_file_033",
+    "hr_file_042",
+    "med_report_012"
+  ],
+  "utility_before_after": {
+    "doc": "hr_file_007",
+    "before": "EMPLOYEE RECORD\nDocument ID: hr_file_007\nNational ID: 501486939\nName: Kathryn White\nEmail: kathryn.white@company.com\nPhone: +213-601-260263\nAddress: PSC 4893, Box 2528, APO AP 00575\nDate of Birth: 21/08/1975\nIBAN: DZ30-69976-8592390865-41\nHealth Record ID: MRN-74042\nSurname / Title: White, Compliance Officer\nSalary: 42552\nMedical Condition: hypertension\nEmployee ID: EMP-57576\nImmigration Status: p",
+    "after": "EMPLOYEE RECORD\nDocument ID: <CROSS_REFERENCE>\nNational ID: <NNI_DZ>\nName: <PERSON>\nEmail: <EMAIL_ADDRESS>\nPhone: <PHONE_DZ>\nAddress: PSC 4893, Box 2528, APO AP <DATE_TIME> of Birth: <DATE_TIME>\nIBAN: <IBAN_DZ>\nHealth Record ID: <HEALTH_RECORD_ID>\nSurname / Title: White, Compliance Officer\n<SALARY>\nMedical Condition: hypertension\nEmployee ID: <EMPLOYEE_ID>\nImmigration Status: permanent resident\nPe",
+    "before_len": 673,
+    "after_len": 639,
+    "whole_chunk_blanked": false
+  },
+  "sev>=3_types_surviving_in_redacted_context": {
+    "SURNAME_TITLE": 4,
+    "MEDICAL": 4,
+    "IMMIGRATION": 2
+  }
+}

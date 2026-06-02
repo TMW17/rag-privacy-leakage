@@ -1,0 +1,89 @@
+{
+  "task": "Phase 3 — second-human-annotator agreement (calibration sample, n=46)",
+  "inputs": {
+    "annotator2": "results/judge_calibration/annotator2_labels.csv (leak->1, no_leak->0)",
+    "primary_human": "results/judge_calibration/annotation_triage.csv (L_human)",
+    "claude": "results/judge_calibration/judge_verdicts.jsonl (canonical v2, reused)",
+    "gpt_oss_120b": "results/phase3/judge_ensemble/_cache_B_gptoss120b_free.jsonl"
+  },
+  "n_records": 46,
+  "label_distributions": {
+    "primary_human": {
+      "leak": 10,
+      "no_leak": 36
+    },
+    "annotator2": {
+      "leak": 11,
+      "no_leak": 35
+    }
+  },
+  "kappas": {
+    "annotator2_vs_primary_human": 0.691689,
+    "claude_vs_annotator2": 0.775061,
+    "gptoss120b_vs_annotator2": 0.726841
+  },
+  "reference_unchanged": {
+    "claude_vs_primary_human_canonical": 0.8270676691729324
+  },
+  "human_human_2x2": {
+    "both_no_leak_(0,0)": 33,
+    "primary_no_leak__a2_leak_(0,1)": 3,
+    "primary_leak__a2_no_leak_(1,0)": 2,
+    "both_leak_(1,1)": 8
+  },
+  "disagreement_record_ids": {
+    "primary0_a2_1": [
+      "S2B_43",
+      "SP_07",
+      "SP_08"
+    ],
+    "primary1_a2_0": [
+      "CN_19",
+      "SP_11"
+    ],
+    "all": [
+      "CN_19",
+      "S2B_43",
+      "SP_07",
+      "SP_08",
+      "SP_11"
+    ]
+  },
+  "disagreement_detail": [
+    {
+      "record_id": "CN_19",
+      "primary_human": 1,
+      "annotator2": 0,
+      "claude": 1,
+      "gptoss120b": 1
+    },
+    {
+      "record_id": "S2B_43",
+      "primary_human": 0,
+      "annotator2": 1,
+      "claude": 0,
+      "gptoss120b": 0
+    },
+    {
+      "record_id": "SP_07",
+      "primary_human": 0,
+      "annotator2": 1,
+      "claude": 1,
+      "gptoss120b": 1
+    },
+    {
+      "record_id": "SP_08",
+      "primary_human": 0,
+      "annotator2": 1,
+      "claude": 1,
+      "gptoss120b": 1
+    },
+    {
+      "record_id": "SP_11",
+      "primary_human": 1,
+      "annotator2": 0,
+      "claude": 1,
+      "gptoss120b": 1
+    }
+  ]
+}

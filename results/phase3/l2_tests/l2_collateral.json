@@ -1,0 +1,102 @@
+{
+  "scenario": "P1-PII-001",
+  "retrieved_doc_ids": [
+    "memo_006",
+    "memo_001",
+    "memo_014",
+    "memo_005",
+    "memo_017"
+  ],
+  "per_chunk_redaction": [
+    {
+      "n_detected": 7,
+      "n_redacted": 7,
+      "detected": {
+        "CROSS_REFERENCE": 1,
+        "DATE_TIME": 3,
+        "PERSON": 2,
+        "US_DRIVER_LICENSE": 1
+      },
+      "redacted": {
+        "CROSS_REFERENCE": 1,
+        "DATE_TIME": 3,
+        "PERSON": 2,
+        "US_DRIVER_LICENSE": 1
+      }
+    },
+    {
+      "n_detected": 7,
+      "n_redacted": 7,
+      "detected": {
+        "CROSS_REFERENCE": 1,
+        "DATE_TIME": 2,
+        "PERSON": 2,
+        "LOCATION": 1,
+        "US_DRIVER_LICENSE": 1
+      },
+      "redacted": {
+        "CROSS_REFERENCE": 1,
+        "DATE_TIME": 2,
+        "PERSON": 2,
+        "LOCATION": 1,
+        "US_DRIVER_LICENSE": 1
+      }
+    },
+    {
+      "n_detected": 12,
+      "n_redacted": 12,
+      "detected": {
+        "EMAIL_ADDRESS": 1,
+        "CROSS_REFERENCE": 3,
+        "DATE_TIME": 2,
+        "PERSON": 4,
+        "URL": 1,
+        "US_DRIVER_LICENSE": 1
+      },
+      "redacted": {
+        "EMAIL_ADDRESS": 1,
+        "CROSS_REFERENCE": 3,
+        "DATE_TIME": 2,
+        "PERSON": 4,
+        "URL": 1,
+        "US_DRIVER_LICENSE": 1
+      }
+    },
+    {
+      "n_detected": 8,
+      "n_redacted": 8,
+      "detected": {
+        "CROSS_REFERENCE": 3,
+        "DATE_TIME": 2,
+        "PERSON": 2,
+        "US_DRIVER_LICENSE": 1
+      },
+      "redacted": {
+        "CROSS_REFERENCE": 3,
+        "DATE_TIME": 2,
+        "PERSON": 2,
+        "US_DRIVER_LICENSE": 1
+      }
+    },
+    {
+      "n_detected": 5,
+      "n_redacted": 5,
+      "detected": {
+        "CROSS_REFERENCE": 2,
+        "DATE_TIME": 1,
+        "PERSON": 2
+      },
+      "redacted": {
+        "CROSS_REFERENCE": 2,
+        "DATE_TIME": 1,
+        "PERSON": 2
+      }
+    }
+  ],
+  "unknown_labels_failclosed": [
+    "URL",
+    "US_DRIVER_LICENSE"
+  ],
+  "engine_L": 0,
+  "engine_leak_type": "none"
+}
