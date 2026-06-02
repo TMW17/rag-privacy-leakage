@@ -1,5 +1,5 @@
 {
-  "metric_ordering": "PRIMARY = judged augmented ASR (judge kappa=0.843); SECONDARY/lower-bound = engine ASR (kappa=0.164).",
+  "metric_ordering": "PRIMARY = judged augmented ASR (judge–human κ=0.827; corroborated cross-vendor claude–gpt-oss κ=0.843); SECONDARY/lower-bound = engine ASR (engine–human κ=0.164).",
   "noise_floor": {
     "engine": 0.04,
     "judged": 0.08,
@@ -85,7 +85,22 @@
           "Internal": 0.3333
         }
       },
-      "n_scenarios": 52
+      "n_scenarios": 52,
+      "family_n": {
+        "F1_DIRECT_PII": 9,
+        "F2_LINKABILITY": 10,
+        "F3_DIRECT_INJECTION": 6,
+        "F4_OBFUSCATION": 5,
+        "F5_JAILBREAK": 5,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 7,
+        "F8_CORPUS_POISONING": 7
+      },
+      "profile_n": {
+        "Admin": 7,
+        "External": 27,
+        "Internal": 18
+      }
     },
     "C10000": {
       "engine_strict": {
@@ -160,7 +175,22 @@
           "Internal": 0.4444
         }
       },
-      "n_scenarios": 52
+      "n_scenarios": 52,
+      "family_n": {
+        "F1_DIRECT_PII": 9,
+        "F2_LINKABILITY": 10,
+        "F3_DIRECT_INJECTION": 6,
+        "F4_OBFUSCATION": 5,
+        "F5_JAILBREAK": 5,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 7,
+        "F8_CORPUS_POISONING": 7
+      },
+      "profile_n": {
+        "Admin": 7,
+        "External": 27,
+        "Internal": 18
+      }
     },
     "C01000": {
       "engine_strict": {
@@ -235,7 +265,22 @@
           "Internal": 0.2778
         }
       },
-      "n_scenarios": 52
+      "n_scenarios": 52,
+      "family_n": {
+        "F1_DIRECT_PII": 9,
+        "F2_LINKABILITY": 10,
+        "F3_DIRECT_INJECTION": 6,
+        "F4_OBFUSCATION": 5,
+        "F5_JAILBREAK": 5,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 7,
+        "F8_CORPUS_POISONING": 7
+      },
+      "profile_n": {
+        "Admin": 7,
+        "External": 27,
+        "Internal": 18
+      }
     },
     "C00100": {
       "engine_strict": {
@@ -310,7 +355,22 @@
           "Internal": 0.3889
         }
       },
-      "n_scenarios": 52
+      "n_scenarios": 52,
+      "family_n": {
+        "F1_DIRECT_PII": 9,
+        "F2_LINKABILITY": 10,
+        "F3_DIRECT_INJECTION": 6,
+        "F4_OBFUSCATION": 5,
+        "F5_JAILBREAK": 5,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 7,
+        "F8_CORPUS_POISONING": 7
+      },
+      "profile_n": {
+        "Admin": 7,
+        "External": 27,
+        "Internal": 18
+      }
     },
     "C01100": {
       "engine_strict": {
@@ -385,7 +445,22 @@
           "Internal": 0.2778
         }
       },
-      "n_scenarios": 52
+      "n_scenarios": 52,
+      "family_n": {
+        "F1_DIRECT_PII": 9,
+        "F2_LINKABILITY": 10,
+        "F3_DIRECT_INJECTION": 6,
+        "F4_OBFUSCATION": 5,
+        "F5_JAILBREAK": 5,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 7,
+        "F8_CORPUS_POISONING": 7
+      },
+      "profile_n": {
+        "Admin": 7,
+        "External": 27,
+        "Internal": 18
+      }
     },
     "C11111": {
       "engine_strict": {
@@ -460,10 +535,25 @@
           "Internal": 0.2778
         }
       },
-      "n_scenarios": 52
+      "n_scenarios": 52,
+      "family_n": {
+        "F1_DIRECT_PII": 9,
+        "F2_LINKABILITY": 10,
+        "F3_DIRECT_INJECTION": 6,
+        "F4_OBFUSCATION": 5,
+        "F5_JAILBREAK": 5,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 7,
+        "F8_CORPUS_POISONING": 7
+      },
+      "profile_n": {
+        "Admin": 7,
+        "External": 27,
+        "Internal": 18
+      }
     }
   },
-  "deltas_vs_C00000": {
+  "deltas_vs_C00000_overall": {
     "C10000": {
       "engine_strict": {
         "cell": 0.2308,
@@ -615,6 +705,368 @@
       }
     }
   },
+  "deltas_per_family_profile": {
+    "C10000": {
+      "per_family": {
+        "F1_DIRECT_PII": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F2_LINKABILITY": {
+          "engine_delta": 0.1,
+          "engine_verdict": "effect↑",
+          "judged_delta": 0.1,
+          "judged_verdict": "effect↑"
+        },
+        "F3_DIRECT_INJECTION": {
+          "engine_delta": 0.1667,
+          "engine_verdict": "effect↑",
+          "judged_delta": 0.3333,
+          "judged_verdict": "effect↑"
+        },
+        "F4_OBFUSCATION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F5_JAILBREAK": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F6_RECON": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F7_SOCIAL_ENG": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F8_CORPUS_POISONING": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.1428,
+          "judged_verdict": "effect↑"
+        }
+      },
+      "per_profile": {
+        "Admin": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.1428,
+          "judged_verdict": "effect↑"
+        },
+        "External": {
+          "engine_delta": 0.037,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.037,
+          "judged_verdict": "within noise"
+        },
+        "Internal": {
+          "engine_delta": 0.0555,
+          "engine_verdict": "effect↑",
+          "judged_delta": 0.1111,
+          "judged_verdict": "effect↑"
+        }
+      }
+    },
+    "C01000": {
+      "per_family": {
+        "F1_DIRECT_PII": {
+          "engine_delta": -0.5556,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.5556,
+          "judged_verdict": "effect↓"
+        },
+        "F2_LINKABILITY": {
+          "engine_delta": -0.3,
+          "engine_verdict": "effect↓",
+          "judged_delta": 0.1,
+          "judged_verdict": "effect↑"
+        },
+        "F3_DIRECT_INJECTION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F4_OBFUSCATION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F5_JAILBREAK": {
+          "engine_delta": -0.2,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.2,
+          "judged_verdict": "effect↓"
+        },
+        "F6_RECON": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.3333,
+          "judged_verdict": "effect↑"
+        },
+        "F7_SOCIAL_ENG": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F8_CORPUS_POISONING": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": -0.1429,
+          "judged_verdict": "effect↓"
+        }
+      },
+      "per_profile": {
+        "Admin": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": -0.1429,
+          "judged_verdict": "effect↓"
+        },
+        "External": {
+          "engine_delta": -0.1852,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.1111,
+          "judged_verdict": "effect↓"
+        },
+        "Internal": {
+          "engine_delta": -0.2222,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.0555,
+          "judged_verdict": "within noise"
+        }
+      }
+    },
+    "C00100": {
+      "per_family": {
+        "F1_DIRECT_PII": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F2_LINKABILITY": {
+          "engine_delta": -0.1,
+          "engine_verdict": "effect↓",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F3_DIRECT_INJECTION": {
+          "engine_delta": 0.1667,
+          "engine_verdict": "effect↑",
+          "judged_delta": 0.3333,
+          "judged_verdict": "effect↑"
+        },
+        "F4_OBFUSCATION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F5_JAILBREAK": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F6_RECON": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F7_SOCIAL_ENG": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F8_CORPUS_POISONING": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.1428,
+          "judged_verdict": "effect↑"
+        }
+      },
+      "per_profile": {
+        "Admin": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.1428,
+          "judged_verdict": "effect↑"
+        },
+        "External": {
+          "engine_delta": 0.037,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.037,
+          "judged_verdict": "within noise"
+        },
+        "Internal": {
+          "engine_delta": -0.0556,
+          "engine_verdict": "effect↓",
+          "judged_delta": 0.0556,
+          "judged_verdict": "within noise"
+        }
+      }
+    },
+    "C01100": {
+      "per_family": {
+        "F1_DIRECT_PII": {
+          "engine_delta": -0.5556,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.5556,
+          "judged_verdict": "effect↓"
+        },
+        "F2_LINKABILITY": {
+          "engine_delta": -0.3,
+          "engine_verdict": "effect↓",
+          "judged_delta": 0.1,
+          "judged_verdict": "effect↑"
+        },
+        "F3_DIRECT_INJECTION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F4_OBFUSCATION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F5_JAILBREAK": {
+          "engine_delta": -0.2,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.2,
+          "judged_verdict": "effect↓"
+        },
+        "F6_RECON": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.3333,
+          "judged_verdict": "effect↑"
+        },
+        "F7_SOCIAL_ENG": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F8_CORPUS_POISONING": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": -0.1429,
+          "judged_verdict": "effect↓"
+        }
+      },
+      "per_profile": {
+        "Admin": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": -0.1429,
+          "judged_verdict": "effect↓"
+        },
+        "External": {
+          "engine_delta": -0.1852,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.1111,
+          "judged_verdict": "effect↓"
+        },
+        "Internal": {
+          "engine_delta": -0.2222,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.0555,
+          "judged_verdict": "within noise"
+        }
+      }
+    },
+    "C11111": {
+      "per_family": {
+        "F1_DIRECT_PII": {
+          "engine_delta": -0.5556,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.5556,
+          "judged_verdict": "effect↓"
+        },
+        "F2_LINKABILITY": {
+          "engine_delta": -0.4,
+          "engine_verdict": "effect↓",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F3_DIRECT_INJECTION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F4_OBFUSCATION": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F5_JAILBREAK": {
+          "engine_delta": -0.2,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.2,
+          "judged_verdict": "effect↓"
+        },
+        "F6_RECON": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.3333,
+          "judged_verdict": "effect↑"
+        },
+        "F7_SOCIAL_ENG": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": 0.0,
+          "judged_verdict": "within noise"
+        },
+        "F8_CORPUS_POISONING": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": -0.1429,
+          "judged_verdict": "effect↓"
+        }
+      },
+      "per_profile": {
+        "Admin": {
+          "engine_delta": 0.0,
+          "engine_verdict": "within noise",
+          "judged_delta": -0.1429,
+          "judged_verdict": "effect↓"
+        },
+        "External": {
+          "engine_delta": -0.1852,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.1482,
+          "judged_verdict": "effect↓"
+        },
+        "Internal": {
+          "engine_delta": -0.2778,
+          "engine_verdict": "effect↓",
+          "judged_delta": -0.0555,
+          "judged_verdict": "within noise"
+        }
+      }
+    }
+  },
   "RQ1_per_layer": {
     "L1": {
       "config": "C10000",
@@ -728,12 +1180,15 @@
     "_note_ThirdParty": "ThirdParty (P4) is OFFLINE-evaluated separately (analyze_p4_offline), NOT a live-ablation cell — not missing."
   },
   "RQ3_judge_validation_CITED": {
+    "judge_human_kappa": 0.827,
     "claude_gptoss_kappa": 0.843,
     "gptoss_human_kappa": 0.777,
+    "claude_annotator2_kappa": 0.775,
+    "interhuman_kappa": 0.692,
     "single_claude_FPR": 0.083,
     "majority_FPR": 0.056,
     "decision": "Claude-only operational (no 3-judge full-ablation run; credits preclude one)",
-    "source": "Sprint-0 judge calibration (results/judge_calibration/), 46-record sample"
+    "source": "Sprint-0 judge calibration + ensemble (results/judge_calibration/, results/phase3/judge_ensemble/), 46-record sample"
   },
   "detection_metrics": {
     "C00000": {
