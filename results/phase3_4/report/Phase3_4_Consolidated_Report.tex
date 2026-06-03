@@ -146,12 +146,12 @@ $\bar S$ under the full stack is the quantified residual risk.
 
 \subsection{The threat model (Phase 2, cited)}
 The campaign exercises four attacker profiles and eight attack families (Table~\ref{tab:threat})
-\src{Phase 2; CLAUDE.md \S3}. Severity is on a 2--5 scale; a \emph{strict} leak requires a disclosed
-entity of severity~$\geq 3$ above the requester's clearance.
+\src{PROJECT.md \S4; families operationalized in Phase 2}. Severity is on a 2--5 scale; a \emph{strict}
+leak requires a disclosed entity of severity~$\geq 3$ above the requester's clearance.
 
 \begin{table}[h]
 \centering
-\caption{Attacker profiles (left) and the eight attack families (right) \src{Phase 2}.}
+\caption{Attacker profiles (left) and the eight attack families (right) \src{PROJECT.md \S4; Phase 2}.}
 \label{tab:threat}
 \begin{tabular}{@{}p{8.0cm}p{7.6cm}@{}}
 \toprule
@@ -674,8 +674,10 @@ Latency (ms, mean) & 3727 & 6942 & $\approx$1.9$\times$\\
 \subsection{RQ5 --- the security--utility optimum}
 A noise-aware security--utility Pareto identifies the \emph{knee} at \textbf{C01100 (L2+L3)}
 (Figure~\ref{fig:pareto}): it captures essentially all of the full stack's measured security (judged
-0.192 vs 0.173; gap $+0.019$, within the 0.08 floor) at two layers. A \emph{naive} Pareto picks the
-full stack on that within-noise edge; the noise-aware frontier does not. \textbf{The full stack is a
+0.192 vs 0.173; gap $+0.019$, within the 0.08 floor) at two layers. In relative terms the knee reduces
+overall judged ASR $\approx$33\% (0.288$\to$0.192) and the full stack $\approx$40\% ($\to$0.173)
+\src{Sprint 3 DPIA} --- the knee trades a within-noise security margin for fewer layers. A \emph{naive}
+Pareto picks the full stack on that within-noise edge; the noise-aware frontier does not. \textbf{The full stack is a
 defense-in-depth choice, not a measured win over the knee.}
 
 \begin{figure}[h]
