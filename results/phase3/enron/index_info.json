@@ -1,0 +1,9 @@
+{
+  "collection": "enron_slice",
+  "n_emails": 100,
+  "n_chunks": 546,
+  "embedder": "all-MiniLM-L6-v2",
+  "chunk_size": 512,
+  "chunk_overlap": 64,
+  "path": "/Users/user/Desktop/Final_Year_Project/Code/data/rag_index/chromadb"
+}

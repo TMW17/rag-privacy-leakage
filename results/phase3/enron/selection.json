@@ -1,0 +1,1614 @@
+{
+  "summary": {
+    "n_selected": 100,
+    "n_scanned": 586,
+    "by_user": {
+      "allen-p": 100
+    },
+    "n_with_phone": 100,
+    "n_with_address": 24,
+    "n_with_money": 13,
+    "n_with_ssn": 0
+  },
+  "emails": [
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/notes_inbox/50.",
+      "from": "Lisa Jacobson",
+      "subject": "RSVP REQUESTED - Emissions Strategy Meeting....",
+      "n_chars": 1694,
+      "phones": [
+        "(202) 466-9176",
+        "(202) 331-4717"
+      ],
+      "addresses": [
+        "1775 Eye Street"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Washington, DC 20006 | Phone: +(202) 466-9176"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/notes_inbox/45.",
+      "from": "\"Performance Evaluation Process (PEP)\" <perfmgmt@enron.com>",
+      "subject": "Mid-Year 2001 Performance Feedback",
+      "n_chars": 1169,
+      "phones": [
+        "713.853.4777",
+        "207.783.4040"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "process, please contact the PEP Help Desk at: | Houston:  1.713.853.4777, Option 4 or email: perfmgmt@enron.com"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/notes_inbox/33.",
+      "from": "Kim Ward",
+      "subject": "",
+      "n_chars": 76,
+      "phones": [
+        "503-805-2117"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "| Please give me a call - 503-805-2117.  I need to discuss something with you."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/412.",
+      "from": "\"Richard G. Hash\" <richard.hash@openspirit.com>@ENRON",
+      "subject": "SBC \"The Way\" Weekly Info Request",
+      "n_chars": 750,
+      "phones": [
+        "281-940-0207",
+        "281-940-0201"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Richard G. Hash                   richard.hash@openspirit.com | OpenSpirit Corp.  ph: 281-940-0207    fax 281-940-0201"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/149.",
+      "from": "Richter, Jeff </O=ENRON/OU=NA/CN=RECIPIENTS/CN=JRICHTE>",
+      "subject": "Check this out -",
+      "n_chars": 2442,
+      "phones": [
+        "715-538-4364",
+        "715-985-3063"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "If you have any questions just e-mail me or call: | Whitehall School Disctrict 715-538-4364"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/3.",
+      "from": "<EDelivery@SalomonSmithBarney.com>@ENRON",
+      "subject": "E-delivery Notification - Confirms",
+      "n_chars": 1731,
+      "phones": [
+        "800-221-3636"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "https://www.salomonsmithbarney.com/cust_srv/faq/ | If you have any questions or need any assistance viewing your trade confirmations online, please contact the "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/418.",
+      "from": "Exchange System Administrator <.>",
+      "subject": "Undeliverable: Delivery Status Notification (Failure)",
+      "n_chars": 1361,
+      "phones": [
+        "713-463-8626"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Phillip Allen | 713-463-8626"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/396.",
+      "from": "Enron Change Management Announcement@ENRON",
+      "subject": "Weekend Outage Report for 11-21-01 through 11-25-01",
+      "n_chars": 7498,
+      "phones": [
+        "713-562-4247",
+        "713-345-3077",
+        "713-345-8809",
+        "713-345-4962",
+        "713-345-1619"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Backout: restore from backup | Contact(s): \tMark Jordan             713-562-4247"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/350.",
+      "from": "Enron Change Management Announcement@ENRON",
+      "subject": "SUPPLEMENTAL Weekend Outage Report for 11-16-01 through 11-18-01",
+      "n_chars": 7839,
+      "phones": [
+        "713-853-9289",
+        "(713) 853-5749",
+        "(713) 345-1677",
+        "713-284-4175",
+        "713-345-3716"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Backout: Remove upgraded files. | Contact(s): \tTim Hudson    713-853-9289"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/201.",
+      "from": "Capitol Connection <capcon@gmu.edu>@ENRON",
+      "subject": "FERC Special Meetings on Friday 10/26/01 and Monday 10/29/01",
+      "n_chars": 1339,
+      "phones": [
+        "703-993-3100",
+        "202.208.0400"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "information. If there is a meeting you are interested in receiving, please | call 703-993-3100."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/126.",
+      "from": "Public Relations@ENRON",
+      "subject": "All-Employee Meeting",
+      "n_chars": 1414,
+      "phones": [
+        "(713) 345-8725"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Video Teleconferencing | The meeting will be made available by video teleconference to employees in Sao Paulo, Buenos Aires, Dubai, Rio de Janeiro, Bothell, Was"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/67.",
+      "from": "Sever, Stephanie </O=ENRON/OU=NA/CN=RECIPIENTS/CN=SSEVER>",
+      "subject": "New Company - Online Trader Access (Stack Manager & Website)",
+      "n_chars": 433,
+      "phones": [
+        "713-853-3465"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "EnronOnline | 713-853-3465"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/48.",
+      "from": "Sever, Stephanie </O=ENRON/OU=NA/CN=RECIPIENTS/CN=SSEVER>",
+      "subject": "Follow up:   New Company - Online Trader Access (Stack Manager &\n Website)",
+      "n_chars": 931,
+      "phones": [
+        "713-853-3465"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "EnronOnline | 713-853-3465"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/213.",
+      "from": "Jim Derrick@ENRON",
+      "subject": "Important Announcement Regarding Document Preservation",
+      "n_chars": 1416,
+      "phones": [
+        "713-853-5550"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "You should know that Enron will defend these lawsuits vigorously.  In the meantime, you should not discuss matters related to the lawsuits with anyone other tha"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/158.",
+      "from": "Tholt, Jane M. </O=ENRON/OU=NA/CN=RECIPIENTS/CN=JTHOLT>",
+      "subject": "Socal Window Meeting",
+      "n_chars": 7345,
+      "phones": [
+        "213-244-3900"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "2 Hour Notice | Socal will provide 2 hour notice on  Gas Select of OFO.  Other methods include leaving message on Socal Hotline (213-244-3900) and list of e-mai"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/87.",
+      "from": "laura.a.de.la.torre@accenture.com@ENRON",
+      "subject": "Confirmation of Simulation Meeting",
+      "n_chars": 641,
+      "phones": [
+        "713-345-6686",
+        "713.837.2133"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "will include Mery Brown and  Laura de la Torre. | Please let me know if you have further questions at 713-345-6686."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/152.",
+      "from": "Holst, Keith </O=ENRON/OU=NA/CN=RECIPIENTS/CN=KHOLST>",
+      "subject": "FW: must see",
+      "n_chars": 1185,
+      "phones": [
+        "713.345.7875",
+        "713.646.4735"
+      ],
+      "addresses": [
+        "1400 Smith St"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Houston, TX 77002 | 713.345.7875"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/238.",
+      "from": "Al.Pollard@NewPower.com@ENRON",
+      "subject": "RE: howdy!!",
+      "n_chars": 740,
+      "phones": [
+        "(713) 345-8781"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "apollard@newpower.com | (713) 345-8781"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/407.",
+      "from": "annualconference@prosrm.com@ENRON",
+      "subject": "Announcing Energy Profit Optimization Seminar Series",
+      "n_chars": 3551,
+      "phones": [
+        "713-335-5151",
+        "713-335-5253",
+        "713-335-8144"
+      ],
+      "addresses": [
+        "3100 Main Street"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "The PROS mission is to maximize the revenue of each client using PROS' world-leading revenue management science, systems solutions, and best practices business "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/360.",
+      "from": "Rangel, Ina </O=ENRON/OU=NA/CN=RECIPIENTS/CN=IRANGEL>",
+      "subject": "FW: STENO NUMBERS",
+      "n_chars": 520,
+      "phones": [
+        "(713) 345-7389"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Enron Networks | (713) 345-7389"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/254.",
+      "from": "Enron Change Management Announcement@ENRON",
+      "subject": "Supplemental Weekend Outage Report for 10-26-01 through 10-28-01",
+      "n_chars": 5965,
+      "phones": [
+        "713-336-2300",
+        "713-345-9953",
+        "713-345-3077",
+        "713-345-3716",
+        "800-486-9999"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "All 3AC and 2AC employees will have no telephone or voicemail service during outage period. When power is restored to building, systems will be powered back up "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/422.",
+      "from": "\"JEFF SMITH\" <jsmith@austintx.com>@ENRON",
+      "subject": "Additional properties in San Antonio",
+      "n_chars": 490,
+      "phones": [
+        "512-394-0908",
+        "512-394-0913",
+        "512-751-9728"
+      ],
+      "addresses": [
+        "9400 Circle Drive"
+      ],
+      "money": [
+        "$1,900,000",
+        "$550,000"
+      ],
+      "ssn": [],
+      "phone_context": "Austin, TX  78736 | 512-394-0908 office"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/156.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON <IMCEANOTES-+22Simpkins+2C+2",
+      "subject": "RE: Special Warranty Deed/First Amendment to Contract - Lakeline\n \tApts\t.",
+      "n_chars": 3441,
+      "phones": [
+        "(512) 703-5000",
+        "(512) 370-2836",
+        "(512) 370-2850"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [
+        "$25,000"
+      ],
+      "ssn": [],
+      "phone_context": "(512) | 370-2836 or Mike Bobinchuck at (512) 703-5000.  Thanks."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/46.",
+      "from": "\"txreport@skippingstone.com\" <txreport@skippingstone.com>@ENRON",
+      "subject": "New Texas Power Markets Report",
+      "n_chars": 1583,
+      "phones": [
+        "888-792-2592"
+      ],
+      "addresses": [],
+      "money": [
+        "$4,595"
+      ],
+      "ssn": [],
+      "phone_context": "up to 30 minutes of accessto Skipping Stone's experts to askany questions youmay have. | Visit: http://www.skippingstone.com/product/txreport.htm or call 888-79"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/199.",
+      "from": "\"Jeff Smith\" <jsmith@austintx.com>@ENRON",
+      "subject": "Leander",
+      "n_chars": 276,
+      "phones": [
+        "512-394-0908",
+        "512-394-0913",
+        "512-751-9728"
+      ],
+      "addresses": [
+        "9400 Circle Drive"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Austin, Texas  78736 | 512-394-0908 office"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/363.",
+      "from": "The Princeton Review@ENRON",
+      "subject": "GMAT Review available at Enron",
+      "n_chars": 3603,
+      "phones": [
+        "(713) 688-4746"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "information. | 3.  Fax the completed form to Princeton Review at (713) 688-4746."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/155.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON <IMCEANOTES-+22Simpkins+2C+2",
+      "subject": "Special Warranty Deed/First Amendment to Contract - Lakeline Apts\t.",
+      "n_chars": 1139,
+      "phones": [
+        "(512)\n370-2836",
+        "(512) 703-5000",
+        "(512) 370-2836",
+        "(512) 370-2850"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [
+        "$25,000"
+      ],
+      "ssn": [],
+      "phone_context": "below.  If you have any questions or concerns, please contact me at (512) | 370-2836 or Mike Bobinchuck at (512) 703-5000.  Thanks."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/369.",
+      "from": "Sheppard, Kathryn </O=ENRON/OU=NA/CN=RECIPIENTS/CN=KSHEPPAR>",
+      "subject": "Portland Fundamental Analysis Strategy Meeting Info",
+      "n_chars": 385,
+      "phones": [
+        "888-296-1938",
+        "503-464-7698"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Time:\t\t\t1:00 p.m. (PST) | Dial In Number:\t888-296-1938"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/63.",
+      "from": "Enron Property & Services Corp.@ENRON",
+      "subject": "Fire Drill Scheduled",
+      "n_chars": 1091,
+      "phones": [
+        "713-853-5417"
+      ],
+      "addresses": [
+        "1400 Smith St",
+        "1500 Louisiana St"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Anyone that is mobility impaired or medically disabled may be excused from participating in this drill by sending an e-mail to Harry Grubbs. | If you have any q"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/447.",
+      "from": "Sheppard, Kathryn </O=ENRON/OU=NA/CN=RECIPIENTS/CN=KSHEPPAR>",
+      "subject": "Portland Fundamental Analysis Strategy Meeting Info",
+      "n_chars": 387,
+      "phones": [
+        "888-380-9636",
+        "503-464-7698"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Time:\t\t\t1:00 p.m. (PST) | Dial In Number:\t888-380-9636"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/122.",
+      "from": "Enron Change Management Announcement@ENRON",
+      "subject": "SUPPLEMENTAL Weekend Outage Report for 10-19-01 through 10-21-01",
+      "n_chars": 5765,
+      "phones": [
+        "713-853-5699",
+        "713-345-4423",
+        "713-345-8970",
+        "713-853-5147",
+        "713-345-9954"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Additionally, during this power outage the cooling system will be upgraded.  This upgrade may take up to 2 hours.  Occupants in the building may experience as m"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/357.",
+      "from": "dleduca714@yahoo.com@ENRON",
+      "subject": "Fw: Are You Living in Debt, Paycheck to Paycheck?3636",
+      "n_chars": 1084,
+      "phones": [
+        "800-533-9351"
+      ],
+      "addresses": [],
+      "money": [
+        "$10,000"
+      ],
+      "ssn": [],
+      "phone_context": "CALL ONLY IF YOU ARE SERIOUS! | 1-800-533-9351 (Free, 2 minute message)"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/416.",
+      "from": "\"pollard\" <apkpcp@prodigy.net>@ENRON",
+      "subject": "Re: greetings",
+      "n_chars": 1829,
+      "phones": [
+        "936-321-6307"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": ">      Enron.  Hope you are doing all right.  Give me a call or drop me  an | >      email when you have a chance at 936-321-6307 or let me know when is a"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/71.",
+      "from": "Leanne <leanne@integrityrs.com>@ENRON",
+      "subject": "Shopping Ctr. and Office/Retail Complex for Sale",
+      "n_chars": 1405,
+      "phones": [
+        "512.327.5000",
+        "512.327.5078"
+      ],
+      "addresses": [
+        "12636 Research Blvd",
+        "205 South Commons Ford Road"
+      ],
+      "money": [
+        "$5,900,000",
+        "$975,000"
+      ],
+      "ssn": [],
+      "phone_context": "Austin, Tx 78733-4004 | Office:  512.327.5000"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/168.",
+      "from": "<EDelivery@SalomonSmithBarney.com>@ENRON",
+      "subject": "E-delivery Notification - Confirms",
+      "n_chars": 1731,
+      "phones": [
+        "800-221-3636"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "https://www.salomonsmithbarney.com/cust_srv/faq/ | If you have any questions or need any assistance viewing your trade confirmations online, please contact the "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/147.",
+      "from": "Bruce, James </O=ENRON/OU=NA/CN=RECIPIENTS/CN=JBRUCE2>",
+      "subject": "Weekly New Gen Report",
+      "n_chars": 625,
+      "phones": [
+        "(503) 464-8122",
+        "(503) 860-8612",
+        "(503) 464-3740"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "James Bruce | Enron North America\t\t(503) 464-8122"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/181.",
+      "from": "\"Robert W. Huntley, CFP\" <wise.counsel@lpl.com>@ENRON",
+      "subject": "Huntley update",
+      "n_chars": 3140,
+      "phones": [
+        "281-858-1127",
+        "281-858-0000"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "If you find something and it's faxable, please send  it to my fax at | 281-858-1127.  Feel free to call first if you have any  comments."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/207.",
+      "from": "Leanne <leanne@integrityrs.com>@ENRON",
+      "subject": "Single Tenant Properties",
+      "n_chars": 847,
+      "phones": [
+        "(512) 327-5000",
+        "512.327.5000",
+        "512.327.5078"
+      ],
+      "addresses": [
+        "205 South Commons Ford Road"
+      ],
+      "money": [
+        "$1,000,000",
+        "$7,000,000"
+      ],
+      "ssn": [],
+      "phone_context": "Please fax, phone, mail or email all possibilities to: | Joe Linsalata (512) 327-5000"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/417.",
+      "from": "\"pollard\" <apkpcp@prodigy.net>@ENRON",
+      "subject": "greetings",
+      "n_chars": 322,
+      "phones": [
+        "936-321-6307"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Phillip, | NPW laid off 20% of its workforce about 2 weeks  ago, and I was unfortunately one of them.  I can not believe what is going  on at Enron.  Hope you a"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/228.",
+      "from": "laura.a.de.la.torre@accenture.com@ENRON",
+      "subject": "Confirmation of 10/26 meeting",
+      "n_chars": 642,
+      "phones": [
+        "713-345-6686",
+        "713.837.2133"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "team will include Mery Brown and Laura de la Torre. | Please let me know if you have further questions at 713-345-6686."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/146.",
+      "from": "Sheppard, Kathryn </O=ENRON/OU=NA/CN=RECIPIENTS/CN=KSHEPPAR>",
+      "subject": "Reminder:  Portland Fundamental Analysis Strategy Meeting",
+      "n_chars": 291,
+      "phones": [
+        "877-233-7852",
+        "503-464-7698"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Time:\t\t\t1:00 p.m. (PDT) | Dial In Number:\t877-233-7852"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/129.",
+      "from": "\"Richard G. Hash\" <richard.hash@openspirit.com>@ENRON",
+      "subject": "SBC \"The Way\" Weekly Info Request",
+      "n_chars": 635,
+      "phones": [
+        "281-940-0207",
+        "281-940-0201"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Richard G. Hash                   richard.hash@openspirit.com | OpenSpirit Corp.  ph: 281-940-0207    fax 281-940-0201"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/268.",
+      "from": "Leanne <leanne@integrityrs.com>@ENRON",
+      "subject": "MCE Educational Offering",
+      "n_chars": 1151,
+      "phones": [
+        "512.327.5000",
+        "512.327.5078"
+      ],
+      "addresses": [
+        "205 South Commons Ford Road"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Austin, Tx 78733-4004 | Office: 512.327.5000"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/145.",
+      "from": "Grigsby, Mike </O=ENRON/OU=NA/CN=RECIPIENTS/CN=MGRIGSB>",
+      "subject": "FW: Reminder:  Portland Fundamental Analysis Strategy Meeting",
+      "n_chars": 590,
+      "phones": [
+        "877-233-7852",
+        "503-464-7698"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Time:\t\t\t1:00 p.m. (PDT) | Dial In Number:\t877-233-7852"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/171.",
+      "from": "Community Relations@ENRON",
+      "subject": "Invitaton: An Evening of Hope and Healing",
+      "n_chars": 795,
+      "phones": [
+        "713-303-3966"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Admission is free, but by RSVP only because of limited space | To RSVP and for more information, please call 713-303-3966"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/362.",
+      "from": "Rangel, Ina </O=ENRON/OU=NA/CN=RECIPIENTS/CN=IRANGEL>",
+      "subject": "FW: Move Related Issues",
+      "n_chars": 583,
+      "phones": [
+        "713-853-7257",
+        "713-646-3604"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Enron North America | 713-853-7257 Voice"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/154.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON <IMCEANOTES-+22Simpkins+2C+2",
+      "subject": "Utility Construction Escrow Agreement (Allen/AMHP)",
+      "n_chars": 560,
+      "phones": [
+        "(512) 370-2836",
+        "(512) 370-2850"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "connection with the closing on the property located in Leander, Texas. | Please review the enclosed document and contact me at (512) 370-2836 or Mike"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/216.",
+      "from": "Wellness@ENRON",
+      "subject": "Upcoming Wellness Activities",
+      "n_chars": 1189,
+      "phones": [
+        "713-745-4000"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Mammogram Screening | The M. D. Anderson Mobile Mammography van will be at Enron November 12-16, 2001, from 8 a.m. - 4 p.m.  Cost is $25 for Enron employees, sp"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/157.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON <IMCEANOTES-+22Simpkins+2C+2",
+      "subject": "Reimbursement Agreement",
+      "n_chars": 486,
+      "phones": [
+        "(512) 370-2836",
+        "(512)\n703-5000",
+        "(512) 370-2850"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "back from my client, so the Agreement is subject to revision.  Please review | the Agreement and contact me at (512) 370-2836 or Mike Bobinchuck at (512)"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/423.",
+      "from": "McDaniel, Kirk </O=ENRON/OU=NA/CN=RECIPIENTS/CN=NOTESADDR/CN=151B1F73-1F0D9C60-8",
+      "subject": "Upcoming Reviews",
+      "n_chars": 4247,
+      "phones": [
+        "860 756 2245"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Hartford - One Financial Plaza | Direct Dial: 860 756 2245"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/382.",
+      "from": "<EDelivery@SalomonSmithBarney.com>@ENRON",
+      "subject": "E-delivery Notification - Confirms",
+      "n_chars": 1731,
+      "phones": [
+        "800-221-3636"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "https://www.salomonsmithbarney.com/cust_srv/faq/ | If you have any questions or need any assistance viewing your trade confirmations online, please contact the "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/445.",
+      "from": "\"Christina M. Kirby\" <geninfo@state-bank.com>@ENRON",
+      "subject": "How do I eat crow and still make it tasty???????",
+      "n_chars": 3579,
+      "phones": [
+        "830-379-5236",
+        "830-401-1185",
+        "830-401-1189",
+        "830-401-1182"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "to correctly login three times today; please try again tomorrow, or | contact the bank at 830-379-5236 to have your password reset.\" This is"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/65.",
+      "from": "Frank, Carole </O=ENRON/OU=NA/CN=RECIPIENTS/CN=CFRANK2>",
+      "subject": "FW: Wishing you well",
+      "n_chars": 639,
+      "phones": [
+        "713.345.3960",
+        "713.446.9307",
+        "713.467.3860"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Enron Net Works | 713.345.3960 work"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/153.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON <IMCEANOTES-+22Simpkins+2C+2",
+      "subject": "Revised Utility Construction Escrow Agreement - Lakeline Apts.",
+      "n_chars": 639,
+      "phones": [
+        "(512) 370-2836",
+        "(512) 370-2850"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "We may do a separate agreement between you, AMHP and McCall in the event | Agape fails to receive reimbursement.  Please contact me at (512) 370-2836"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/218.",
+      "from": "Derryl Cleaveland.@ENRON",
+      "subject": "Enron Net Works and Enron Global Strategic Sourcing announce new\n procedure for ",
+      "n_chars": 1592,
+      "phones": [
+        "800-973-6766",
+        "713-345-5552",
+        "713-345-8525"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "1.\tPlease dial the WorldPhone International Access number for the country where you are located (country access code), which is available on the attached wallet"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/211.",
+      "from": "Enron Change Management Announcement@ENRON",
+      "subject": "Weekend Outage Report for 10-26-01 through 10-28-01",
+      "n_chars": 6366,
+      "phones": [
+        "713-336-2300",
+        "713-345-7672",
+        "713-345-3077",
+        "713-853-7767",
+        "713-345-4904"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "All 3AC and 2AC employees will have no telephone or voicemail service during outage period. When power is restored to building, systems will be powered back up "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/119.",
+      "from": "<EDelivery@SalomonSmithBarney.com>@ENRON",
+      "subject": "E-delivery Notification - Confirms",
+      "n_chars": 1731,
+      "phones": [
+        "800-221-3636"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "https://www.salomonsmithbarney.com/cust_srv/faq/ | If you have any questions or need any assistance viewing your trade confirmations online, please contact the "
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/424.",
+      "from": "McDaniel, Kirk </O=ENRON/OU=NA/CN=RECIPIENTS/CN=NOTESADDR/CN=151B1F73-1F0D9C60-8",
+      "subject": "Organizational Structure Topic - Berney Aucoin",
+      "n_chars": 1823,
+      "phones": [
+        "860 756 2245"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Hartford - One Financial Plaza | Direct Dial: 860 756 2245"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/94.",
+      "from": "\"Robert W. Huntley, CFP\" <wise.counsel@lpl.com>@ENRON",
+      "subject": "Huntley followup question",
+      "n_chars": 366,
+      "phones": [
+        "281-858-1127",
+        "281-858-0000"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "I forgot to ask if you have a recent survey of the  lot from when you closed?  I would like to see if we'll have any easement  problems above or around the gara"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/435.",
+      "from": "Frolov, Yevgeny </O=ENRON/OU=NA/CN=RECIPIENTS/CN=YFROLOV>",
+      "subject": "Zero Option",
+      "n_chars": 3021,
+      "phones": [
+        "713-345-8250"
+      ],
+      "addresses": [],
+      "money": [
+        "$27,740"
+      ],
+      "ssn": [],
+      "phone_context": "Yevgeny Frolov | 713-345-8250 w"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/352.",
+      "from": "Renaud, Lindsay </O=ENRON/OU=NA/CN=RECIPIENTS/CN=LRENAUD>",
+      "subject": "New Active X for EOL Website",
+      "n_chars": 429,
+      "phones": [
+        "(713) 345-3703",
+        "(713) 628-0048"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "EnronOnline | Desk (713) 345-3703"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/265.",
+      "from": "monica.l.brown@accenture.com@ENRON",
+      "subject": "RE: Confirmation: Risk Management Simulation Meeting 10/30/01",
+      "n_chars": 4226,
+      "phones": [
+        "713-345-6687",
+        "713 837 1749",
+        "713 257 7211"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Let me know if you have any questions.  I can be reached at | 713-345-6687."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/deleted_items/12.",
+      "from": "Enron General Announcements@ENRON",
+      "subject": "Please Read: Resolution Center to Disconnect Toll Free number",
+      "n_chars": 1071,
+      "phones": [
+        "888-877-7757",
+        "800-973-6766",
+        "713-345-4745",
+        "888-465-4745",
+        "402-398-7454"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "| The Resolution Center will be decommissioning one of its 888 numbers (888-877-7757) as of January 7, 2002."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/35.",
+      "from": "Bruce, James </O=ENRON/OU=NA/CN=RECIPIENTS/CN=JBRUCE2>",
+      "subject": "Edition 2 New Gen Weekly",
+      "n_chars": 429,
+      "phones": [
+        "(503) 464-8122",
+        "(503) 860-8612",
+        "(503) 464-3740"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "James Bruce | Enron North America\t\t(503) 464-8122"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/42.",
+      "from": "\"Armando Martinez\" <mondohed@gte.net>@ENRON",
+      "subject": "Fw: Golfin' and Wedding!!!",
+      "n_chars": 1518,
+      "phones": [
+        "(210)225-4535"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "The RK Group | (210)225-4535 sbilby@therkgroup.com"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/67.",
+      "from": "McDaniel, Kirk </O=ENRON/OU=NA/CN=RECIPIENTS/CN=NOTESADDR/CN=151B1F73-1F0D9C60-8",
+      "subject": "RE: Updates to our Video Production Timeframes and Scope",
+      "n_chars": 5498,
+      "phones": [
+        "860 756 2245",
+        "713.837.2133"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Hartford - One Financial Plaza | Direct Dial: 860 756 2245"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/87.",
+      "from": "\"Christina M. Kirby\" <geninfo@state-bank.com>@ENRON",
+      "subject": "How do I eat crow and still make it tasty???????",
+      "n_chars": 3579,
+      "phones": [
+        "830-379-5236",
+        "830-401-1185",
+        "830-401-1189",
+        "830-401-1182"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "to correctly login three times today; please try again tomorrow, or | contact the bank at 830-379-5236 to have your password reset.\" This is"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/27.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON",
+      "subject": "Blackline of First Amendment to Contract",
+      "n_chars": 462,
+      "phones": [
+        "(512) 370-2836",
+        "(512) 370-2850"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "your signature.  If you have any questions or concerns, please contact me at | (512) 370-2836.  Thanks."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/64.",
+      "from": "\"Christina M. Kirby\" <geninfo@state-bank.com>@ENRON",
+      "subject": "Internet Banking",
+      "n_chars": 2749,
+      "phones": [
+        "830-379-5236",
+        "830-401-1185",
+        "830-401-1189",
+        "830-401-1182"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "have failed to correctly login three times today; please try again | tomorrow, or contact the bank at 830-379-5236 to have your password"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/23.",
+      "from": "\"Jeff Smith\" <jsmith@austintx.com>@ENRON",
+      "subject": "Properties for sale",
+      "n_chars": 348,
+      "phones": [
+        "512-394-0908",
+        "512-394-0913",
+        "512-751-9728"
+      ],
+      "addresses": [
+        "9400 Circle Drive"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Austin, Texas  78736 | 512-394-0908 office"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/29.",
+      "from": "monica.l.brown@accenture.com@ENRON",
+      "subject": "Confirmation: Risk Management Simulation Meeting 10/30/01",
+      "n_chars": 695,
+      "phones": [
+        "713-345-6687",
+        "713 837 1749",
+        "713 257 7211"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Monica Brown and Sheri Righi. | Let me know if you have any questions.  I can be reached at 713-345-6687."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/20.",
+      "from": "Hunter Williams <Hunter.Williams@grandecom.com>@ENRON <IMCEANOTES-Hunter+20Willi",
+      "subject": "Service Agreement",
+      "n_chars": 534,
+      "phones": [
+        "512-757-2794",
+        "512-878-5467"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Grande Communications | Wireless 512-757-2794"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/31.",
+      "from": "monica.l.brown@accenture.com@ENRON",
+      "subject": "RE: Confirmation: Risk Management Simulation Meeting 10/30/01",
+      "n_chars": 2892,
+      "phones": [
+        "713-345-6687",
+        "713 837 1749",
+        "713 257 7211"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Let me know if you have any questions.  I can be reached at | 713-345-6687."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/71.",
+      "from": "Leanne <leanne@integrityrs.com>@ENRON",
+      "subject": "Retail Strip Center for Sale",
+      "n_chars": 911,
+      "phones": [
+        "512.327.5000",
+        "512.327.5078"
+      ],
+      "addresses": [
+        "205 South Commons Ford Road"
+      ],
+      "money": [
+        "$975,000"
+      ],
+      "ssn": [],
+      "phone_context": "Austin, Tx 78733-4004 | Office:  512.327.5000"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/39.",
+      "from": "Bruce, James </O=ENRON/OU=NA/CN=RECIPIENTS/CN=JBRUCE2>",
+      "subject": "Distribution of report",
+      "n_chars": 598,
+      "phones": [
+        "(503) 464-8122",
+        "(503) 860-8612",
+        "(503) 464-3740"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "James Bruce | Enron North America\t\t(503) 464-8122"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/21.",
+      "from": "Hunter Williams <Hunter.Williams@grandecom.com>@ENRON <IMCEANOTES-Hunter+20Willi",
+      "subject": "FW: Service Agreement",
+      "n_chars": 801,
+      "phones": [
+        "512-878-5467",
+        "512-757-2794"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Grande Communications | 512-878-5467"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/22.",
+      "from": "\"Morgan, Richard\" <Richard.Morgan@austinenergy.com>@ENRON",
+      "subject": "RE:",
+      "n_chars": 3190,
+      "phones": [
+        "512.505.3709",
+        "512.505.3711",
+        "713-853-7041"
+      ],
+      "addresses": [
+        "721 Barton Springs Rd"
+      ],
+      "money": [
+        "$20,000",
+        "$25,000",
+        "$10,000",
+        "$20,000"
+      ],
+      "ssn": [],
+      "phone_context": "Austin, TX 78704-1194 | Ph. 512.505.3709"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/44.",
+      "from": "eSource@ENRON",
+      "subject": "Lexis-Nexis Training: Houston & Worldwide / Dow Jones Training",
+      "n_chars": 2854,
+      "phones": [
+        "713-345-7928"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "November 14\t10:00 AM Central Standard Time | Please RSVP to Stephanie E. Taylor at 713-345-7928 or stephanie.e.taylor@enron.com."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/26.",
+      "from": "\"Simpkins, Michelle\" <MSimpkins@winstead.com>@ENRON",
+      "subject": "First Amendment to Contract - For Execution",
+      "n_chars": 532,
+      "phones": [
+        "(512) 370-2850",
+        "(512) 370-2836"
+      ],
+      "addresses": [
+        "100 Congress Avenue"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "execution.  Please sign the Amendment at your earliest convenience and fax a | copy to me at (512) 370-2850.  Please overnight the original to me at the"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/66.",
+      "from": "McDaniel, Kirk </O=ENRON/OU=NA/CN=RECIPIENTS/CN=NOTESADDR/CN=151B1F73-1F0D9C60-8",
+      "subject": "RM Simulation Storyline Scripts - Ready for Legal Review",
+      "n_chars": 3130,
+      "phones": [
+        "860 756 2245"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Hartford - One Financial Plaza | Direct Dial: 860 756 2245"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/inbox/37.",
+      "from": "Sheppard, Kathryn </O=ENRON/OU=NA/CN=RECIPIENTS/CN=KSHEPPAR>",
+      "subject": "Reminder:  Portland Fundamental Analysis Strategy Meeting/NEW\n INFORMATION",
+      "n_chars": 408,
+      "phones": [
+        "888-285-4585",
+        "503-464-7698"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Time:\t\t\t1:00 p.m. (PST) | Dial In Number:\t888-285-4585"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/503.",
+      "from": "Phillip K Allen",
+      "subject": "Nondeliverable mail",
+      "n_chars": 1760,
+      "phones": [
+        "713-853-7041"
+      ],
+      "addresses": [],
+      "money": [
+        "$325,000",
+        "$6,000"
+      ],
+      "ssn": [],
+      "phone_context": "Phillip Allen | 713-853-7041"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/19.",
+      "from": "Phillip K Allen",
+      "subject": "RE: W basis quotes",
+      "n_chars": 1025,
+      "phones": [
+        "(703)893-4330",
+        "(703)893-4390",
+        "(443)255-7699",
+        "713-853-1803"
+      ],
+      "addresses": [
+        "7926 Jones Branch Drive"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "McLean, VA 22102-3303 | Phone  (703)893-4330 ext. 1023"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/540.",
+      "from": "Phillip K Allen",
+      "subject": "California Update 5/4/01",
+      "n_chars": 6802,
+      "phones": [
+        "(713) 853-9510"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Subject: California Update 5/4/01 | If you have any questions, please contact Kristin Walsh at (713) 853-9510."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/451.",
+      "from": "Phillip K Allen",
+      "subject": "leander and the Stage",
+      "n_chars": 1378,
+      "phones": [
+        "512-732-0009",
+        "512-732-0010",
+        "512-751-9728"
+      ],
+      "addresses": [
+        "2714 Bee Cave Road"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Austin, Texas? 78746 | 512-732-0009"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/396.",
+      "from": "Phillip K Allen",
+      "subject": "California Action Update 1-14-00",
+      "n_chars": 2749,
+      "phones": [
+        "503-294-9116"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "April).  Pat Boylston will develop \"public benefit\" language for options | working with Mike Day.  He can be reached at 503-294-9116 or"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/201.",
+      "from": "Kim Ward",
+      "subject": "",
+      "n_chars": 76,
+      "phones": [
+        "503-805-2117"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "| Please give me a call - 503-805-2117.  I need to discuss something with you."
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/477.",
+      "from": "Phillip K Allen",
+      "subject": "Bishops Corner, Ltd. Buyout",
+      "n_chars": 3586,
+      "phones": [
+        "(512) 338-1119",
+        "(512)338-1103"
+      ],
+      "addresses": [
+        "1400 Smith Street"
+      ],
+      "money": [
+        "$21,196",
+        "$67,050",
+        "$61,175",
+        "$37,325",
+        "$350,000"
+      ],
+      "ssn": [],
+      "phone_context": "8511 Horseshoe Ledge, Austin, TX? 78730-2840 | Telephone (512) 338-1119? Fax(512)338-1103"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/494.",
+      "from": "Phillip K Allen",
+      "subject": "Re: NGI access to eol",
+      "n_chars": 748,
+      "phones": [
+        "(703) 318-8848",
+        "(703) 318-0597"
+      ],
+      "addresses": [
+        "22648 Glenn Drive Suite"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Sterling, VA 20164 | tel: (703) 318-8848"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/126.",
+      "from": "Phillip K Allen",
+      "subject": "TIME SENSITIVE: Executive Impact & Influence Program Survey",
+      "n_chars": 1870,
+      "phones": [
+        "713-942-8436",
+        "713-853-3304",
+        "858-450-2554"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "If you experience technical problems, please call Dennis Ward at | FSD Data Services, 713-942-8436.  If you have any questions about this"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/24.",
+      "from": "Phillip K Allen",
+      "subject": "PIRA's California/Southwest Gas Pipeline Study",
+      "n_chars": 2816,
+      "phones": [
+        "(212) 686-6808"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "PIRA Energy Group | (212) 686-6808"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/443.",
+      "from": "Phillip K Allen",
+      "subject": "RE:",
+      "n_chars": 2186,
+      "phones": [
+        "713-646-2391",
+        "713-853-7041"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "> | > My fax number is 713-646-2391.  Please fax me a loan application"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/534.",
+      "from": "Phillip K Allen",
+      "subject": "4-URGENT - OWA Please print this now.",
+      "n_chars": 6019,
+      "phones": [
+        "713-853-1411"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Otherwise, you may contact the Resolution Center at: | 713-853-1411"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/512.",
+      "from": "Phillip K Allen",
+      "subject": "SanJuan/SoCal spread prices",
+      "n_chars": 1909,
+      "phones": [
+        "(203) 355-5059"
+      ],
+      "addresses": [],
+      "money": [
+        "$44,165,200",
+        "$5,920,980",
+        "$5,637,469",
+        "$3,006,092"
+      ],
+      "ssn": [],
+      "phone_context": "Apr02-Oct02 @  0.55 =  $3,006,092 | If you have any other questions call: (203) 355-5059"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/387.",
+      "from": "Phillip K Allen",
+      "subject": "",
+      "n_chars": 416,
+      "phones": [
+        "713-853-7041"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "pallen@enron.com | 713-853-7041"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/551.",
+      "from": "\"Performance Evaluation Process (PEP)\" <perfmgmt@enron.com>",
+      "subject": "Mid-Year 2001 Performance Feedback",
+      "n_chars": 1169,
+      "phones": [
+        "713.853.4777",
+        "207.783.4040"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "process, please contact the PEP Help Desk at: | Houston:  1.713.853.4777, Option 4 or email: perfmgmt@enron.com"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/539.",
+      "from": "Phillip K Allen",
+      "subject": "Re: Western Wholesale Activities - Gas & Power Conf. Call",
+      "n_chars": 2119,
+      "phones": [
+        "888-271-0949"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Time:    1:00 pm Pacific, 3:00 pm Central, and 4:00 pm Eastern time, | Number:   1-888-271-0949,"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/173.",
+      "from": "Phillip K Allen",
+      "subject": "November fixed-price deals",
+      "n_chars": 543,
+      "phones": [
+        "202-383-2147"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Liane Kucher, Inside FERC Gas Market Report | 202-383-2147"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/428.",
+      "from": "Phillip K Allen",
+      "subject": "",
+      "n_chars": 1028,
+      "phones": [
+        "713-853-7041"
+      ],
+      "addresses": [],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Phillip Allen | 713-853-7041"
+    },
+    {
+      "user": "allen-p",
+      "path": "data/external/enron/maildir/allen-p/discussion_threads/45.",
+      "from": "Phillip K Allen",
+      "subject": "",
+      "n_chars": 245,
+      "phones": [
+        "713 461-4130",
+        "713 463-8626",
+        "713 780-1022"
+      ],
+      "addresses": [
+        "8855 Merlin Ct"
+      ],
+      "money": [],
+      "ssn": [],
+      "phone_context": "Houston, TX 77024 | 713 461-4130"
+    }
+  ]
+}

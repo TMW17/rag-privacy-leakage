@@ -1,0 +1,5 @@
+{
+  "before": "Phillip Allen\n713-463-8626\npallen70@hotmail.com",
+  "after": "<PERSON>\n<UK_NHS>\n<EMAIL_ADDRESS>",
+  "n_redacted": 5
+}
