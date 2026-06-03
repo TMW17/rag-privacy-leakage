@@ -1,0 +1,32 @@
+entity_type,severity,linddun,presidio_recall_any_task01,residual_exposure_under_L2,risk_sev_x_residual,residual_class,note
+SYSTEM_PROMPT,5,Disclosure,0.0,1.0,5.0,DETECTOR-GAP,Presidio/L2 is NOT the control for prompt leakage; covered at SCENARIO level by F3 (judged residual 0.0) -> entity residual high but scenario risk low.
+AGE_GENDER,3,Linkability,0.0,1.0,3.0,DETECTOR-GAP,BRIDGE: sev3 detector-gap AND LINDDUN=Linkability -> direct fuel for the F2 residual.
+MEDICAL,3,Disclosure,0.0,1.0,3.0,DETECTOR-GAP,"ELEVATED (Task 0.1 recall_any=0.0, open-vocabulary): never redacted; feeds F2."
+IMMIGRATION,3,Disclosure,0.0,1.0,3.0,DETECTOR-GAP,
+SURNAME_TITLE,4,Identifiability,0.51,0.49,1.96,DETECTOR-GAP,ELEVATED (Task 0.1 recall_any=0.51): half survive; feeds F1/F2 residual.
+ADDRESS,4,Identifiability,0.89,0.11,0.44,DETECTOR-GAP,
+PERFORMANCE,2,Unawareness,0.0,1.0,2.0,BELOW-THRESHOLD,
+DEPARTMENT,2,Detectability,0.0,1.0,2.0,BELOW-THRESHOLD,
+JOB_TITLE,2,Detectability,0.0,1.0,2.0,BELOW-THRESHOLD,
+WORK_SCHEDULE,2,Unawareness,0.76,1.0,2.0,BELOW-THRESHOLD,
+OFFICE_LOCATION,2,Unawareness,0.0,1.0,2.0,BELOW-THRESHOLD,
+PROJECT,2,Unawareness,0.3,1.0,2.0,BELOW-THRESHOLD,
+TRAINING,2,Unawareness,0.0,1.0,2.0,BELOW-THRESHOLD,
+NATIONAL_ID,5,Identifiability,1.0,0.0,0.0,REDACTED,
+API_KEY,5,Disclosure,1.0,0.0,0.0,REDACTED,
+JWT_TOKEN,5,Disclosure,1.0,0.0,0.0,REDACTED,
+PASSWORD_HASH,5,Disclosure,1.0,0.0,0.0,REDACTED,
+DB_CONN_STRING,5,Disclosure,1.0,0.0,0.0,REDACTED,
+PRIVATE_KEY,5,Disclosure,1.0,0.0,0.0,REDACTED,
+PERSON,4,Identifiability,1.0,0.0,0.0,REDACTED,
+HEALTH_RECORD_ID,4,Identifiability,1.0,0.0,0.0,REDACTED,
+EMAIL,4,Identifiability,1.0,0.0,0.0,REDACTED,
+PHONE,4,Identifiability,1.0,0.0,0.0,REDACTED,
+DOB,4,Identifiability,1.0,0.0,0.0,REDACTED,
+IBAN,4,Identifiability,1.0,0.0,0.0,REDACTED,
+INTERNAL_IP,4,Detectability,1.0,0.0,0.0,REDACTED,
+SALARY,3,Disclosure,1.0,0.0,0.0,REDACTED,"structured-format recall 1.0 (redacted); PROSE-form salary ('compensation of $106,307') SURVIVES (linkability_diagnosis; Sprint-1 L4 format-drift) — a residual NOT captured by this per-type structured recall."
+EMPLOYEE_ID,3,Identifiability,1.0,0.0,0.0,REDACTED,
+CROSS_REFERENCE,3,Linkability,1.0,0.0,0.0,REDACTED,
+FILE_PATH,3,Detectability,1.0,0.0,0.0,REDACTED,
+ARCHITECTURE,3,Detectability,1.0,0.0,0.0,REDACTED,
