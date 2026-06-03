@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_macros.html" import table, figure %}
+{% block title %}Security–Utility Pareto (RQ5){% endblock %}
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — loaded from committed <code>results/phase3/tradeoff/</code> · figure not redrawn</div>
+{% endblock %}
+{% block content %}
+<h1>Security–utility Pareto (RQ5)</h1>
+{{ figure(img, img_err, "Noise-aware Pareto (left) + why the spec-utility metrics look flat (right). Knee = C01100 (L2+L3). Source: committed tradeoff/pareto.png (not redrawn).") }}
+
+{{ table(pt, pt_err) }}
+
+<div class="callout info"><strong>Knee = C01100 (L2+L3)</strong> — it captures essentially all of the full stack&rsquo;s measured security
+(judged 0.192 vs 0.173; gap +0.019, within the 0.08 floor) at two layers. A <em>naive</em> Pareto wrongly
+picks the full stack on a within-noise edge; the full stack is a defense-in-depth choice, not a measured win over the knee.</div>
+
+<p class="src">Utility cost (Task 3.1, C00000 vs C11111): context-precision 0.755 → 0.658 (−0.097), latency ~1.9×;
+the three spec-metrics look flat because they miss L2&rsquo;s faithful-but-empty answers (BEN-007/009/025).</p>
+<p class="src">Sources: <code>tradeoff/pareto.png</code>, <code>tradeoff/pareto_data.csv</code>.</p>
+{% endblock %}

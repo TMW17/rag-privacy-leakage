@@ -1,0 +1,125 @@
+/* style.css — the ONE stylesheet for the unified app (landing + live chatbot + results dashboard).
+   Single visual language: shared color tokens, typography, spacing, components.
+
+   HONESTY COLOR RULE (deliberate): there is NO success-green token anywhere. Green=good is exactly
+   the visual lie this project must not tell — the chatbot's `no_leak` is the rule engine's BLIND
+   verdict (kappa=0.164), not proof of safety. Engine verdicts render AMBER (lower-bound), real
+   leaks render RED. The dashboard's measured ASR reduction also renders neutral/amber, never green,
+   so a viewer never reads a green light as "the defense worked / safe". */
+
+:root{
+  --ink:#1c2330; --muted:#5a6573; --faint:#8a93a0;
+  --paper:#ffffff; --canvas:#f5f6f8; --line:#e3e6ea;
+  --brand:#2540c0;                 /* navigation / structural accent only (not a safety signal) */
+  --warn-tx:#92400e; --warn-bg:#fffbeb; --warn-bd:#f59e0b;   /* amber: LIVE + caveats + engine verdict */
+  --static-tx:#334155; --static-bg:#f1f5f9; --static-bd:#cbd5e1; /* slate: STATIC artifact reads */
+  --info-tx:#1e3a8a; --info-bg:#eff6ff; --info-bd:#bfdbfe;   /* blue: framing notes */
+  --err-tx:#b91c1c; --err-bg:#fef2f2; --err-bd:#fecaca;      /* red: missing artifact / real leak */
+  --radius:10px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+code{font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef1f5;padding:1px 5px;border-radius:5px}
+a{color:var(--brand);text-decoration:none}
+h1{font-size:24px;margin:4px 0 6px} h2{font-size:18px;margin:26px 0 8px} h3{font-size:14px;margin:14px 0 6px;color:var(--muted)}
+
+/* ── header + nav (shared shell) ── */
+header.site{background:var(--ink);color:#fff;position:sticky;top:0;z-index:10}
+.bar{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;line-height:1.2}
+.brand .logo{font-weight:700;font-size:16px;letter-spacing:.2px}
+.brand .sub{font-size:11px;opacity:.62}
+.nav{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.nav .pill{color:#cdd3da;padding:6px 11px;border-radius:8px;font-size:13px;white-space:nowrap}
+.nav .pill:hover{background:#2a3344;color:#fff}
+.nav .pill.on{background:#fff;color:var(--ink);font-weight:600}
+.nav .pill.live{color:#ffd9a8}
+.nav .pill.live.on{background:var(--warn-bd);color:#3b2400}
+.nav .pill.live .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:6px;box-shadow:0 0 0 0 rgba(245,158,11,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,158,11,.6)}70%{box-shadow:0 0 0 6px rgba(245,158,11,0)}100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}}
+.nav .sep{width:1px;height:20px;background:#3a4456;margin:0 4px}
+
+/* ── mode ribbon: LIVE (warm) vs STATIC (cool) — always tells you which you're looking at ── */
+.ribbon{max-width:1180px;margin:14px auto 0;padding:9px 14px;border-radius:8px;font-size:13px;border:1px solid}
+.ribbon code{background:rgba(0,0,0,.05)}
+.ribbon.static{background:var(--static-bg);border-color:var(--static-bd);color:var(--static-tx)}
+.ribbon.live{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx)}
+.ribbon.live .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ef4444;margin-right:8px;animation:pulse 1.8s infinite}
+
+main.wrap{max-width:1180px;margin:0 auto;padding:16px 18px 40px}
+.lead{color:var(--muted);max-width:80ch}
+.src{color:var(--faint);font-size:12px;margin:8px 0}
+.muted{color:var(--muted)}
+
+/* ── metric cards (headline) ── */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.metric{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.metric .k{font-size:12px;color:var(--muted)}
+.metric .v{font-size:26px;font-weight:700;margin-top:4px}
+.metric .v .tag{font-size:12px;font-weight:600;color:var(--brand);background:#eef1ff;padding:2px 8px;border-radius:8px;vertical-align:middle}
+.metric .delta.down{display:inline-block;margin-top:6px;font-size:13px;font-weight:600;color:var(--static-tx)} /* measured reduction: neutral slate — never green (no safety signal), amber reserved for caveats/LIVE */
+.metric .delta.down::before{content:"▼ "}
+
+/* ── callouts (framing) — ported verbatim from the committed dashboard ── */
+.callout{border:1px solid;border-radius:8px;padding:11px 14px;margin:12px 0;font-size:14px}
+.callout.info{background:var(--info-bg);border-color:var(--info-bd);color:var(--info-tx)}
+.callout.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx)}
+.callout.error{background:var(--err-bg);border-color:var(--err-bd);color:var(--err-tx)}
+
+/* ── tables ── */
+.tbl-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper)}
+table.tbl{border-collapse:collapse;width:100%;font-size:13px}
+table.tbl th{position:sticky;top:0;background:#f3f5f8;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
+table.tbl td{padding:7px 10px;border-bottom:1px solid #eef1f4;vertical-align:top}
+table.tbl tr:nth-child(even) td{background:#fafbfc}
+
+/* ── live chatbot ── */
+.chat-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:14px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.log{padding:14px;height:56vh;overflow:auto}
+.msg{margin:8px 0;padding:9px 12px;border-radius:10px;max-width:88%;white-space:pre-wrap;line-height:1.45}
+.msg.u{background:var(--brand);color:#fff;margin-left:auto}
+.msg.a{background:#eef1f5}
+.bar{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.sel{padding:8px;border:1px solid #cdd3da;border-radius:8px}
+.inp{flex:1;padding:9px;border:1px solid #cdd3da;border-radius:8px;font-size:14px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:9px 14px;cursor:pointer;font-size:14px}
+.btn.ghost{background:#6b7280}
+.demo-note{font-size:12px;color:var(--muted);padding:8px 14px 12px;margin:0}
+
+/* the engine-blindness band — PROMOTED to a prominent, high-contrast callout at the top of the audit
+   panel; always visible (before any turn), never a small grey footnote. */
+.audit{padding:0}
+.audit-warn{background:var(--warn-bg);border-bottom:3px solid var(--warn-bd);color:var(--warn-tx);padding:13px 15px}
+.audit-warn .hd{font-weight:800;font-size:14px;margin-bottom:4px}
+.audit-warn p{margin:0;font-size:13px;line-height:1.5}
+.audit h3{padding:0 15px} .audit .muted{padding:0 15px}
+.audit-body{padding:0 15px 15px;font-size:13px}
+.chip{background:#e8edf5;color:var(--muted);border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600}
+
+/* engine verdict — AMBER (lower bound), never green. Real leak = red. */
+.verdict{border-radius:8px;padding:9px 12px;margin:6px 0;font-size:14px}
+.verdict.v-engineblind{background:var(--warn-bg);border:1px solid var(--warn-bd);color:var(--warn-tx)}
+.verdict.v-leak{background:var(--err-bg);border:1px solid var(--err-bd);color:var(--err-tx)}
+.verdict .vtag{display:block;font-size:11px;font-weight:600;opacity:.85;margin-top:3px}
+table.kv{border-collapse:collapse;width:100%;font-size:12px;margin:8px 0}
+table.kv td{padding:4px 8px;border-bottom:1px solid #eef1f4;vertical-align:top}
+table.kv td:first-child{color:var(--muted);white-space:nowrap;width:34%}
+.audit-body pre{background:#0f1626;color:#cfe3ff;padding:10px;border-radius:8px;overflow:auto;font-size:11px}
+.audit-body details summary{cursor:pointer;color:var(--brand);font-size:12px;margin-top:6px}
+
+/* ── rendered READING.md (committed smoke evidence) ── */
+.reading{margin-top:22px}
+.reading .md{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:6px 20px 16px;margin-top:0}
+.reading .md table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+.reading .md th,.reading .md td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.reading .md th{background:#f3f5f8}
+.reading .md blockquote{border-left:3px solid var(--warn-bd);background:var(--warn-bg);margin:12px 0;padding:8px 14px;color:var(--warn-tx)}
+.reading .md code{font-size:12px}
+
+img.fig{max-width:100%;height:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+
+footer.site-foot{max-width:1180px;margin:0 auto;padding:18px;color:var(--faint);font-size:12px;border-top:1px solid var(--line)}
+
+@media (max-width:880px){.cards{grid-template-columns:1fr}.chat-grid{grid-template-columns:1fr}}

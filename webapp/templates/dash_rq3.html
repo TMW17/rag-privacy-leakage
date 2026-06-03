@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "_macros.html" import table %}
+{% block title %}Judge validation (RQ3){% endblock %}
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — loaded from committed <code>final_metrics.json</code> (RQ3, cited from Sprint 0)</div>
+{% endblock %}
+{% block content %}
+<h1>Judge validation (RQ3)</h1>
+
+{% if err %}
+  <div class="callout error">⚠ {{ err }}</div>
+{% else %}
+  {{ table(rows) }}
+  <div class="callout info"><strong>κ = {{ '%.3f'|format(k.judge_human_kappa) }} is the VALIDATION figure</strong> (judge vs human).
+  <strong>κ = {{ '%.3f'|format(k.claude_gptoss_kappa) }} is cross-vendor CORROBORATION (Claude vs gpt-oss) — never the validation figure.</strong>
+  The judge–human agreement ({{ '%.3f'|format(k.judge_human_kappa) }}) exceeds the inter-human ceiling
+  ({{ '%.3f'|format(k.interhuman_kappa) }}), read as the judge&rsquo;s <em>consistency against the primary annotator&rsquo;s
+  fixed labels</em> — not superhuman judgment.</div>
+  <p class="src">Single-Claude calibration FPR {{ k.single_claude_FPR }} vs majority-vote {{ k.majority_FPR }}
+  (46-record sample). Claude-only operation is the declared constraint; no 3-judge full-ablation numbers are fabricated.</p>
+{% endif %}
+<p class="src">Source: <code>final_metrics.json</code> (RQ3_judge_validation_CITED; cited from Sprint 0).</p>
+{% endblock %}

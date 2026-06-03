@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% from "_macros.html" import table %}
+{% block title %}Live Chatbot — C01100 demonstration{% endblock %}
+{% block ribbon %}
+<div class="ribbon live"><span class="dot"></span><b>LIVE</b> — this section makes <b>real Claude Sonnet 4.6 calls</b>
+(real tokens · real latency) against the clean synthetic index. Config <b>{{ config }}</b>.</div>
+{% endblock %}
+{% block content %}
+<h1>Secure RAG chatbot — live demonstration</h1>
+<p class="lead">The recommended config <b>C01100</b> (L2 retrieval-time Presidio redaction + L3 conversation refusal)
+in front of the synthetic-corpus RAG system. Ask a question — the response and the <b>per-turn audit log</b> appear
+together. This demonstrates the configuration&rsquo;s behaviour; it is <b>not a certified system</b>.</p>
+
+<div class="chat-grid">
+  <section class="panel chat">
+    <div id="log" class="log"></div>
+    <div class="bar">
+      <select id="prof" class="sel" title="attacker profile">
+        <option>Internal</option><option>External</option><option>Admin</option>
+      </select>
+      <input id="q" class="inp" placeholder="Ask the assistant…" onkeydown="if(event.key==='Enter')send()">
+      <button class="btn" onclick="send()">Send</button>
+      <button class="btn ghost" onclick="resetChat()">Reset</button>
+    </div>
+    <p class="demo-note">Demonstration of the recommended configuration — <b>not a certified system</b>.
+      It does <b>not</b> solve cross-document linkability (the Sprint-3 F2 finding stands).</p>
+  </section>
+
+  <section class="panel audit">
+    <div class="audit-warn">
+      <div class="hd">⚠ The audit verdict is the rule engine&rsquo;s view — a lower bound (κ = 0.164)</div>
+      <p>It misses semantic / linkage leaks — e.g. surviving surnames, or age + role + performance re-association —
+      so <b>&ldquo;no_leak&rdquo; is NOT a safety guarantee</b>. Cross-document linkability <b>survives this config</b>
+      (see the Sprint-3 report). A green light here would be the engine&rsquo;s blind spot, not proof of safety —
+      so this panel never shows one.</p>
+    </div>
+    <h3>Per-turn audit log <span class="chip">last turn</span></h3>
+    <p class="muted">timestamp · profile · layers fired · retrieved doc_ids · <b>engine verdict</b> · severity S · confidence gate</p>
+    <div id="audit" class="audit-body">— send a message to see the audit entry —</div>
+  </section>
+</div>
+
+<section class="reading">
+  <div class="ribbon static"><b>STATIC</b> — committed smoke evidence (<code>app/smoke/READING.md</code>):
+    how to read this config&rsquo;s behaviour honestly</div>
+  <div class="callout warn"><strong>Live responses vary run-to-run.</strong> Sonnet at temp 0 is not bit-identical and
+    retrieval can return different chunks, so one live answer may look cleaner (or leakier) than another. The
+    <strong>frozen smoke evidence below</strong> (committed in <code>app/smoke/</code>) is the <em>reproducible</em>
+    demonstration — the F2 linkability finding rests on it, not on any single live generation.</div>
+  {% if reading_html %}
+    <div class="md">{{ reading_html|safe }}</div>
+  {% else %}
+    <div class="callout error">⚠ missing file: app/smoke/READING.md</div>
+  {% endif %}
+</section>
+
+<script>
+const log = document.getElementById('log');
+const aud = document.getElementById('audit');
+const q   = document.getElementById('q');
+
+function esc(s){ const d=document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
+function add(t,c){ const d=document.createElement('div'); d.className='msg '+c; d.textContent=t;
+  log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
+
+function renderAudit(a){
+  // Verdict is ALWAYS rendered amber/neutral (engine lower bound) or red (real leak) — NEVER green.
+  // `no_leak` here is the rule engine's blind verdict (kappa=0.164), not a safety result.
+  const cls = (a.verdict === 'no_leak') ? 'v-engineblind' : 'v-leak';
+  let h = '<div class="verdict '+cls+'">engine verdict: <b>'+esc(a.verdict)+'</b>'
+        + '<span class="vtag">engine view · κ = 0.164 lower bound · NOT a safety guarantee</span></div>';
+  const cg = a.confidence_threshold ? a.confidence_threshold.action : null;
+  h += '<table class="kv">'
+    +  '<tr><td>severity S</td><td>'+esc(a.severity_S)+'</td></tr>'
+    +  '<tr><td>profile</td><td>'+esc(a.profile)+'</td></tr>'
+    +  '<tr><td>layers fired</td><td>'+esc((a.layers_fired||[]).join(', '))+'</td></tr>'
+    +  '<tr><td>retrieved doc_ids</td><td>'+esc((a.retrieved_doc_ids||[]).join(', '))+'</td></tr>'
+    +  '<tr><td>response modified</td><td>'+esc(a.response_modified)+'</td></tr>'
+    +  '<tr><td>confidence gate</td><td>'+esc(cg)+'</td></tr>'
+    +  '<tr><td>timestamp</td><td>'+esc(a.timestamp)+'</td></tr>'
+    +  '</table>'
+    +  '<details><summary>raw audit JSON</summary><pre>'+esc(JSON.stringify(a,null,2))+'</pre></details>';
+  aud.innerHTML = h;
+}
+
+async function send(){
+  const m = q.value.trim(); if(!m) return; q.value='';
+  add(m,'u'); const ph = add('…','a');
+  try{
+    const r = await fetch('/chatbot/chat', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({message:m, profile:document.getElementById('prof').value})});
+    const j = await r.json();
+    ph.textContent = j.response;
+    renderAudit(j.audit);
+  }catch(e){ ph.textContent = '[error contacting /chatbot/chat: '+e+']'; }
+}
+async function resetChat(){
+  await fetch('/chatbot/reset', {method:'POST'});
+  log.innerHTML=''; aud.textContent='— reset —';
+}
+</script>
+{% endblock %}

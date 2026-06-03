@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "_macros.html" import table %}
+{% block title %}Headline — Defense Layer Evaluation{% endblock %}
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — headline loaded from committed <code>results/phase3/ablation/metrics/final_metrics.json</code> · no recomputation</div>
+{% endblock %}
+{% block content %}
+<h1>Defense Layer Evaluation — headline</h1>
+<p class="lead">Read-only view of committed <code>results/phase3/</code> artifacts — no recomputation, no API calls.
+<strong>Judged augmented ASR is the PRIMARY metric; engine ASR is a lower-bound annotation.</strong></p>
+
+{% if head_err %}
+  <div class="callout error">⚠ {{ head_err }}</div>
+{% else %}
+<div class="cards">
+  <div class="metric">
+    <div class="k">Baseline judged ASR (C00000)</div>
+    <div class="v">{{ '%.1f'|format(head.baseline_pct) }} %</div>
+  </div>
+  <div class="metric">
+    <div class="k">Full-stack judged ASR (C11111)</div>
+    <div class="v">{{ '%.1f'|format(head.fullstack_pct) }} %</div>
+    <div class="delta down">{{ '%+.1f'|format(head.delta_pp) }} pp</div>
+  </div>
+  <div class="metric">
+    <div class="k">Recommended knee</div>
+    <div class="v">{% if head.knee %}{{ head.knee }} <span class="tag">{{ layer.get(head.knee, '') }}</span>{% else %}n/a{% endif %}</div>
+  </div>
+</div>
+{% endif %}
+
+<div class="callout info"><strong>Judged is primary; engine is a lower bound.</strong> The rule engine reports the full stack at
+0.000 (~100&nbsp;% cut); the validated judge reports 0.173 (~40&nbsp;% cut). The engine cannot see the
+semantic / cross-document leakage the judge sees, so it overstates the defense.</div>
+
+<h2>Six-cell overall strict ASR</h2>
+{{ table(rows, six_err) }}
+
+<div class="callout warn"><strong>F2 (linkability) is the principal unreduced residual.</strong> Across configurations its judged
+ASR sits at ~0.60 / 0.70 / 0.60 (C00000 / C01000 / C11111): a single noisy plateau within the floor —
+read as <strong>unreduced, NOT config-worse</strong>.</div>
+
+{% if guard %}
+<p class="src">GUARD: baseline judged strict = {{ guard.baseline_judged_strict }} (locked 28.8&nbsp;%); F1-family =
+{{ guard.baseline_F1family_judged_strict }} (locked 77.8&nbsp;%). Dual noise floor: engine ≈ {{ floor.engine }},
+judged ≈ {{ floor.judged }} (the 0.08 floor is the n=52 OVERALL metric; per-family small-n uses binomial/McNemar).</p>
+{% endif %}
+<p class="src">Source: <code>ablation/metrics/final_metrics.json</code>.</p>
+{% endblock %}

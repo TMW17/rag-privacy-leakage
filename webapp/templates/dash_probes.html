@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "_macros.html" import figure %}
+{% block title %}Exploratory probes{% endblock %}
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — loaded from committed <code>results/phase3/l2_llm/</code> &amp; <code>enron/</code> · single-run, direction-only</div>
+{% endblock %}
+{% block content %}
+<h1>Exploratory probes</h1>
+<div class="callout warn"><strong>Exploratory probes — single-run, direction-only.</strong> These are NOT primary results and do NOT
+change the 17.3&nbsp;% headline. Their numbers are directions, never rates.</div>
+
+<h2>1 · LLM redactor (L2-LLM) — enhancement probe</h2>
+{% if l2_err %}
+  <div class="callout error">⚠ {{ l2_err }}</div>
+{% else %}
+  <ul>
+    <li><strong>Utility (solid, n=30 paired):</strong> context-precision <strong>{{ u.get('C11111_presidio_proxy') }} → {{ u.get('C01000_LLM') }}</strong>
+      (= no-redaction level); 0 over-refusal; mechanism = avoids Presidio&rsquo;s schedule over-redaction (more surgical).</li>
+    <li><strong>Security (suggestive, NOT significant):</strong> F2 0.70 → 0.40 but <strong>McNemar p ≈ 0.45 at n=10</strong>;
+      the pre-registered per-scenario prediction was <em>falsified</em>; two &lsquo;rises&rsquo; are a fresh-vs-reused judge confound.</li>
+    <li><em>Caveat:</em> same-vendor Sonnet-redactor / Opus-judge coupling.</li>
+  </ul>
+  {{ figure(img, img_err, "L2-LLM vs Presidio-L2: fully-measured F2-vs-context-precision trade-off (security edge non-significant). Source: committed l2_llm/l2_llm_tradeoff.png.") }}
+{% endif %}
+
+<h2>2 · Enron generalization (Task 3.6)</h2>
+{% if en_err %}
+  <div class="callout error">⚠ {{ en_err }}</div>
+{% else %}
+  <ul>
+    <li><strong>F1 (direct PII) generalizes, direction-consistent:</strong> {{ f1.get('c00000') }}/{{ f1.get('n') }} → {{ f1.get('c01100') }}/{{ f1.get('n') }}
+      (McNemar p=0.5, n=4 — <em>direction, not a rate</em>); the residual is an <strong>address</strong> = the <em>same</em>
+      Presidio address-recall gap as synthetic → not a synthetic artifact.</li>
+    <li><strong>F2 (linkability) inconclusive</strong> — corrected down from the prediction: the synthetic-validated judge
+      <strong>over-flags redacted output</strong> on Enron (a cross-corpus judge-transfer limitation, isolated to the
+      defended-cell survivors; the baseline leaks are all real PII).</li>
+    <li><em>Caveats:</em> single mailbox; n=4/3; one run; L3/L5 inert on un-annotated data (so C01100 = L2-driven here).</li>
+  </ul>
+{% endif %}
+
+<p class="src">Sources: <code>l2_llm/l2_llm_results.json</code>, <code>l2_llm/l2_llm_tradeoff.png</code>, <code>enron/enron_results.json</code>.
+<strong>17.3&nbsp;% synthetic full-stack remains the primary headline.</strong></p>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_macros.html" import table, figure %}
+{% block title %}Ablation — per-family / per-profile{% endblock %}
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — loaded from committed <code>results/phase3/ablation/metrics/</code> · no recomputation</div>
+{% endblock %}
+{% block content %}
+<h1>Ablation — judged strict ASR</h1>
+
+<h2>Per-family judged strict ASR</h2>
+{{ table(fam, fam_err) }}
+<div class="callout warn">F1 (Direct PII) carries the reduction (0.778 → 0.222 once L2 is on).
+<strong>F2 (Linkability) is unreduced (within noise), NOT config-worse.</strong> Small-N families (F6 N=3, etc.) are coarse.</div>
+
+<h2>Per-profile judged strict ASR</h2>
+{{ table(prof, prof_err) }}
+<p class="src">ThirdParty (P4) is evaluated offline, not as a live cell.</p>
+
+<h2>Per-layer marginal effect &amp; RQ2 staircase</h2>
+{{ figure(img, img_err, "Per-layer marginal ΔASR vs the judged floor (left); RQ2 staircase baseline→L2→L2+L3→full (right). Only L2 clears the floor. Source: committed PNG (not redrawn).") }}
+<p class="src">Sources: <code>ablation/metrics/final_metrics.json</code>, <code>ablation/metrics/fig_marginal_and_rq2.png</code>.</p>
+{% endblock %}

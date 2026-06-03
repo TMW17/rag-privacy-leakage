@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Privacy leakage in enterprise RAG — defense demonstration &amp; results{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="bar">
+    <div class="brand">
+      <span class="logo">RAG · Privacy</span>
+      <span class="sub">Measuring &amp; mitigating privacy leakage in enterprise RAG — defense demonstration &amp; results</span>
+    </div>
+    <nav class="nav">
+      <a href="/" class="pill {{ 'on' if nav=='home' else '' }}">Home</a>
+      <a href="/chatbot" class="pill live {{ 'on' if nav=='chatbot' else '' }}"><span class="dot"></span>Live Chatbot</a>
+      <span class="sep"></span>
+      <a href="/dashboard/ablation" class="pill {{ 'on' if nav=='ablation' else '' }}">Ablation</a>
+      <a href="/dashboard/rq5" class="pill {{ 'on' if nav=='rq5' else '' }}">Security–Utility</a>
+      <a href="/dashboard/risk" class="pill {{ 'on' if nav=='risk' else '' }}">Risk matrix</a>
+      <a href="/dashboard/rq3" class="pill {{ 'on' if nav=='rq3' else '' }}">Judge validation</a>
+      <a href="/dashboard/probes" class="pill {{ 'on' if nav=='probes' else '' }}">Probes</a>
+    </nav>
+  </div>
+</header>
+
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — read from committed <code>results/phase3/</code> artifacts · no recomputation · no API calls</div>
+{% endblock %}
+
+<main class="wrap">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-foot">
+  Master&rsquo;s thesis · ESI Sidi Bel Abbès · TADJ Mohamed Walid · supervisors Pr. Esma Aïmeur &amp; Pr. Souleyman Chaib.
+  <b>Judged augmented ASR is the primary metric; engine ASR is a lower-bound annotation.</b>
+  This is a demonstration &amp; read-only results viewer — <b>not a certified system</b>; cross-document linkability (F2) is unreduced.
+</footer>
+</body>
+</html>

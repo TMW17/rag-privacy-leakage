@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from "_macros.html" import table %}
+{% block title %}Risk matrix{% endblock %}
+{% block ribbon %}
+<div class="ribbon static"><b>STATIC</b> — loaded from committed <code>results/phase3/risk_matrix/</code> · no recomputation</div>
+{% endblock %}
+{% block content %}
+<h1>Risk matrix — two likelihood bases (never conflated)</h1>
+<p class="lead"><strong>Families</strong> are scored on the <em>judged ASR</em>; <strong>entity types</strong> on
+<em>detector-miss exposure under L2</em> (1 − Presidio recall for sev≥3; = 1.0 for sev2, retained by design).
+The judged residual is a lower bound on true risk.</p>
+
+<h2>Family risk (judged)</h2>
+{{ table(fam, fam_err) }}
+
+<h2>Entity-type risk (31 types; detector-miss under L2)</h2>
+{{ table(ent, ent_err, height=440) }}
+
+<div class="callout info"><strong>F2 is the dominant elevated residual.</strong> MEDICAL / SURNAME_TITLE / AGE_GENDER surface via the
+DETECTOR-GAP class (a flat sort would bury SURNAME). <strong>AGE_GENDER is the linkage bridge</strong> (sev3,
+LINDDUN=Linkability, recall 0.0). <strong>SYSTEM_PROMPT sorts #1 by raw product but is demoted</strong> — Presidio
+is not its control, and the F3 injection family that targets it is fully defended (judged 0.0).</div>
+
+<p class="src">Sources: <code>risk_matrix/risk_matrix_families.csv</code>, <code>risk_matrix/risk_matrix_entities.csv</code>,
+<code>risk_matrix/risk_matrix.json</code>.</p>
+{% endblock %}

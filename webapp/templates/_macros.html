@@ -1,0 +1,30 @@
+{# _macros.html — shared rendering helpers. Generic table renderer over list-of-dicts as returned by
+   dashboard/loaders.py (UNCHANGED). `error` surfaces a MissingArtifact/guard message explicitly —
+   never a fabricated value. #}
+{% macro table(rows, error=None, height=None) %}
+  {% if error %}
+    <div class="callout error">⚠ {{ error }}</div>
+  {% elif rows and rows|length %}
+    <div class="tbl-wrap"{% if height %} style="max-height:{{ height }}px"{% endif %}>
+      <table class="tbl">
+        <thead><tr>{% for c in rows[0].keys() %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+        <tbody>
+        {% for r in rows %}
+          <tr>{% for c in rows[0].keys() %}<td>{{ r[c] }}</td>{% endfor %}</tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="muted">no rows</div>
+  {% endif %}
+{% endmacro %}
+
+{% macro figure(url, error, caption) %}
+  {% if error %}
+    <div class="callout error">⚠ {{ error }}</div>
+  {% else %}
+    <img class="fig" src="{{ url }}" alt="{{ caption }}">
+    <p class="src">{{ caption }}</p>
+  {% endif %}
+{% endmacro %}
