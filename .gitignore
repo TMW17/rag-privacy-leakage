@@ -45,3 +45,12 @@ data/external/
 # these are regenerated on every server/smoke run and would drift)
 results/phase3/audit/smoke.jsonl
 results/phase3/audit/chatbot.jsonl
+
+# LaTeX build byproducts in report dirs (the .tex + .pdf are committed; these regenerate on each compile)
+results/**/report/*.aux
+results/**/report/*.log
+results/**/report/*.out
+results/**/report/*.toc
+results/**/report/*.fls
+results/**/report/*.fdb_latexmk
+results/**/report/*.synctex.gz
