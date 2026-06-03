@@ -1,0 +1,8 @@
+{
+  "f2_scenarios": 10,
+  "f2_turns": 32,
+  "benign": 30,
+  "nominal_redaction_calls": 310,
+  "unique_redaction_calls": 95,
+  "intended_sut_generations": 62
+}

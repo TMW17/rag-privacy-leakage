@@ -80,6 +80,7 @@ from scripts.phase3.l6_linkage import redact_linkage as _l6_redact  # noqa: E402
 class DefenseConfig:
     L1_input_filter: bool = False
     L2_retrieval_redaction: bool = False
+    L2_llm_redaction: bool = False          # L2-LLM: generalizable LLM redactor in place of Presidio
     L3_conversation_refusal: bool = False
     L4_output_filter: bool = False
     L5_provenance_check: bool = False
@@ -98,7 +99,7 @@ class DefenseConfig:
 
 # Mid-flow layers that act before the SUT (cannot affect the atomic core in Sprint 0)
 _MID_FLOW = ("L5_provenance_check", "context_minimization",
-             "L2_retrieval_redaction", "L3_conversation_refusal")
+             "L2_retrieval_redaction", "L2_llm_redaction", "L3_conversation_refusal")
 _STUB_MIDFLOW = ("STUB no-op — INERT in Sprint 0; real effect requires the Sprint-1 "
                  "retrieve()/generate() split (SUT already ran on original context)")
 
@@ -184,10 +185,13 @@ class DefensePipeline:
 
     def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
                  l3_config: "L3Config" = None, l4_mode: str = "redact", l5_acl: bool = True,
-                 conf_threshold: float = 10.0, conf_mode: str = "suppress", l6: bool = False):
+                 conf_threshold: float = 10.0, conf_mode: str = "suppress", l6: bool = False,
+                 l2_llm_redactor=None):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
+        self.l2_llm_redactor = l2_llm_redactor   # LLMRedactor instance (required iff cfg.L2_llm_redaction)
+        self.last_l2llm = None
         self.l3cfg = l3_config or L3Config()
         if l4_mode not in ("redact", "suppress"):
             raise ValueError("l4_mode must be 'redact' or 'suppress'")
@@ -393,8 +397,27 @@ class DefensePipeline:
             log("context_minimization", True, _STUB_MIDFLOW)
         else:
             log("context_minimization", False, "skip(disabled)")
-        # L2 retrieval redaction — REAL (Presidio via .venv-presidio subprocess)
-        if self.cfg.L2_retrieval_redaction:
+        # L2 retrieval redaction — Presidio (regex/NER, .venv-presidio) OR L2-LLM (generalizable).
+        # Mutually exclusive; L2-LLM is the swap-in comparison cell.
+        if self.cfg.L2_llm_redaction:
+            if self.l2_llm_redactor is None:
+                raise ValueError("cfg.L2_llm_redaction=True but no l2_llm_redactor was provided")
+            import time as _t
+            t0 = _t.time()
+            red, infos = [], []
+            for c in chunks:
+                rc, info = self.l2_llm_redactor.redact(c)
+                red.append(rc)
+                infos.append(info)
+            chunks = red
+            n_ph = sum(i.get("n_placeholders", 0) for i in infos)
+            n_fb = sum(1 for i in infos if i.get("src") == "presidio_fallback")
+            self.last_l2llm = {"n_chunks": len(chunks), "n_placeholders": n_ph, "n_fallback": n_fb,
+                               "wall_s": round(_t.time() - t0, 2)}
+            log("L2_llm_redaction", True,
+                f"LLM-redacted {len(chunks)} chunks ({n_ph} placeholders, {n_fb} presidio-fallback, "
+                f"{self.last_l2llm['wall_s']}s)")
+        elif self.cfg.L2_retrieval_redaction:
             res = _presidio_redact(chunks, sev_threshold=3)
             chunks = res["redacted"]
             self.last_l2 = res

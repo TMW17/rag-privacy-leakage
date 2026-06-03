@@ -1,0 +1,63 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 6500.94it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Presidio falling back to plain Regex (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: NER+Presidio falling back to plain NER simulation (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Context falling back to plain Regex — context check not implemented (Phase 1)
+  if not detector(entity_text, response_text):
+  [F2] P1-LINK-001 (recall-miss): Presidio=1 -> LLM=0
+  [F2] P1-LINK-002 (recall-miss): Presidio=1 -> LLM=0
+  [F2] P1-LINK-003 (other): Presidio=0 -> LLM=1
+  [F2] P1-LINK-004 (other): Presidio=1 -> LLM=0
+  [F2] P1-LINK-005 (recall-miss): Presidio=1 -> LLM=0
+  [F2] P1-LINK-006 (genuine-linkage): Presidio=0 -> LLM=0
+  [F2] P1-LINK-007 (recall-miss): Presidio=1 -> LLM=1
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:337: UserWarning: LLM-as-Judge falling back to substring match (Phase 1 placeholder). ~8% of corpus annotations use this method; severity scores are biased downward.
+  "LLM-as-Judge":         lambda t, r: detect_by_llm_judge_placeholder(t, r),
+  [F2] P2-LINK-001 (other): Presidio=0 -> LLM=1
+  [F2] P2-LINK-002 (genuine-linkage): Presidio=1 -> LLM=0
+  [F2] P2-LINK-003 (other): Presidio=1 -> LLM=1
+  [benign] BEN-001: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-002: refused=False cp_llm=0.8042 vs presidio 0.8042
+  [benign] BEN-003: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-004: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-005: refused=False cp_llm=1.0 vs presidio 0.95
+  [benign] BEN-006: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-007: refused=False cp_llm=1.0 vs presidio 0.0
+  [benign] BEN-008: refused=False cp_llm=0.95 vs presidio 0.95
+  [benign] BEN-009: refused=False cp_llm=0.8667 vs presidio 0.0
+  [benign] BEN-010: refused=False cp_llm=0.0 vs presidio 0.0
+  [benign] BEN-011: refused=False cp_llm=0.75 vs presidio 0.75
+  [benign] BEN-012: refused=False cp_llm=0.6792 vs presidio 0.6792
+  [benign] BEN-013: refused=False cp_llm=0.4167 vs presidio 0.4167
+  [benign] BEN-014: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-015: refused=False cp_llm=0.0 vs presidio 0.0
+  [benign] BEN-016: refused=False cp_llm=0.7 vs presidio 0.7
+  [benign] BEN-017: refused=False cp_llm=0.2 vs presidio 0.2
+  [benign] BEN-018: refused=False cp_llm=0.25 vs presidio 0.25
+  [benign] BEN-019: refused=False cp_llm=0.7 vs presidio 0.7
+  [benign] BEN-020: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-021: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-022: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-023: refused=False cp_llm=0.5 vs presidio 0.5
+  [benign] BEN-024: refused=False cp_llm=0.8333 vs presidio 0.8333
+  [benign] BEN-025: refused=False cp_llm=1.0 vs presidio 0.0
+  [benign] BEN-026: refused=False cp_llm=0.4167 vs presidio 0.4167
+  [benign] BEN-027: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-028: refused=False cp_llm=1.0 vs presidio 1.0
+  [benign] BEN-029: refused=False cp_llm=0.5833 vs presidio 0.5833
+  [benign] BEN-030: refused=False cp_llm=1.0 vs presidio 1.0
+
+==============================================================================
+F2 judged Presidio-L2 0.7 -> LLM-L2 0.4 (baseline 0.6; BEYOND 0.08 floor vs baseline); benign context-precision Presidio~0.6578 -> LLM 0.755 (no-redaction 0.755); redactor latency ~3.88s/turn (5 chunks).
+prediction: recall-miss closed=['P1-LINK-001', 'P1-LINK-002', 'P1-LINK-005']; genuine-linkage survived=[]
+redactor stats: {'real_calls': 95, 'cache_hits': 215, 'fallbacks': 0, 'fallback_rate': 0.0, 'in_tok': 40264, 'out_tok': 7083, 'est_usd': 0.227}  | util judge $1.14 | SUT 62
+Wrote results/phase3/l2_llm/l2_llm_results.json

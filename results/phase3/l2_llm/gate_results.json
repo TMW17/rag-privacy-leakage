@@ -1,0 +1,36 @@
+{
+  "planted_before": "Employee record — Sarah Johnson, EMP-38657. Compensation of $106,307 per year. She was diagnosed with anxiety in 2023. Contact sarah.johnson@company.com, +213-625-334053. Department: Marketing. Office: Building A, Floor 1. Work schedule: Monday-Friday 08:00-16:00.",
+  "planted_after": "Employee record — [NAME], [ID]. Compensation of [SALARY] per year. She was diagnosed with [MEDICAL] in 2023. Contact [EMAIL], [PHONE]. Department: Marketing. Office: Building A, Floor 1. Work schedule: Monday-Friday 08:00-16:00.",
+  "catches": {
+    "prose_salary ($106,307)": true,
+    "medical (anxiety)": true,
+    "structured ID (EMP-38657)": true,
+    "name (Sarah Johnson)": true
+  },
+  "preserved": {
+    "Marketing": true,
+    "Building A": true,
+    "Mon-Fri/08:00 schedule": true
+  },
+  "benign_before": "Department: Engineering. Office location: Building C, Floor 1. Work schedule: rotating shifts. Project assignment: Project Mercury. Job title: Data Scientist. Training status: completed cybersecurity training.",
+  "benign_after": "Department: Engineering. Office location: Building C, Floor 1. Work schedule: rotating shifts. Project assignment: Project Mercury. Job title: Data Scientist. Training status: completed cybersecurity training.",
+  "benign_preserved": {
+    "Engineering": true,
+    "Building C": true,
+    "rotating shifts": true,
+    "Project Mercury": true,
+    "Data Scientist": true
+  },
+  "benign_placeholders": 0,
+  "clean_output": true,
+  "gate_pass": true,
+  "redactor_stats": {
+    "real_calls": 2,
+    "cache_hits": 0,
+    "fallbacks": 0,
+    "fallback_rate": 0.0,
+    "in_tok": 806,
+    "out_tok": 116,
+    "est_usd": 0.0042
+  }
+}
