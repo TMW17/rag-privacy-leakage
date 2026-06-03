@@ -1,0 +1,183 @@
+"""
+loaders.py — pure data layer for the Phase-3 dashboard. NO Streamlit, NO recomputation.
+
+Every value is READ from a committed results/phase3/ artifact and reshaped for display. Missing or
+malformed files surface as errors (never fabricated). Importable without a Streamlit runtime so the
+headless check (check.py) can exercise the loaders and the JSON->table transforms directly.
+"""
+import csv
+import json
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))      # repo root (parent of dashboard/)
+RESULTS = os.path.join(ROOT, "results", "phase3")
+
+ARTIFACTS = {
+    "final_metrics": "ablation/metrics/final_metrics.json",
+    "fig_marginal":  "ablation/metrics/fig_marginal_and_rq2.png",
+    "pareto_png":    "tradeoff/pareto.png",
+    "pareto_csv":    "tradeoff/pareto_data.csv",
+    "risk_json":     "risk_matrix/risk_matrix.json",
+    "risk_fam_csv":  "risk_matrix/risk_matrix_families.csv",
+    "risk_ent_csv":  "risk_matrix/risk_matrix_entities.csv",
+    "l2llm_json":    "l2_llm/l2_llm_results.json",
+    "l2llm_png":     "l2_llm/l2_llm_tradeoff.png",
+    "enron_json":    "enron/enron_results.json",
+}
+
+CELLS = ["C00000", "C10000", "C01000", "C00100", "C01100", "C11111"]
+LAYER = {"C00000": "baseline", "C10000": "L1", "C01000": "L2", "C00100": "L3",
+         "C01100": "L2+L3", "C11111": "full stack (L1--L5)"}
+FAMILIES = ["F1_DIRECT_PII", "F2_LINKABILITY", "F3_DIRECT_INJECTION", "F4_OBFUSCATION",
+            "F5_JAILBREAK", "F6_RECON", "F7_SOCIAL_ENG", "F8_CORPUS_POISONING"]
+
+
+class MissingArtifact(Exception):
+    pass
+
+
+def path(name):
+    return os.path.join(RESULTS, ARTIFACTS[name])
+
+
+def load_json(name):
+    p = path(name)
+    if not os.path.exists(p):
+        raise MissingArtifact(f"missing file: results/phase3/{ARTIFACTS[name]}")
+    with open(p) as f:
+        return json.load(f)
+
+
+def load_rows(name):
+    p = path(name)
+    if not os.path.exists(p):
+        raise MissingArtifact(f"missing file: results/phase3/{ARTIFACTS[name]}")
+    with open(p, newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def image_path(name):
+    p = path(name)
+    if not os.path.exists(p):
+        raise MissingArtifact(f"missing file: results/phase3/{ARTIFACTS[name]}")
+    return p
+
+
+# ── builders (JSON/CSV -> rows; pure; raise MissingArtifact on absence) ──
+def headline():
+    """Headline metric cards — all values READ from artifacts (ASR overall + the committed delta;
+    knee from pareto is_knee flag). No recomputation: ×100 is unit conversion only."""
+    fm = load_json("final_metrics")
+    base = fm["per_cell"]["C00000"]["judged_strict"]["overall"]
+    full = fm["per_cell"]["C11111"]["judged_strict"]["overall"]
+    dlt = fm["deltas_vs_C00000_overall"]["C11111"]["judged_strict"]["delta"]   # committed delta, not recomputed
+    knee = next((r["cell"] for r in load_rows("pareto_csv")
+                 if str(r.get("is_knee_RQ5", "")).strip().lower() == "true"), None)
+    return {"baseline_pct": base * 100, "fullstack_pct": full * 100, "delta_pp": dlt * 100, "knee": knee}
+
+
+def six_cell():
+    fm = load_json("final_metrics")
+    d = fm["deltas_vs_C00000_overall"]
+    out = []
+    for c in CELLS:
+        j = fm["per_cell"][c]["judged_strict"]["overall"]
+        e = fm["per_cell"][c]["engine_strict"]["overall"]
+        if c == "C00000":
+            delta, verdict = "---", "(baseline)"
+        else:
+            delta = f"{d[c]['judged_strict']['delta']:+.4f}"
+            verdict = d[c]["judged_strict"]["verdict"]
+        out.append({"Cell": c, "Layer(s)": LAYER[c], "Engine ASR (lower bound)": f"{e:.4f}",
+                    "Judged ASR (PRIMARY)": f"{j:.4f}", "Judged Δ vs C00000": delta, "Verdict": verdict})
+    return out, fm["GUARD"], fm["noise_floor"]
+
+
+def per_family():
+    fm = load_json("final_metrics")
+    fn = fm["per_cell"]["C00000"]["family_n"]
+    rows = []
+    for f in FAMILIES:
+        r = {"Family": f.replace("_", " ").title().replace("Pii", "PII"), "N": fn[f]}
+        for c in CELLS:
+            r[c] = f"{fm['per_cell'][c]['judged_strict']['per_family'][f]:.3f}"
+        rows.append(r)
+    return rows
+
+
+def per_profile():
+    fm = load_json("final_metrics")
+    pn = fm["per_cell"]["C00000"]["profile_n"]
+    rows = []
+    for prof in ["Internal", "External", "Admin"]:
+        r = {"Profile": prof, "N": pn[prof]}
+        for c in CELLS:
+            r[c] = f"{fm['per_cell'][c]['judged_strict']['per_profile'][prof]:.3f}"
+        rows.append(r)
+    return rows
+
+
+def kappa():
+    fm = load_json("final_metrics")
+    k = fm["RQ3_judge_validation_CITED"]
+    rows = [
+        {"Comparison": "judge – human", "κ": f"{k['judge_human_kappa']:.3f}",
+         "Role": "VALIDATION (the figure that matters)"},
+        {"Comparison": "Claude – gpt-oss (cross-vendor)", "κ": f"{k['claude_gptoss_kappa']:.3f}",
+         "Role": "corroboration (NOT the validation figure)"},
+        {"Comparison": "gpt-oss – human", "κ": f"{k['gptoss_human_kappa']:.3f}", "Role": "independent vendor vs human"},
+        {"Comparison": "Claude – annotator-2", "κ": f"{k['claude_annotator2_kappa']:.3f}", "Role": "judge vs 2nd human"},
+        {"Comparison": "inter-human (annotator-2 vs primary)", "κ": f"{k['interhuman_kappa']:.3f}",
+         "Role": "human inter-annotator ceiling"},
+    ]
+    return rows, k
+
+
+def risk_families():
+    return load_rows("risk_fam_csv")
+
+
+def risk_entities():
+    return load_rows("risk_ent_csv")
+
+
+def pareto_table():
+    rows = load_rows("pareto_csv")
+    keep = ["cell", "judged_asr", "security_composite", "U4_incl_cp", "is_knee_RQ5", "role"]
+    return [{k: r[k] for k in keep if k in r} for r in rows]
+
+
+def l2llm():
+    d = load_json("l2llm_json")["summary"]
+    return d
+
+
+def enron():
+    return load_json("enron_json")["summary"]
+
+
+def verify_all():
+    """Headless check: every artifact loads AND every transform runs. Returns list of (name,status,detail)."""
+    report = []
+    for name in ARTIFACTS:
+        try:
+            p = path(name)
+            if not os.path.exists(p):
+                report.append((name, "MISSING", f"results/phase3/{ARTIFACTS[name]}")); continue
+            if p.endswith(".json"):
+                d = load_json(name); report.append((name, "OK", f"json, {len(json.dumps(d))} B"))
+            elif p.endswith(".csv"):
+                r = load_rows(name); report.append((name, "OK", f"csv, {len(r)} rows"))
+            else:
+                report.append((name, "OK", f"img, {os.path.getsize(p)} B"))
+        except Exception as e:
+            report.append((name, "ERROR", f"{type(e).__name__}: {e}"))
+    # exercise the JSON/CSV -> table transforms (where shaping bugs would surface)
+    for label, fn in [("headline", headline), ("six_cell", six_cell), ("per_family", per_family), ("per_profile", per_profile),
+                      ("kappa", kappa), ("risk_families", risk_families), ("risk_entities", risk_entities),
+                      ("pareto_table", pareto_table), ("l2llm", l2llm), ("enron", enron)]:
+        try:
+            fn(); report.append((f"transform:{label}", "OK", "built"))
+        except Exception as e:
+            report.append((f"transform:{label}", "ERROR", f"{type(e).__name__}: {e}"))
+    return report
