@@ -1,0 +1,184 @@
+{
+  "definition": "query-execution = 1 SUT (RAG) generation = 1 turn. Judge/eval calls excluded (reported separately). DEDUP-AWARE: reused (Phase-2 logs or content-addressed cache, $0) vs genuinely-new fresh SUT calls.",
+  "components": {
+    "phase2_baseline_REUSED": {
+      "turns": 267,
+      "breakdown": "246 clean + 21 poisoned (=3 runs x 89)",
+      "status": "REUSED as C00000 (re-ran 0)",
+      "new_sut": 0,
+      "source": "experiment_logs/B2_CLEAN_main-w3.jsonl + B2_POISONED_poisoned-w4.jsonl"
+    },
+    "ablation_6cell_NEW": {
+      "nominal_scored_turns": 534,
+      "note": "6 cells x 89 = 534 SCORED, of which C00000 (89) is a REUSED subset of the 267 and 445 are defended-config scored turns",
+      "fresh_sut_dedup_aware": 213,
+      "includes": "13-turn drift anchor (ran through same cache)",
+      "dedup_hit_rate": 0.5115,
+      "dedup_saved_turns": 245,
+      "sut_cost_usd": 1.3098,
+      "source": "ablation_engine_summary.json real_calls"
+    },
+    "ablation_GUARD_reproduction_NEW": {
+      "turns": 39,
+      "fresh_sut": 39,
+      "note": "all-False pipeline == Phase-2 baseline invariant check (F1 x3 runs); separate run, verification not new measurement",
+      "source": "guard_baseline_f1.jsonl"
+    },
+    "unit_tests_NEW": {
+      "fresh_sut": 41,
+      "per_test": {
+        "L1 input-filter (l1_results)": {
+          "sut": 0,
+          "why": "input-filter only: regex+NeMo on 2 attacks+3 benign INPUTS, pre-SUT gate; no generation"
+        },
+        "L2 collateral": {
+          "sut": 0,
+          "why": "chunk-level: retrieved_doc_ids[5] + per_chunk_redaction[5] + engine_L on context; no generation"
+        },
+        "L2 utility_survivors": {
+          "sut": 0,
+          "why": "context-level: which sev>=3 survive redaction in the 5 retrieved chunks; no generation"
+        },
+        "L2 oracle_killer": {
+          "sut": 30,
+          "why": "forced-on-target GENERATIONS: 15 L2-ON (per_run[15], all blocked=0.0) + 15 L2-OFF baseline (0.9333=14/15 leaked); constructed oracle attack, both runs fresh"
+        },
+        "L3 test1 p1link": {
+          "sut": 3,
+          "why": "3-turn P1-LINK conversation: per_turn[3] generations"
+        },
+        "L3 test2 fp_guard": {
+          "sut": 3,
+          "why": "3 false-positive-guard queries: per_query[3] generations"
+        },
+        "L3 test3 handoff": {
+          "sut": 1,
+          "why": "1 live forced run (defense_in_depth__live_forced_run); gate test uses a CONSTRUCTED input (0 SUT); +-1"
+        },
+        "L4 output-filter (l4_results)": {
+          "sut": 0,
+          "why": "output-filter applied to a SINGLE source_response (before/after redaction); source reused -> 0 fresh (<=1)"
+        },
+        "L5 provenance/acl + f8": {
+          "sut": 3,
+          "why": "provenance(155 docs) + ACL = index-level 0 SUT; f8_exploit L5_ON_runs[3] = 3 fresh; L5_OFF baseline REUSED from B2_POISONED (not re-run)"
+        },
+        "sanitized_tests F1 probe": {
+          "sut": 1,
+          "why": "sut_probe.sut_calls=1 (direct-PII F1 probe vs sanitized index)"
+        },
+        "Task 1.7 confidence/audit": {
+          "sut": 0,
+          "why": "5 ALREADY-LOGGED Phase-2 turns reused -> 0 new SUT (by design)"
+        }
+      },
+      "note": "filter/retrieval-only layer tests (L1, L2-collateral/survivors, L4, L5-provenance/acl) make 0 SUT calls; only generation tests count. OFF-baselines verified: oracle_killer ran its L2-OFF set fresh (+15, counted); L5 f8 L5-OFF was REUSED from B2_POISONED (not counted). Residual uncertainty +-2 (L3-handoff live run, L4 source) — does not affect the <1000 verdict."
+    },
+    "utility_3_1_NEW": {
+      "fresh_sut": 60,
+      "note": "30 benign queries x {C00000, C11111}",
+      "source": "utility_results.json _meta.sut_calls"
+    },
+    "L6_3_5": {
+      "fresh_sut": 0,
+      "note": "Task 3.5 --execute NEVER ran (diagnosis only); no l6_results.json"
+    },
+    "attacker_demo": {
+      "fresh_sut": 0,
+      "note": "no separate demo artifact; the direct-PII demonstration is the sanitized F1 probe (1, in unit tests) + the L2 oracle-killer forced attacks (15, in unit tests)"
+    }
+  },
+  "totals_DEDUP_AWARE": {
+    "reused_phase2_turns": 267,
+    "genuinely_new_phase3_sut": 353,
+    "new_breakdown": "213 ablation + 39 guard + 41 unit + 60 utility + 0 L6 + 0 demo",
+    "total_real_query_executions": 620,
+    "reused_pct": 43.1,
+    "new_pct": 56.9,
+    "EXCEEDS_1000": false
+  },
+  "out_of_scope_phase2_dev_executions": {
+    "per_log": {
+      "B1 pilot": 17,
+      "dry-run smoketest": 17,
+      "dry-run w3": 17,
+      "smoke (final-test-v1/v3, rag_*, sanity)": 4
+    },
+    "total": 55,
+    "note": "pilot + dry-runs + smoke tests: real Phase-2 dev executions, but NOT measurement and NOT reused; excluded from the headline (listed for full transparency)",
+    "grand_total_incl_dev": 675,
+    "still_under_1000": true
+  },
+  "padding_trap_AVOIDED": {
+    "nominal_scored_SUT_only_counting_reused_as_new": 941,
+    "key_point": "even PADDED SUT-only (all 534 ablation turns counted as new, ignoring 51% dedup + the reused C00000) = 941, STILL < 1000. Crossing 1000 REQUIRES additionally mislabeling judge/eval calls as query-executions.",
+    "what_a_padded_count_would_claim": 1348,
+    "how": "941 padded SUT + 227+180 JUDGE calls (eval) = ~1348 (>1000)",
+    "why_it_is_wrong": "that double-counts reused turns as new work and conflates evaluation calls with query-executions — exactly what was forbidden",
+    "evaluation_overhead_separate": {
+      "ablation_judge_calls": 227,
+      "utility_judge_calls": 180,
+      "note": "Opus-4.7 judge calls = evaluation, not query-executions"
+    }
+  },
+  "usability_FPR": {
+    "attack_suite_benign_blocked_per_config": {
+      "C00000": {
+        "attack_suite_benign_blocked": 0,
+        "attack_suite_n_benign": 3,
+        "attack_suite_benign_blocked_rate": 0.0,
+        "has_L1": false
+      },
+      "C10000": {
+        "attack_suite_benign_blocked": 11,
+        "attack_suite_n_benign": 14,
+        "attack_suite_benign_blocked_rate": 0.7857,
+        "has_L1": true
+      },
+      "C01000": {
+        "attack_suite_benign_blocked": 0,
+        "attack_suite_n_benign": 3,
+        "attack_suite_benign_blocked_rate": 0.0,
+        "has_L1": false
+      },
+      "C00100": {
+        "attack_suite_benign_blocked": 0,
+        "attack_suite_n_benign": 3,
+        "attack_suite_benign_blocked_rate": 0.0,
+        "has_L1": false
+      },
+      "C01100": {
+        "attack_suite_benign_blocked": 0,
+        "attack_suite_n_benign": 3,
+        "attack_suite_benign_blocked_rate": 0.0,
+        "has_L1": false
+      },
+      "C11111": {
+        "attack_suite_benign_blocked": 13,
+        "attack_suite_n_benign": 14,
+        "attack_suite_benign_blocked_rate": 0.9286,
+        "has_L1": true
+      }
+    },
+    "CAVEAT": "on the ADVERSARIAL attack suite, 'benign' = turns with no GT-leakable PII, which are almost all ATTACK turns carrying no PII payload (injections/jailbreaks). So a high 'benign-blocked' rate for L1-bearing configs (C10000 ~0.79, C11111 ~0.93) is MOSTLY CORRECT ATTACK-BLOCKING, not a usability failure. n_benign also shifts (3->14) because L1 reclassifies blocked attacks. This is NOT a usability FPR.",
+    "TRUE_usability_FPR_task_3_1": {
+      "C00000": {
+        "benign_n": 30,
+        "refused": 0,
+        "over_refusal_rate": 0.0
+      },
+      "C11111": {
+        "benign_n": 30,
+        "refused": 0,
+        "over_refusal_rate": 0.0
+      },
+      "C10000/C01000/C00100/C01100": "NOT measured on the benign set (Task 3.1 ran only the two extremes); by monotonicity each is <= C11111's 0/30, i.e. ~0."
+    },
+    "true_fpr_headline": "On 30 GENUINE benign queries (Task 3.1), over-refusal = 0/30 = 0.0% for BOTH C00000 and C11111 -> the full defense stack does not over-refuse legitimate queries (middle cells unmeasured, bounded ~0 by monotonicity)."
+  },
+  "draft_claim_check": {
+    "searched": "*.md and *.tex under Code/ for an execution/query-count claim (esp. >1000)",
+    "found_over_1000_claim": false,
+    "note": "no in-repo draft cites a >1000 query total; the thesis .tex live outside Code/. If any draft/report cites a query or execution total, the honest figure is 620 real query-executions (267 reused Phase-2 + 353 new Phase-3). Prompted by the prior count-contamination in the report (memory: phase2-report-files-and-s54-bug)."
+  }
+}
