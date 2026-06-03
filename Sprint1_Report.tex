@@ -1,0 +1,471 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- packages (conservative, widely available) ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[hidelinks,colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!55!black,citecolor=blue!50!black]{hyperref}
+
+% ---------- listings style ----------
+\definecolor{codebg}{gray}{0.96}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  framerule=0.3pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  backgroundcolor=\color{codebg},
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+  aboveskip=8pt,
+  belowskip=8pt
+}
+
+% ---------- convenience ----------
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newcommand{\kp}{\ensuremath{\kappa}}
+\newcommand{\sdef}{\ensuremath{S}}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\emergencystretch}{2.5em}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+% =====================================================================
+% TITLE PAGE
+% =====================================================================
+\begin{titlepage}
+\centering
+\vspace*{1.4cm}
+
+{\LARGE\bfseries Mapping and Reducing Data Leakage\\[6pt]
+in Retrieval-Augmented Generation Systems\par}
+\vspace{0.6cm}
+{\Large Phase~3 --- Sprint~1 Technical Report\par}
+\vspace{0.3cm}
+{\large\itshape Building and Validating a Layered Privacy-Defense System\par}
+
+\vspace{1.4cm}
+\rule{0.78\textwidth}{0.5pt}\\[8pt]
+{\large\bfseries TADJ Mohamed Walid}\\[4pt]
+{\normalsize Master's Programme --- Artificial Intelligence \& Data Science}\\
+{\normalsize \'Ecole Sup\'erieure d'Informatique (ESI), Sidi Bel Abb\`es}\\
+{\normalsize Academic Year 2025--2026}\\[6pt]
+\rule{0.78\textwidth}{0.5pt}
+
+\vspace{0.9cm}
+{\normalsize\textbf{Supervisors:}\\[2pt]
+Pr.\ Esma A\"IMEUR \quad\textbullet\quad Pr.\ Souleyman CHAIB}
+
+\vfill
+{\small Sprint~1 covers the construction of five defense layers (L1--L5), a
+context-sanitized index, and two operational support modules, followed by an\\
+engine-scored ablation validating the assembled system. Every result reported\\
+herein was produced and independently verified through automated PASS/FAIL gates.\par}
+\vspace{0.5cm}
+{\small June 2026}
+\end{titlepage}
+
+% =====================================================================
+% ABSTRACT
+% =====================================================================
+\begin{abstract}
+\noindent
+This report documents Sprint~1 of Phase~3: the design, implementation, and validation of a layered defense system against privacy leakage in a Retrieval-Augmented Generation (RAG) pipeline. Building on the measurement infrastructure established in Sprint~0 --- a canonical attack baseline (strict augmented Attack Success Rate $\mathrm{ASR}=28.8\%$), a cross-vendor LLM-as-judge (judge--human $\kp=0.827$, cross-vendor $\kp=0.843$), and an empirically measured detector-recall ceiling ($\approx 0.84$) --- Sprint~1 constructs five complementary defenses: an input rail (L1), retrieval-time redaction (L2), conversation-aware refusal (L3), output filtering (L4), and provenance plus role-based access control (L5). A preventive context-sanitized index and two operational modules (a severity circuit-breaker and an audit log) complete the system. Each component is implemented behind a toggleable pipeline whose ``all-off'' configuration provably reproduces the Phase~2 baseline, and each is validated by a targeted test. The keystone result is L2's near-total elimination of structured-PII disclosure: a forced-context oracle attack collapses from a $93.3\%$ on-target success rate to $0.0\%$. An engine-scored six-cell ablation over the full 52-scenario campaign confirms the system at scale; crucially, these engine-scored figures are a \emph{lower bound} --- the judge-augmented evaluation in Sprint~2 supplies the headline, so they are not the final result --- and on this lower-bound metric, strict ASR falls from $19.2\%$ (baseline) to $1.9\%$ under L2 and to $0.0\%$ under the full stack, at a measured compute cost of \$1.31. Crucially, the report is honest about what each layer cannot do: L2 leaves an irreducible residual of medical, surname, and immigration entities (the detector-recall ceiling); L1, L3, and L5 produce no measurable effect on the engine's PII metric because they defend dimensions that metric does not capture (input blocking, conversational linkage, corpus poisoning); and all engine-scored figures are a lower bound pending the judge-augmented evaluation. These limitations are documented as findings and as the empirical motivation for the layered architecture itself.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+\hrule
+
+% =====================================================================
+% 1. INTRODUCTION
+% =====================================================================
+\section{Introduction}
+
+\subsection{Position within the thesis}
+The thesis studies privacy leakage of personally identifiable information (PII) in enterprise GenAI systems built on RAG, and the mechanisms that reduce it. Phase~1 produced a synthetic-but-realistic corpus and a frozen ground-truth annotation of every sensitive entity. Phase~2 built the attack framework --- attacker profiles, an attack-family taxonomy, a campaign runner, and a dual evaluation stack (a fast rule-based engine and an LLM-as-judge) --- and measured an attack baseline against an \emph{undefended} system. Sprint~0 of Phase~3 established the measurement foundations a defense study requires: a reproducible environment, an honest measurement of the PII detector's true recall, a cross-vendor validation of the judge, and a toggleable harness whose disabled state reproduces the baseline exactly.
+
+Sprint~1 --- the subject of this report --- is the constructive core of the thesis. It builds the defenses. Five layers are implemented, each addressing a distinct leakage pathway; a preventive sanitized index and two operational modules complete the system; and an engine-scored ablation validates the assembled whole. The deliberate philosophy throughout is that a defense is only as trustworthy as the honesty of its evaluation: every layer is tested against a real attack, every limitation is measured rather than assumed, and a residual that a layer cannot close is reported as a finding and as motivation for the next layer.
+
+\subsection{What ``layered'' means here, and why}
+No single mechanism closes the leakage surface. Sprint~0 quantified the central reason: a regular-expression/NER PII detector, even with custom recognizers, tops out near $0.84$ recall on high-severity entities, with medical conditions, surnames, and immigration phrases forming an irreducible semantic gap. A defense that relied on that detector alone would inherit its ceiling. The architecture therefore composes mechanisms that fail in \emph{different} ways: pattern-based redaction (strong on structured identifiers, blind to open-vocabulary semantics), conversation-state refusal (catches accumulation the per-turn detector misses), input filtering (blocks attacks before they reach the model), provenance control (rejects poisoned documents the detector would never flag), and a preventive sanitized index (removes PII before it can be retrieved at all). The thesis claim is not that any one layer suffices, but that their composition covers what each individually cannot.
+
+\subsection{Recap of the locked foundations}
+Sprint~1 is constrained to preserve every Phase~2 and Sprint~0 result. The relevant locked quantities are collected in Table~\ref{tab:locked}; no Sprint~1 task alters them, and several reproduce them as correctness gates.
+
+\begin{table}[h]
+\centering
+\caption{Locked quantities from Phase~2 and Sprint~0 referenced throughout Sprint~1.}
+\label{tab:locked}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Origin} \\
+\midrule
+Strict augmented ASR (baseline) & $28.8\%$ & Phase 2 \\
+F1-family strict augmented ASR & $77.8\%$ & Phase 2 \\
+Judge--human agreement & $\kp = 0.827$ & Phase 2 / Sprint 0 \\
+Engine--human agreement & $\kp = 0.164$ & Phase 2 \\
+Cross-vendor judge agreement & $\kp = 0.843$ & Sprint 0 \\
+Judge vs.\ second annotator & $\kp = 0.775$ & Sprint 0 \\
+Inter-human agreement & $\kp = 0.692$ & Sprint 0 \\
+Presidio sev-$\geq 3$ recall (correct-label) & $0.835$ & Sprint 0 \\
+Ground-truth entities & $2{,}190$ (31 types, 155 docs) & Phase 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+% 2. ARCHITECTURE
+% =====================================================================
+\section{Defense Architecture and Engineering Discipline}
+
+Before the individual layers, this section describes the scaffolding that makes them safe to build, test, and measure: the configuration object, the pipeline, the rule that protects the baseline, the subprocess boundary that isolates the detector, and the engineering disciplines that prevent silent corruption of results.
+
+\subsection{The configuration object and the pipeline}
+A single dataclass, \code{DefenseConfig}, exposes the entire defense surface as eight boolean (or small-valued) toggles, all defaulting to a value that equals the Phase~2 baseline:
+
+\begin{lstlisting}[language=Python]
+@dataclass
+class DefenseConfig:
+    L1_input_filter: bool = False        # input rail: injection / jailbreak
+    L2_retrieval_redaction: bool = False # redact PII in retrieved context
+    L3_conversation_refusal: bool = False# cumulative-disclosure refusal
+    L4_output_filter: bool = False       # redact PII in the response
+    L5_provenance_check: bool = False    # provenance + role-based ACL
+    context_minimization: bool = False   # (deferred; inert stub)
+    confidence_threshold: bool = False   # severity circuit-breaker
+    audit_log: bool = False              # per-turn structured logging
+\end{lstlisting}
+
+The intended pipeline order is
+\[
+\text{query} \xrightarrow{[\text{L1}]} \text{retrieve}(k{=}5) \xrightarrow{[\text{L5}]} [\text{ctx-min}] \xrightarrow{[\text{L2}]} \text{SUT} \;\text{with}\; [\text{L3}] \xrightarrow{[\text{L4}]} [\text{conf}] \rightarrow \text{response},
+\]
+with the audit log recording every step. The pipeline is a thin wrapper, \code{DefensePipeline}, that accepts a \code{DefenseConfig} and a frozen \code{RAGSystem}, and exposes a \code{query()} method compatible with the existing Phase~2 scenario runner.
+
+\subsection{The atomic/decomposed design --- protecting the baseline}
+A subtle but critical design tension shaped the pipeline. The underlying \code{RAGSystem.query()} is \emph{atomic}: it performs retrieval, prompt assembly, and the model call in a single indivisible step. Yet several defenses (L2, L5, context-minimization) must act \emph{between} retrieval and generation. Resolving this naively --- always decomposing \code{query()} into separate retrieve/generate steps --- would risk introducing subtle differences from the frozen baseline path.
+
+The adopted solution keeps both paths and chooses between them at run time:
+\begin{itemize}[leftmargin=1.4cm]
+\item \textbf{When no mid-flow layer is active}, the pipeline calls the frozen \code{RAGSystem.query()} \emph{verbatim}. The response is byte-identical to Phase~2 by construction.
+\item \textbf{When a mid-flow layer is active}, the pipeline uses a decomposed path (\code{\_retrieve} $\to$ optional L5/L2 $\to$ \code{\_generate}) that mirrors \code{RAGSystem.query()}'s embedder, collection, prompt template, model, temperature, and token limit exactly.
+\end{itemize}
+This guarantees that the all-off configuration reproduces the baseline (verified by the GUARD, below) while the decomposed path remains a faithful re-implementation of the same generation, differing only in the inserted defense steps.
+
+\subsection{The Presidio subprocess boundary}
+The PII detector (Microsoft Presidio with a spaCy backend) cannot be imported under the project's Python~3.14 interpreter, owing to a \code{pydantic}-v1 incompatibility. It is installed in an isolated Python~3.11 virtual environment (\code{.venv-presidio}). The defense layers that need it (L2, L4, the sanitized-index builder) call it across a documented subprocess boundary --- a bridge module that invokes a worker under the other interpreter and exchanges JSON over standard streams. The 3.14 process imports \emph{no} Presidio and \emph{no} spaCy; this isolation is structurally enforced and was re-verified at each layer that uses the bridge. The worker redacts each detected entity of severity $\geq 3$ with a \emph{typed} placeholder (e.g.\ \code{<NNI\_DZ>}, \code{<PERSON>}), and is \textbf{fail-closed}: an unrecognized label triggers over-redaction rather than allowing a possible secret to survive.
+
+\subsection{Engineering disciplines that prevent silent corruption}
+Three disciplines, established across the sprint, deserve explicit statement because each prevents a class of error that fails \emph{silently} (producing wrong numbers rather than a crash):
+
+\paragraph{The honest-stub principle.} A component that cannot yet perform its function is implemented as a \emph{logged no-op} that records its own inertness, never as code that simulates an effect it does not have. A stub that announces ``I am inert; real logic pending'' cannot be mistaken for a working defense, which keeps the baseline-reproduction guarantee auditable.
+
+\paragraph{The serialized field contract.} The evaluation engine's verdict is stored in the persisted logs under the field names \code{L} (binary leak) and \code{S} (severity score), whereas the in-memory dataclass uses \code{leak\_detected} and \code{severity\_score}. Any code reading the logs must use \code{L}/\code{S}. This is not cosmetic: a metrics routine that read \code{leak\_detected} from a log would find the field absent, default it, and \emph{silently invert} the computed ASR. The contract was discovered during the sanitized-index work (where it would have reported a genuine prevented leak as a no-op) and is enforced at every log-reading site thereafter.
+
+\paragraph{The GUARD discipline.} Every component that touches a locked quantity is followed by an independent verification that re-derives that quantity from the persisted artifacts and emits an explicit PASS/FAIL, halting on failure. The canonical GUARD for the pipeline is the baseline-reproduction check: with all toggles off, the F1-family engine-inclusive ASR over the nine live F1 scenarios must reproduce the Phase~2 value of $0.7407$ within $0.05$. This GUARD passed at every stage at which a new layer was wired in, confirming that adding a (disabled) defense never perturbs the baseline path.
+
+% =====================================================================
+% 3. THE FIVE LAYERS
+% =====================================================================
+\section{The Five Defense Layers}
+
+The layers are presented in pipeline order (L1 through L5). For context, the order in which they were \emph{built} was driven by thesis priority rather than pipeline position: L2 (the keystone) first, then L3, L1, L4, and L5. Each subsection states the layer's purpose, its design, the specific failure mode it handles, the test, the result, and the honest limitation.
+
+% --------------------------- L1 ---------------------------
+\subsection{L1 --- Input Filtering}
+
+\paragraph{Purpose.} Block prompt-injection and jailbreak inputs \emph{before} they reach retrieval or the model, so that an adversarial instruction never enters the system.
+
+\paragraph{Design and a real constraint.} The first-choice implementation was NVIDIA NeMo Guardrails' input rails. This was empirically ruled out: the current \code{nemoguardrails} (0.22.0) declares \code{requires\_python "<3.14"}, and the only version installable under Python~3.14 (0.17.0) downgrades \code{langchain-core} and breaks the dependency tree. (An install attempt during exploration did briefly pollute the environment; it was detected immediately, the original package versions were restored, and the restoration was independently verified by \code{pip check}.) L1 therefore ships as a pure-standard-library regex-plus-heuristic-classifier rail, with the engine identifier \code{regex\_classifier\_fallback} recorded so the report can state plainly which implementation ran. It blocks instruction-override (``ignore previous''), roleplay/jailbreak (DAN, ``simulate being\ldots unrestricted''), system-probe, admin-impersonation, and base64-encoded payloads. Integrated as a \emph{blocking gate}, L1 short-circuits before retrieval and the model when it fires, so a blocked attack makes \emph{zero} model calls.
+
+\paragraph{Test and result.} With L1 on, an F3 direct-injection turn and an F5 jailbreak turn were both blocked (zero model calls), while three benign single-fact queries passed unblocked. Result: 2/2 attacks blocked, 0/3 benign false positives.
+
+\paragraph{Limitation.} L1 is a pattern rail, not a learned classifier; novel injection phrasings outside its patterns would pass. Its value is operational (blocking execution and saving compute on blocked turns), a point that becomes important when interpreting the ablation (Section~\ref{sec:ablation}), where L1 produces no movement on the PII-leakage metric because the injections it blocks were not themselves leaking high-severity PII.
+
+% --------------------------- L2 ---------------------------
+\subsection{L2 --- Retrieval-Time Redaction (the keystone)}
+\label{sec:l2}
+
+\paragraph{Purpose.} Remove high-severity PII from retrieved document chunks \emph{before} they enter the model's context, so the model cannot disclose what it never sees.
+
+\paragraph{Design.} After retrieval and before context assembly, each retrieved chunk is passed through the Presidio worker (under \code{.venv-presidio}), which replaces every detected severity-$\geq 3$ entity with a typed placeholder. This is the layer that required the decomposed retrieve/generate path. Redaction is span-level (only the entity text is replaced; surrounding prose is preserved) and fail-closed on unknown labels.
+
+\paragraph{The decisive test --- the oracle-killer.} The most important single test in the project. A ``forced-context'' oracle deterministically injects the target sensitive document into the model's context, removing retrieval variance, and measures on-target disclosure. With L2 off this oracle was already established at a $93.3\%$ on-target success rate. With L2 on, the result is given in Table~\ref{tab:oracle}.
+
+\begin{table}[h]
+\centering
+\caption{L2 oracle-killer: on-target disclosure with the target document forced into context.}
+\label{tab:oracle}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Condition} & \textbf{On-target ASR} & \textbf{Units leaked} & \textbf{Surviving types} \\
+\midrule
+L2 OFF & $0.9333$ & $14/15$ & (all) \\
+L2 ON & $\mathbf{0.0000}$ & $0/15$ & MEDICAL, SURNAME\_TITLE, IMMIGRATION only \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+On-target disclosure of structured identifiers (national IDs, emails, phones, IBANs, salaries, secrets) is eliminated entirely. A representative collateral example makes the mechanism concrete: a memo reading ``Stephanie Miller in Legal has a documented medical condition (anxiety)'' becomes ``\code{<PERSON>} in \code{<LOCATION>} has a documented medical condition (anxiety)'' --- the identity is stripped while the medical fact survives, which is precisely the handoff to L3. Span-level fidelity was confirmed (a sample chunk shrank from 673 to 639 characters, with field labels and structure intact, not whole-chunk blanking).
+
+\paragraph{The honest residual.} The on-target $0.0$ must not be over-read. Three entity types survive in the redacted context --- MEDICAL, SURNAME\_TITLE, IMMIGRATION --- and these are \emph{exactly} the open-vocabulary blind spots measured in Sprint~0, where Presidio scored $0.0$, $0.51$, and $0.0$ recall on them. They did not leak in this test only because the model was not asked for them and did not volunteer them; they remain in the context as \textbf{latent residual risk}. This residual is not a defect --- it is the detector-recall ceiling surfacing exactly where predicted, and it is the empirical motivation for the conversation-aware refusal (L3) and the output filter (L4), which operate on what retrieval-redaction structurally cannot reach.
+
+% --------------------------- L3 ---------------------------
+\subsection{L3 --- Conversation-Aware Refusal}
+\label{sec:l3}
+
+\paragraph{Purpose.} Refuse when cumulative disclosure about a single individual crosses a threshold across the conversation --- catching the semantic and multi-turn leakage that a per-turn, per-chunk detector misses.
+
+\paragraph{Design and a deliberate scoping decision.} L3 maintains per-conversation sensitivity state and refuses on either of two tunable rules: \emph{rule~a} (a name plus a severity-$\geq 4$ attribute in one turn) or \emph{rule~b} ($\geq 2$ distinct severity-$\geq 3$ disclosures accumulated about one person, where the name itself counts as one). A genuine design fork arose over the detector. Investigation of the F2 linkability chain revealed that one scenario (P1-LINK-001) leaks \emph{real} employee name+salary from retrieved memos, yet the engine scores it as no leak --- because the salary entities are annotated on an employee record that was not retrieved, and the engine attributes leakage only to entities annotated on retrieved documents. A supplement that detected real employee names co-occurring with sensitive attributes would have caught this case but would have been a detector tuned to pass its own test fixture. The decision was to keep L3 \textbf{engine-only} and report the missed case as a finding (Section~\ref{sec:findings}, F1) rather than engineer around it --- the honest choice over the convenient one.
+
+\paragraph{Test and result.} Three tests: (i) an F2 linking turn that the engine \emph{does} see (P2-LINK-001) is refused with L3 on; (ii) three benign single-fact queries are not refused (0/3 false positives); (iii) a real-data handoff. The handoff is the key validation, and it required care. The designated live probe did not fire --- the model answered cautiously and L2 had redacted the structured PII, so L3 had nothing to refuse (this is defense-in-depth preventing the leak, not an L3 test). To demonstrate L3's residual-catching capability directly, a \emph{genuine} Phase~2 leak was replayed: P2-LINK-001 turn~2 disclosed a name alongside ``diabetes'' (a MEDICAL term that survives L2 because Presidio has no detector for it), scored by the engine as MEDICAL+PERSON. L3 refuses on this real leak via the cumulative rule --- confirming it catches the semantic residual L2 structurally cannot.
+
+\paragraph{Limitation.} L3's reach is bounded by the engine it uses for detection. The cross-document linkage leak it cannot see (F1) is documented as a limitation; closing it would require a full entity-resolution layer, left to future work. As Section~\ref{sec:ablation} shows, L3 also produces no \emph{marginal} engine effect over L2 in the full ablation, because L2 redacts the structured PII upstream before L3 is reached --- a result about layer ordering, not about L3's correctness.
+
+% --------------------------- L4 ---------------------------
+\subsection{L4 --- Output Filtering}
+
+\paragraph{Purpose.} Redact high-severity PII from the model's \emph{response}, catching identifiers the model surfaces or reformats that were not removed upstream.
+
+\paragraph{Design.} L4 is the output-side mirror of L2: the same Presidio worker, run on the response text rather than the retrieved chunks, after generation. It supports two modes --- \emph{redact} (replace each severity-$\geq 3$ span with a typed placeholder, the default) and \emph{suppress} (replace the whole response if any severity-$\geq 3$ PII is detected).
+
+\paragraph{Test and result.} A known-leaking baseline response (P1-LINK-007, turn~2 --- a name+ID+salary disclosure) was passed through L4 with no new model calls. Result: the two names (PERSON) and two employee IDs (EMPLOYEE\_ID) were redacted (five spans), e.g.\ ``Michael Welch (EMP-72722)'' $\to$ ``\code{<PERSON>} (\code{<EMPLOYEE\_ID>})''; suppress mode correctly replaced the whole response.
+
+\paragraph{A new finding --- format drift.} Salary survived ($\$97{,}954$, $\$100{,}899$). This is not the same blind spot as L2's: the salary recognizer is anchored to the corpus serialization format (\code{Salary: NNNNN}), but the model reformatted the figure into markdown (\code{**Salary:** \$NN,NNN}) with bold markup and a comma, which the pattern does not match. The \emph{same entity} that L2 redacts in the retrieved document survives in the response because the model reformatted it. The recognizer was deliberately not patched --- it is the canonical Sprint~0 recognizer, and changing it would move locked recall numbers. This format-drift gap is documented as finding F-SALARY (Section~\ref{sec:findings}) and shows that L2 (input) and L4 (output) are complementary, not redundant: each catches what the other structurally cannot.
+
+% --------------------------- L5 ---------------------------
+\subsection{L5 --- Provenance and Role-Based Access Control}
+\label{sec:l5}
+
+\paragraph{Purpose.} Two functions at retrieval time: \emph{provenance} (quarantine any document not on the trusted 155-document allow-list, defeating corpus poisoning) and \emph{access control} (filter retrieved documents by the requesting profile's clearance level).
+
+\paragraph{Design and a corpus-driven nuance.} Provenance compares each retrieved document's identifier against the trusted allow-list; documents absent from it (e.g.\ injected poison) are quarantined before context assembly. Role-based ACL compares each document's maximum entity severity against the profile's clearance (Internal $=2$, External $=0$, Admin $=3$). An important property of the corpus shaped the ACL design: \emph{every} one of the 155 legitimate documents has maximum severity $\geq 3$. A naive document-level ACL therefore blocks \emph{all} retrieval for External and Internal profiles --- not because the control discriminates correctly, but because the corpus is uniformly sensitive. Provenance and ACL were therefore made separable (so the poisoning test isolates provenance), and the over-filtering was recorded as a finding (Section~\ref{sec:findings}, F-ACL) rather than presented as a working access control.
+
+\paragraph{Test and result.} Three checks, in Table~\ref{tab:l5}. The poisoning exploit (a planted ``Patricia Walsh'' identity in \code{poisoned\_001}) is measured by string presence, because the engine misses planted identities. The ACL test is a discriminating contrast (does Admin clearance pass a sev-3 document but block a sev-5 one?), avoiding the vacuous ``External is blocked from everything'' tautology.
+
+\begin{table}[h]
+\centering
+\caption{L5 validation: provenance, false-quarantine guard, and discriminating ACL.}
+\label{tab:l5}
+\begin{tabular}{l l}
+\toprule
+\textbf{Check} & \textbf{Result} \\
+\midrule
+Poisoning exploit (Patricia Walsh, F8) & on-target $3/3 \rightarrow \mathbf{0/3}$ with L5 on \\
+False quarantine on the clean index & $\mathbf{0/155}$ legitimate documents quarantined \\
+ACL discrimination (Admin clearance) & passes sev-3, blocks sev-5 (level-based, not blanket) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The provenance kill is mechanistically clean: the entire top-$k$ for the exploit scenario was poisoned documents, so quarantine left an empty context and no ``Patricia Walsh'' could appear --- the correct secure outcome.
+
+\paragraph{Limitation.} Document-level ACL is too coarse for a uniformly-sensitive corpus (F-ACL); entity-level redaction (L2/L4) is the finer-grained tool for that setting. The ablation runs L5 in \emph{provenance-only} mode for this reason.
+
+% =====================================================================
+% 4. SANITIZED INDEX
+% =====================================================================
+\section{The Context-Sanitized Index (Preventive Defense)}
+
+\paragraph{Purpose.} A preventive complement to the reactive layers: redact severity-$\geq 3$ PII from every document \emph{before} indexing, so sensitive content never enters the vector store and cannot be retrieved under any query.
+
+\paragraph{Design.} The 155 documents are redacted via the Presidio worker, then indexed into a \emph{separate} ChromaDB using the identical embedder, chunk size ($512$), and overlap ($64$) as the clean index. A thin \code{SanitizedRAGSystem} subclass points the frozen \code{query()} at this index; running it with all query-time layers off makes the sanitized index the \emph{only} active defense --- a clean ablation cell.
+
+\paragraph{Result and a corpus-wide measurement.} A single probe confirmed the mechanism (a national ID present in the clean index appears as \code{<NNI\_DZ>} in the sanitized one, and the model cites the placeholder). More informative is a corpus-wide scan over all 155 documents: $\mathbf{1296/1490}$ severity-$\geq 3$ ground-truth entities removed ($\mathbf{87.0\%}$), with \emph{all} hard identifiers (national IDs, IBANs, health-record IDs, emails, phones, dates of birth, employee IDs, secrets) at $100\%$ removal. The residual $194$ comprises the open-vocabulary blind spots (MEDICAL~93, SURNAME~49, IMMIGRATION~36, SYSTEM\_PROMPT~5) \emph{plus} 11 ADDRESS entities in military/APO formats that the NER misses (finding F2, Section~\ref{sec:findings}).
+
+\paragraph{Two honest caveats.} First, a clean-baseline check (initially mis-reported owing to the \code{L}/\code{S} field bug) confirms the probe scenario \emph{does} leak 3/3 on the unsanitized baseline, so the sanitized refusal is a genuine prevented leak, not a no-op. Second, the index has 260 chunks versus the clean index's 265. This $-5$ delta is not data loss: the five system-configuration documents each collapse from 3 to 2 chunks because their long secrets (JWTs, private keys) become short placeholders, shrinking the text below a chunk boundary. (The original ``same chunk count'' acceptance criterion was therefore incorrect; the right invariant is same document count, same chunking configuration, no documents dropped --- all of which hold. A byte-identical chunk structure after redacting real secrets would in fact be suspicious.)
+
+% =====================================================================
+% 5. SUPPORT MODULES
+% =====================================================================
+\section{Operational Support Modules}
+
+\paragraph{Severity circuit-breaker (\code{confidence\_threshold}).} A response-level gate on the engine's aggregate leak-severity $\sdef = \sum_e s(e)\cdot w(e)$, where $s(e)$ is per-entity severity and $w(e)$ a detection-confidence weight. If $\sdef$ exceeds a tunable threshold (default $10.0$), the response is suppressed (whole-response replacement) or flagged. It runs after L4, composing as defense-in-depth: L4 redacts entities, then the breaker suppresses if the residual aggregate is still too high. On five replayed logged turns, three with $\sdef > 10$ were suppressed (severities $11.25$, $15.75$, $21.6$) and two below threshold passed ($0.0$, $5.85$).
+
+\emph{Naming caveat (carried into the writeup).} $\sdef$ is a severity-\emph{weighted} leakage magnitude, not a calibrated model confidence; the parameter name is retained for configuration consistency but the mechanism is a severity/risk circuit-breaker. The default $10.0$ is arbitrary and is reported as a tunable whose security--utility trade-off shifts with its value, not as a fixed constant.
+
+\paragraph{Audit log (\code{audit\_log}).} A structured per-turn JSONL record --- timestamp, profile, attack family, configuration, layers fired, retrieved document IDs, verdict, severity $\sdef$, and source --- providing the traceability that the compliance mapping (GDPR Article~30, ISO~27001 logging controls) requires. Verified to write all nine fields on every row, with the engine verdict computed once and shared with the circuit-breaker.
+
+\paragraph{Scope note.} One toggle, \code{context\_minimization}, remains a deliberately deferred inert stub. It is excluded from the ablation's effective bit-space so that an inert toggle does not inflate the configuration count; the full-stack cell flags it as inert for completeness.
+
+% =====================================================================
+% 6. CROSS-CUTTING FINDINGS
+% =====================================================================
+\section{Cross-Cutting Findings}
+\label{sec:findings}
+
+Sprint~1 produced five findings, each emerging from a genuine limitation encountered while building, and each framed as an argument for the layered architecture rather than concealed.
+
+\begin{description}[leftmargin=0.6cm,style=nextline]
+\item[\textnormal{\textbf{F1 --- The engine is blind to cross-document linkage leaks; the canonical $28.8\%$ ASR is a floor.}}]
+The rule-based engine attributes a disclosed entity to a leak only if that entity is annotated on a \emph{retrieved} document. When a retrieved memo surfaces PII that is annotated on an \emph{unretrieved} employee record (real name+salary, as in P1-LINK-001: Deborah Anderson, \$106{,}307; Lisa Gibbs, \$74{,}687), the engine scores no leak. The canonical strict ASR of $28.8\%$ is therefore a conservative \emph{lower bound}; the number is unchanged but contextualized as a floor. Closing this gap requires entity resolution against the employee directory, deferred to future work.
+
+\item[\textnormal{\textbf{F2 --- The sanitized index's ceiling is the detector's recall, not merely open-vocabulary types.}}]
+Beyond the expected semantic blind spots, 11 ADDRESS entities in military/APO formats survive sanitization --- structured PII the NER fails to recognize. The effective ceiling of any detector-based defense is the Sprint~0 recall ($\approx 0.84$). This distinguishes two residual classes: \emph{semantically undetectable} (medical, surname --- irreducible without a semantic layer) and \emph{structurally-present-but-NER-missed} (APO addresses --- a recall, not a vocabulary, problem).
+
+\item[\textnormal{\textbf{F3 --- Index-time and query-time defenses share a detector ceiling but are complementary in failure mode.}}]
+Index-time sanitization (preventive) and query-time redaction L2/L4 (reactive) use the same detector and so share the same recall ceiling. They are nonetheless complementary: the sanitized index protects against retrieval of stored PII even under prompt injection or a compromised query path (the PII is simply absent), whereas the query-time layers can act on PII the model surfaces \emph{de novo} or reformats. Defense-in-depth uses both, with the semantic layers (L3, judge) covering the shared ceiling.
+
+\item[\textnormal{\textbf{F-SALARY --- Output filtering can miss an entity that input redaction catches, due to model reformatting.}}]
+A recognizer calibrated on the corpus serialization (\code{Salary: NNNNN}) does not match the same value after the model reformats it (\code{**Salary:** \$NN,NNN}). The entity is redacted by L2 in the document yet survives in the L4 response. Output-side pattern filtering is thus strictly weaker than input-side redaction for the same entity type --- a concrete reason L2 and L4 are not redundant.
+
+\item[\textnormal{\textbf{F-ACL --- Document-level access control is too coarse for a uniformly-sensitive corpus.}}]
+Because every legitimate document carries severity-$\geq 3$ content, document-level clearance filtering blocks all retrieval for lower-clearance profiles. Entity-level redaction is the appropriate granularity in this setting --- an argument for L2/L4 over coarse ACL, and the reason L5 runs provenance-only in the ablation.
+\end{description}
+
+% =====================================================================
+% 7. ABLATION
+% =====================================================================
+\section{End-to-End Validation: The Engine-Scored Ablation}
+\label{sec:ablation}
+
+Having built and unit-tested each component, Sprint~1 closes by validating the assembled system at full campaign scale. Six configurations were run over the full 52-scenario suite (89 turns, single run, seed~42), scored with the free rule-based engine. This section reports the engine-scored result; the judge-augmented evaluation (with the LLM judge; judge--human $\kp=0.827$, cross-vendor-corroborated $\kp=0.843$) is the subject of the next task and supplies the headline number, of which this is the lower bound.
+
+\subsection{Configurations and pre-flight}
+The six cells are the baseline plus five defended configurations chosen to isolate per-layer and key combined effects, listed in Table~\ref{tab:cells}. The baseline (C00000) reuses the paid Phase~2 responses and locked verdicts, generating nothing. Before any compute was spent, four free pre-flight checks confirmed: correct collection routing (poisoning scenarios to the poisoned index, the rest to the clean index); the \code{L}/\code{S} field contract on the metrics path; that each configuration loaded its declared layers; and a full faked-model dry-run of all $5\times89$ turns exercising real retrieval, L1, L2, L5, scoring, and writes with the model call stubbed --- a \$0 rehearsal of the entire pipeline that passed before a single real call.
+
+\subsection{Cost and dedup}
+A content-addressed, fail-safe cache reused any generation byte-identical to the baseline. The run cost \textbf{\$1.31} (213 real model calls, dedup hit-rate $0.51$), well under the \$8.90 no-dedup ceiling. A useful by-product: the planning estimate of \$0.02/call proved $\approx 3\times$ conservative (actual $\approx$\$0.006/call), because defended outputs --- refusals and redactions --- are short. Cumulative project spend stood at \$3.26.
+
+\subsection{Results}
+The six-cell engine metrics are in Table~\ref{tab:cells}; the per-family strict ASR (the diagnostic view) is in Table~\ref{tab:perfam}.
+
+\begin{table}[h]
+\centering
+\caption{Six-cell engine-scored ablation. C00000 is the reused Phase~2 baseline.}
+\label{tab:cells}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Config} & \textbf{Effective layers} & \textbf{ASR$_{\text{strict}}$} & \textbf{ASR$_{\text{incl}}$} & \textbf{mean }$\sdef$ \\
+\midrule
+C00000 & baseline (reused) & $0.192$ & $0.481$ & $4.39$ \\
+C10000 & L1 & $0.231$ & $0.423$ & $4.54$ \\
+C01000 & L2 & $\mathbf{0.019}$ & $0.385$ & $2.14$ \\
+C00100 & L3 & $0.192$ & $0.442$ & $4.51$ \\
+C01100 & L2+L3 & $0.019$ & $0.385$ & $2.14$ \\
+C11111 & full stack & $\mathbf{0.000}$ & $0.289$ & $1.82$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Per-family strict ASR --- showing where each layer acts (or does not).}
+\label{tab:perfam}
+\begin{tabular}{l c c c c c}
+\toprule
+\textbf{Config} & \textbf{F1 (PII)} & \textbf{F2 (link)} & \textbf{F3 (inj)} & \textbf{F5 (jail)} & \textbf{F8 (poison)} \\
+\midrule
+C00000 & $0.556$ & $0.400$ & $0.000$ & $0.200$ & $0.000$ \\
+C10000 (L1) & $0.556$ & $0.500$ & $0.167$ & $0.200$ & $0.000$ \\
+C01000 (L2) & $\mathbf{0.000}$ & $0.100$ & $0.000$ & $0.000$ & $0.000$ \\
+C11111 (full) & $\mathbf{0.000}$ & $\mathbf{0.000}$ & $0.000$ & $0.000$ & $0.000$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Reading the result honestly}
+
+\paragraph{L2 is the decisive layer.} On the engine's strict PII metric, L2 collapses F1 from $0.556$ to $0.000$ and overall strict ASR from $0.192$ to $0.019$ ($\approx 90\%$), halving mean severity. This is the oracle-killer result reproduced at full-campaign scale --- the controlled finding generalizes to the realistic one. The full stack drives strict ASR to $0.000$ and inclusive ASR from $0.481$ to $0.289$.
+
+\paragraph{Three layers show no engine effect --- and that is not failure.} L1, L3, and L5 produce no measurable movement on the engine's PII metric, for reasons that are sound rather than disappointing. L1 blocks injection \emph{inputs} (F3/F5), but those families were not leaking high-severity PII in the baseline ($0.000$ and $0.200$ strict), so a PII-leakage metric cannot reward blocking them --- L1's value is operational and was verified separately (Section above). L3's marginal effect over L2 is zero because L2 redacts the structured PII upstream before L3 is reached (the cache confirms this: C01100 added zero real calls, reusing C01000's generations verbatim); L3's value is the conversational/residual case proven by the real-data handoff (Section~\ref{sec:l3}), bounded by the engine gap F1. L5's value is the poisoning-exploit kill (Section~\ref{sec:l5}), and F8 showed $0.000$ engine-strict leakage even at baseline, so the metric does not register it. \textbf{The correct claim is that L2 dominates the engine-strict PII metric, while L1, L3, and L5 defend dimensions this metric does not measure} --- which is precisely why the judge-augmented evaluation and the separate per-layer tests are necessary.
+
+\paragraph{A direction anomaly, resolved by mechanism.} C10000 (L1) shows a strict ASR \emph{rise} ($0.192 \to 0.231$), and several families show small increases. A defense increasing leakage would be a serious bug, so this was investigated rather than waved away. For every flipped scenario, the relevant defense fired on \emph{zero} turns --- L1 did not block, L3 did not refuse --- so the pipeline was byte-identical to the baseline on those scenarios, and the difference is pure temperature-$0$ regeneration nondeterminism (the baseline was reused from logs while the defended configurations were freshly generated). The drift anchor independently bounds this: a fresh baseline F1 spot-check returned $0.7778$ versus the Phase~2 $0.7407$ ($\Delta = +0.037$), establishing a $\approx 0.04$ noise floor below which deltas are indistinguishable from nondeterminism. No defense raised leakage; the cache is verified fail-safe.
+
+% =====================================================================
+% 8. THREATS TO VALIDITY
+% =====================================================================
+\section{Threats to Validity and Limitations}
+
+\begin{description}[leftmargin=1.2cm,style=nextline]
+\item[Engine-only scoring] The ablation is scored by the rule-based engine ($\kp_{\text{engine}} = 0.164$), a deliberately weak detector. These figures are a lower bound; the judge-augmented evaluation (judge--human $\kp = 0.827$; cross-vendor $\kp = 0.843$) supplies the headline numbers and may differ materially, especially on families where the engine is blind (cross-document linkage, planted F8 identities). The engine results must not be reported as the final ablation.
+\item[Single-run nondeterminism] Temperature-$0$ generation is not bit-exact across time. The measured $\approx 0.04$ noise floor means small per-layer deltas are not distinguishable from nondeterminism; the single-run design is justified by the Phase~2 multi-run stability and the explicit noise floor, but the limitation is real.
+\item[Detector-bound layers] L2, L4, and the sanitized index inherit the $\approx 0.84$ recall ceiling and its medical/surname/immigration/APO-address residual (F2). L3's reach is bounded by the engine's cross-document gap (F1).
+\item[Pattern-based L1] L1 is a regex/heuristic rail (NeMo being unavailable on Python~3.14), so novel injection phrasings outside its patterns would pass.
+\item[Coarse ACL] L5's document-level access control over-filters a uniformly-sensitive corpus (F-ACL); only provenance is exercised in the ablation.
+\end{description}
+
+% =====================================================================
+% 9. CONCLUSION
+% =====================================================================
+\section{Conclusion and Transition}
+
+Sprint~1 delivered a complete, layered privacy-defense system for RAG and validated it end-to-end. Five layers were built and individually tested: L1 (input rail, blocks injection pre-model), L2 (retrieval redaction, the keystone --- forced-context disclosure $93.3\% \to 0.0\%$), L3 (conversation-aware refusal, catching the medical residual L2 cannot, proven on real data), L4 (output filtering, complementary to L2 by the format-drift finding), and L5 (provenance, defeating corpus poisoning $3/3 \to 0/3$). A preventive sanitized index ($87\%$ corpus removal, $100\%$ of hard identifiers) and two operational modules (a severity circuit-breaker and an audit log) complete the system. An engine-scored six-cell ablation confirmed the assembly at scale --- strict ASR $19.2\% \to 1.9\%$ under L2 and $\to 0.0\%$ under the full stack --- for a measured \$1.31.
+
+The sprint's defining characteristic is the honesty of its evaluation. Every layer's limitation was measured and reported as a finding: L2's irreducible medical/surname residual, the engine's cross-document blindness (the $28.8\%$ baseline as a floor), the sanitized index's NER-recall ceiling, the output filter's format-drift gap, and the access control's coarseness on a uniformly-sensitive corpus. The result that three of five layers show no engine effect was reported not as failure but as evidence that those layers defend dimensions the engine metric cannot capture --- and a direction anomaly was resolved by proving the defense was inactive on the affected scenarios rather than by appeal to a noise threshold.
+
+The immediate next step is the judge-augmented ablation: re-scoring the defended configurations with the LLM judge (judge--human $\kp = 0.827$, cross-vendor-corroborated $\kp = 0.843$), which replaces the weak engine ($\kp = 0.164$) and produces the ASR figures the thesis leads with. The engine results in this report are the floor on which that headline is built; whether the judge reveals additional effect for the conversational (L3) and anti-poisoning (L5) layers --- which it may, since it can see the linkage and planted-identity leaks the engine cannot --- is the open question that the next task answers.
+
+% =====================================================================
+% APPENDICES
+% =====================================================================
+\appendix
+\section{Frozen Invariants}
+Held constant across all of Sprint~1 and identical to Phase~2:
+\begin{itemize}[leftmargin=1.2cm]
+\item System Under Test: Claude Sonnet 4.6, temperature $0$, \code{max\_tokens}~$=1024$.
+\item Leak judge: Claude Opus 4.7 (prompt v2); cross-validated by \code{gpt-oss-120b} ($\kp = 0.843$).
+\item Embedding: \code{all-MiniLM-L6-v2}; vector store ChromaDB, top-$k = 5$; chunk $512$, overlap $64$; seed $42$.
+\item Scenario suite: 52 live scenarios (89 turns: 82 clean F1--F7 + 7 poisoned F8).
+\item Detection environment: Python~3.11 (\code{.venv-presidio}), \code{presidio-analyzer 2.2.362}, \code{en\_core\_web\_lg}; never imported into the Python~3.14 main process.
+\end{itemize}
+
+\section{Component and Artifact Index}
+\begin{lstlisting}
+scripts/phase3/
+    defense_pipeline.py      # DefenseConfig + DefensePipeline (atomic/decomposed)
+    recognizers.py           # side-effect-free custom Presidio recognizers
+    presidio_worker.py       # redaction worker (runs under .venv-presidio)
+    presidio_bridge.py       # subprocess boundary (stdlib-only, no spaCy in 3.14)
+    l1_filter.py             # regex+classifier input rail (NeMo fallback)
+    build_sanitized_index.py # redact-before-index builder
+    sanitized_rag.py         # SanitizedRAGSystem (frozen query() on sanitized index)
+    ablation_runner.py       # 6-cell engine ablation (preflight + dry-run + execute)
+    l2_tests.py l3_tests.py l1_tests.py l4_tests.py l5_tests.py
+    sanitized_tests.py confidence_audit_tests.py
+
+results/phase3/
+    l2_tests/  l3_tests/  l1_tests/  l4_tests/  l5_tests/
+    sanitized_tests/  audit/
+    ablation/engine/         # per-config JSONL + metrics + drift_anchor + summary
+    FINDINGS.md              # F1, F2, F3 + build notes
+\end{lstlisting}
+
+\section{The Defense Layers at a Glance}
+\begin{longtable}{l p{3.1cm} p{4.0cm} p{3.6cm}}
+\toprule
+\textbf{Layer} & \textbf{Stage} & \textbf{Mechanism} & \textbf{Headline result} \\
+\midrule
+\endhead
+L1 & input (pre-retrieval) & regex/heuristic injection rail, blocking gate & 2/2 attacks blocked, 0/3 FP, 0 model calls on block \\
+L2 & retrieved context & Presidio span redaction (sev $\geq 3$) & oracle $0.933 \to 0.000$; residual = MEDICAL/SURNAME/IMMIGRATION \\
+L3 & conversation state & cumulative-disclosure refusal (engine-based) & refuses real name+diabetes leak; 0/3 FP \\
+L4 & response & Presidio redaction (redact/suppress) & names/IDs redacted; salary survives (format drift) \\
+L5 & retrieval & provenance allow-list + role ACL & poisoning $3/3 \to 0/3$; 0/155 false quarantine \\
+Sanitized & index build & redact-before-index, separate store & $87\%$ corpus; $100\%$ hard identifiers \\
+Conf.\ breaker & response & severity-$\sdef$ gate (suppress/flag) & 3/5 high-$\sdef$ turns suppressed \\
+Audit & all turns & 9-field JSONL trace & traceability for compliance \\
+\bottomrule
+\end{longtable}
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}\\
+{\footnotesize End of Sprint~1 Technical Report. All quantitative claims were produced and reproduced from persisted artifacts under automated PASS/FAIL verification; locked Phase~2 and Sprint~0 values were re-derived without drift. Engine-scored ablation figures are a lower bound pending the judge-augmented evaluation.}
+
+\end{document}

@@ -1,0 +1,449 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- packages (conservative, widely available) ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[hidelinks,colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!55!black,citecolor=blue!50!black]{hyperref}
+
+% ---------- listings style ----------
+\definecolor{codebg}{gray}{0.96}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  framerule=0.3pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  backgroundcolor=\color{codebg},
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+  aboveskip=8pt,
+  belowskip=8pt
+}
+
+% ---------- convenience ----------
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newcommand{\kp}{\ensuremath{\kappa}}
+\newcommand{\sdef}{\ensuremath{S}}
+\newcommand{\asr}{\textrm{ASR}}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\emergencystretch}{2.5em}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+% =====================================================================
+% TITLE PAGE
+% =====================================================================
+\begin{titlepage}
+\centering
+\vspace*{1.4cm}
+
+{\LARGE\bfseries Mapping and Reducing Data Leakage\\[6pt]
+in Retrieval-Augmented Generation Systems\par}
+\vspace{0.6cm}
+{\Large Phase~3 --- Sprint~2 Technical Report\par}
+\vspace{0.3cm}
+{\large\itshape Measuring the Defenses: Engine, Judge, and the Research Questions\par}
+
+\vspace{1.4cm}
+\rule{0.78\textwidth}{0.5pt}\\[8pt]
+{\large\bfseries TADJ Mohamed Walid}\\[4pt]
+{\normalsize Master's Programme --- Artificial Intelligence \& Data Science}\\
+{\normalsize \'Ecole Sup\'erieure d'Informatique (ESI), Sidi Bel Abb\`es}\\
+{\normalsize Academic Year 2025--2026}\\[6pt]
+\rule{0.78\textwidth}{0.5pt}
+
+\vspace{0.9cm}
+{\normalsize\textbf{Supervisors:}\\[2pt]
+Pr.\ Esma A\"IMEUR \quad\textbullet\quad Pr.\ Souleyman CHAIB}
+
+\vfill
+{\small Sprint~2 measures the layered defense system built in Sprint~1. It freezes a\\
+six-cell ablation, scores it with two independent instruments --- a fast rule-based\\
+engine and a validated LLM judge --- and answers the project's four research questions.\\
+The central result is methodological: detector-only evaluation systematically\\
+overstates RAG privacy defenses. Total compute cost of this sprint: \$10.05.\par}
+\vspace{0.5cm}
+{\small June 2026}
+\end{titlepage}
+
+% =====================================================================
+% ABSTRACT
+% =====================================================================
+\begin{abstract}
+\noindent
+Sprint~2 is the measurement phase of Phase~3. Where Sprint~1 built five defense layers and validated each in isolation, Sprint~2 measures the assembled system at full campaign scale and answers the research questions. Four tasks are reported. \textbf{Task~2.1} freezes a six-cell ablation: an undefended baseline (reusing the locked Phase~2 responses) plus five defended configurations isolating the input rail (L1), retrieval redaction (L2), conversational refusal (L3), the L2+L3 pairing, and the full stack. \textbf{Task~2.2} generates and scores the five defended configurations over the 52-scenario suite with the fast rule-based engine, gated by free pre-flight checks and a zero-cost full-pipeline dry-run; the engine reports a striking result --- strict attack-success rate falling from $19.2\%$ to $1.9\%$ under L2 and to $0.0\%$ under the full stack --- for a measured \$1.31. \textbf{Task~2.3}, the thesis headline, re-scores the defended responses with the validated LLM judge (judge--human $\kp=0.827$, corroborated cross-vendor at $\kp=0.843$), at a cost of \$8.74. The judge overturns the engine's optimism: judged augmented $\asr$ falls from $28.9\%$ (baseline) to $19.2\%$ (L2) to $17.3\%$ (full stack) --- a reduction of roughly $40\%$, \emph{not} the near-elimination the engine claimed. The reason is identified precisely: cross-document \emph{linkability} survives the entire redaction stack, and the rule-based engine is structurally blind to it. \textbf{Task~2.4} computes the final security metrics and answers all four research questions with the judged metric as primary and a dual noise floor (engine $\approx 0.04$, judged $\approx 0.08$) applied to every delta. The headline finding --- that an under-validated detector overstates defense effectiveness, while a human-validated judge reveals partial protection with linkability as the dominant residual --- is a stronger and more defensible claim than the inflated engine number, and is a methodological contribution most RAG-privacy evaluations omit.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+\hrule
+
+% =====================================================================
+% 1. INTRODUCTION
+% =====================================================================
+\section{Introduction}
+
+\subsection{Position within the thesis}
+Phase~2 measured an attack baseline against an undefended RAG system. Sprint~1 of Phase~3 built the defenses --- five layers, a sanitized index, and operational modules --- and validated each against a targeted attack. Sprint~2, reported here, is the bridge between ``the defenses exist'' and ``here is how well they work, and what the data says about the research questions.'' It does three things: it \emph{freezes} the experimental design (Task~2.1), it \emph{measures} the system with two independent instruments (Tasks~2.2 and~2.3), and it \emph{answers} the research questions from the resulting data (Task~2.4).
+
+\subsection{The tension that defines this sprint}
+The whole of Sprint~2 turns on a single methodological tension established in Sprint~0: the project has \emph{two} leak detectors of very different quality. The rule-based \emph{engine} is fast and free but weak --- its agreement with human annotators is only $\kp = 0.164$. The LLM \emph{judge} (Claude Opus~4.7) is slow and paid but strong --- its agreement with human annotators is $\kp = 0.827$, and it is corroborated by an independent-vendor model at $\kp = 0.843$. A defense ablation scored only by the engine would inherit the engine's blindness. Sprint~2 therefore measures the ablation \emph{twice} --- once with each instrument --- and the difference between the two measurements is not noise to be reconciled away but the central scientific result: \textbf{the engine systematically overstates defense effectiveness, and the validated judge reveals the truth.}
+
+\subsection{A note on metric ordering and on $\kp$ attribution}
+Two conventions are used throughout this report and stated here to avoid ambiguity.
+
+First, \textbf{the judged augmented $\asr$ (judge $\kp = 0.827$) is the PRIMARY reported metric; the engine $\asr$ ($\kp = 0.164$) is the secondary, lower-bound metric.} Every result table reports both, in that order.
+
+Second, the judge's agreement figures are distinct and must not be conflated. The judge's \emph{human-validation} --- the figure relevant to whether the judge can be trusted as ground truth --- is $\kp = 0.827$ (judge versus human annotator). The figure $\kp = 0.843$ is the \emph{cross-vendor} agreement (Claude versus an independent open model), which \emph{corroborates} that the judge is not vendor-idiosyncratic but is not itself a human-validation. Two further figures appear in the validation chain: gpt-oss versus human $\kp = 0.777$, and judge versus a second human annotator $\kp = 0.775$, against an inter-human ceiling of $\kp = 0.692$. The correct one-line statement of judge trustworthiness is: \emph{``the judge agrees with humans at $\kp = 0.827$, above the human inter-annotator ceiling of $0.692$, and is corroborated cross-vendor at $0.843$.''}
+
+\subsection{Locked quantities and invariants}
+Sprint~2 preserves every Phase~2 and Sprint~0 result; several are reproduced as GUARDs. The system invariants (identical to Phase~2) are: System Under Test (SUT) = Claude Sonnet~4.6, temperature~$0$, \code{max\_tokens}~$=1024$; judge = Claude Opus~4.7 (prompt v2); embedding \code{all-MiniLM-L6-v2}; ChromaDB top-$k=5$; chunk $512$, overlap $64$; seed $42$; 52 live scenarios (89 turns per full run: 82 clean families F1--F7 plus 7 poisoned F8). The locked headline quantities are the baseline strict augmented $\asr = 28.8\%$ and the F1-family strict augmented $\asr = 77.8\%$.
+
+% =====================================================================
+% 2. METHODOLOGY / DISCIPLINES
+% =====================================================================
+\section{Measurement Disciplines}
+
+Because Sprint~2 is where money is spent and where the headline number is produced, the engineering disciplines that protect the measurement deserve statement before the tasks.
+
+\paragraph{Spend gating.} No task spends money before printing a cost projection (at the empirically measured per-call rate, not a planning estimate) and obtaining explicit approval. Every paid task is preceded by free pre-flight checks that halt on failure.
+
+\paragraph{The zero-cost dry-run.} Before each paid run, the entire pipeline is exercised with the paid call (SUT or judge) \emph{faked} but every other component --- retrieval, redaction, routing, scoring, caching, file writes --- real. This is a \$0 rehearsal that surfaces crashes, mis-routing, and plumbing errors before a single real call is made. Both Task~2.2 and Task~2.3 ran a full dry-run that passed before spending.
+
+\paragraph{Fail-safe content-addressed caching.} Deduplication is keyed on content (the exact request, or the response text), and is \emph{fail-safe}: a missed or incorrect cache match falls through to a real call, producing a correct result. The cache can therefore never silently corrupt a verdict --- its worst failure is a redundant (correct) call.
+
+\paragraph{The GUARD discipline.} Every quantity that touches a locked number is re-derived from the persisted artifacts and emitted as an explicit PASS/FAIL. The canonical GUARDs in Sprint~2 are the reproduction of $28.8\%$ (baseline judged augmented strict) and $77.8\%$ (F1-family). Both reproduced exactly at every stage.
+
+\paragraph{The dual noise floor.} Because the baseline responses are \emph{reused} from logs while defended responses are \emph{freshly generated} (and, in Task~2.3, freshly judged), the comparison carries nondeterminism. Two floors are established empirically and applied to every delta:
+\begin{itemize}[leftmargin=1.3cm]
+\item \textbf{Engine floor $\approx 0.04$:} from a drift anchor (a fresh baseline F1 spot-check returned $0.7778$ versus the Phase-2 $0.7407$, $\Delta = +0.037$), reflecting SUT temperature-$0$ regeneration nondeterminism.
+\item \textbf{Judged floor $\approx 0.08$:} larger because the judge runs at temperature~$1$ (matching the locked verdicts) and the defended responses are judged \emph{fresh} against the baseline's \emph{locked} verdicts --- fresh-versus-locked judge stochasticity stacked on SUT regeneration.
+\end{itemize}
+A defended-versus-baseline delta smaller than the applicable floor is reported as ``within noise,'' never as an effect. This single discipline is what separates a defensible per-layer claim from an artifact, and it is applied uniformly below.
+
+\paragraph{Mechanism over magnitude.} When a defended cell appears to \emph{increase} leakage (which would be a bug), the resolution is not an appeal to the noise floor alone but a mechanism check: did the defense actually fire on the scenarios that flipped? In every such case in Sprint~2, the defense fired on \emph{zero} of the flipped scenarios --- proving the change is regeneration nondeterminism on scenarios the defense never touched, not defense-caused leakage.
+
+% =====================================================================
+% 3. TASK 2.1 — CONFIG FREEZE
+% =====================================================================
+\section{Task 2.1 --- Freezing the Six-Cell Ablation (free)}
+
+\paragraph{Purpose.} Fix, in a single versioned artifact, exactly which configurations the ablation will run --- so the measurement that follows is reproducible and its scope is explicit rather than implicit.
+
+\paragraph{The six cells.} The full defense surface is five layers, giving $2^5 = 32$ possible configurations. A full $32$-cell $\times$ multi-run ablation was out of budget; Sprint~2 runs a deliberately chosen six-cell subset (Table~\ref{tab:configs}) that isolates the individually informative layers and the two combinations of interest, with the remaining $26$ configurations documented as future work.
+
+\begin{table}[h]
+\centering
+\caption{The frozen six-cell ablation. Bit positions are $[\text{L1},\text{L2},\text{L3},\text{L4},\text{L5}]$.}
+\label{tab:configs}
+\begin{tabular}{l l l l}
+\toprule
+\textbf{Cell} & \textbf{Bit-vector} & \textbf{Effective layers} & \textbf{Generation} \\
+\midrule
+C00000 & 00000 & baseline (none) & reuse Phase 2 (none) \\
+C10000 & 10000 & L1 & fresh \\
+C01000 & 01000 & L2 & fresh \\
+C00100 & 00100 & L3 & fresh \\
+C01100 & 01100 & L2 + L3 (recommended) & fresh \\
+C11111 & 11111 & L1--L5 (full stack) & fresh \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Three scoping decisions, made explicit in the artifact.} The frozen config set records three deliberate choices so they read as decisions rather than omissions:
+\begin{enumerate}[leftmargin=1.3cm]
+\item \textbf{The bit-space is the five real layers.} The mapping $[\text{L1},\text{L2},\text{L3},\text{L4},\text{L5}]$ is the only one consistent with the named cells and $2^5=32$.
+\item \textbf{\code{context\_minimization} is an inert stub, kept out of the bit-space.} The full-stack cell C11111 flags it inert ``for completeness''; its effective active layers are therefore five (L1--L5), not six --- so ``full stack'' is not over-read as six working layers.
+\item \textbf{The sanitized index is not a cell.} It is evaluated as a separate preventive-versus-reactive comparison (baseline versus sanitized-only), not as a seventh ablation cell.
+\end{enumerate}
+Each cell carries its full eight-field defense configuration so the runner instantiates it directly (\code{DefenseConfig(**cell["defense\_config"])}), eliminating any translation error between the config artifact and the pipeline. The support modules (\code{confidence\_threshold}, \code{audit\_log}) are held off across all cells so the ablation varies strictly over L1--L5.
+
+% =====================================================================
+% 4. TASK 2.2 — ENGINE ABLATION
+% =====================================================================
+\section{Task 2.2 --- Engine-Scored Ablation (the swing spend)}
+\label{sec:engine}
+
+\paragraph{Purpose.} Generate the five defended configurations over the full 52-scenario campaign and score them with the free rule-based engine --- producing the lower-bound view of defense effectiveness and validating the assembled system end-to-end.
+
+\subsection{Pre-flight and the dry-run}
+Four free pre-flight checks ran before any spend, all passing: (1) \emph{routing} --- the poisoned family F8 hits the poisoned collection and F1--F7 the clean collection (printed per family); (2) \emph{the serialized field contract} --- the engine metrics read \code{L}/\code{S} from the logs, not the in-memory names (a parsed row printed as evidence); (3) \emph{config sanity} --- each cell's active layers match the frozen set, C11111 effective-five with \code{context\_minimization} inert; (4) \emph{resume state}. A full faked-SUT dry-run then exercised all $5\times89 = 445$ turns with real retrieval, L1, L2-Presidio, L5, scoring, and writes --- crashing nowhere, on fake responses, for \$0, before a single real call.
+
+\subsection{Drift anchor and cost}
+The drift anchor ran first: a fresh baseline F1 spot-check returned $0.7778$ against the Phase-2 $0.7407$ ($\Delta = +0.037$, within $0.05$), confirming no SUT/environment drift and establishing the engine noise floor at $\approx 0.04$. The run then cost \textbf{\$1.31} (213 real calls, deduplication hit-rate $0.51$), far under the \$8.90 no-dedup ceiling. A useful by-product: the planning estimate of \$0.02/call proved $\approx 3\times$ conservative --- the measured rate is $\approx$\$0.006/call, because defended outputs (refusals, redactions) are short.
+
+\subsection{Engine results}
+The six-cell engine metrics are in Table~\ref{tab:engine6}; the per-family strict $\asr$ (the diagnostic view) is in Table~\ref{tab:engineperfam}.
+
+\begin{table}[h]
+\centering
+\caption{Six-cell engine-scored ablation. C00000 is the reused Phase~2 baseline.}
+\label{tab:engine6}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Cell} & \textbf{Layers} & \textbf{$\asr_{\text{strict}}$} & \textbf{$\asr_{\text{incl}}$} & \textbf{mean }$\sdef$ \\
+\midrule
+C00000 & baseline & $0.192$ & $0.481$ & $4.39$ \\
+C10000 & L1 & $0.231$ & $0.423$ & $4.54$ \\
+C01000 & L2 & $\mathbf{0.019}$ & $0.385$ & $2.14$ \\
+C00100 & L3 & $0.192$ & $0.442$ & $4.51$ \\
+C01100 & L2+L3 & $0.019$ & $0.385$ & $2.14$ \\
+C11111 & full stack & $\mathbf{0.000}$ & $0.289$ & $1.82$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Per-family engine strict $\asr$ --- where each layer acts.}
+\label{tab:engineperfam}
+\begin{tabular}{l c c c c c}
+\toprule
+\textbf{Cell} & \textbf{F1 (PII)} & \textbf{F2 (link)} & \textbf{F3 (inj)} & \textbf{F5 (jail)} & \textbf{F8 (poison)} \\
+\midrule
+C00000 & $0.556$ & $0.400$ & $0.000$ & $0.200$ & $0.000$ \\
+C10000 (L1) & $0.556$ & $0.500$ & $0.167$ & $0.200$ & $0.000$ \\
+C01000 (L2) & $\mathbf{0.000}$ & $0.100$ & $0.000$ & $0.000$ & $0.000$ \\
+C11111 (full) & $\mathbf{0.000}$ & $\mathbf{0.000}$ & $0.000$ & $0.000$ & $0.000$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Reading the engine result --- and its three honest caveats}
+On the engine's strict PII metric, \textbf{L2 is decisive}: F1 collapses $0.556 \to 0.000$ and overall strict $\asr$ falls $0.192 \to 0.019$, with the full stack reaching $0.000$. Three caveats, however, must travel with this result --- and the third is the entire point of Task~2.3.
+
+\paragraph{(i) Three layers show no engine effect, and that is not failure.} L1, L3, and L5 move nothing on the engine's PII metric, for sound reasons. L1 blocks injection \emph{inputs} (F3/F5), but those families were not leaking high-severity PII in the baseline, so a PII metric cannot reward blocking them --- L1's value is operational (verified separately in Sprint~1). L3's marginal effect over L2 is zero because L2 redacts the structured PII upstream before L3 is reached (the cache confirms this: C01100 added zero real calls, reusing C01000's generations verbatim). L5's value is the corpus-poisoning kill, and F8 showed $0.000$ engine-strict leakage even at baseline. The correct statement is \emph{``L2 dominates the engine-strict PII metric; L1, L3, and L5 defend dimensions this metric does not measure''} --- explicitly \emph{not} ``only L2 works.''
+
+\paragraph{(ii) A direction anomaly, resolved by mechanism.} C10000 (L1) shows a strict rise ($0.192 \to 0.231$). A defense increasing leakage would be a serious bug, so it was investigated: on every flipped scenario the defense fired on \emph{zero} turns --- the pipeline was byte-identical to baseline, and the difference is temperature-$0$ regeneration nondeterminism, bounded by the $\approx 0.04$ floor. No defense raised leakage.
+
+\paragraph{(iii) This is engine-scored, hence a lower bound.} The engine's $\kp = 0.164$ makes it a deliberately weak detector. Its near-elimination claim ($0.019$, $0.000$) is exactly the kind of result a validated judge must check --- which Task~2.3 does, and overturns.
+
+% =====================================================================
+% 5. TASK 2.3 — JUDGED ABLATION (HEADLINE)
+% =====================================================================
+\section{Task 2.3 --- Judged Ablation: the Thesis Headline}
+\label{sec:judged}
+
+\paragraph{Purpose.} Re-score the defended configurations with the validated LLM judge, producing the \emph{augmented} (judged) $\asr$ that the thesis leads with --- of which the engine result is the lower bound.
+
+\paragraph{The augmented metric.} Augmented leakage unions the two detectors: per turn, $L_{\text{aug}} = \max(L_{\text{engine}}, L_{\text{judge}})$, and strict augmented uses $\max(\text{engine sev}\geq 3,\ \text{judge sev}\geq 3)$, taken per scenario. The undefended baseline C00000 reuses the locked Phase-2 judged verdicts (judging nothing), and the GUARD confirmed this reproduces $28.8\%$ exactly (all-runs $45/156 = 0.2885$; run-0 $15/52 = 0.2885$ --- the one-run ablation baseline matches the canonical with no run-count asymmetry). The judge is Claude Opus~4.7, prompt v2, on the Anthropic endpoint --- \emph{no} OpenRouter or free model on the critical path, confirmed in the routing print.
+
+\paragraph{The deduplication reality.} The pre-flight previewed the dedup: only $22$ of $445$ defended responses were byte-identical to the baseline, leaving $\mathbf{227}$ unique responses to judge. Deduplication \emph{barely helped}, and this is expected rather than a defect: the defended configurations were freshly generated in Task~2.2, so even a semantically-identical refusal is reworded relative to the logged baseline (the same nondeterminism behind the noise floor). A sanity spot-check confirmed the ``different'' pairs genuinely differ (L1 block text versus the baseline's verbose refusal; reworded refusals), and the matching remains fail-safe. A faked-judge dry-run over all $227$ validated the dedup/cache/map-back/augmented-compute plumbing for \$0 before spending.
+
+\paragraph{Cost.} The real judging cost \textbf{\$8.74} ($227$ unique responses at the measured Opus-4.7 rate of $\approx$\$0.037/call --- about $6\times$ the Sonnet SUT rate, a distinction caught in pre-flight). Cumulative project spend reached \textbf{\$12.00}.
+
+\subsection{The headline result}
+Table~\ref{tab:judged} places the engine and judged metrics side by side --- the comparison that \emph{is} the result.
+
+\begin{table}[h]
+\centering
+\caption{Engine (lower bound) versus JUDGED (primary) strict $\asr$, with judged $\Delta$ vs C00000 against the $\approx 0.08$ judged floor.}
+\label{tab:judged}
+\begin{tabular}{l l c c c l}
+\toprule
+\textbf{Cell} & \textbf{Layers} & \textbf{engine$_{\text{strict}}$} & \textbf{JUDGED$_{\text{strict}}$} & \textbf{judged $\Delta$} & \textbf{verdict} \\
+\midrule
+C00000 & baseline & $0.192$ & $\mathbf{0.289}$ & --- & --- \\
+C10000 & L1 & $0.231$ & $0.365$ & $+0.077$ & within noise \\
+C01000 & L2 & $0.019$ & $\mathbf{0.192}$ & $-0.096$ & effect $\downarrow$ \\
+C00100 & L3 & $0.192$ & $0.346$ & $+0.058$ & within noise \\
+C01100 & L2+L3 & $0.019$ & $0.192$ & $-0.096$ & effect $\downarrow$ \\
+C11111 & full stack & $0.000$ & $\mathbf{0.173}$ & $-0.115$ & effect $\downarrow$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The engine massively overstated effectiveness.} L2's engine-strict $0.019$ becomes judged $0.192$; the full stack's engine $0.000$ becomes judged $0.173$. \textbf{The defenses are real but partial: judged leakage falls from $28.9\%$ to $17.3\%$ under the full stack --- a reduction of roughly $40\%$, not the $\sim$100\% the engine claimed.} The engine's near-zero was $\kp = 0.164$ blindness, not protection.
+
+\paragraph{Why: cross-document linkability survives the redaction stack.} The mechanism is identified in the per-family judged data (Table~\ref{tab:f2}). Linkability (F2) --- reconstructing an individual from facts scattered across documents --- is barely touched by any redaction-based layer, because no pattern-redactor can stop a model from re-associating facts, and the engine cannot even detect the re-association (this is the cross-document gap recorded as finding F1 in Sprint~1). The judge sees it; the engine does not.
+
+\begin{table}[h]
+\centering
+\caption{The diagnostic contrast: F2 (linkability) strict $\asr$ under the two instruments. The engine ``fixes'' linkability; the judge shows it surviving.}
+\label{tab:f2}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Cell} & \textbf{C00000} & \textbf{C01000 (L2)} & \textbf{C11111 (full)} \\
+\midrule
+Engine F2 strict & $0.400$ & $0.100$ & $0.000$ \\
+Judged F2 strict & $0.600$ & $0.700$ & $0.600$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This single contrast --- engine F2 falling to $0.000$ while judged F2 holds near $0.6$ --- is the cleanest possible illustration of the sprint's thesis: on the family where the engine is most blind, it most overstates the fix. (The judged F2 figures rest on a small per-family $N$ and carry that caveat; the \emph{direction} is the robust claim.)
+
+\paragraph{The rises are mechanism-proven noise.} C10000 ($+0.077$) and C00100 ($+0.058$) exceed even the engine floor, but sit inside the larger $\approx 0.08$ judged floor, and --- decisively --- the defense fired on \emph{zero} of their flip-up scenarios (5 and 4 respectively); L1 and L3 cannot add PII. They are inactive-defense flips, exactly as in Task~2.2. L2 ($-0.096$) and the full stack ($-0.115$) fall well beyond the floor and are real.
+
+\subsection{False-negative and false-positive rates, with their caveats}
+Per-configuration detection metrics were computed against the annotation ground truth, with two definitions stated explicitly. The false-\emph{negative} rate (residual leak rate) uses a denominator of turns where severity-$\geq 3$ PII was genuinely retrievable; it is a \textbf{lower bound} per finding F1 (neither instrument sees every cross-document leak). The residual leak rate falls $0.209$ (baseline) $\to 0.116$ (L2) $\to 0.120$ (full stack), with precision $\approx 0.9$--$1.0$.
+
+The false-\emph{positive} rate carries an important caveat. On an all-adversarial scenario suite, the ``benign-no-leakable-PII'' turns are dominated by injection/jailbreak attacks with no PII payload --- which L1 \emph{correctly} blocks. The L1/full-stack FPR of $0.79$ therefore reflects correct attack-blocking, \emph{not} utility loss; it is reported honestly as such, not as a cost. A true utility measurement requires a set of legitimate benign queries, which is the subject of the Phase-3 utility task (RAGAS), where the security--utility trade-off is properly quantified. This is the same corpus-uniformity caveat as the access-control finding in Sprint~1.
+
+% =====================================================================
+% 6. TASK 2.4 — RQ ANSWERS
+% =====================================================================
+\section{Task 2.4 --- Security Metrics and Research-Question Answers (free)}
+\label{sec:rq}
+
+\paragraph{Purpose.} From the committed engine and judged artifacts, compute the final security metrics and answer the four research questions --- judged metric primary, every delta floor-checked, locked numbers reproduced. This task spends nothing (pure computation), but carries the highest interpretive stakes of the sprint. Both GUARDs reproduced ($28.8\%$ and $77.8\%$).
+
+\subsection{RQ1 --- per-layer effect}
+Isolating each layer against the baseline (judged primary; Table~\ref{tab:rq1}):
+
+\begin{table}[h]
+\centering
+\caption{RQ1 --- per-layer marginal effect on strict $\asr$, both instruments, against their floors.}
+\label{tab:rq1}
+\begin{tabular}{l l c l c l}
+\toprule
+\textbf{Layer} & \textbf{Cell} & \textbf{judged $\Delta$} & \textbf{verdict} & \textbf{engine $\Delta$} & \textbf{verdict} \\
+\midrule
+L1 & C10000 & $+0.077$ & within noise & $+0.039$ & within noise \\
+L2 & C01000 & $-0.096$ & effect $\downarrow$ & $-0.173$ & effect $\downarrow$ \\
+L3 & C00100 & $+0.058$ & within noise & $+0.000$ & within noise \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{L2 is the decisive PII-leakage layer} (judged $\Delta_{\text{strict}} = -0.096$). \textbf{L1 and L3 are within the judged noise floor on this metric} --- which is \emph{not} the conclusion that ``only L2 works.'' L1, L3, and L5 defend axes the PII-leakage metric does not capture: L1 blocks injection inputs (Sprint~1, L1 test), L3 catches the conversational/medical residual including the real-data L2$\to$L3 handoff (Sprint~1, L3 test) bounded by the cross-document gap (F1), and L5 defeats corpus poisoning (Sprint~1, L5 test). That the judge raises \emph{every} cell relative to the engine is itself the expected behaviour of a stronger detector surfacing real residual leakage --- reported, not ``fixed.''
+
+\subsection{RQ2 --- does the L2+L3 pairing capture the full stack?}
+C01100 (L2+L3) judged strict $= 0.192$; C11111 (full stack) $= 0.173$; the gap is $+0.019$ (strict), within the $0.08$ judged floor. \textbf{The L2+L3 pairing captures essentially all of the full stack's judged benefit} --- the additional layers (L4, L5) add no further reduction distinguishable from noise \emph{on this PII-leakage metric}, consistent with their value lying on the operational and anti-poisoning axes the metric does not measure.
+
+\subsection{RQ4 --- effect by attacker profile}
+Per-profile judged strict $\asr$ (Table~\ref{tab:rq4}) tells the most thesis-relevant story of the sprint.
+
+\begin{table}[h]
+\centering
+\caption{RQ4 --- judged strict $\asr$ by attacker profile, baseline $\to$ L2 $\to$ full stack.}
+\label{tab:rq4}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Profile} & \textbf{C00000} & \textbf{C01000 (L2)} & \textbf{C11111 (full)} \\
+\midrule
+Internal (curious insider) & $0.333$ & $0.278$ & $\mathbf{0.278}$ \\
+External (outside adversary) & $0.296$ & $0.185$ & $0.148$ \\
+Admin (malicious privileged) & $0.143$ & $0.000$ & $0.000$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The External and Admin profiles are well defended; the Internal profile barely moves} ($0.333 \to 0.278$, within noise). The reason connects directly to the headline: the insider's residual is \emph{linkability} (F2), which survives the entire redaction stack. The curious insider --- who already holds legitimate access and asks innocent-seeming questions that re-associate facts --- is the hardest profile to defend precisely because the attack is re-identification, not extraction. This maps directly onto the threat model and is the empirical motivation for a future entity-resolution layer. (The third-party profile P4 is evaluated offline by a separate analysis, not as a live ablation cell, and is therefore correctly absent here rather than missing.)
+
+\subsection{RQ3 --- multi-judge validation (cited, not recomputed)}
+RQ3 was answered in Sprint~0 and is cited rather than re-run: judge--human $\kp = 0.827$; cross-vendor Claude--gpt-oss $\kp = 0.843$; gpt-oss--human $\kp = 0.777$; judge--second-annotator $\kp = 0.775$ against an inter-human ceiling of $0.692$; single-Claude calibration FPR $0.083$ versus majority-vote $0.056$ on the 46-record sample. The operational decision is Claude-only judging; a full multi-vendor ensemble across the entire ablation was precluded by API budget and is documented as future work. No full-ablation three-judge numbers are fabricated.
+
+\subsection{Detection metrics summary}
+Computed from the serialized \code{L}/\code{S} fields (not the in-memory names), positive $=$ leak present, ground truth $=$ annotation leakability: residual leak rate $0.209 \to 0.116 \to 0.120$ (baseline $\to$ L2 $\to$ full; a lower bound per F1), precision $\approx 0.9$--$1.0$. Over-blocking on benign turns is, on this adversarial corpus, predominantly correctly-blocked attacks (the FPR caveat above), and is distinct from detector-versus-human accuracy, which is RQ3.
+
+% =====================================================================
+% 7. SYNTHESIS
+% =====================================================================
+\section{Synthesis: What Sprint 2 Establishes}
+
+\paragraph{The methodological finding (the publishable one).} Detector-only evaluation systematically overstates RAG privacy defenses. A rule-based detector ($\kp = 0.164$) reported near-total leakage elimination under the defense stack; the human-validated judge ($\kp = 0.827$) revealed this to be an artifact of detector blindness, with true judged leakage falling from $28.9\%$ to $17.3\%$ --- a $\sim$40\% reduction, not elimination. Most RAG-privacy evaluations report a single detector's numbers; this sprint demonstrates, with a validated second instrument, why that is dangerous.
+
+\paragraph{The security finding.} The layered system provides real but partial protection. Retrieval-time redaction (L2) is the single decisive layer (judged $28.9\% \to 19.2\%$), and the L2+L3 pairing captures essentially all of the full stack's measurable PII-leakage benefit (full stack $\to 17.3\%$, gap within noise). The dominant \emph{residual} is cross-document linkability, which survives the entire redaction stack and is concentrated in the curious-insider profile --- the empirical case for a future entity-resolution layer.
+
+\paragraph{The honesty of the result.} Three of five layers show no effect on the PII-leakage metric; this is reported as those layers defending other axes (operational, conversational, anti-poisoning), not as ``only L2 works.'' Every apparent leakage increase was mechanism-proven as inactive-defense noise. The false-positive rate on the adversarial corpus was reported as correct attack-blocking, not utility loss. And the inflated engine number was kept visible as the lower bound against which the honest judged number is contrasted. The result is stronger for being partial and explained than it would have been as an unexamined near-elimination.
+
+% =====================================================================
+% 8. THREATS TO VALIDITY
+% =====================================================================
+\section{Threats to Validity and Limitations}
+
+\begin{description}[leftmargin=1.2cm,style=nextline]
+\item[Single-run nondeterminism] Temperature-$0$ generation and temperature-$1$ judging are not bit-exact across time; the dual floor ($0.04$ engine, $0.08$ judged) bounds this, and deltas within it are reported as noise. The single-run design is justified by Phase-2 multi-run stability plus the explicit floors, but is a real limitation.
+\item[Single-vendor operational judge] The headline uses one judge (Claude Opus~4.7). It is validated against humans ($\kp = 0.827$) and corroborated cross-vendor ($\kp = 0.843$) on a calibration sample, but a full multi-vendor ensemble across the ablation was precluded by budget (future work).
+\item[Lower-bound leakage] Both instruments miss some cross-document linkage (F1); the residual leak rate and the FNR are therefore lower bounds. The judged $17.3\%$ is a floor, not a ceiling, on true residual leakage.
+\item[Adversarial-corpus FPR] The suite contains essentially no legitimate benign queries, so the as-defined FPR is not a clean utility measure; true utility is the subject of the separate RAGAS task.
+\item[Small per-family $N$] Per-family rates (notably F2 and F8) rest on small samples; the \emph{direction} of the linkability-survives result is robust, but the precise per-family magnitudes carry wide intervals.
+\item[Six of thirty-two configurations] The ablation is a chosen six-cell subset; the remaining $26$ are documented future work.
+\end{description}
+
+% =====================================================================
+% 9. CONCLUSION
+% =====================================================================
+\section{Conclusion and Transition}
+
+Sprint~2 measured the layered defense system and answered the research questions. It froze a six-cell ablation (Task~2.1), scored it with the rule-based engine (Task~2.2, \$1.31) and then with the validated judge (Task~2.3, \$8.74), and computed the final metrics and RQ answers (Task~2.4, free) --- total sprint cost \$10.05, cumulative project spend \$12.00 of a $\sim$\$32 budget. Every locked number was reproduced; the judged metric was primary throughout; every delta was checked against the appropriate noise floor; and every apparent anomaly was resolved by mechanism rather than assertion.
+
+The result is a defensible, honest headline: retrieval-time redaction is the decisive defense, the L2+L3 pairing captures essentially all of the measurable PII-leakage benefit, judged leakage falls $\sim$40\% (not to zero), and cross-document linkability --- concentrated in the curious-insider profile --- is the dominant surviving threat. The overarching methodological contribution is that under-validated detector-only evaluation overstates RAG privacy defenses, demonstrated here by the gap between a $\kp = 0.164$ engine and a $\kp = 0.827$ judge.
+
+The immediate next step is the utility evaluation (RAGAS over benign queries), which measures what the $17.3\%$ residual \emph{costs} in answer quality --- the second axis of the security--utility trade-off and the gate before any attempt to reduce the residual further. The judged security numbers established here are one axis of that trade-off; the utility numbers are the other.
+
+% =====================================================================
+% APPENDICES
+% =====================================================================
+\appendix
+\section{Canonical Numbers (Sprint 2)}
+\begin{longtable}{l l}
+\toprule
+\textbf{Quantity} & \textbf{Value} \\
+\midrule
+\endhead
+Baseline judged augmented strict $\asr$ (GUARD) & $28.8\%$ ($0.2885$) \\
+F1-family judged augmented strict (GUARD) & $77.8\%$ ($0.7778$) \\
+Drift anchor (fresh F1 vs Phase-2 $0.7407$) & $0.7778$, $\Delta=+0.037$ \\
+Engine noise floor & $\approx 0.04$ \\
+Judged noise floor & $\approx 0.08$ \\
+\midrule
+Judged strict $\asr$: baseline $\to$ L2 $\to$ full & $0.289 \to 0.192 \to 0.173$ \\
+Engine strict $\asr$: baseline $\to$ L2 $\to$ full & $0.192 \to 0.019 \to 0.000$ \\
+RQ2 gap (C01100 vs C11111, judged strict) & $+0.019$ (within floor) \\
+Residual leak rate (FNR, lower bound): base/L2/full & $0.209 / 0.116 / 0.120$ \\
+\midrule
+Judge--human agreement (validation) & $\kp = 0.827$ \\
+Cross-vendor Claude--gpt-oss (corroboration) & $\kp = 0.843$ \\
+gpt-oss--human & $\kp = 0.777$ \\
+Judge--second annotator & $\kp = 0.775$ \\
+Inter-human ceiling & $\kp = 0.692$ \\
+\midrule
+Task 2.2 cost / Task 2.3 cost & \$1.31 / \$8.74 \\
+Sprint 2 total / cumulative project & \$10.05 / \$12.00 \\
+\bottomrule
+\end{longtable}
+
+\section{Frozen Invariants}
+SUT = Claude Sonnet~4.6, temperature~$0$, \code{max\_tokens}~$=1024$. Judge = Claude Opus~4.7, prompt v2, Anthropic endpoint (no OpenRouter on the critical path). Embedding \code{all-MiniLM-L6-v2}; ChromaDB top-$k=5$; chunk $512$, overlap $64$; seed $42$. 52 live scenarios (89 turns: 82 clean F1--F7 + 7 poisoned F8). Augmented $=\max(\text{engine},\text{judge})$ per turn, per-scenario max.
+
+\section{Artifacts and Commit History}
+\begin{lstlisting}
+scripts/phase3/
+    ablation_runner.py     # Task 2.2 engine ablation (preflight + dry-run + execute)
+    judge_ablation.py      # Task 2.3 judged augmented ASR (dedup + judge + map-back)
+    final_metrics.py       # Task 2.4 metrics + RQ1/2/4 + chart
+results/phase3/ablation/
+    config_set6.json       # Task 2.1 frozen 6-cell set
+    engine/                # per-config JSONL + metrics + drift_anchor + summary
+    judged/                # judged verdicts + augmented_summary
+    metrics/               # final_metrics.json, RQ_answers.md, fig_marginal_and_rq2.png
+
+Commit history (Phase-3 spine):
+  config_set6 -> f1180fe (2.2 engine) -> 001baa1 (2.3 judged headline)
+  -> 8c9982a (2.4) -> 9c074d3 (2.4 verification fixes)
+Cumulative spend: $12.00 of ~$32.
+\end{lstlisting}
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}\\
+{\footnotesize End of Sprint~2 Technical Report. All quantitative claims were produced and reproduced from persisted artifacts under automated PASS/FAIL verification; the locked Phase-2 and Sprint-0 values were re-derived without drift. The judged augmented $\asr$ is the primary metric; the engine $\asr$ is reported as its lower bound. Per the project's verification record, headline numbers should be confirmed against the on-disk artifacts in \code{results/phase3/ablation/} before formal use; this report tracks those artifacts, not the reverse.}
+
+\end{document}

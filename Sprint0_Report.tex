@@ -1,0 +1,544 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- packages ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[hidelinks,colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!55!black,citecolor=blue!50!black]{hyperref}
+
+% ---------- listings style ----------
+\definecolor{codebg}{gray}{0.96}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  framerule=0.3pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  backgroundcolor=\color{codebg},
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+  aboveskip=8pt,
+  belowskip=8pt
+}
+
+% ---------- convenience ----------
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newcommand{\kp}{\ensuremath{\kappa}}
+\renewcommand{\arraystretch}{1.2}
+\setlength{\emergencystretch}{2.5em}
+
+\title{\vspace{-1.0cm}\Large\bfseries Phase~3 Sprint~0 Technical Report\\[4pt]
+\large Foundations and De-risking for Privacy-Leakage Defenses in Retrieval-Augmented Generation}
+\author{}
+\date{}
+
+\begin{document}
+
+% =====================================================================
+% TITLE PAGE
+% =====================================================================
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+
+{\LARGE\bfseries Mapping and Reducing Data Leakage\\[6pt]
+in Retrieval-Augmented Generation Systems\par}
+\vspace{0.6cm}
+{\Large Phase~3 --- Sprint~0 Technical Report\par}
+\vspace{0.3cm}
+{\large\itshape Foundations, Measurement Baselines, and Verification Harness\par}
+
+\vspace{1.6cm}
+\rule{0.75\textwidth}{0.5pt}\\[8pt]
+{\large\bfseries TADJ Mohamed Walid}\\[4pt]
+{\normalsize Master's Programme --- Artificial Intelligence \& Data Science}\\
+{\normalsize \'Ecole Sup\'erieure d'Informatique (ESI), Sidi Bel Abb\`es}\\
+{\normalsize Academic Year 2025--2026}\\[6pt]
+\rule{0.75\textwidth}{0.5pt}
+
+\vspace{1.0cm}
+{\normalsize\textbf{Supervisors:}\\[2pt]
+Pr.\ Esma A\"IMEUR \quad\textbullet\quad Pr.\ Souleyman CHAIB}
+
+\vfill
+{\small Sprint~0 covers Tasks~0.0--0.4 of the Phase~3/4 execution roadmap.\\
+All quantitative results reported herein were produced and independently\\
+verified through automated PASS/FAIL gates during execution.\par}
+\vspace{0.6cm}
+{\small June 2026}
+\end{titlepage}
+
+% =====================================================================
+% ABSTRACT
+% =====================================================================
+\begin{abstract}
+\noindent
+This report documents Sprint~0 of Phase~3 of the thesis, whose objective is to construct and validate the measurement infrastructure required before any privacy-leakage \emph{defense} can be built or evaluated for a Retrieval-Augmented Generation (RAG) system. Phase~2 established a canonical attack baseline (strict augmented Attack Success Rate, $\mathrm{ASR}=28.8\%$; judge--human agreement $\kp=0.827$). Sprint~0 delivers five foundations: (i) a reproducible execution environment and external corpus; (ii) an empirical detection-recall study of Microsoft Presidio against a 2{,}190-entity ground-truth answer key; (iii) a cross-vendor LLM-as-judge ensemble validated on a 46-record calibration sample; (iv) an independent second-human annotation study quantifying inter-annotator reproducibility; and (v) a toggleable, baseline-faithful defense pipeline. Two results emerged from apparent setbacks and are treated as first-class findings. First, a regular-expression/NER PII detector equipped with legitimate custom recognizers attains only $0.835$ recall (correct-label) on high-severity entities, with medical conditions, surnames, immigration phrases, and semantic secrets forming an irreducible gap --- empirical motivation for layered defense. Second, the LLM judge agrees with a second human annotator ($\kp=0.775$) \emph{above} the human inter-annotator ceiling ($\kp=0.692$), providing strong evidence that the judge is not idiosyncratic. All numbers are reproduced against locked Phase~2 values; the verification methodology and reproducibility artifacts are catalogued in the appendices.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+\hrule
+
+% =====================================================================
+% 1. INTRODUCTION
+% =====================================================================
+\section{Introduction and Context}
+
+\subsection{Position within the thesis}
+The thesis investigates privacy leakage of personally identifiable information (PII) in enterprise GenAI systems built on RAG, and the mechanisms that mitigate it. The work is organised in phases. Phase~1 produced the synthetic-but-realistic document corpus and a frozen ground-truth annotation of every sensitive entity. Phase~2 constructed the attack framework --- a taxonomy of attacker profiles and attack families, a campaign runner, and a dual evaluation stack (a rule-based engine and an LLM-as-judge) --- and measured an attack baseline against an undefended system. Phase~3 builds and evaluates \emph{defenses}; Phase~4 validates them.
+
+Sprint~0 is the first sprint of Phase~3. Its purpose is deliberately unglamorous: before a single defense layer is implemented, the project must (a) be able to run reproducibly, (b) know how well its PII detector actually performs, (c) trust its automated leak-judge, and (d) possess a harness in which defenses can be switched on and off without disturbing the locked Phase~2 baseline. Sprint~0 establishes all four. Critically, two of its tasks returned negative or degraded results that, on inspection, constitute genuine scientific findings rather than failures; these are reported in full.
+
+\subsection{Canonical Phase~2 baseline (locked)}
+All Sprint~0 work is constrained to preserve the Phase~2 results exactly. The locked quantities are summarised in Table~\ref{tab:phase2locked}. No Sprint~0 task is permitted to alter them; several tasks reproduce them as correctness gates.
+
+\begin{table}[h]
+\centering
+\caption{Locked Phase~2 baseline quantities referenced throughout Sprint~0.}
+\label{tab:phase2locked}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Basis} \\
+\midrule
+Strict augmented ASR (overall) & $28.8\%$ & $45/156$ executions \\
+Inclusive augmented ASR (overall) & $56.4\%$ & --- \\
+F1 family strict augmented ASR & $77.8\%$ & $21/27$ F1 executions \\
+F2 family strict augmented ASR & $63.3\%$ & --- \\
+Judge--human agreement & $\kp = 0.827$ & 46-record calibration sample \\
+Engine--human agreement & $\kp = 0.164$ & 46-record calibration sample \\
+Ground-truth entities & $2{,}190$ & 31 types, 155 documents, seed 42 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sprint~0 objectives}
+The five tasks and their goals are:
+\begin{description}[leftmargin=1.4cm,style=nextline]
+\item[Task 0.0] Stand up the reproducible environment, obtain the external email corpus, and create the result directory structure.
+\item[Task 0.1] Measure the real detection recall of the PII detector (Presidio) against the ground-truth answer key, and build the custom recognizers required for the corpus's national entity formats.
+\item[Task 0.2] Build and validate a multi-model LLM-as-judge ensemble, quantifying cross-vendor agreement to test the judge for single-vendor bias.
+\item[Task 0.3] Score an independent second human annotator to quantify the reproducibility of the leak-labelling taxonomy itself.
+\item[Task 0.4] Implement a toggleable defense pipeline whose ``all-off'' configuration provably reproduces the Phase~2 baseline.
+\end{description}
+
+% =====================================================================
+% 2. METHODOLOGY
+% =====================================================================
+\section{Operating Methodology}
+
+\subsection{Frozen experimental invariants}
+To guarantee that any future change in a measured outcome is attributable to a defense and not to drift in the experimental setup, a set of invariants is frozen across every run of Phase~3 and matched exactly to Phase~2. These are listed in Table~\ref{tab:invariants}.
+
+\begin{table}[h]
+\centering
+\caption{Frozen experimental invariants (identical to Phase~2; only the defense configuration may vary).}
+\label{tab:invariants}
+\begin{tabular}{l l}
+\toprule
+\textbf{Component} & \textbf{Frozen value} \\
+\midrule
+System Under Test (SUT) & Claude Sonnet 4.6, temperature $0$, \code{max\_tokens}~$=1024$ \\
+Leak judge & Claude Opus 4.7 (prompt version v2) \\
+Embedding model & \code{all-MiniLM-L6-v2} \\
+Vector store & ChromaDB, top-$k=5$ \\
+Chunking & size $512$, overlap $64$ \\
+Random seed & $42$ \\
+Scenario suite & 52 scenarios (identical registry) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Verification-gate discipline}
+Every task in Sprint~0 was executed under a two-step discipline: an implementation step followed by an independent verification step that re-derives the key quantities from the persisted artifacts and emits an explicit \textsc{pass}/\textsc{fail} verdict, halting on failure. This separates ``code ran'' from ``code produced the correct, reproducible result.'' Where a task touched a locked Phase~2 quantity, the gate re-computed that quantity and failed if it had drifted by more than a stated tolerance. The discipline proved decisive in Task~0.2 (Section~\ref{sec:judge}), where a premature verification call correctly refused to fabricate missing results.
+
+\subsection{Honest-stub principle}
+Where a component could not yet perform its intended function (for example, a defense layer whose real logic belongs to a later sprint), it was implemented as a \emph{logged no-op stub} that records its own inertness, rather than as code that simulates an effect it does not have. This prevents a future defect from hiding behind a plausible-looking placeholder and keeps the baseline-reproduction guarantee auditable.
+
+\subsection{Isolated Python environment for detection}
+A practical constraint shaped the architecture: the PII detection stack (Presidio with a spaCy backend) cannot be imported under the project's Python~3.14 interpreter due to a \code{pydantic}-v1 incompatibility. It was therefore installed in an isolated Python~3.11 virtual environment (\code{.venv-presidio}), and the main process invokes it across a documented subprocess boundary. This separation is structural and enforced (Section~\ref{sec:harness}).
+
+% =====================================================================
+% 3. TASK 0.0
+% =====================================================================
+\section{Task 0.0 --- Environment and Data Foundation}
+
+\subsection{Procedure}
+Task~0.0 verified the presence (without printing values) of the API credentials, confirmed gateway connectivity, downloaded the external email corpus, and created the Phase~3 result directory tree. Connectivity to the OpenRouter gateway was confirmed with a single trivial completion returning HTTP~200. The Enron email corpus was downloaded from its canonical source and extracted locally.
+
+\subsection{Results}
+\begin{itemize}[leftmargin=1.4cm]
+\item Credentials present and gateway reachable (HTTP~200 confirmed).
+\item Enron corpus downloaded and integrity-verified: $443{,}254{,}787$ bytes, extracting to $517{,}401$ message files. The corpus is held locally and excluded from version control.
+\item The result skeleton (\code{results/phase3/} sub-directories plus \code{scripts/phase3/}, \code{agents/}, \code{app/}, \code{dashboard/}) was created.
+\end{itemize}
+
+\subsection{Security observation}
+The verification step surfaced a real hygiene defect: although the \code{.env} secrets file is listed in \code{.gitignore}, it had already been committed to version-control history in an earlier commit. A \code{.gitignore} rule does not protect an already-tracked file. The remediation (\code{git rm --cache} of the file and key rotation) is recorded as a required one-time action prior to the next commit. Reporting this rather than silently working around it is consistent with the project's data-governance posture.
+
+% =====================================================================
+% 4. TASK 0.1
+% =====================================================================
+\section{Task 0.1 --- Presidio Detection-Recall Study}
+\label{sec:presidio}
+
+\subsection{Motivation and design}
+Two later defense layers --- retrieval-time redaction (L2) and output filtering (L4) --- depend on the PII detector flagging the entities they are meant to remove. Before building either, Task~0.1 measured Presidio's recall against the ground-truth answer key. The study is measurement-only: no redaction is performed. Detection recall per entity type is defined as the fraction of ground-truth entities of that type that Presidio flags. Because the answer key stores entity \emph{text} without character offsets, matching is performed by locating each ground-truth string within the reconstructed document and checking span overlap, scored under two regimes: \emph{any-label} (Presidio flagged the span under any label) and \emph{correct-label} (Presidio flagged it under the semantically correct label). The correct-label figure is treated as the honest floor and the any-label figure as an upper bound.
+
+The detector was a real Presidio installation (\code{presidio-analyzer 2.2.362}) with the \code{en\_core\_web\_lg} spaCy model, running under the isolated Python~3.11 environment. The Phase~2 evaluation engine's detection path was confirmed to be a placeholder stub that had never invoked Presidio; the real analyser introduced in this task is therefore the first genuine PII-detection measurement in the project.
+
+\subsection{Answer-key composition}
+The answer key comprises $2{,}190$ entities across $31$ realised types (the schema declares $35$ specifications; four produced no entities). Each type was classified against Presidio's documented coverage; the distribution is given in Table~\ref{tab:presidioclass}.
+
+\begin{table}[h]
+\centering
+\caption{Classification of the 31 ground-truth entity types against Presidio coverage.}
+\label{tab:presidioclass}
+\begin{tabular}{l c c p{6.4cm}}
+\toprule
+\textbf{Class} & \textbf{Types} & \textbf{Entities} & \textbf{Representative types} \\
+\midrule
+Out-of-box & 6 & 535 & \code{PERSON}, \code{EMAIL}, \code{PHONE}, \code{IBAN}, \code{DOB}, \code{INTERNAL\_IP} \\
+Out-of-box (partial) & 4 & 393 & \code{ADDRESS}, \code{OFFICE\_LOCATION}, \code{SURNAME\_TITLE}, \code{MEDICAL} \\
+Custom recogniser needed & 3 & 330 & \code{NATIONAL\_ID} (NNI), \code{EMPLOYEE\_ID}, \code{HEALTH\_RECORD\_ID} \\
+Not detectable by default & 18 & 932 & \code{SALARY}, \code{AGE\_GENDER}, secrets, \code{PROJECT}, \code{TRAINING}, \ldots \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Custom recognizers}
+Custom \code{PatternRecognizer}s were built for the corpus's national entity formats and registered with the analyser, each anchored by context words to limit false positives:
+\begin{itemize}[leftmargin=1.4cm]
+\item \code{NNI\_DZ} --- Algerian national identifier (bare 9-digit, context-gated);
+\item \code{EMPLOYEE\_ID} --- pattern \code{EMP-NNNNN};
+\item \code{HEALTH\_RECORD\_ID} --- pattern \code{MRN-NNNNN};
+\item \code{IBAN\_DZ} --- the hyphenated Algerian IBAN format.
+\end{itemize}
+All four reach $1.0$ recall. A noteworthy correction emerged here: although Presidio ships an \code{IBAN\_CODE} recognizer with checksum validation, it does \emph{not} match the synthetic hyphenated Algerian IBAN, so the bespoke \code{IBAN\_DZ} recognizer was required and its necessity was confirmed empirically rather than assumed.
+
+\subsection{Recall results and the ceiling finding}
+A second, legitimate recognizer set --- termed \emph{bin-(a)} --- added generalisable structured detectors for secrets (API keys, JWTs, bcrypt hashes, PEM private keys, database connection strings), file paths, cross-reference identifiers, the national phone format, and salary-by-context. These are pattern/context detectors, not gazetteers seeded from the corpus; building corpus-derived gazetteers for open-vocabulary types (e.g.\ medical terms) was deliberately rejected as overfitting to the test set. The effect of bin-(a) on high-severity ($\text{severity}\geq 3$) recall is shown in Table~\ref{tab:presidiorecall}.
+
+\begin{table}[h]
+\centering
+\caption{Severity-$\geq 3$ detection recall, baseline recognizers versus bin-(a) (locatable denominator).}
+\label{tab:presidiorecall}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Metric} & \textbf{Baseline (IDs only)} & \textbf{+ bin-(a)} & \textbf{Gate} \\
+\midrule
+Recall, correct-label & $0.666$ & $\mathbf{0.835}$ & $\geq 0.90$ \\
+Recall, any-label & $0.766$ & $\mathbf{0.860}$ & $\geq 0.90$ \\
+Types flagged $<0.90$ & 20 & 13 & --- \\
+Precision (lower bound) & $0.922$ & $0.892$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The $0.90$ recall gate \emph{fails} on every variant, and this failure is the principal finding of the task. Adding bin-(a) raised correct-label recall from $0.666$ to $0.835$, recovering nine entity types to $1.0$ recall (phone, salary, cross-reference, file path, and the five secret types). The residual gap is concentrated in a small set of irreducible types listed in Table~\ref{tab:blindspots}.
+
+\begin{table}[h]
+\centering
+\caption{Severity-$\geq 3$ detection blind spots after bin-(a). These motivate the layered defense.}
+\label{tab:blindspots}
+\begin{tabular}{l c c p{5.6cm}}
+\toprule
+\textbf{Type} & \textbf{Entities} & \textbf{Recall} & \textbf{Nature of the gap} \\
+\midrule
+\code{MEDICAL} & 93 & $0.00$ & Open-vocabulary clinical terms; requires ML/transformer NER \\
+\code{SURNAME\_TITLE} & 100 & $0.51$ & Name variants NER misses \\
+\code{IMMIGRATION} & 36 & $0.00$ & Open-vocabulary phrases \\
+\code{ADDRESS} & 100 & $0.89$ & Full street addresses; just below gate \\
+\code{SYSTEM\_PROMPT} & 5 & $0.00$ & Semantic, not classic PII \\
+\code{AGE\_GENDER} & 100 & $0.00$ & Measurement artifact: stored form differs from answer-key text \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretation}
+The result establishes a quantitative ceiling: \emph{a regular-expression/NER PII detector with legitimate custom recognizers tops out near $0.84$--$0.86$ recall on high-severity enterprise PII; medical conditions, surnames, immigration phrases, and semantic secrets form an irreducible gap}. This is precisely the empirical justification for layered defense: a single detector-based filter cannot be sufficient, so conversation-aware refusal (L3) and the LLM judge must cover the semantic remainder. The \code{AGE\_GENDER} zero is excluded from interpretation as a matching artifact (the answer key stores a synthesised phrasing absent verbatim from the corpus). The finding is carried forward as a constraint on the L2 oracle test in Sprint~1: redaction is expected to leave a residual confined to the medical and surname types, which is a coherent handoff to L3 rather than a defect.
+
+% =====================================================================
+% 5. TASK 0.2
+% =====================================================================
+\section{Task 0.2 --- Multi-Model LLM-as-Judge Ensemble}
+\label{sec:judge}
+
+\subsection{Motivation}
+The Phase~2 leak metric depends on a single LLM judge (Claude). A natural objection --- carried as ``Issue~2'' in the project --- is that such a judge may be idiosyncratic or exhibit single-vendor self-preference. Task~0.2 addresses this by adding independent non-Claude judges using the identical judge prompt and schema, changing only the model, and quantifying agreement. The intended design used Claude Opus~4.7 plus two reasoning models accessed through a single OpenAI-compatible gateway (OpenRouter): DeepSeek-R1 (\code{deepseek/deepseek-r1}) and Qwen3-235B (\code{qwen/qwen3-235b-a22b}).
+
+\subsection{The model-substitution chain (reported in full)}
+Execution diverged from the plan for reasons external to the methodology, and the chain is documented for transparency:
+\begin{enumerate}[leftmargin=1.4cm]
+\item The gateway account's prepaid credit was exhausted after the first ten DeepSeek calls; subsequent calls returned HTTP~402 (insufficient credit). Thirteen verdicts had already been cached (DeepSeek-R1 $\times 10$, Qwen3-235B $\times 3$).
+\item No free-tier DeepSeek variant exists on the gateway; the free Qwen3-235B slug had been withdrawn.
+\item Both available free Qwen variants (\code{qwen3-next-80b} and \code{qwen3-coder}) were persistently rate-limited upstream (HTTP~429) across multiple hours and probe attempts.
+\item Under a pre-declared stop rule, the second non-Claude slot was finalised as \code{openai/gpt-oss-120b:free}. The 13 paid verdicts are retained, unmerged, as a documented partial cross-vendor proof-of-concept.
+\end{enumerate}
+The effective ensemble is therefore two judges --- Claude Opus~4.7 (reused canonical verdicts) and \code{gpt-oss-120b} --- spanning two independent vendors (Anthropic and OpenAI). The second judge completed all $46$ records with zero abstentions and zero parse failures (every response terminated cleanly), so the calibration set is fully covered.
+
+\subsection{Agreement results}
+The canonical correctness gate held exactly: the reused Claude verdicts reproduce the locked judge--human agreement of $\kp = 0.827068$ (canonical $0.8270676691729324$). The agreement table is given in Table~\ref{tab:judgekappa}. Fleiss' $\kappa$ is correctly reported as not applicable, as only two judges produced verdicts; it was not fabricated.
+
+\begin{table}[h]
+\centering
+\caption{Inter-rater agreement on the 46-record calibration sample (binary leak label).}
+\label{tab:judgekappa}
+\begin{tabular}{l c l}
+\toprule
+\textbf{Comparison} & \textbf{Cohen's }$\kp$ & \textbf{Interpretation} \\
+\midrule
+Claude vs.\ human (canonical) & $0.827$ & Almost perfect \\
+\code{gpt-oss-120b} vs.\ human & $0.777$ & Substantial \\
+Claude vs.\ \code{gpt-oss-120b} (pairwise) & $\mathbf{0.843}$ & Almost perfect \\
+Fleiss' $\kappa$ (3 judges) & N/A & Only two judges produced verdicts \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Aggregation rules and the RQ3 seed}
+The sample contains 10 positive and 36 negative records. Four aggregation rules were compared on the negatives, the relevant population for false-positive rate (FPR); results are in Table~\ref{tab:rq3}.
+
+\begin{table}[h]
+\centering
+\caption{Aggregation-rule comparison ($n=36$ negatives, $n=10$ positives).}
+\label{tab:rq3}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Rule} & \textbf{Leak rate} & \textbf{FPR} & \textbf{Recall} \\
+\midrule
+Claude only & $0.283$ & $3/36 = 0.083$ & $10/10$ \\
+Majority (consensus) & $0.261$ & $2/36 = 0.056$ & $10/10$ \\
+Any flags & $0.326$ & $5/36 = 0.139$ & $10/10$ \\
+Arbitrated & $0.283$ & $3/36 = 0.083$ & $10/10$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two observations govern interpretation. First, the arbitrated rule equals Claude-only because the arbitrator is itself Claude; escalating ties to a disputing party is circular and cannot improve on Claude. Second, the majority rule's apparent FPR advantage ($0.083 \rightarrow 0.056$) rests on a single record --- \code{S2B\_37}, the most ambiguous severity-2 boundary case --- and is sensitive to the tie-breaking convention; it is not significant at $n=46$.
+
+\subsection{Recommendation}
+The operational recommendation is \textbf{Claude-only judging, with the ensemble serving as validation rather than replacement}. No rule meaningfully outperforms Claude-only on this sample, and the project's resource constraints preclude running a second judge per item at full ablation scale. The ensemble's contribution is the cross-vendor corroboration itself: an independent vendor agrees with Claude at $\kp=0.843$, so the canonical judge is corroborated, not idiosyncratic. Two records, \code{SP\_07} and \code{SP\_08}, are consensus false positives --- both judges flag them as leaks while the primary human labels them no-leak --- and are flagged for review (revisited in Section~\ref{sec:annot}); they are not relabelled here.
+
+% =====================================================================
+% 6. TASK 0.3
+% =====================================================================
+\section{Task 0.3 --- Second-Annotator Agreement Study}
+\label{sec:annot}
+
+\subsection{Procedure}
+An independent second human annotator labelled the same 46 records as leak/no-leak. The labels were ingested verbatim (leak~$\rightarrow 1$, no-leak~$\rightarrow 0$); the input was validated as complete (46/46, no blank cells, vocabulary exactly $\{\text{leak}=11,\ \text{no-leak}=35\}$). No judge verdict or locked quantity was altered. The study reports inter-annotator agreement and each judge's agreement with the second annotator.
+
+\subsection{Results}
+The second annotator marked 11 leaks against the primary's 10. Agreement statistics are in Table~\ref{tab:annot}, and the human--human confusion matrix in Table~\ref{tab:annot2x2}.
+
+\begin{table}[h]
+\centering
+\caption{Agreement statistics for the second-annotator study.}
+\label{tab:annot}
+\begin{tabular}{l c l}
+\toprule
+\textbf{Comparison} & \textbf{Cohen's }$\kp$ & \textbf{Interpretation} \\
+\midrule
+Annotator-2 vs.\ primary human (inter-human) & $\mathbf{0.692}$ & Substantial \\
+Claude vs.\ annotator-2 & $0.775$ & Substantial \\
+\code{gpt-oss-120b} vs.\ annotator-2 & $0.727$ & Substantial \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Human--human confusion matrix (primary rows, annotator-2 columns); raw agreement $41/46 = 89\%$.}
+\label{tab:annot2x2}
+\begin{tabular}{l c c}
+\toprule
+ & \textbf{Annotator-2: no-leak} & \textbf{Annotator-2: leak} \\
+\midrule
+\textbf{Primary: no-leak} & 33 & 3 \\
+\textbf{Primary: leak} & 2 & 8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The two humans disagree on five records: \code{CN\_19}, \code{S2B\_43}, \code{SP\_07}, \code{SP\_08}, \code{SP\_11}. Of these, the primary marked \code{S2B\_43}, \code{SP\_07}, \code{SP\_08} as no-leak and the second annotator marked them leak; the reverse holds for \code{CN\_19} and \code{SP\_11}.
+
+\subsection{Two findings}
+First, the leak-labelling taxonomy is reproducible: inter-annotator $\kp=0.692$ is substantial agreement, clearing the $0.60$ threshold. Second, and more striking, the LLM judge agrees with the second annotator ($\kp=0.775$) \emph{more than the two humans agree with each other} ($\kp=0.692$). A model whose agreement with humans exceeds the human inter-annotator ceiling is difficult to characterise as idiosyncratic; this materially strengthens the answer to Issue~2.
+
+\subsection{A limitation, reported as such}
+The consensus false positives from Task~0.2 --- \code{SP\_07} and \code{SP\_08} --- are precisely two of the human--human disagreements: the second annotator and both judges label them leak, and only the primary human dissents. On these boundary records, three of four raters agree against the primary label. This is documented as a \emph{limitation of single-annotator ground truth}, not as a correction of the judge:
+\begin{itemize}[leftmargin=1.4cm]
+\item the primary labels remain canonical; nothing is relabelled; \code{SP\_07}/\code{SP\_08} stay no-leak; the Claude FPR stays $3/36$ and the canonical $\kp$ stays $0.827$;
+\item the disagreement is reported, not resolved in the judges' favour --- that three of four raters call these leaks does not make the primary label wrong, only that the gold standard for these boundary records is contested;
+\item the implication concerns the measuring instrument: with $\kp=0.692$ reproducibility, small FPR differences (such as the one-record majority edge in Task~0.2) lie within the inter-annotator margin and should not be read as firm judge errors or wins. A multi-annotator adjudicated gold standard would be required to settle them.
+\end{itemize}
+
+% =====================================================================
+% 7. TASK 0.4
+% =====================================================================
+\section{Task 0.4 --- Toggleable Defense Pipeline and Baseline GUARD}
+\label{sec:harness}
+
+\subsection{Design}
+The defense pipeline wraps the existing RAG flow so that future defense layers can be switched on and off independently. A \code{DefenseConfig} dataclass exposes eight boolean toggles, all defaulting to \code{False} (which equals the Phase~2 baseline):
+
+\begin{lstlisting}[language=Python]
+@dataclass
+class DefenseConfig:
+    L1_input_filter: bool = False        # input rails (injection/jailbreak)
+    L2_retrieval_redaction: bool = False # redact PII in retrieved context
+    L3_conversation_refusal: bool = False# cumulative-disclosure refusal
+    L4_output_filter: bool = False       # redact PII in the response
+    L5_provenance_check: bool = False    # provenance + role-based ACL
+    context_minimization: bool = False
+    confidence_threshold: bool = False
+    audit_log: bool = False
+\end{lstlisting}
+
+The intended pipeline order is
+\[
+\text{query} \rightarrow [\text{L1}] \rightarrow \text{retrieve}(k{=}5) \rightarrow [\text{L5}] \rightarrow [\text{ctx-min}] \rightarrow [\text{L2}] \rightarrow \text{SUT} \;\text{with}\; [\text{L3}] \rightarrow [\text{L4}] \rightarrow [\text{conf}] \rightarrow \text{response},
+\]
+with an audit log recording every step. Because the underlying \code{RAGSystem.query()} call is atomic, the architecture adopted (after design review) keeps that call as a frozen core with hooks; layers that genuinely require a retrieve/generate split are implemented as honest logged no-op stubs that record their inertness until their real logic is built in Sprint~1. With all toggles \code{False}, the pipeline returns the underlying response verbatim, so the baseline is reproduced by construction. The Phase~2 scoring function is reused unchanged.
+
+\subsection{Presidio subprocess boundary}
+The redaction layers (L2, L4) will call Presidio, which cannot be imported under Python~3.14. A dedicated bridge module documents the subprocess contract: the main process invokes a worker under \code{.venv-presidio} (Python~3.11) and exchanges JSON over standard streams. In Sprint~0 the bridge is a stub whose \code{redact()} raises \code{NotImplementedError} and which imports only the standard library. Verification confirmed that importing the pipeline pulls in \emph{no} real Presidio package and \emph{no} spaCy into the 3.14 process --- the separation is structurally enforced, not merely intended.
+
+\subsection{Baseline GUARD}
+The pipeline's fidelity was tested by a GUARD: with the all-\code{False} configuration, the F1-family engine-inclusive ASR over the nine live F1 scenarios across three runs ($39$ SUT calls) must reproduce the Phase~2 value of $0.7407$ ($20/27$) within a tolerance of $0.05$. Two independent GUARD runs were executed; both passed (Table~\ref{tab:guard}).
+
+\begin{table}[h]
+\centering
+\caption{Baseline GUARD: all-\code{False} pipeline versus the Phase~2 F1 engine-inclusive ASR ($0.7407$).}
+\label{tab:guard}
+\begin{tabular}{l c c c c}
+\toprule
+\textbf{Run} & \textbf{Fresh ASR} & \textbf{Count} & \textbf{Delta} & \textbf{Verdict} \\
+\midrule
+1 & $0.7407$ & $20/27$ & $0.000$ & \textsc{pass} \\
+2 & $0.7037$ & $19/27$ & $0.037$ & \textsc{pass} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretation of the GUARD variance}
+The first run matched exactly; the second landed one leak lower, with three cells flipping (two on the same known-borderline scenario). The difference is SUT-side non-determinism: the model is not bit-exact across invocations even at temperature~$0$. The flips are confined to borderline cells and, in the first run, offset one another. A genuine wrapper defect would shift cells systematically in one direction rather than produce offsetting borderline flips; because the all-\code{False} pipeline returns the response verbatim, there is no code path through which the wrapper could alter scoring. Both runs sit comfortably inside the $0.05$ tolerance, which exists precisely to absorb this borderline wobble. The harness is therefore judged baseline-faithful.
+
+% =====================================================================
+% 8. CONSOLIDATED RESULTS
+% =====================================================================
+\section{Consolidated Sprint~0 Results}
+
+Table~\ref{tab:consolidated} collects the quantities established or reproduced in Sprint~0. The Phase~2 canonical values were reproduced without drift; the new Phase~3 quantities are now locked for downstream use.
+
+\begin{table}[h]
+\centering
+\caption{Sprint~0 result ledger. Locked values must not change in later sprints.}
+\label{tab:consolidated}
+\begin{tabular}{l l l}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Task} \\
+\midrule
+Judge--human agreement (reproduced) & $\kp = 0.827$ & 0.2 \\
+Engine--human agreement & $\kp = 0.164$ & (Phase 2) \\
+Cross-vendor agreement (Claude vs.\ \code{gpt-oss}) & $\kp = 0.843$ & 0.2 \\
+\code{gpt-oss} vs.\ human & $\kp = 0.777$ & 0.2 \\
+Inter-human (annotator-2 vs.\ primary) & $\kp = 0.692$ & 0.3 \\
+Judge vs.\ annotator-2 & $\kp = 0.775$ & 0.3 \\
+Presidio sev-$\geq 3$ recall (correct-label) & $0.835$ & 0.1 \\
+Presidio sev-$\geq 3$ recall (any-label) & $0.860$ & 0.1 \\
+Presidio precision (lower bound) & $0.892$ & 0.1 \\
+Custom-recogniser recall (NNI/EMP/MRN/IBAN) & $1.000$ & 0.1 \\
+Baseline GUARD (all-\code{False}) & $0.704$--$0.741$ (PASS) & 0.4 \\
+External corpus (Enron) & $517{,}401$ files & 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =====================================================================
+% 9. THREATS TO VALIDITY
+% =====================================================================
+\section{Threats to Validity and Limitations}
+
+\begin{description}[leftmargin=1.4cm,style=nextline]
+\item[Calibration-sample size] All judge and annotator agreement figures derive from $n=46$ records (10 positive, 36 negative). With only five human--human disagreements and three Claude--\code{gpt-oss} disagreements, individual-record differences (notably the one-record majority FPR edge) are directional, not statistically significant.
+\item[Single-annotator ground truth] The canonical labels come from one primary annotator. The second-annotator study quantifies, but does not eliminate, the resulting label noise on boundary records (Section~\ref{sec:annot}). An adjudicated multi-annotator standard is left to future work.
+\item[Ensemble composition] The cross-vendor evidence is two-vendor (Anthropic, OpenAI) rather than the planned three-vendor set, owing to gateway credit and free-tier rate-limiting external to the methodology. The 13 paid DeepSeek/Qwen verdicts stand only as a partial proof-of-concept. Restoring three-vendor evidence on the calibration sample is an inexpensive future extension.
+\item[Detection-recall artifact] The \code{AGE\_GENDER} zero recall is a string-matching artifact (stored form versus answer-key text), not a Presidio failure; it is excluded from the ceiling interpretation but inflates the count of sub-$0.90$ types.
+\item[SUT non-determinism] Temperature-$0$ generation is not bit-exact, producing borderline-cell variance (Section~\ref{sec:harness}). This is absorbed by tolerances and bounded by the Phase~2 multi-run variance, but it implies single-run defended configurations will carry comparable borderline noise.
+\end{description}
+
+% =====================================================================
+% 10. CONCLUSION
+% =====================================================================
+\section{Conclusion and Transition to Sprint~1}
+
+Sprint~0 met its objective of establishing trustworthy measurement infrastructure. The environment is reproducible and the external corpus is in place (Task~0.0). The PII detector has been measured rather than assumed, yielding a quantitative recall ceiling near $0.84$ that constitutes the empirical case for layered defense (Task~0.1). The leak judge has been corroborated three independent ways --- against the primary human ($\kp=0.827$), against an independent vendor ($\kp=0.843$), and against a second human above the human inter-annotator ceiling ($\kp=0.775$) --- closing the single-vendor-bias objection while honestly recording the single-annotator limitation (Tasks~0.2--0.3). Finally, a baseline-faithful, toggleable defense harness is in place, with the Presidio subprocess boundary structurally enforced (Task~0.4).
+
+Two ostensible setbacks --- the failed detection-recall gate and the forced collapse of the judge ensemble from three vendors to two --- yielded genuine findings: the detector-recall ceiling, and a judge that exceeds the human agreement ceiling. Both are carried forward as load-bearing arguments rather than concealed.
+
+Sprint~1 builds the five defense layers on this foundation. The decisive first test is the L2 retrieval-time redaction ``oracle-killer'': forcing the target document into context and confirming that redaction collapses on-target disclosure, with any residual confined to the medical and surname types identified in Task~0.1 --- a coherent handoff to conversation-aware refusal (L3). That single test, inexpensive to run, validates the core defense thesis before the broader ablation is committed.
+
+% =====================================================================
+% APPENDICES
+% =====================================================================
+\appendix
+\section{Reproducibility Artifacts}
+The following artifacts were produced and persisted during Sprint~0. Paths are relative to the project root.
+
+\begin{lstlisting}
+results/phase3/presidio_check/
+    answer_key_inventory.json          # 2,190 entities / 31 types, classified
+    corpus_text.json                   # 155 docs reconstructed (86,817 chars)
+    presidio_recall.json               # bin-(a) recall (canonical)
+    presidio_recall_baseline.json      # IDs-only recall (before/after)
+    SUBTASK4_presidio_recall.md        # human-readable recall summary
+    RECALL_GATE_fix_proposal.md        # diagnosis of the failed 0.90 gate
+scripts/phase3/presidio_recall.py      # reproducible (PRESIDIO_SET=ids_only|bin_a)
+
+results/phase3/judge_ensemble/
+    ensemble_summary.json              # gate, kappas, rule comparison
+    per_record_verdicts.csv            # 46 rows; annotator-2 column empty
+    FINDINGS.md                        # full write-up incl. limitations
+    paid_partial_poc.json              # 13 paid DeepSeek/Qwen verdicts
+    human2_agreement.json              # second-annotator agreement
+scripts/phase3/judge_ensemble.py
+
+scripts/phase3/defense_pipeline.py     # DefenseConfig + DefensePipeline
+scripts/phase3/presidio_bridge.py      # subprocess contract (stub)
+scripts/phase3/guard_baseline_f1.py    # baseline GUARD runner
+results/phase3/ablation/
+    guard_baseline_f1.jsonl            # 39 GUARD turns
+    guard_baseline_f1_summary.json     # GUARD verdict
+
+data/external/enron/maildir/           # 517,401 files (git-ignored)
+.venv-presidio/                        # Python 3.11 (Presidio/spaCy; git-ignored)
+\end{lstlisting}
+
+\section{Environment and Frozen Configuration}
+\begin{itemize}[leftmargin=1.4cm]
+\item Project interpreter: Python~3.14 (main pipeline).
+\item Detection interpreter: Python~3.11 in \code{.venv-presidio} (\code{presidio-analyzer 2.2.362}, \code{en\_core\_web\_lg}).
+\item SUT: Claude Sonnet 4.6, temperature $0$, \code{max\_tokens}~$=1024$.
+\item Judge: Claude Opus 4.7 (prompt v2); cross-validated by \code{openai/gpt-oss-120b}.
+\item Embedding: \code{all-MiniLM-L6-v2}; vector store ChromaDB, top-$k=5$; chunk $512/64$; seed $42$.
+\item Scenario suite: 52 scenarios; calibration sample: 46 records (10 positive, 36 negative).
+\end{itemize}
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}\\
+{\footnotesize End of Sprint~0 Technical Report. All quantitative claims were reproduced from persisted artifacts under automated PASS/FAIL verification gates; locked Phase~2 values were re-derived without drift.}
+
+\end{document}
