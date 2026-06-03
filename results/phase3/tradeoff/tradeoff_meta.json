@@ -1,0 +1,123 @@
+{
+  "purpose": "RQ5 security-utility Pareto, 6 cells (L6 never measured -> not 7). Pure synthesis, $0.",
+  "metric_primacy": "JUDGED augmented ASR is PRIMARY (judge-human kappa=0.827); engine ASR is a SECONDARY ANNOTATION (not scored).",
+  "weights": {
+    "security": {
+      "judged": 0.7,
+      "precision": 0.15,
+      "prevention": 0.15
+    },
+    "utility_U3_spec": {
+      "faithfulness": 0.4,
+      "relevancy": 0.4,
+      "query_success": 0.2
+    },
+    "utility_U4_incl_cp": {
+      "faithfulness": 0.3,
+      "relevancy": 0.3,
+      "query_success": 0.15,
+      "context_precision": 0.25
+    }
+  },
+  "polarity_fix": "detection 'Recall_residual_rate' is inverted (=residual leak rate, higher=worse); user 'Recall(prevention)' == '(1-FNR)' == prevention_rate (=1-residual), included once; prevention_rate is engine-derived (NOT independent of judged), kept minor (0.15).",
+  "noise_floor_judged_asr": 0.08,
+  "guardrail_composite_rank_eq_pure_judged_rank": true,
+  "security_ranking": [
+    "C11111",
+    "C01000",
+    "C01100",
+    "C00000",
+    "C00100",
+    "C10000"
+  ],
+  "near_tie_clusters_by_judged_asr": [
+    {
+      "cells": [
+        "C11111",
+        "C01000",
+        "C01100"
+      ],
+      "label": "secure (with-L2)",
+      "judged_asr_range": [
+        0.1923,
+        0.1731
+      ]
+    },
+    {
+      "cells": [
+        "C00000",
+        "C00100",
+        "C10000"
+      ],
+      "label": "~baseline (no-L2)",
+      "judged_asr_range": [
+        0.3654,
+        0.2885
+      ]
+    }
+  ],
+  "pivot_finding": "the two security clusters align EXACTLY with L2 presence: adding L2 is the single move that crosses from ~baseline to secure; L1/L3 (and L4/L5 in the full stack) move neither axis beyond noise.",
+  "frontier_operating_points": [
+    {
+      "security_tier": 0,
+      "U4": 0.857,
+      "cells": [
+        "C00000",
+        "C10000",
+        "C00100"
+      ],
+      "representative": "C00000"
+    },
+    {
+      "security_tier": 1,
+      "U4": 0.83,
+      "cells": [
+        "C01000",
+        "C01100",
+        "C11111"
+      ],
+      "representative": "C01000"
+    }
+  ],
+  "knee_RQ5": {
+    "recommended": "C01100",
+    "minimal_co_located": "C01000",
+    "definition": "entry into the higher-security frontier op-point whose ASR step exceeds the 0.08 judged floor; the step beyond it (to the full stack) is within noise",
+    "steps": [
+      {
+        "from": "C00000",
+        "to": "C01000",
+        "d_judged_asr_drop": 0.0962,
+        "d_U4_util_cost": 0.027,
+        "exceeds_floor": true,
+        "sec_per_util": 3.56
+      }
+    ]
+  },
+  "roles": {
+    "C00000": "baseline (frontier: max-utility endpoint)",
+    "C10000": "redundant in aggregate (~C00000; no measured aggregate gain on this single-turn-dominated mix)",
+    "C01000": "knee-minimal (co-located, fewer layers)",
+    "C00100": "redundant in aggregate (~C00000; no measured aggregate gain on this single-turn-dominated mix)",
+    "C01100": "knee-recommended (RQ5 optimum)",
+    "C11111": "defense-in-depth (co-located; within-noise of knee)"
+  },
+  "redundant_cells": [
+    "C10000",
+    "C00100"
+  ],
+  "utility_proxy_note": "middle 4 cells: utility PROXIED (mechanistic: L2-bearing~C11111, non-L2~C00000); faithfulness/relevancy/context_precision NOT measured on them; query_success=1.0 by monotonicity. Marked hollow on plot.",
+  "context_precision_caveat": "U3 (the 3 SPECIFIED metrics) is ~flat (gap 0.0036) because all three are blind to L2's faithful-non-answer failure mode; context_precision (gap -0.097) is the real utility cost. U4 includes it. Do NOT read U3's flatness as 'defenses are free'.",
+  "latency_caveat": "latency ~1.9x (C00000 3727ms -> C11111 6942ms), concentrated in L2/full-stack cells; annotated not scored; middle cells unmeasured.",
+  "structural_benign_caveat": "utility measured on 30 STRUCTURAL/aggregate low-PII benign queries -> 'cheap for structural use', NOT 'defenses are free' on PII-adjacent traffic (Task 3.1).",
+  "recommendations": {
+    "high_risk_orgs": {
+      "config": "C11111 (full stack)",
+      "rationale": "lowest judged ASR (0.173); but the +0.019 ASR gain over the knee is WITHIN the 0.08 floor -> a DEFENSE-IN-DEPTH argument (L1/L4/L5 cover surfaces not exercised here), NOT a measured ASR win. Costs ~0.10 context-precision + ~1.9x latency."
+    },
+    "utility_sensitive_orgs": {
+      "config": "C01100 (L2+L3, the knee) — or C01000 (L2 alone, minimal)",
+      "rationale": "captures the entire MEASURED security benefit (judged ASR 0.192, statistically tied with the full stack) at fewer layers -> lower latency and no L1/L4 over-refusal risk on genuine benign traffic. It still pays L2's context-precision cost (security here REQUIRES L2). L3 adds no measurable aggregate ASR over L2 alone; it is retained for multi-turn conversation-state coverage."
+    }
+  }
+}
