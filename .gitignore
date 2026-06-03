@@ -40,3 +40,8 @@ results/p4_offline/*.csv
 
 # External datasets (large, local-only — never commit)
 data/external/
+
+# Chatbot runtime audit logs (the curated smoke evidence is committed at app/smoke/smoke_results.json;
+# these are regenerated on every server/smoke run and would drift)
+results/phase3/audit/smoke.jsonl
+results/phase3/audit/chatbot.jsonl
