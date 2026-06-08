@@ -1,0 +1,2 @@
+model snapshot context: anthropic SDK 0.107.1, 2026-06-08T19:18:28Z
+SUT=claude-sonnet-4-6 temp=0 max_tokens=1024; embed=all-MiniLM-L6-v2; k=5; seed=42; collections phase2_baseline_seed42 + phase2_poisoned_p3

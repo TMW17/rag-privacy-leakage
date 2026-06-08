@@ -56,14 +56,19 @@ report asks how, and how far, that exposure can be reduced. Working against a co
 but realistic records in which every sensitive entity has been annotated in advance, we assemble a
 layered privacy defense and then measure it with two independent instruments: a fast rule-based
 detector, and a language-model judge whose agreement with human annotators reaches Cohen's
-\kp{}~$=0.827$. The two instruments disagree in a way that turns out to be the most important result
-of the work. The detector reports that the full defense removes leakage almost entirely; the validated
+\kp{}~$=0.827$ on undefended text. The two instruments disagree in a way that turns out to be the most
+important result of the work. The detector reports that the full defense removes leakage almost entirely; the validated
 judge shows that it does not. Read through the judge, the attack-success rate falls from 28.8\% on the
 undefended system to 17.3\% with every layer active, a reduction of roughly forty percent rather than
 the near-elimination the detector claims, and one carried almost entirely by redaction of personal
 data at retrieval time. What survives is re-identification by linkage: an adversary who assembles a
 handful of innocuous facts about a person from separate documents is barely impeded by any redaction
-layer. The broader lesson is methodological. Evaluating a RAG privacy defense with a single,
+layer. One caveat we measure rather than assume: the judge that delivers these figures, though strongly
+aligned with human labels on undefended text, agrees far less on defended output (\kp{} falling from
+0.827 to 0.306), erring mostly by reading refusals as leaks. It is still the better of the two
+instruments --- the detector is worse on the same test --- so the direction and rough size of the
+reduction hold even where its exact height is uncertain; and the re-identification leaks it missed were
+ones the human caught, which only sharpens the linkage finding. The broader lesson is methodological. Evaluating a RAG privacy defense with a single,
 unvalidated detector systematically overstates how well it works. The prototype that accompanies this
 study demonstrates the recommended configuration in a live system; it is a demonstration, not a
 certified product, and it does not close the linkability gap.
@@ -107,26 +112,32 @@ The evaluation models four kinds of adversary, each grounded in an established p
 framework and a formal severity score, and each expressing a distinct relationship to the system
 (Table~\ref{tab:threat}). The most consequential of them, for what follows, is the curious insider: a
 legitimate user who already holds access and simply asks innocent-seeming questions that, taken
-together, reveal more than any single answer should. Their attacks span eight families, from direct
-requests for personal data through prompt injection and jailbreaking to the quiet reconstruction of an
-individual from scattered facts.
+together, reveal more than any single answer should. The insider's attacks span the seven query-based
+families, from direct requests for personal data through prompt injection and jailbreaking to the quiet
+reconstruction of an individual from scattered facts; corpus poisoning, the eighth family, belongs to
+the privileged administrator, who tampers with the corpus beneath the chat interface.
 
 \begin{table}[h]
 \centering
-\caption{The four adversaries and the eight attack families they exercise.}
+\caption{The four adversaries and the attack families they exercise. The seven query-based
+families (F1--F7) are shared by the internal and external adversaries; corpus poisoning (F8) is
+the privileged administrator's; the third-party provider runs no live family and is assessed
+offline, which is why it does not appear in the live results (Table~\ref{tab:profile}).}
 \label{tab:threat}
-\begin{tabular}{@{}p{8.2cm}p{7.0cm}@{}}
+\begin{tabular}{@{}p{7.4cm}p{7.8cm}@{}}
 \toprule
 \textbf{Adversary (severity rating, what they may legitimately see)} & \textbf{Attack families}\\
 \midrule
 Internal --- a curious insider; legitimate access, no technical skill needed (may see severity~2) &
-Direct disclosure of personal data\\
+All seven query-based families (F1--F7), most characteristically re-identification by linkage\\
 External --- a skilled outsider at the public interface, no credentials (may see nothing) &
-Re-identification by linkage\\
+The same seven query-based families (F1--F7), most characteristically direct extraction, prompt
+injection, and jailbreaking\\
 Privileged administrator --- infrastructure access, tampers beneath the chat interface (severity~3) &
-Prompt injection; query obfuscation\\
+Corpus poisoning (F8), staged before any query and validated through retrieval persistence\\
 Third party --- an integrated provider bounded by contract rather than credentials (severity~3) &
-Jailbreaking; reconnaissance; social engineering; corpus poisoning\\
+No live attack family; assessed offline by static analysis of campaign logs (GDPR Art.~28), hence
+absent from the live attack-success results (Table~\ref{tab:profile})\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -173,6 +184,23 @@ other. A model that sits above the human inter-annotator ceiling is difficult to
 idiosyncratic; the right reading is that the judge is a consistent instrument calibrated to one
 reference, not that it exercises superhuman judgment.
 
+That calibration, however, was measured on \emph{undefended} responses, and the defenses change what
+the judge is asked to read. So we re-measured it on the defended distribution: a stratified sample of
+forty-six redacted, refused, and degraded responses drawn from the recommended and full-stack
+configurations, hand-labelled by the primary annotator. Agreement drops sharply. Where the judge had
+matched the human on ninety-three percent of undefended responses, it matches on only seventy percent
+of defended ones --- Cohen's \kp{} falls from 0.827 to 0.306, though the raw-agreement figures are the
+fairer comparison here, since \kp{} is sensitive to how often a leak actually occurs and the two
+samples differ in that. The errors run both ways. Of eighteen responses the judge flagged as leaks, the
+human confirmed only seven; the other eleven were false alarms, almost all of them polite refusals or
+redacted non-answers that the judge read as disclosures. In the opposite direction, the judge missed
+three of the ten leaks the human did identify --- each one an age-bracket re-identification assembled
+across turns. The instrument that is dependable on raw model output, in short, is markedly less
+dependable once that output has been redacted or refused, and it errs by crying leak at a refusal more
+often than by missing a real one. The detector fares worse still on the same defended sample --- its
+agreement with the human is \kp{}~$=-0.10$, no better than chance --- which is why the judge, for all
+its slippage, remains the instrument we read as primary.
+
 One design choice deserves to be stated plainly, because it departs from the original plan. The intent
 had been a multi-agent panel in which a third model arbitrates disagreements. That arbitration turns
 out to be circular: the arbitrator is itself drawn from the same family as the primary judge, so
@@ -184,9 +212,14 @@ entire campaign was beyond the available budget and is left for future work.
 \subsection{Reading small differences honestly}
 
 Because the undefended baseline is reused from earlier logged runs while the defended configurations
-are generated afresh, every comparison carries a little noise from the model's own non-determinism. We
-calibrated that noise empirically and apply it as a floor: a defended-versus-baseline difference of
-about 0.08 or less, on the overall metric, is reported as within noise rather than as an effect. One
+are generated afresh, every comparison could in principle carry drift in the model between runs, not
+only the model's own non-determinism. We checked this directly by regenerating the entire undefended
+baseline under the current conditions --- the same fifty-two scenarios, three runs, seed forty-two,
+scored by both instruments --- and it reproduces the reused figures within the floor: the engine's
+inclusive rate is identical, its strict rate moves by 0.02, and the judged strict rate by 0.058. The
+reused 28.8\% baseline is therefore condition-matched rather than stale, and we keep it. We calibrated
+the residual noise empirically and apply it as a floor: a defended-versus-baseline difference of about
+0.08 or less, on the overall metric, is reported as within noise rather than as an effect. One
 caution travels with this floor for the rest of the report. It is the floor for the overall measure,
 computed over the full scenario set; it must not be carried down to a single attack family, where the
 handful of scenarios involved --- three to ten --- gives a far wider margin, a binomial standard error
@@ -305,7 +338,8 @@ Retrieval-time redaction & retrieved context & Removes severity~$\geq$3 spans be
 them; the decisive layer (Table~\ref{tab:oracle}). What survives is the medical/surname/immigration
 residue the detector cannot reach.\\
 Conversation-aware refusal & dialogue state & Refuses when disclosure accumulated about one person
-crosses a threshold; catches a name-plus-condition leak redaction alone would miss; 0/3 false
+crosses a threshold; catches a name-plus-condition leak redaction alone would miss in a constructed
+handoff test, though it adds no measured reduction in the live campaign (\S\ref{sec:cost}); 0/3 false
 positives.\\
 Output filter & response & Redacts identifiers in the response; names and IDs are removed, but a salary
 the model has reformatted into prose can slip through.\\
@@ -425,9 +459,10 @@ Conversational refusal & $+0.058$ & within noise & $+0.000$ & within noise\\
 \end{table}
 
 This is not the claim that only one layer works. The input filter blocks attacks that carry no
-high-severity payload and so cannot register on a leakage metric; the conversational layer earns its
-place on dialogues that accumulate disclosure; the provenance layer defeats poisoning. Each defends an
-axis this particular metric does not measure. What the metric does show is that redaction is the layer
+high-severity payload and so cannot register on a leakage metric; the conversational layer is aimed at
+dialogues that accumulate disclosure across turns, an axis this single-pass metric barely exercises and
+on which it showed no measured gain here (\S\ref{sec:cost}); the provenance layer defeats poisoning.
+Each defends an axis this particular metric does not measure. What the metric does show is that redaction is the layer
 that reduces personal-data leakage, and that adding the final layers on top of redaction-plus-refusal
 buys no further reduction the measurement can distinguish from noise (Figure~\ref{fig:marginal}).
 
@@ -490,9 +525,13 @@ single family of a handful of scenarios carries; the robust claim is the directi
 its precise height. That the corpus's linkability is real, rather than a synthetic curiosity, is
 established by a k-anonymity analysis of the corpus itself: the worst four-attribute combination ---
 department, medical condition, age range, and office location --- uniquely identifies 84 of its 100
-employees, with no name or direct identifier involved. An attacker who learns three or four ordinary
-facts about a colleague can, in principle, single them out, and that is exactly the capability the
-redaction stack does not remove.
+employees, with no name or direct identifier involved. Because the corpus samples each attribute
+independently, that figure is best read as near an \emph{upper} bound on what attribute combinations
+alone can achieve at this size: independence maximizes the number of distinct combinations, whereas
+real-world attributes correlate and collapse them. The synthetic result therefore demonstrates the
+linkage \emph{mechanism} --- that a handful of ordinary facts can single out a person --- rather than
+predicting a rate. An attacker who learns three or four such facts about a colleague can, in principle,
+single them out, and that is exactly the capability the redaction stack does not remove.
 
 \subsection{Which adversary is hardest to defend}
 
@@ -505,7 +544,9 @@ person --- and that is the one thing the stack leaves open.
 
 \begin{table}[h]
 \centering
-\caption{Judged attack-success rate by adversary, from no defense through the full stack.}
+\caption{Judged attack-success rate by adversary, from no defense through the full stack. The three
+live adversaries appear here; the third-party provider runs no live attack and is assessed offline
+(Table~\ref{tab:threat}), so it carries no attack-success rate.}
 \label{tab:profile}
 \begin{tabular}{lccc}
 \toprule
@@ -563,6 +604,18 @@ about a third and the full stack by about forty percent, so the extra layers buy
 cannot distinguish from noise. The full stack remains worth deploying where defense in depth matters,
 since its outer layers guard attack surfaces these benign questions never exercise, but it is a choice
 about robustness, not a measured improvement in leakage over the knee.
+
+One detail inside the knee should be stated plainly, because it bears on the cost. The
+conversation-aware refusal layer contributes none of the knee's measured security: redaction alone and
+redaction-with-refusal record the same judged 0.192, and a turn-level accounting of the campaign shows
+why. The refusal fires on just three turns in the refusal-only configuration --- all redaction-free
+multi-turn linkability chains --- and on none at all once redaction sits upstream, because redaction has
+already stripped the content before disclosure can accumulate to its threshold. The layer is kept in the
+recommended configuration as multi-turn defense in depth, validated on a constructed
+name-plus-condition handoff rather than on anything the live campaign produced; it is not a measured
+reduction. And because the cost in answer quality above is measured for the full stack against no
+defense (Table~\ref{tab:utility}), it does not isolate this layer's marginal latency --- a deployment
+that adds the refusal layer should measure that cost separately rather than assume it is free.
 
 \begin{figure}[h]
 \centering
@@ -715,14 +768,31 @@ direction, not a generalization claim.
 \section{Limitations and scope}
 
 The findings should be read with their boundaries in view. The headline rests on a single language-model
-judge; it is validated against human labels and corroborated across vendors, but a full multi-vendor
-panel across the whole campaign remains future work, and the judge has been seen to over-flag already
-redacted text when taken off the distribution it was validated on. Both instruments miss some
-cross-document leakage, so the 17.3\% residual is a lower bound on the true figure, not an upper one.
-The corpus is synthetic, which makes its absolute numbers conservative rather than predictive: because
-its attributes do not correlate the way real ones do, re-identification on a real corpus would likely be
-at least as easy, so the relative findings --- which layer matters, which adversary is hardest, how the
-residual is composed --- are what should be carried forward, not the exact percentages. Several layers
+judge, corroborated across vendors but not yet behind a full multi-vendor panel across the whole
+campaign. More consequentially, the judge's reliability is not uniform across the configurations it
+scores (Section~\ref{sec:measure}): validated on undefended output it agrees with the human at
+\kp{}~$=0.827$ (ninety-three percent raw agreement), but re-measured on the redacted, refused, and
+degraded output the defended numbers are actually built from, that agreement falls to seventy percent
+(\kp{}~$=0.306$), erring in both directions --- eleven false alarms among eighteen flagged defended
+responses, mostly refusals, and three of ten human-identified leaks missed. Two things follow. The
+precise height of the defended figures is therefore softer than the undefended validation alone would
+imply: the baseline is scored where the judge is reliable and the defended endpoint where it is less so,
+so the reduction is real but its exact magnitude carries more uncertainty than a single \kp{} suggests.
+Cutting the other way, the leaks the judge missed were all re-identification by linkage, which the human
+caught --- so the residual this report treats as its central finding is corroborated by human judgment
+rather than being an artifact of the judge. Both instruments also miss some cross-document leakage, so
+the 17.3\% residual is a lower bound on what the instruments can see, not an upper one.
+The corpus is synthetic, and its absolute numbers should not be read as predictions, but the reason is
+not that they are conservative. Because each attribute is sampled independently, the corpus's
+combinatorial uniqueness is if anything inflated: independence maximizes the distinct attribute
+combinations that make people identifiable, so the 84-in-100 re-identification figure sits nearer an
+upper bound on what those attributes alone can achieve than a floor (Section~\ref{sec:effect}).
+Re-identification would nonetheless remain a real threat on a production corpus --- not because of the
+synthetic correlation structure, but because a real attacker brings auxiliary information the synthetic
+setting deliberately omits: public records, social media, organizational directories. The experiment
+establishes the mechanism; the real-world rate depends on that external data. What transfers are the
+relative findings --- which layer matters, which adversary is hardest, how the residual is composed ---
+not the exact percentages. Several layers
 depend on the annotation that the synthetic corpus provides and would need a detection front end to
 operate on unannotated real data. Per-family figures rest on small samples and carry wide intervals; the
 direction of the linkability result is robust, its precise magnitude less so. And the defense addresses
