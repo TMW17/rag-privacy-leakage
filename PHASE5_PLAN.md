@@ -178,6 +178,15 @@ Either way the plan must surface this in Ch 3 (when S is defined) and resolve it
    artifact values (84, 40/63). Fix the source `.tex` prose to match the artifact during integration — or
    be ready to explain at the viva why Ch3 says 84 and an earlier doc says 85 ("artifact is canonical;
    earlier prose had a transcription slip, since corrected"). Don't let this note evaporate.
+   **Third source slip (Ch2):** `State_Of_The_Art.tex` (line ~251) says the corpus is **2,315 entities**;
+   canonical is **2,190** (Ch3/PROJECT/annotations). Ch2 does NOT restate corpus size (defers to Ch3), so
+   it is not propagated — but fix the source `.tex` too. **Three transcription slips total (2,315; 85%;
+   41/60), all NOT propagated into the thesis chapters, all needing a one-line source-`.tex` fix.**
+   **⚠ INTEGRATION-PASS WORK — complete `references.bib` (gates submission):** seeded with Ch2 — 49 entries,
+   author+year **verified real** (49/49 cross-checked vs the SOTA matrix), but only **4 fully populated**
+   (Gulyamov/Duarte/Correia/Wang2026 — real venue/DOI). The other **45 carry `[TODO verify title]` + TODO
+   venue** and render those flags in the bibliography → **NOT submittable as-is**. ~45 title+venue lookups
+   are required integration work, not a footnote. Other chapters' `\cite{}`s fold into the same file.
 5. **Utility scope narrower than planned.** Claim only faithfulness / context-precision / latency (§2, Ch 6).
 6. **The "LLM-as-Judge placeholder" → real instrument.** `Formal_Leakage…tex` presents the engine's judge as
    a placeholder; Ch 5 must connect it forward to the validated instrument.

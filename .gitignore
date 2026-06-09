@@ -61,3 +61,7 @@ results/**/report/thesis/*.toc
 results/**/report/thesis/*.fls
 results/**/report/thesis/*.fdb_latexmk
 results/**/report/thesis/*.synctex.gz
+results/**/report/*.bbl
+results/**/report/*.blg
+results/**/report/thesis/*.bbl
+results/**/report/thesis/*.blg
