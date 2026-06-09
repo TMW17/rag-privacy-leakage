@@ -1,0 +1,119 @@
+% ============================================================================
+%  Chapter 8 — Conclusion and Future Work
+%  Thesis: Generative AI, Privacy & Personal Data — TADJ Mohamed Walid, ESI SBA
+%
+%  DUAL-MODE FILE (standalone OR \input via \ThesisMaster). Sets \label{ch:conclusion}
+%  (resolves the last forward-ref from Ch1's roadmap). SHORT synthesis from Ch1-7 +
+%  discussion_notes.md §6 — re-derives nothing, introduces no number or claim. The
+%  closer lands on the honest note the body earned: reduction (~40%) not elimination,
+%  demonstration not certification, linkage the open residual. No triumphant ending.
+% ============================================================================
+\ifdefined\ThesisMaster\else
+  \documentclass[11pt,a4paper]{report}
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[margin=2.5cm]{geometry}
+  \usepackage{booktabs}
+  \usepackage{tabularx}
+  \usepackage{array}
+  \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+  \usepackage{amsmath,amssymb}
+  \usepackage{enumitem}
+  \usepackage{microtype}
+  \usepackage[hidelinks]{hyperref}
+  \begin{document}
+\fi
+
+\chapter{Conclusion and Future Work}
+\label{ch:conclusion}
+
+\section{What this thesis did}
+\label{sec:concl-summary}
+
+Enterprise retrieval-augmented generation makes a sensitive corpus conversationally accessible,
+and in doing so it can disclose personal data to users and attackers who are not authorised to
+see it. This thesis set out to measure that leakage rather than assert it: to establish how much
+an undefended baseline leaks and which attacks cause it (Chapter~\ref{ch:baseline}), how much a
+layered defense reduces it under matched conditions (Chapter~\ref{ch:defenses}), whether the
+instrument used to measure that reduction can itself be trusted (Chapter~\ref{ch:defenses}),
+which adversary is hardest to defend and at what cost to utility
+(Chapter~\ref{ch:tradeoff}) --- all on a controlled synthetic corpus with formally defined
+leakage metrics and a threat model fixed in advance (Chapter~\ref{ch:threat}). The five research
+questions were posed as one linked argument, and they are best answered as one.
+
+\section{The answer, in one thread}
+\label{sec:concl-answer}
+
+The single finding that connects the five questions is that redaction defeats \emph{extraction}
+but not \emph{linkage}. Direct disclosure of a named entity is a discrete event a detector can
+catch and a redactor can remove; re-identification by linkage --- a person reassembled from
+individually innocuous attributes scattered across documents --- is \emph{emergent}, and that one
+property explains the rest. Because it is emergent, no redaction layer removes it, no
+deterministic detector sees it, and the only instrument that can see it, a language-model judge,
+is precisely the one whose reliability degrades on the redacted and refused output a defense
+produces. The leak hardest to prevent is therefore also the leak hardest to measure, and these
+are not two problems but one (Chapter~\ref{ch:discussion}). Concretely, the full defense stack
+reduces judged leakage from $28.8\%$ to $17.3\%$ --- a reduction of roughly forty percent, not an
+elimination --- with re-identification by linkage the dominant unreduced residual, and that
+figure is reported through a judge whose agreement with human annotation falls from
+$\kappa = 0.827$ on undefended output to $\kappa = 0.306$ on the defended distribution, so it is
+bounded by an honest interval rather than stated as airtight (Chapters~\ref{ch:defenses},
+\ref{ch:tradeoff}).
+
+\section{Contribution}
+\label{sec:concl-contribution}
+
+The contribution is convergence, not invention: this thesis proposes no new attack and no new
+defense, but integrates five capabilities that the surveyed literature had only pursued
+separately --- the formal $(L,S)$ metric pair, a profile-dependent evaluation engine, a
+systematic eight-family campaign, layered defenses quantified with $\Delta S$, and a validated
+language-model judge --- into one framework applied to RAG (Chapters~\ref{ch:sota}--\ref{ch:tradeoff}).
+Its sharpest result is methodological and is offered as an argument: that measuring a defended
+RAG system with a single instrument is wrong in a direction the analyst cannot see, the
+deterministic detector recording its own blindness to emergent leakage as protection. The
+demonstration is on this corpus; the claim that the \emph{direction} of the error generalises ---
+though not its magnitude --- is argued in the discussion (Chapter~\ref{ch:discussion}). A
+secondary methodological lesson is that judge reliability is distribution-dependent and that a
+multi-agent arbitration panel sharing a model-family lineage is circular --- a single validated,
+cross-vendor-corroborated judge is the honest alternative. None of this amounts to a deployable,
+certified product; it is a measurement framework and the findings it produced.
+
+\section{Future work}
+\label{sec:concl-future}
+
+Each direction below answers a limitation named in Chapter~\ref{ch:discussion}.
+
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+  \item \textbf{A second annotator and a multi-vendor judge panel}, to close the
+    single-annotator and single-provider exposure of the measurement instrument.
+  \item \textbf{Defended-distribution recalibration as standard practice}, to lift the judge
+    above the measured $\kappa = 0.306$ on the output defenses actually produce.
+  \item \textbf{Validation beyond the single Enron probe}, where the open question is the
+    judge's over-flagging when transferred to real prose.
+  \item \textbf{Linkage-specific defenses}: entity-resolution or directory-aware controls for
+    the genuine re-identification residual, and per-attribute recognizers for the
+    detector-recall portion redaction cannot reach.
+  \item \textbf{Per-configuration utility measurement}, to isolate the knee's marginal cost
+    rather than bounding it between the two extremes.
+  \item \textbf{Compositional, multi-actor threats}, since every attacker profile here is
+    analysed in isolation --- the setting in which the linkage residual is likely to matter most.
+\end{itemize}
+
+\section{Closing}
+\label{sec:concl-closing}
+
+The contribution that outlasts the specific percentages is methodological. The relative findings
+of this work --- which layer carries the reduction, which adversary is hardest to defend, how the
+residual is composed --- are what transfer to a real deployment; the absolute numbers, measured on
+a synthetic corpus, are not predictions for any particular organisation. The durable lesson sits
+underneath them: a defended retrieval system must be measured by an instrument that is itself
+validated and recalibrated on the output the defense produces, because the alternative --- trusting
+a single detector --- reports a protection it cannot see past. This thesis reduces measured leakage
+by roughly forty percent rather than to zero, leaves re-identification by linkage as an open
+problem, and stands as a demonstration of how to measure privacy leakage in RAG honestly --- not as
+a certification that the problem is solved.
+
+\ifdefined\ThesisMaster\else
+  \end{document}
+\fi
