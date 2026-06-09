@@ -171,6 +171,13 @@ Either way the plan must surface this in Ch 3 (when S is defined) and resolve it
    the re-id "upper bound" (corpus uniqueness). "Floor" and "upper bound" will sit in the same thesis;
    keep them crisply distinct (leakage-detection undercount vs. attribute-uniqueness overcount) so they
    never read as a contradiction.
+   **⚠ INTEGRATION-PASS FIX — source-prose transcription slips in `Formal_Leakage…tex` (and its
+   `phase1.tex` copy):** the re-id prose says worst-case **85%** (dept+salary+age+office) and l-diversity
+   **41/60 (68%)**, but the COMPUTED artifact `results/reidentification_risk.json` (canonical, and matching
+   PROJECT.md + report §9) says **84/100** (dept+medical+age+office) and **40/63 (63%)**. Ch3 uses the
+   artifact values (84, 40/63). Fix the source `.tex` prose to match the artifact during integration — or
+   be ready to explain at the viva why Ch3 says 84 and an earlier doc says 85 ("artifact is canonical;
+   earlier prose had a transcription slip, since corrected"). Don't let this note evaporate.
 5. **Utility scope narrower than planned.** Claim only faithfulness / context-precision / latency (§2, Ch 6).
 6. **The "LLM-as-Judge placeholder" → real instrument.** `Formal_Leakage…tex` presents the engine's judge as
    a placeholder; Ch 5 must connect it forward to the validated instrument.
