@@ -1,0 +1,77 @@
+{
+  "purpose": "S-metric gap resolution (PHASE5_PLAN.md \u00a73, EXIT 1): per-cell mean severity S-bar, Delta-S vs baseline, S_residual at full stack \u2014 engine and judged. Pure re-aggregation of committed per-record severities; NO model calls.",
+  "no_new_model_calls": true,
+  "coverage": {
+    "defended_records_resolved": "445/445 (0 unresolved)",
+    "baseline_keys_with_locked_verdict": "89/89",
+    "verified_before_aggregation": true
+  },
+  "method": {
+    "engine_S": "per-record 'S' in results/phase3/ablation/engine/Cxxxxx.jsonl, mean over each cell's 89 matched (scenario,turn,run=0) records.",
+    "judged_S": "severity_judge attached via the existing scripts/phase3/judge_ablation.py join: reuse (defended response == run-0 baseline response) -> base_verdict (results/judge_calibration/judge_verdicts_full.jsonl); new -> sha256(profile+chr(0)+response) into results/phase3/ablation/judged/judge_cache.jsonl; empty/blocked -> S 0.",
+    "matched_baseline": "C00000 = run-0 reused Phase-2 baseline over the SAME 89 (scenario,turn) keys (engine S from experiment_logs B2_CLEAN/B2_POISONED run 0; judged severity from locked verdicts). Severity analogue of the canonical final_metrics C00000 (which carries no severity)."
+  },
+  "per_cell_mean_S": {
+    "C00000_baseline": {
+      "engine": 2.5669,
+      "judged": 0.8652,
+      "n": 89
+    },
+    "C10000_L1_input_filter": {
+      "engine": 2.6528,
+      "judged": 1.0337,
+      "n": 89
+    },
+    "C01000_L2_retrieval_redaction": {
+      "engine": 1.2522,
+      "judged": 0.4045,
+      "n": 89
+    },
+    "C00100_L3_conversation_refusal": {
+      "engine": 2.6343,
+      "judged": 0.8539,
+      "n": 89
+    },
+    "C01100_knee_L2+L3": {
+      "engine": 1.2522,
+      "judged": 0.4045,
+      "n": 89
+    },
+    "C11111_full_stack": {
+      "engine": 1.0652,
+      "judged": 0.3708,
+      "n": 89
+    }
+  },
+  "delta_S_vs_baseline": {
+    "engine": {
+      "C10000": -0.0859,
+      "C01000": 1.3147,
+      "C00100": -0.0674,
+      "C01100": 1.3147,
+      "C11111": 1.5017
+    },
+    "judged": {
+      "C10000": -0.1685,
+      "C01000": 0.4607,
+      "C00100": 0.0113,
+      "C01100": 0.4607,
+      "C11111": 0.4944
+    }
+  },
+  "S_residual_full_stack": {
+    "engine": 1.0652,
+    "judged": 0.3708
+  },
+  "S_residual_knee_C01100": {
+    "engine": 1.2522,
+    "judged": 0.4045
+  },
+  "interpretation": "Severity mirrors the L/ASR result: L2 redaction is decisive (judged S-bar 0.865->0.405), L1 and L3 alone add nothing (within noise), and the knee C01100 equals the full stack on severity within the same small margin as on ASR. Both halves of the (L,S) pair now carry headline residual numbers; the S-gap is CLOSED (Exit 1), not reframed.",
+  "caveats": [
+    "S-bar is mean severity over ALL records in a cell (non-leaks score 0); not conditional-on-leak.",
+    "Baseline is the run-0 reused Phase-2 baseline matched to the 89-turn defended cells; the canonical final_metrics C00000 (ASR) carries no severity, so this matched run-0 baseline is its severity analogue.",
+    "Judged severity uses the same single validated judge (Opus 4.7); its defended-distribution calibration caveat (kappa=0.306, Ch5) applies to these judged severities too.",
+    "engine = lower bound, judged = primary, consistent with Ch4/Ch5."
+  ]
+}
