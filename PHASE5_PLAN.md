@@ -184,35 +184,42 @@ Ch5 + Ch6  →  Ch7 (Discussion)  ;  Ch2 (SOTA) parallel/independent  ;  Ch1 + C
 
 ## 6. Week-by-week schedule (deadline-relative; dates are assumptions to confirm)
 
-> **ANCHOR ASSUMPTION (from `Phase5.md`, unconfirmed):** full draft → supervisor ≈ **2026-07-20**,
-> submission ≈ **2026-08-03** (~8 weeks from 2026-06-09). The **sequencing is deadline-independent**;
-> only the dates shift. Give the real deposit date (see §7) and the calendar re-anchors in one pass.
-> Principle: front-load (a) the **at-risk capture** (Ch 5, while fresh) and (b) the **genuinely-new
-> synthesis** (Ch 7, Ch 1) so they get real time, not leftover scraps; the consolidate chapters (2–4)
-> have stable source and can flex.
+> **CONFIRMED (this session): submission = 2026-06-29** — 20 days from Day 1 (2026-06-09). Hard gate:
+> **complete draft → Esma by ~Day 14 (Jun 22)**, with **Days 15–20 (Jun 23–29) reserved** for her
+> feedback + revision + ESI formatting. Compressed by design; feasible only because the **reuse policy is
+> confirmed** (lift *and elevate* own phase-report prose — Esma). Dependency order unchanged (§5).
+> **Best Practices Guide DEFERRED to post-defense** (15–20 standalone pp is unrealistic inside 20 days) —
+> pending your override. Principle: front-load the at-risk **Ch 5** and the new-synthesis **Ch 7 / Ch 1**;
+> the consolidate chapters (2/3/4) lift-and-elevate fast and absorb any slip.
 
-| Week (→deposit) | Assumed dates | Focus | Deliverable |
+| Days | Dates | Focus | Deliverable |
 |---|---|---|---|
-| **W-8** | Jun 09–15 | Scaffolding (`thesis.tex` + `\input` skeleton, **unified `.bib`**, notation glossary) · **Ch 5 core** (two-instrument + defended-κ) · **S-gap decision (§3)** | compiling skeleton; Ch 5 draft; S resolved |
-| **W-7** | Jun 16–22 | Ch 4 (baseline) · Ch 6 start (ablation, knee, linkage residual, utility) | Ch 4 draft; Ch 6 half |
-| **W-6** | Jun 23–29 | Ch 6 finish (Pareto, risk matrix, RQ5 w/ S resolution) · Ch 3 (threat model + formal defs, **reconciled**) | Ch 6 draft; Ch 3 draft |
-| **W-5** | Jun 30–Jul 06 | Ch 2 (SOTA consolidation) · Ch 7 (Discussion) | Ch 2 draft; Ch 7 draft |
-| **W-4** | Jul 07–13 | Ch 1 (Intro) · Ch 8 (Conclusion) · Best Practices Guide draft | full body draft |
-| **W-3** | Jul 14–20 | Integration: figures (incl. redraws), tables, cross-refs, notation harmonize, abstract(s) | **complete draft → Esma** |
-| **W-2** | Jul 21–27 | Incorporate supervisor feedback; polish | revised draft |
-| **W-1** | Jul 28–Aug 03 | Final proofread, ESI formatting, submission prep | submission + buffer |
+| **D1–3** | Jun 09–11 | Scaffolding (`thesis.tex` + `\input` skeleton, `.bib` seed, notation glossary) · **Ch 5 (at-risk, first)** · S-gap resolved (Exit 1, §3) | skeleton compiles; **Ch 5 draft** |
+| **D4–5** | Jun 12–13 | Ch 4 (baseline 28.8 %; lift-and-elevate `Phase2_Report_Detailed.tex`) | Ch 4 draft |
+| **D6–8** | Jun 14–16 | Ch 6 (ablation recap, knee C01100, utility, residual; **ΔS/S̄ via Exit 1**) · Ch 3 start | Ch 6 draft; Ch 3 half |
+| **D9–10** | Jun 17–18 | Ch 3 finish (threat model + formal defs, **reconciled — not lifted blind**) | Ch 3 draft |
+| **D11–12** | Jun 19–20 | Ch 2 (SOTA consolidate) · Ch 7 (Discussion — synthesis) | Ch 2 draft; Ch 7 draft |
+| **D13** | Jun 21 | Ch 1 (Intro) · Ch 8 (Conclusion) | Ch 1, Ch 8 draft |
+| **D14** | Jun 22 | Integration: figures (+ diagram redraws), tables, cross-refs, notation harmonise, abstract(s) | **COMPLETE DRAFT → ESMA (HARD GATE)** |
+| **D15–18** | Jun 23–26 | Incorporate Esma feedback; polish prose | revised draft |
+| **D19–20** | Jun 27–29 | Final proofread, ESI formatting, submission | **submission** |
+
+**Deferred (post-defense, pending override):** Best Practices Guide (15–20pp standalone).
+**Slack reality:** there is none in D1–14. If a chapter slips, the consolidate chapters (2/3/4) absorb it
+(stable source); Ch 5/6/7 cannot (at-risk / new). D14 is immovable — Esma's turnaround owns D15–20.
 
 ---
 
-## 7. Confirm these inputs (each re-anchors part of the plan)
+## 7. Inputs (status)
 
-1. **Real defense/deposit date** → re-anchors §6 (currently assumes Aug 03).
-2. **Reuse policy — the biggest effort driver.** May your *own* phase-report prose be lifted /
-   consolidated near-verbatim (the normal case for one's own working material → §2 "consolidate" chapters
-   are light), or does ESI require fresh integrated prose (→ those chapters become heavier rewrites)?
-3. **Best Practices Guide** — in-scope for this 8-week window, or deferred to post-defense?
-4. **ESI format constraints** — official template? page limit hard or soft? **French abstract required?**
-   (drives the front-matter gap, §4.7).
+1. ✅ **Deposit date — CONFIRMED: 2026-06-29** (20 days; §6 re-anchored).
+2. ✅ **Reuse policy — CONFIRMED:** may lift own phase-report prose, **but must elevate** it (more
+   professional, better-structured, more polished academic register). "More professional = clearer, NOT
+   stronger": no inflated results, no softened limitations (the honest framings survive verbatim in
+   substance). → §2 "consolidate" chapters are lift-and-elevate.
+3. ✅ **Best Practices Guide — DEFERRED** to post-defense (pending override).
+4. ⬜ **ESI format constraints — OPEN:** official template? hard/soft page limit? **French abstract
+   required?** (drives the front-matter gap, §4.7). Confirm before the D14 integration pass.
 
 ---
 
