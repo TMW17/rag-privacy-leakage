@@ -156,6 +156,11 @@ Either way the plan must surface this in Ch 3 (when S is defined) and resolve it
    upper bound on intrinsic corpus uniqueness** (correlated real data → fewer combinations → less unique);
    the *separate* point that real-world risk could be higher comes from **attacker auxiliary information**,
    not from the corpus. `PROJECT.md` §7 conflates the two; the thesis must split them.
+   **Terminology-collision watch (Ch3/Ch6):** Ch5 §5.1 correctly calls the *engine baseline* a
+   "conservative floor" (the engine under-counts, missing non-retrieved leaks) — a **different axis** from
+   the re-id "upper bound" (corpus uniqueness). "Floor" and "upper bound" will sit in the same thesis;
+   keep them crisply distinct (leakage-detection undercount vs. attribute-uniqueness overcount) so they
+   never read as a contradiction.
 5. **Utility scope narrower than planned.** Claim only faithfulness / context-precision / latency (§2, Ch 6).
 6. **The "LLM-as-Judge placeholder" → real instrument.** `Formal_Leakage…tex` presents the engine's judge as
    a placeholder; Ch 5 must connect it forward to the validated instrument.
@@ -228,3 +233,12 @@ Ch5 + Ch6  →  Ch7 (Discussion)  ;  Ch2 (SOTA) parallel/independent  ;  Ch1 + C
 Build the scaffolding (skeleton + `.bib` + notation glossary), **resolve the S-gap (§3)**, then draft
 **Ch 5** (the defended-κ / two-instrument story) end-to-end from the committed artifacts — capturing the
 at-risk material first, as a tone/quality proof before scaling to the consolidate chapters.
+
+**STATUS — Ch 5 DONE:** drafted at `results/phase3_4/report/thesis/ch5_defenses_measurement.tex`
+(9pp standalone, compiles clean; reviewed + corrected). The pattern that made it work: a captured
+**reasoning spine** (`methodology_kappa_notes.md`) written *before* the prose.
+
+**Carry that pattern forward — it is the make-or-break for the next 19 days.** The consolidate chapters
+(2/3/4) already have their spine (the committed phase reports). But **Ch 7 (Discussion) and Ch 1 (Intro)
+are new synthesis with no spine** — capture their argument in a notes file *before* drafting, or they
+become blank-page panics in the final week. Do not draft Ch 7 / Ch 1 cold.

@@ -54,3 +54,10 @@ results/**/report/*.toc
 results/**/report/*.fls
 results/**/report/*.fdb_latexmk
 results/**/report/*.synctex.gz
+results/**/report/thesis/*.aux
+results/**/report/thesis/*.log
+results/**/report/thesis/*.out
+results/**/report/thesis/*.toc
+results/**/report/thesis/*.fls
+results/**/report/thesis/*.fdb_latexmk
+results/**/report/thesis/*.synctex.gz
