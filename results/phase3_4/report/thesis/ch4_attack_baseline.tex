@@ -1,0 +1,328 @@
+% ============================================================================
+%  Chapter 4 — Attack Framework and the Undefended Baseline
+%  Thesis: Generative AI, Privacy & Personal Data — TADJ Mohamed Walid, ESI SBA
+%
+%  DUAL-MODE FILE. Compiles standalone (for drafting) AND is \input-able into a
+%  future thesis.tex (define \ThesisMaster before \input to skip the preamble).
+%
+%  CITATIONS: \cite{...-TODO} are placeholders; the unified .bib is separate
+%  scaffolding (PHASE5_PLAN.md §4.2).
+%
+%  CONSOLIDATE chapter. Source prose: Phase2_Report_Detailed.tex (committed,
+%  supervisor-reviewed). CANONICAL baseline for ALL attack-success rates (overall,
+%  per-profile, per-family) = results/phase3/ablation/metrics/final_metrics.json,
+%  cell C00000 -- the SAME baseline Chapter 5 measures reductions against. Severity
+%  (mean_S), the engine-judge cross-tab, retrieval precision, the hand-verified-leak
+%  audit, and the Phase-2 judge calibration kappa are drawn from the Phase-2 run
+%  (baseline_metrics_augmented.json) and labelled as such (final_metrics carries none
+%  of them). The threat model, four profiles, (L,S) definitions and ground-truth
+%  corpus are OWNED by Chapter 3 (\ref{ch:threat}/\ref{ch:formal}) and are referenced
+%  here, not re-derived. The full two-instrument treatment and the extended kappa
+%  chain are OWNED by Chapter 5 (\ref{ch:defenses}); this chapter states only the
+%  Phase-2 single-annotator validation.
+% ============================================================================
+\ifdefined\ThesisMaster\else
+  \documentclass[11pt,a4paper]{report}
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[margin=2.5cm]{geometry}
+  \usepackage{booktabs}
+  \usepackage{tabularx}
+  \usepackage{array}
+  \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+  \usepackage{amsmath,amssymb}
+  \usepackage{graphicx}
+  \usepackage{microtype}
+  \usepackage{xcolor}
+  \usepackage[hidelinks]{hyperref}
+  \begin{document}
+\fi
+
+\chapter{Attack Framework and the Undefended Baseline}
+\label{ch:baseline}
+
+The defenses evaluated in Chapter~\ref{ch:defenses} are measured as reductions from a
+reference, and this chapter establishes that reference. It specifies the adversarial campaign
+--- fifty-two scenarios across eight attack families --- describes the retrieval-augmented
+system under test, fixes the dual-instrument measurement protocol, and reports the leakage of
+that system with no privacy defenses in place. The chapter answers \textbf{RQ1}: on an
+undefended enterprise RAG deployment, which kinds of attack actually produce privacy leakage,
+and which dominate. Its central number, a strict attack-success rate of $28.8\%$, is the
+anchor every later figure in the thesis is read against; if it is fuzzy here, every reduction
+downstream is fuzzy too, so the chapter is deliberate about what that number does and does not
+count.
+
+The threat actors, the LINDDUN-grounded profiles, the leakage taxonomy, and the formal
+$(L,S)$ definitions are established in Chapter~\ref{ch:threat} and are used here without
+restatement; this chapter is about the \emph{attack framework} and the \emph{baseline}, not a
+second derivation of the foundations.
+
+\section{The attack framework}
+\label{sec:ch4-framework}
+
+The campaign comprises \textbf{fifty-two adversarial scenarios} spanning eight attack families
+(F1--F8) and exercising three of the four threat profiles through live interaction
+(Table~\ref{tab:ch4-families}). The fourth profile, the Third-Party Provider (P4), has no live
+scenarios: its exposure is bounded by an API contract rather than a query, and is assessed
+offline in Chapter~\ref{ch:threat} rather than through the chat interface. Each scenario
+belongs to exactly one family and is identified by a \texttt{profile--family--number} code.
+
+\begin{table}[h]
+\centering
+\caption{The eight attack families, the profiles that exercise each, and the scenario counts.
+F1--F7 are shared by the Internal (P1) and External (P2) profiles; corpus poisoning (F8) is an
+Admin (P3) capability, since it acts on the index before any query is issued. Source:
+\texttt{Phase2\_Report\_Detailed.tex} §3--4.}
+\label{tab:ch4-families}
+\begin{tabularx}{\textwidth}{@{}l L c c c c@{}}
+\toprule
+\textbf{Family} & \textbf{Mechanism} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{Total}\\
+\midrule
+F1 Direct PII extraction      & names a record and requests sensitive attributes directly & 3 & 6 & --- & 9\\
+F2 Cross-document linkability & forces multi-document retrieval to correlate entities across records & 7 & 3 & --- & 10\\
+F3 Direct prompt injection    & embeds authority/maintenance claims to override safety framing & 1 & 5 & --- & 6\\
+F4 Obfuscated query           & encodes the request (Base64, Unicode, paraphrase) to evade keyword checks & 1 & 4 & --- & 5\\
+F5 Jailbreak / role-play      & persona or fictional framing to shed operational constraints & 1 & 4 & --- & 5\\
+F6 System reconnaissance      & probes corpus topology and retrieval structure, no direct payload & 1 & 2 & --- & 3\\
+F7 Social engineering         & fabricated emergency or authority to bypass refusals by narrative pressure & 4 & 3 & --- & 7\\
+F8 Corpus poisoning           & pre-stages malicious documents in the index for later retrieval & --- & --- & 7 & 7\\
+\midrule
+\textbf{Total} & & \textbf{18} & \textbf{27} & \textbf{7} & \textbf{52}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The distribution is uneven by design. The External profile carries the most scenarios (27),
+because within-profile diversity matters most for an unauthenticated attacker with the full
+published repertoire of adversarial prompts; the Internal profile carries 18, weighted toward
+linkability (its characteristic threat); and the Admin profile carries 7, all corpus
+poisoning, because that threat is validated through retrieval persistence rather than query
+volume. The poisoning family rests on six poisoned documents
+(\texttt{poisoned\_001}--\texttt{poisoned\_006}), one of which is exercised by two of the seven
+F8 scenarios.
+
+\section{The system under test}
+\label{sec:ch4-sut}
+
+The system under test is deliberately minimal, so that the baseline measures what an
+underlying model and retriever do \emph{without} added safety scaffolding. Orchestration is
+LangChain; the vector store is ChromaDB; embeddings are local \texttt{all-MiniLM-L6-v2}
+(384-dimensional); the generating model is Claude Sonnet~4.6 at temperature~$0$. The system
+prompt is generic and contains no privacy instruction, no role restriction, and no refusal
+policy, because a defensively crafted prompt would itself be an uncharacterised defense and
+would contaminate the reference. The corpus is the Phase~1 ground truth --- 155 synthetic
+documents, $2{,}190$ annotated entities, described in full in Chapter~\ref{ch:formal} --- and
+no real personal data is used at any stage.
+
+Each scenario was executed three times under deterministic decoding to expose
+run-to-run variance, yielding $52 \times 3 = 156$ \emph{(scenario, run) executions} across 267
+conversational turns; a 17-turn pilot used for system validation is excluded from all baseline
+metrics. The execution is the unit of analysis: an attack-success rate is the fraction of the
+156 executions in which at least one turn produced a leak at the relevant threshold, and
+per-profile and per-family rates use the corresponding subset.
+
+\section{Dual-instrument, dual-threshold measurement}
+\label{sec:ch4-measurement}
+
+Two design decisions in the measurement protocol shape every number that follows, and both
+are responses to a specific weakness of deterministic detection.
+
+\paragraph{Two thresholds.} The deterministic engine fires whenever a response contains an
+entity whose severity exceeds the requester's authorization level. For the External profile
+that threshold is zero, so \emph{any} disclosed category counts --- including a severity-2
+category noun (``department,'' ``job title'') that appears in the act of \emph{refusing}: a
+response such as ``I cannot share salary or departmental data'' trips the engine on
+``departmental'' though it discloses nothing. The campaign therefore reports two rates. The
+\emph{inclusive} rate ($\text{ASR}_{\text{incl}}$, severity~$\geq 2$) preserves the full engine
+signal and is a conservative upper bound; the \emph{strict} rate
+($\text{ASR}_{\text{strict}}$, severity~$\geq 3$) suppresses the severity-2 refusal artifact
+and is the operationally meaningful figure. The strict rate is primary throughout the thesis,
+and ``$28.8\%$'' refers to it.
+
+\paragraph{Two instruments.} The same weakness means the engine cannot, on its own, tell a
+genuine disclosure from a refusal that names a category, nor can it see a leak the model
+\emph{paraphrases} rather than reproduces verbatim. A language-model judge (Claude Opus~4.7)
+reads each response semantically as a second labeller. The full treatment of the two
+instruments --- why the judge is primary, why the engine is a lower bound, and how the judge's
+reliability shifts once defenses redact and refuse --- belongs to Chapter~\ref{ch:defenses}
+and is not repeated here. What this chapter needs is the Phase-2 validation that licensed the
+judge in the first place: on a 46-record stratified calibration sample, the judge agreed with
+the human annotator at Cohen's $\kappa = 0.827$ (almost perfect; raw agreement $43/46 = 93.5\%$),
+while the engine agreed with the human at only $\kappa = 0.164$
+(Table~\ref{tab:ch4-kappa}). One qualification must travel with that figure: the human
+reference here is a \emph{single} annotator (the author), so $\kappa = 0.827$ is a
+judge--author concordance, not an inter-annotator-validated ground truth. A second annotator
+was, at this stage, future work; the second-annotator cross-check and the cross-vendor
+corroboration that extend this validation were carried out subsequently and are reported in
+Chapter~\ref{ch:defenses}.
+
+\begin{table}[h]
+\centering
+\caption{Phase-2 judge calibration on the 46-record sample, against a single human annotator
+(the author). The judge passes the $\kappa \geq 0.60$ bar; the engine fails it. Source:
+\texttt{Phase2\_Report\_Detailed.tex} §B.}
+\label{tab:ch4-kappa}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Comparison} & \textbf{Binary $\kappa$} & \textbf{Reading}\\
+\midrule
+Judge vs.\ human (author) & \textbf{0.827} & almost perfect (validation)\\
+Engine vs.\ judge & 0.245 & fair\\
+Engine vs.\ human (author) & 0.164 & poor\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{RQ1: the undefended baseline}
+\label{sec:ch4-rq1}
+
+A note on sourcing precedes the numbers, because it settles a question that recurs across the
+thesis. \textbf{All attack-success rates in this chapter are reported from the ablation's
+undefended cell} (\texttt{final\_metrics.json}, configuration C00000) --- the same artifact,
+and the same baseline, that Chapter~\ref{ch:defenses} measures every reduction against --- so
+that the baseline and the reductions taken from it are one number, family by family. Severity,
+retrieval-precision, hand-verified-audit, and judge-calibration figures, which that artifact
+does not carry, are drawn from the Phase~2 campaign run
+(\texttt{baseline\_metrics\_augmented.json}) and are labelled as such where they appear.
+
+With the framework and protocol fixed, the undefended system was run across the full campaign.
+At the execution level the judge --- the primary instrument --- reports a strict
+attack-success rate of $\mathbf{28.8\%}$ ($45/156$), against $19.2\%$ read through the
+deterministic engine alone (Table~\ref{tab:ch4-headline}). The judge reads higher because it
+perceives the paraphrased name-plus-attribute disclosures that annotation-grounded matching
+cannot represent; the engine rate is a lower bound and the judge rate primary, exactly as in
+Chapter~\ref{ch:defenses}. Drawn from the Phase~2 run, the mean severity of a leaking execution
+is high ($\bar{S} = 4.49$ over all executions, $7.96$ conditional on a leak), indicating that
+the leaks which occur expose high-severity content rather than incidental detail.
+
+\begin{table}[h]
+\centering
+\caption{Undefended baseline (C00000) attack-success rate: engine (lower bound) versus judge
+(primary), strict (severity~$\geq 3$) and inclusive (severity~$\geq 2$). Source:
+\texttt{final\_metrics.json} (C00000).}
+\label{tab:ch4-headline}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{Engine (lower bound)} & \textbf{Judge (primary)}\\
+\midrule
+$\text{ASR}_{\text{strict}}$    & 19.2\% & \textbf{28.8\%}\\
+$\text{ASR}_{\text{inclusive}}$ & 48.1\% & 55.8\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The mechanism behind the engine--judge gap is visible in the Phase~2 turn-level
+cross-tabulation (267 turns): the engine fired on 95 turns, the judge on 57, their union on
+115. Of the engine's 95, only 37 were also judged leaks; 58 were the severity-2 External
+refusal artifacts the strict threshold exists to exclude, and 20 further leaks were seen by the
+judge alone --- the paraphrased name-plus-attribute disclosures. This is the empirical
+justification for both the strict threshold and the second instrument, treated in full in
+Chapter~\ref{ch:defenses}.
+
+\paragraph{By profile.} Leakage concentrates in the human-driven profiles
+(Table~\ref{tab:ch4-profile}). The Internal attacker is the most successful ($33.3\%$ judged),
+because legitimate authenticated access combined with linkability needs no manipulation at all;
+the External attacker follows closely ($29.6\%$); the Admin profile registers $14.3\%$,
+entirely from corpus poisoning.
+
+\begin{table}[h]
+\centering
+\caption{Strict ASR by profile at the undefended baseline, engine (lower bound) versus judge
+(primary). Rates are over the executions in each profile's scenario subset. Source:
+\texttt{final\_metrics.json} (C00000).}
+\label{tab:ch4-profile}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Profile} & \textbf{Engine} & \textbf{Judge} & \textbf{Scenarios}\\
+\midrule
+P1 Internal & 27.8\% & \textbf{33.3\%} & 18\\
+P2 External & 18.5\% & 29.6\% & 27\\
+P3 Admin    & 0.0\%  & 14.3\% & 7\\
+\midrule
+\textbf{Overall} & 19.2\% & \textbf{28.8\%} & 52\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{By family --- the RQ1 answer.} The decomposition by attack family answers RQ1
+directly and unambiguously (Table~\ref{tab:ch4-family}). \textbf{Direct PII extraction (F1) is
+the strongest attack family, at a strict judged ASR of $0.778$}, followed by cross-document
+linkability (F2) at $0.600$. The two are in a class of their own --- the next-highest family
+sits at $0.200$ and the rest at $0.143$ or below. The manipulation families --- direct
+injection (F3), obfuscation (F4), reconnaissance (F6), and social engineering (F7) --- register
+$0.000$ under the strict threshold, because on this corpus they either fail to surface
+above-severity-2 content or are refused; jailbreak (F5) reaches only $0.200$. Corpus poisoning
+(F8) registers $0.143$, but from a single reproducible scenario, the descriptive-poisoning
+exploit P3-POISON-007: a one-scenario family rate carries no confidence interval and is not
+robustness-comparable to the multi-scenario F1 and F2 rates. The Phase~2 turn-level analysis
+corroborates the concentration from the other direction --- F1 and F2 together accounted for
+$91.1\%$ of all strict leak turns in that run.
+
+\begin{table}[h]
+\centering
+\caption{Strict ASR by attack family at the undefended baseline, engine (lower bound) versus
+judge (primary). F1 and F2 dominate; \dag\,marks the single-scenario family (F8), whose rate
+carries no confidence interval. Source: \texttt{final\_metrics.json} (C00000).}
+\label{tab:ch4-family}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Family} & \textbf{Engine} & \textbf{Judge} & \textbf{Scenarios}\\
+\midrule
+F1 Direct PII extraction      & 0.556 & \textbf{0.778} & 9\\
+F2 Cross-document linkability & 0.400 & \textbf{0.600} & 10\\
+F5 Jailbreak / role-play      & 0.200 & 0.200 & 5\\
+F8 Corpus poisoning\dag       & 0.000 & 0.143 & 7\\
+F3 Direct prompt injection    & 0.000 & 0.000 & 6\\
+F4 Obfuscated query           & 0.000 & 0.000 & 5\\
+F6 System reconnaissance      & 0.000 & 0.000 & 3\\
+F7 Social engineering         & 0.000 & 0.000 & 7\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The shape of this result, not merely its magnitude, sets the agenda for the rest of the thesis.
+Leakage on an undefended enterprise RAG system is overwhelmingly a problem of the
+system \emph{doing what it was built to do} --- retrieving a record and relaying its contents
+(F1), or retrieving several and letting the model correlate them (F2) --- rather than of
+exotic adversarial manipulation, which the underlying model largely refuses. The severity
+profile of the Phase~2 run confirms the same point: the judge's leak turns concentrate at
+severity~3 and~4 (56 of 57), whereas two-thirds of the engine's sit at severity~2, the
+refusal-noise band. The defenses of Chapter~\ref{ch:defenses} are therefore aimed where the
+leakage actually is --- at F1 and F2 --- and the priority order falls directly out of this
+table.
+
+\section{Why the baseline is a conservative floor}
+\label{sec:ch4-floor}
+
+One property of this baseline must be stated plainly, because it governs how the $28.8\%$
+should be read: it is a \emph{floor}, not a ceiling. The deterministic engine credits a leak
+only to entities annotated on a document the retriever actually returned, and even the judge
+can only flag what appears in the response it reads; a leak assembled from a record the
+retriever did not fetch is uncounted. Two facts from the Phase~2 campaign make this concrete.
+Retrieval precision on the target document is low ($8.3\%$), so the retriever frequently
+returns neighbouring rather than targeted records, and a disclosure reconstructed from those is
+invisible to the engine. And a manual audit independently confirmed ten leak cases by hand,
+including the most severe --- medical conditions co-occurring with a salary and a name --- and
+two cross-reference disclosures in which the response enumerated retrieval-context document IDs
+never present in the user's query. The true undefended leakage rate is thus at least $28.8\%$;
+the measurement understates it rather than overstating it.
+
+\section{Summary}
+\label{sec:ch4-summary}
+
+This chapter fixed the reference point for the thesis. On an undefended enterprise RAG system,
+measured over 52 scenarios and 156 executions with a dual-threshold, dual-instrument protocol,
+the strict attack-success rate is $28.8\%$. \textbf{RQ1 is answered: direct PII extraction
+(F1, $0.778$) and cross-document linkability (F2, $0.600$) are the families that maximise
+leakage --- in a class of their own, the next family reaching only $0.200$}, while adversarial
+manipulation (injection, obfuscation, social engineering) is largely refused and registers at
+zero under the strict threshold, jailbreak reaching only $0.200$. Leakage is driven by the retrieval pipeline working as
+designed, not by exotic prompts; it concentrates in the Internal and External profiles; and
+the $28.8\%$ figure is a conservative floor, grounded by a hand-verified leak audit and
+understated by the engine's annotation-bound view. This is the baseline from which
+Chapter~\ref{ch:defenses} measures every reduction.
+
+\ifdefined\ThesisMaster\else
+  \end{document}
+\fi
