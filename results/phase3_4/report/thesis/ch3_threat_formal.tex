@@ -1,0 +1,363 @@
+% ============================================================================
+%  Chapter 3 — Threat Model and Formal Foundations
+%  Thesis: Generative AI, Privacy & Personal Data — TADJ Mohamed Walid, ESI SBA
+%
+%  DUAL-MODE FILE (standalone OR \input via \ThesisMaster). \cite{...-TODO}
+%  placeholders; unified .bib is separate scaffolding (PHASE5_PLAN.md §4.2).
+%
+%  This chapter OWNS the definitions Ch4/Ch5/Ch6 \ref: it sets BOTH
+%  \label{ch:threat} and \label{ch:formal}. Notation (L, S, profiles P1-P4,
+%  families F1-F8, thresholds) is binding and matches the committed ch4/ch5/ch6.
+%
+%  NUMBER SOURCES: (L,S)/thresholds/taxonomy -> Formal_Leakage...tex + CLAUDE.md;
+%  profiles/CVSS -> Threat_Model.tex + CLAUDE.md; annotation kappa=0.875/kw=0.968
+%  -> Formal_Leakage...tex §kappa (20-response inter-annotator study; DISTINCT
+%  from Ch5's judge-validation kappa=0.827); re-identification -> the COMPUTED
+%  artifact results/reidentification_risk.json (84/100, 40/63), which is canonical
+%  over the source prose where they differ (prose slips: 85%, 41/60).
+%
+%  RECONCILED FORWARD (sources predate the experiments): (a) the "LLM-as-Judge
+%  placeholder" -> the realized validated judge in Ch5; (b) the abandoned
+%  multi-agent panel -> single validated judge (Ch5 narrates the deviation);
+%  (c) re-id "conservative" -> UPPER-bound-on-intrinsic-uniqueness reading;
+%  (d) re-id upper bound kept distinct from Ch4's conservative leakage FLOOR.
+% ============================================================================
+\ifdefined\ThesisMaster\else
+  \documentclass[11pt,a4paper]{report}
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[margin=2.5cm]{geometry}
+  \usepackage{booktabs}
+  \usepackage{tabularx}
+  \usepackage{array}
+  \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+  \usepackage{amsmath,amssymb}
+  \usepackage{graphicx}
+  \usepackage{microtype}
+  \usepackage{xcolor}
+  \usepackage[hidelinks]{hyperref}
+  \begin{document}
+\fi
+
+\chapter{Threat Model and Formal Foundations}
+\label{ch:threat}
+\label{ch:formal}
+
+Everything the later chapters measure rests on three things fixed in advance: who the attacker
+is, what counts as a leak, and what the ground truth says was there to leak. This chapter
+establishes all three. It defines the four attacker profiles and their capabilities, grounded
+in the LINDDUN privacy-threat framework and calibrated against CVSS; it gives the two formal
+metrics --- the binary leakage function $L$ and the severity score $S$ --- that turn ``the
+system revealed something it should not have'' into a number two researchers would compute
+identically; and it describes the synthetic corpus, the entity-level annotation that serves as
+the answer key, and the inter-annotator agreement that validates it. These are the definitions
+the results chapters use: the profiles of Chapter~\ref{ch:baseline}, the $(L,S)$ framework that
+Chapters~\ref{ch:defenses} and~\ref{ch:tradeoff} measure leakage and severity through, and the
+re-identification evidence behind the linkability residual. They are stated once, here.
+
+Two notes on scope. The source foundations for this chapter were written before the
+experimental campaign and, in a few places, anticipated components that the campaign then
+revised; where that happens, this chapter states what was actually built and points forward to
+the chapter that establishes it, rather than repeating a superseded plan. And the
+publication-quality system-architecture diagrams (attack-surface and trust-boundary maps) are
+deferred to the final integration pass; their content is summarised in
+Section~\ref{sec:ch3-arch} with a placeholder.
+
+\section{The threat model}
+\label{sec:ch3-threat}
+
+Threat modelling turns a vague worry about ``security'' into named actors with concrete
+capabilities. This work defines four attacker profiles, each grounded in one or more of the
+seven LINDDUN privacy-threat categories and each calibrated against a CVSS~v3.1 base score so
+that its severity is stated on a standard scale rather than asserted
+(Table~\ref{tab:ch3-profiles}).
+
+\begin{table}[h]
+\centering
+\caption{The four attacker profiles, with CVSS base score, dominant LINDDUN categories, and
+authorization threshold. Profiles P1--P3 are evaluated through live interaction; P4 is assessed
+offline (it is bounded by an API contract, not a query). Source: \texttt{Threat\_Model.tex},
+\texttt{CLAUDE.md}.}
+\label{tab:ch3-profiles}
+\begin{tabularx}{\textwidth}{@{}l L c c L@{}}
+\toprule
+\textbf{Profile} & \textbf{Actor} & \textbf{CVSS} & \textbf{Thr.} & \textbf{LINDDUN}\\
+\midrule
+P1 Internal    & Curious insider (legitimate authenticated user) & 6.5 & 2 & Linkability, Identifiability, Unawareness\\
+P2 External    & Unauthenticated outside adversary & 8.2 & 0 & Disclosure, Identifiability, Detectability\\
+P3 Admin       & Malicious privileged administrator & 9.1 & 3 & Non-repudiation, Disclosure, Non-compliance\\
+P4 Third-Party & Contractually integrated provider (offline) & 7.7 & 3 & Linkability, Non-compliance, Detectability\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The profiles are not arbitrary slots. The \textbf{Internal} attacker is a legitimate
+authenticated user who abuses authorized access by curiosity or grudge, attacking through plain
+natural-language queries and, characteristically, through re-identification --- assembling a
+person from individually innocuous facts. The \textbf{External} attacker is a technically
+skilled, unauthenticated adversary targeting the public interface with the full published
+repertoire of prompt injection, jailbreaking, and obfuscation. The \textbf{Admin} is a
+privileged insider who compromises the system beneath the chat interface, principally by
+poisoning the document corpus before any query is issued --- the most dangerous actor, because
+the attack persists across all later users. The \textbf{Third-Party} provider is bounded by an
+API contract rather than credentials; its exposure is assessed offline (it runs no live attack)
+and is the GDPR Article~28 / Articles~44--49 profile. Each profile maps to a row in the
+attack-objective-to-leakage table, and each such row maps to at least one published threat
+report, so no attack in the campaign is invented for the experiment.
+
+\section{The attack taxonomy}
+\label{sec:ch3-taxonomy}
+
+The adversarial campaign is organised into eight attack families (F1--F8), each a distinct
+mechanism with a distinct scoring profile, together spanning the operational threat space
+(Table~\ref{tab:ch3-families}). The families map to the profiles exactly as
+Chapter~\ref{ch:baseline} uses them: F1--F7 are shared by the Internal and External profiles;
+corpus poisoning (F8) is an Admin capability, since it acts on the index before any query; and
+the Third-Party profile runs no live family. The fifty-two scenarios in the campaign are drawn
+from this taxonomy.
+
+\begin{table}[h]
+\centering
+\caption{The eight attack families and their profile assignment. Counts are the campaign's 52
+scenarios (consistent with Chapter~\ref{ch:baseline}). Source: \texttt{Threat\_Model.tex},
+\texttt{Phase2\_Report\_Detailed.tex}.}
+\label{tab:ch3-families}
+\begin{tabularx}{\textwidth}{@{}l L c@{}}
+\toprule
+\textbf{Family} & \textbf{Mechanism} & \textbf{Scenarios}\\
+\midrule
+F1 Direct PII extraction      & names a record, requests sensitive attributes directly & 9\\
+F2 Cross-document linkability & forces multi-document retrieval to correlate entities & 10\\
+F3 Direct prompt injection    & authority/maintenance claims to override safety framing & 6\\
+F4 Obfuscated query           & encoding/paraphrase to evade keyword checks & 5\\
+F5 Jailbreak / role-play      & persona or fictional framing & 5\\
+F6 System reconnaissance      & probes corpus topology, no direct payload & 3\\
+F7 Social engineering         & fabricated emergency/authority, narrative pressure & 7\\
+F8 Corpus poisoning           & pre-stages malicious documents in the index (Admin) & 7\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{The formal leakage definitions}
+\label{sec:ch3-formal}
+
+Vague statements cannot ground a quantitative metric. Two independent researchers, looking at
+the same response under the same threat model, must reach the same verdict. Two definitions
+provide that precision.
+
+\paragraph{Definition 1 --- Binary leakage function $L$.} Given a query $q$, a response $r$,
+the indexed corpus $D$, and a user profile $u \in \{\texttt{Internal}, \texttt{External},
+\texttt{Admin}\}$,
+\[
+  L(q,r,D,u) =
+  \begin{cases}
+    1 & \text{if } \exists\, x \in \mathit{info}(r,D) \text{ s.t.\ } \mathit{sensitivity}(x) > \mathit{authorized\_level}(u)\\
+    0 & \text{otherwise,}
+  \end{cases}
+\]
+where $\mathit{sensitivity}(x) \in \{2,3,4,5\}$ is the entity's severity. $L$ feeds the
+\textbf{attack-success rate}, $\mathrm{ASR} = \tfrac{1}{N}\sum_i L(q_i, r_i, D, u)$, the
+headline metric of Chapters~\ref{ch:baseline}--\ref{ch:tradeoff}. Three properties matter. $L$
+is \emph{profile-dependent} --- the same response can be a leak for one profile and not
+another; \emph{document-grounded} --- only information traceable to $D$ counts, which excludes
+model pre-training memorisation; and \emph{query-independent} --- an innocent query that
+triggers over-privileged retrieval still counts. The evaluation domain $\mathcal{U}$ contains
+the three \emph{live} profiles; the Third-Party profile is assessed offline and does not enter
+the $(L,S)$ computation.
+
+The authorization thresholds (Table~\ref{tab:ch3-thresholds}) are what make the profiles
+distinct, and they are not arbitrary: each reflects what an actor may \emph{legitimately} see
+through its authorized path, so that $L$ isolates the \emph{unauthorized} portion. An
+administrator who sees a salary through the admin console is not leaking by knowing it; the
+same figure exfiltrated through the chat interface, sidestepping the audit controls, is what
+$L$ is built to catch.
+
+\begin{table}[h]
+\centering
+\caption{Authorization thresholds: an entity counts as leaked only if its severity
+\emph{strictly exceeds} the profile's threshold. Source: \texttt{Formal\_Leakage…tex},
+\texttt{config.py}.}
+\label{tab:ch3-thresholds}
+\begin{tabularx}{\textwidth}{@{}l c L@{}}
+\toprule
+\textbf{Profile} & \textbf{Threshold} & \textbf{Leakage scope}\\
+\midrule
+External (P2) & 0 & any corpus disclosure (severity 2--5)\\
+Internal (P1) & 2 & severity 3--5 (leaks start above aggregate data)\\
+Admin (P3)    & 3 & severity 4--5 (PII and system secrets via chat)\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Definition 2 --- Severity score $S$.} $L$ says whether a violation happened; it
+cannot distinguish one performance indicator from twenty leaked national identifiers. Let
+$E(r,D,u) = \{\, e \in \mathit{entities}(r,D) : \mathit{sensitivity}(e) > \mathit{authorized\_level}(u)\,\}$
+be the leaked entities. Then
+\[
+  S(q,r,D,u) = \sum_{e \in E(r,D,u)} s(e)\cdot w(e),
+\]
+where $s(e) \in \{2,3,4,5\}$ is the entity's intrinsic severity and $w(e) \in
+\{0.60, 0.75, 0.90, 1.00\}$ a detection-confidence weight that scales down probabilistic
+detections relative to deterministic ones (Table~\ref{tab:ch3-weights}). Two derived quantities
+drive the later chapters: the defense effectiveness $\Delta S = \bar{S}_{\text{baseline}} -
+\bar{S}_{\text{defended}}$, and the residual $\bar{S}_{\text{residual}}$, the mean $S$ under the
+full stack --- both computed in Chapter~\ref{ch:tradeoff}.
+
+\begin{table}[h]
+\centering
+\caption{Detection-confidence weights $w(e)$ by method band. Source: \texttt{CLAUDE.md} §4
+(invariant, matched to the annotations).}
+\label{tab:ch3-weights}
+\begin{tabularx}{\textwidth}{@{}c L@{}}
+\toprule
+\textbf{$w(e)$} & \textbf{Detection method}\\
+\midrule
+1.00 & Regex, Regex+Presidio (deterministic identifiers)\\
+0.90 & NER and NER-composite (named entities)\\
+0.75 & Keyword+Context, Regex+Context, Set-intersection, Membership-inference\\
+0.60 & LLM-as-Judge (paraphrased / inferential disclosure)\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The leakage taxonomy that supplies $s(e)$ contains 36 entity types across four severity bands,
+of which 31 are instantiated in the corpus: severity~5 (critical --- national ID, API key, JWT,
+password hash, private key), severity~4 (high --- full name, email, phone, address, date of
+birth, IBAN, health-record ID), severity~3 (medium --- salary, employee ID, medical condition,
+immigration status, age+gender), and severity~2 (low --- department, job title, performance,
+office location, project). It is the fixed interface between the threat model and the
+evaluation engine: without it, a change in scoring logic would silently shift every headline
+number.
+
+\section{Ground truth: corpus, annotation, and the measurement engine}
+\label{sec:ch3-groundtruth}
+
+The metrics need an answer key, and using a real enterprise corpus would expose real people, so
+the ground truth is synthetic --- the only ethically defensible option, with its costs
+documented rather than hidden. The corpus is 155 documents generated deterministically
+(\texttt{random.seed(42)}, \texttt{Faker.seed(42)}): 100 HR employee records, 30 medical
+reports, 20 internal memos, and 5 system-configuration files. Some documents deliberately
+cross-reference each other --- medical reports carry an employee reference, memos list
+referenced employees --- so that a single retrieval can place identity next to diagnosis, the
+raw material of the linkability threat. Every PII entity across all 155 documents is annotated
+against the taxonomy: 2{,}190 entity-level annotations, distributed 135 critical / 865 high /
+490 medium / 700 low.
+
+\paragraph{Annotation validity.} A taxonomy two people read differently is noise, not a measuring
+instrument, so its reproducibility was validated before any experiment. Two annotators
+independently labelled the same set of 20 RAG responses against the taxonomy; binary agreement
+reached Cohen's $\kappa = 0.875$ ($P_o = 0.95$, $P_e = 0.60$) and weighted ordinal agreement
+$\kappa_w = 0.968$, both in the ``strong''/``near-perfect'' band and clearing the $\kappa \geq
+0.80$ acceptance bar. This is the \emph{annotation} agreement that validates the ground-truth
+taxonomy. It is a distinct measurement from the judge-versus-human validation of
+Chapter~\ref{ch:defenses} ($\kappa = 0.827$, on a separate calibration sample): the former
+establishes that the answer key is reproducible, the latter that the language-model judge can
+stand in for a human reader. They must not be conflated.
+
+\paragraph{The measurement engine, and where the judge belongs.} The evaluation engine works
+\emph{post hoc} and profile-aware: it reads the response, the retrieved document IDs, and the
+active profile, applies Definition~1's threshold, and accumulates Definition~2's weighted
+severity in a single pass, dispatching each annotated entity to a detector by its method ---
+regex for deterministic identifiers, NER for named entities, keyword-in-context for cued
+disclosure, and a language-model judge for the paraphrased and inferential leakage that no
+literal match can catch. The foundations scoped this judge as a component to be calibrated
+against baseline measurements rather than against a stub; in the experimental campaign it was
+realised as a \emph{single validated judge} (Claude Opus~4.7), agreeing with the human at
+$\kappa = 0.827$ and corroborated across vendors, and is established in full in
+Chapter~\ref{ch:defenses}. An earlier design anticipated a multi-agent arbitration panel; that
+was found to be circular --- an arbitrator drawn from the same model family cannot improve on
+the judge it arbitrates --- and revised to the single validated judge, a deviation
+Chapter~\ref{ch:defenses} narrates. This chapter therefore fixes the $(L,S)$ framework and the
+engine's structure; the judge's validation, and how its reliability shifts on defended output,
+belong to Chapter~\ref{ch:defenses}, where the two measurement instruments (the deterministic
+engine as a lower bound, the validated judge as primary) are treated together.
+
+\section{Re-identification: empirical evidence for the linkability threat}
+\label{sec:ch3-reid}
+
+The linkability threat is not theoretical but a measurable property of the corpus, established
+by $k$-anonymity and $l$-diversity analysis over the quasi-identifier space \{department, salary
+range, medical condition, performance, gender, age range, office location\}. Across all 2-, 3-,
+and 4-attribute combinations, the worst --- department, medical condition, age range, office
+location --- uniquely identifies \textbf{84 of 100 employees} without ever requesting a name or
+any directly identifying field; sixty-one combinations leave a majority of the population in
+singleton classes. An attacker who knows three or four innocent-looking facts about a colleague
+can, in principle, single them out. (These figures are taken from the computed artifact
+\texttt{reidentification\_risk.json}, which is canonical where the source prose differs.)
+
+\paragraph{Reading the 84-in-100 figure honestly.} This number is best read as an \emph{upper
+bound} on the corpus's intrinsic combinatorial uniqueness, not a conservative one. Because each
+attribute is sampled \emph{independently}, the synthetic corpus maximises the number of distinct
+quasi-identifier combinations; a real corpus, where attributes correlate (salaries cluster,
+conditions track age and occupation), would yield \emph{fewer} distinct combinations and thus
+less intrinsic uniqueness. This is a separate matter from the observation that real-world
+re-identification risk could nonetheless be \emph{higher}, because a real attacker brings
+auxiliary information --- public records, social media, directories --- that the synthetic
+setting deliberately omits. The first is an argument about the corpus's intrinsic structure (it
+inflates uniqueness); the second is about external data (it raises real risk). They are
+distinct and must not be conflated. This upper-bound-on-uniqueness reading is also distinct from
+the undefended baseline's \emph{conservative floor} of Chapter~\ref{ch:baseline}: that floor is
+a lower bound on \emph{leakage the engine can detect}; this is an upper bound on \emph{corpus
+uniqueness}. Different quantities, opposite directions, different objects.
+
+\paragraph{$l$-diversity, and a self-caught error.} The companion $l$-diversity analysis
+illustrates the framework catching its own mistake. The original computation returned 100\%
+vulnerability, but this was a definitional artefact: \texttt{medical\_condition} appeared in both
+the grouping keys and the sensitive set, forcing $l = 1$ on every class by construction. The
+corrected analysis (sensitive set \{name, national ID, salary\}) reports \textbf{40 of 63
+equivalence classes (63\%) vulnerable} at $n = 100$ for the seed-42 corpus. A 200-trial Monte
+Carlo simulation --- each drawing a fresh 100-employee corpus --- shows the $n = 100$ rate is not
+an artefact of the particular seed (mean 58.7\%, range $[47.5\%, 65.7\%]$); scaling the
+\emph{population size} then shows the threat is genuinely sample-size driven, the rate falling to
+4.7\% at $n = 1{,}000$, which on a thousand-employee enterprise still implies roughly 47
+individuals in sensitive-attribute-leaking classes. The threat is real at every population size relevant to enterprise RAG; the
+small-corpus expression of it simply looks more dramatic.
+
+\section{Limitations of the threat model}
+\label{sec:ch3-limits}
+
+The threat model's boundaries are stated here so the later results are read within them. It
+assumes a single-tenant, centralised, text-only deployment in English and Modern Standard
+Arabic; multi-tenant SaaS, federated retrieval, voice and multimodal pipelines, and low-resource
+languages are out of scope, and generalising beyond this envelope requires extending the model,
+not extrapolating the numbers. It treats each profile as a \emph{single actor}: in real breaches
+capabilities compose (a supply-chain compromise hands an external adversary third-party access),
+and the rates here should not be read as compositional. The synthetic corpus does not encode
+real-world attribute correlations (Section~\ref{sec:ch3-reid}), so its \emph{relative} findings
+transfer but its \emph{absolute} numbers should not be read as predictions. And the framework
+addresses disclosure and linkage, not cryptographic attack, which is out of scope.
+
+\section{System-architecture diagrams (deferred)}
+\label{sec:ch3-arch}
+
+The threat model is accompanied by two system diagrams --- an attack-surface map (where each
+profile can act on the RAG pipeline: query interface, retriever, corpus, model, logs) and a
+trust-boundary map (where data crosses from trusted to untrusted control). In the source these
+exist as detailed text/ASCII figures; publication-quality vector redraws (TikZ) are deferred to
+the final integration pass and are \emph{not} hand-built in this draft.
+\IfFileExists{../../../phase3/report/arch_diagrams.png}{%
+  \par\medskip\includegraphics[width=0.9\textwidth]{arch_diagrams.png}}{%
+  \par\medskip\noindent\fbox{\parbox{0.95\textwidth}{\centering\vspace{0.8cm}\textit{[Figures
+  3.1--3.2 deferred: attack-surface map and trust-boundary map --- TikZ redraw at integration.
+  Content in \texttt{Threat\_Model.tex}.]}\vspace{0.8cm}}}}
+
+\section{Summary}
+\label{sec:ch3-summary}
+
+This chapter fixed the foundations the rest of the thesis stands on. Four LINDDUN-grounded,
+CVSS-calibrated attacker profiles --- curious insider, external adversary, malicious
+administrator, and offline third-party --- with explicit authorization thresholds; eight attack
+families mapping to those profiles; the binary leakage function $L$ and the severity score $S$,
+with the derived $\Delta S$ and $\bar{S}_{\text{residual}}$; a deterministically generated
+155-document corpus with 2{,}190 taxonomy-validated annotations ($\kappa = 0.875$, distinct from
+the judge validation of Chapter~\ref{ch:defenses}); and re-identification evidence --- 84 of 100
+uniquely identifiable on four quasi-identifiers, read as an upper bound on intrinsic corpus
+uniqueness --- that grounds the linkability threat the later chapters find hardest to defend.
+These definitions are binding: the profiles, families, metrics, and thresholds used in
+Chapters~\ref{ch:baseline}, \ref{ch:defenses}, and~\ref{ch:tradeoff} are the ones established
+here.
+
+\ifdefined\ThesisMaster\else
+  \end{document}
+\fi
