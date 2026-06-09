@@ -1,0 +1,199 @@
+% ============================================================================
+%  Chapter 7 — Discussion
+%  Thesis: Generative AI, Privacy & Personal Data — TADJ Mohamed Walid, ESI SBA
+%
+%  DUAL-MODE FILE (standalone OR \input via \ThesisMaster). Sets \label{ch:discussion}.
+%  Drafted FROM discussion_notes.md (the banked spine); structure follows it.
+%  Measured claims are stated flatly with a \ref to Ch3-6 (where they are proven);
+%  synthesis claims that exceed measurement are HEDGED ("we argue", "this suggests",
+%  "the most plausible reading") and never asserted as measured. No result is
+%  re-derived here. Citations reuse existing references.bib keys (no new entries).
+% ============================================================================
+\ifdefined\ThesisMaster\else
+  \documentclass[11pt,a4paper]{report}
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+  \usepackage[margin=2.5cm]{geometry}
+  \usepackage{booktabs}
+  \usepackage{tabularx}
+  \usepackage{array}
+  \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+  \usepackage{amsmath,amssymb}
+  \usepackage{microtype}
+  \usepackage[hidelinks]{hyperref}
+  \begin{document}
+\fi
+
+\chapter{Discussion}
+\label{ch:discussion}
+
+The preceding chapters established a baseline, built a layered defense, measured its effect
+through two instruments, and quantified what it leaves behind. This chapter steps back from the
+numbers to ask what they mean together. It does not re-derive any result --- each measured claim
+points by reference to the chapter that establishes it --- and it is careful, throughout, to
+keep two kinds of statement apart: what the data shows, and what we argue follows from it. The
+discussion's value is in the second kind, but its credibility depends on never dressing the
+second as the first.
+
+\section{The methodological headline}
+\label{sec:disc-headline}
+
+The central methodological result of this thesis is that measuring a defended
+retrieval-augmented system with a single instrument is wrong in a direction the analyst cannot
+see. Read through the deterministic rule engine, the full defense stack reduces leakage to
+$0.000$; read through the validated judge, it leaves a residual of $17.3\%$
+(Chapter~\ref{ch:defenses}). The gap is not measurement noise but the engine's structural
+blindness to semantic and cross-document disclosure, recorded as if it were protection. Because
+the engine can only credit a leak to a discrete annotated entity on a retrieved document, its
+error has a fixed sign: it can only under-count, so its blindness always reads as success
+(Chapter~\ref{ch:baseline}). The single-instrument error is therefore systematic and
+optimistic, not random.
+
+Here the line between measurement and argument must be drawn. That \emph{this} corpus shows a
+$0.000$-versus-$17.3\%$ gap, concentrated in the linkability family, is measured. That the
+finding \emph{generalizes} is an argument, and we make it as one: we argue that any
+annotation-bound or pattern-based detector is structurally unable to see leakage that is
+\emph{emergent} --- paraphrased, inferred, or re-assembled across documents --- because such
+leakage corresponds to no discrete entity it can match, and that a defense which suppresses
+discrete disclosures while leaving emergent ones intact will therefore read as near-total under
+such a detector on any corpus. What travels beyond this study, in other words, is the
+\emph{direction} of the error; its \emph{magnitude} (a genuine reduction of roughly forty
+percent rather than the near-elimination the engine reports) is specific to this corpus and
+should not be read as a prediction.
+
+\section{Five questions, one problem}
+\label{sec:disc-throughline}
+
+The five research questions are usually answered in sequence, but we argue they are better
+understood as five faces of a single phenomenon, and that reading them this way is what turns a
+set of results into a finding. The connecting thread is the nature of re-identification by
+linkage. A person reconstructed from individually innocuous attributes scattered across
+documents is not a discrete entity sitting in one record; the disclosure is \emph{emergent}. We
+argue that this single property explains the otherwise separate results of the four empirical
+questions at once.
+
+Consider them in turn, each a face of the same thing. The undefended baseline (RQ1) is
+dominated by two families: direct PII extraction at a judged $0.778$ and cross-document
+linkability at $0.600$ (Chapter~\ref{ch:baseline}). Retrieval-time redaction (RQ2) is the
+decisive layer, cutting the headline from $28.8\%$ to $17.3\%$, but it acts on discrete
+entities: direct extraction collapses to $0.222$ while linkability does not move from $0.600$
+(Chapter~\ref{ch:defenses}, Chapter~\ref{ch:tradeoff}). The reason is the emergence property ---
+there is no discrete span for redaction to remove. The same property means the deterministic
+engine cannot even \emph{detect} the surviving linkage (its agreement with the human on defended
+output is $\kappa = -0.10$, no better than chance; Chapter~\ref{ch:defenses}), so the only
+instrument that can see it is the semantic judge --- which is precisely the instrument whose
+reliability degrades on defended output (RQ3: $\kappa$ falls from $0.827$ to $0.306$), and whose
+three missed leaks are \emph{all} re-identification by linkage. And because the insider attacks
+by linkage rather than extraction, the insider is the hardest adversary to defend, barely moving
+from $0.333$ to $0.278$ while the external and administrator attacks are brought down sharply
+(RQ4; Chapter~\ref{ch:tradeoff}). The residual (RQ5) is therefore linkage in both registers, $L$
+and $S$ (Chapter~\ref{ch:tradeoff}).
+
+The interpretation we draw from this is the chapter's central claim: \textbf{the leak that is
+hardest to prevent is hardest to measure, and not by coincidence.} The same emergence that puts
+linkage beyond redaction's reach also puts it beyond a deterministic detector's sight and at the
+edge of a semantic judge's reliability. We argue, therefore, that the defense gap and the
+measurement gap in this thesis are not two difficulties but one, seen from two sides. One
+consequence of this reading deserves emphasis because it cuts against over-claiming: the leaks
+the judge missed were exactly the linkage cases the human annotator caught
+(Chapter~\ref{ch:defenses}). The residual is thus corroborated by human judgment rather than
+inflated by the judge, and the $17.3\%$ figure is best read as a lower bound on what the
+instruments can see, not an upper one.
+
+\section{Calibration as a contribution to LLM-as-judge evaluation}
+\label{sec:disc-judge}
+
+Because the headline rests on a language-model judge, the thesis treats that judge as an object
+of measurement in its own right, and we argue the resulting calibration story is a contribution
+independent of the privacy numbers. The measured facts are these: judge--human agreement falls
+from $\kappa = 0.827$ on undefended output to $\kappa = 0.306$ on the defended distribution,
+with raw agreement (the prevalence-independent companion) falling from $93\%$ to $70\%$; the
+error is bidirectional, eleven over-flags (refusals read as disclosures) against three
+under-detected linkage leaks; and propagating the two error rates honestly --- after the textbook
+Rogan--Gladen correction degenerates under the judge-positive-enriched sample --- yields a wide
+interval of roughly $[5.3\%, 25.8\%]$ that contains $17.3\%$ (Chapter~\ref{ch:defenses}). One
+claim is deliberately \emph{not} made: that the true rate lies below $17.3\%$. We treat that as
+forbidden, because the calibration sample took every judge-positive, so the visible over-flagging
+cannot be projected into a downward correction without selection bias.
+
+Two interpretive lessons follow, and we offer both as arguments. First, on the abandoned
+multi-agent panel: we argue that an arbitration panel whose members share a model-family lineage
+manufactures the appearance of independence without its substance, since an arbitrator from the
+same family cannot, even in principle, improve on the judge it arbitrates. This is a concrete
+instance of the echo-chamber effect that the surveyed literature anticipated
+(\cite{ma2025debate}), and the honest resolution --- a single validated judge corroborated across
+vendors --- is, we argue, a finding rather than a retreat. Second, this suggests that judge
+reliability is \emph{distribution-dependent}: a judge validated on raw output cannot be assumed
+reliable on the redacted and refused output a defense produces, and we argue that
+defended-distribution recalibration should be treated as standard practice rather than an
+afterthought. Both lessons answer, in part, the open frontier that \cite{yehudai2025ecosystem}
+names --- organizational-policy-compliance evaluation --- and both are consistent with the poor
+metacognitive calibration that \cite{kim2025objexmt} reports for LLM judges generally.
+
+\section{Limitations, and why naming them is the point}
+\label{sec:disc-limits}
+
+The limitations of this work are best read not as a checklist but as three clusters that
+interact. The first is an \emph{instrument} cluster: a single-provider judge, a same-vendor
+language-model redaction probe whose shared blind spot cannot be ruled out, and a
+single-annotator validation (the second annotator remains future work). We note that these do
+not merely co-exist; they compound, because each is a single-vendor or single-annotator exposure
+on the same measurement apparatus. The second is a \emph{corpus} cluster: the synthetic corpus
+samples attributes independently, so its absolute numbers do not transfer (only its relative
+findings do), its $84$-in-$100$ re-identification figure is an upper bound on intrinsic
+uniqueness rather than a conservative estimate, and the corpus-poisoning family rests on a single
+scenario (Chapter~\ref{ch:threat}, Chapter~\ref{ch:baseline}). The third is a \emph{utility}
+cluster: only three quality dimensions were instrumented, and the cost was measured at the two
+extremes rather than isolated at the knee (Chapter~\ref{ch:tradeoff}).
+
+We interpret these characterized limitations as a sign of methodological maturity rather than
+weakness, and we argue the point is consistent with the thesis's own headline: if a result is
+only as trustworthy as the instrument that measured it, then measuring and bounding the
+instrument --- the judge's defended-distribution $\kappa$, the noise floor, the upper-bound
+reading of the re-identification figure --- is not a concession but the discipline the headline
+demands. The honest scope of the work follows from the same stance: this is a demonstration of a
+measurement methodology on a controlled corpus, not a certification that a deployable product is
+safe.
+
+\section{Practical implications}
+\label{sec:disc-practical}
+
+For a practitioner deploying enterprise RAG, four implications follow, and we separate the
+measured basis of each from the recommendation we draw from it. The deployment recommendation is
+the knee (redaction plus conversational refusal): it captures essentially all of the full
+stack's measured security ($0.192$ against $0.173$, within the noise floor;
+Chapter~\ref{ch:tradeoff}), and we argue the full stack is therefore best understood as
+defense-in-depth for attack surfaces the benign workload never exercises, not as a measured
+improvement. Redaction is the load-bearing layer --- it is the only one that clears the noise
+floor (Chapter~\ref{ch:defenses}) --- and budget should reflect that. On the residual, we argue
+that linkage will not yield to redaction and requires a different class of defense entirely:
+roughly two-thirds of the residual is a detector-recall gap that better recognizers could close,
+but the remaining third is genuine re-identification that, we argue, needs entity-resolution or
+directory-aware controls that redaction cannot provide (Chapter~\ref{ch:tradeoff}). Finally, and
+most directly tied to the headline, we argue that a defended system should be evaluated with a
+validated judge recalibrated on defended output, not a detector alone --- a deployment that trusts
+the rule engine will believe it has eliminated leakage when it has reduced it by about forty
+percent.
+
+\section{Future work}
+\label{sec:disc-future}
+
+Each direction for future work answers a limitation named above. The single-vendor/single-annotator
+exposure of the instrument cluster calls for a second human annotator and a full multi-vendor
+judge panel, and for treating defended-distribution recalibration --- lifting the judge above the
+measured $\kappa = 0.306$ --- as a first-class task. The corpus cluster calls for validation
+beyond the single Enron probe, where the open question is the judge-transfer over-flagging
+observed on real prose. The residual itself calls for the linkage-specific defenses the practical
+implications identify: entity-resolution controls for the genuine re-identification third, and
+per-attribute recognizers for the detector-recall two-thirds. The utility cluster calls for
+per-configuration measurement that isolates the knee's marginal cost. And because every attacker
+profile here is analysed in isolation, compositional, multi-actor threats --- where a
+supply-chain compromise hands an external adversary privileged access --- remain open, and we
+expect them to be the setting in which the linkage residual matters most.
+
+\ifdefined\ThesisMaster\else
+  \bibliographystyle{plain}
+  \bibliography{references}
+  \end{document}
+\fi
