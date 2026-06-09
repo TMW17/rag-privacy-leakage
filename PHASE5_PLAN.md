@@ -140,6 +140,16 @@ Either way the plan must surface this in Ch 3 (when S is defined) and resolve it
 
 ## 4. Gaps no current artifact covers (genuinely new writing/analysis)
 
+> **⚓ CANONICAL DECISION (settled in Ch4, binds every chapter that says "reduction from baseline"):**
+> **the canonical source for ALL attack-success rates is `final_metrics.json`, cell C00000** (the
+> ablation's undefended cell — the same baseline Ch5/Ch6 reductions are measured against), reported
+> family-by-family. The Phase-2 `baseline_metrics_augmented.json` artifact is used ONLY for what
+> `final_metrics` lacks — severity (`mean_S`), the engine–judge cross-tab, retrieval precision, the
+> hand-verified audit, the Phase-2 calibration κ — always **labelled as Phase-2**. Do NOT mix the two
+> sources for the same ASR. (Ch4↔Ch5 mismatch this resolved: F2 0.633→0.600, F5 0.067→0.200, F6
+> 0.111→0.000, engine 18.6%→19.2%; headline 28.8% and F1-dominance invariant.) Ch6 must use C00000 too.
+
+
 1. **The S-metric gap** — see §3. Highest priority; may need a no-model-call ΔS/S̄ re-computation.
 2. **No unified bibliography.** There is **no `.bib` file anywhere.** ~50 SOTA sources are not yet in a
    central BibTeX database. Building it is W-8 scaffolding work; until then no chapter can `\cite{}`.
