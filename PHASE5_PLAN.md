@@ -187,6 +187,11 @@ Either way the plan must surface this in Ch 3 (when S is defined) and resolve it
    (Gulyamov/Duarte/Correia/Wang2026 — real venue/DOI). The other **45 carry `[TODO verify title]` + TODO
    venue** and render those flags in the bibliography → **NOT submittable as-is**. ~45 title+venue lookups
    are required integration work, not a footnote. Other chapters' `\cite{}`s fold into the same file.
+   **⚠ INTEGRATION-PASS — voice/register harmonization (assembly, cosmetic):** measured per chapter —
+   Ch7 is first-person-heavy (22 "we", appropriate for the discussion's arguments), Ch4/5/6 are largely
+   impersonal (0–1 "we", results register), Ch1/Ch2 mixed. This is a legitimate methods-vs-discussion
+   register split, not an error; at assembly DECIDE whether to harmonize to one voice or keep the split,
+   but make it consistent WITHIN each register. Not a now-fix; catch it in the master-doc pass.
 5. **Utility scope narrower than planned.** Claim only faithfulness / context-precision / latency (§2, Ch 6).
 6. **The "LLM-as-Judge placeholder" → real instrument.** `Formal_Leakage…tex` presents the engine's judge as
    a placeholder; Ch 5 must connect it forward to the validated instrument.
