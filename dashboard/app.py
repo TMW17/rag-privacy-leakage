@@ -59,7 +59,7 @@ with T[0]:
                       f"{h['delta_pp']:.1f} pp", delta_color="inverse")
             c3.metric("Recommended knee", f"{h['knee']} ({L.LAYER.get(h['knee'], '')})" if h["knee"] else "n/a")
         st.info("**Judged is primary; engine is a lower bound.** The rule engine reports the full stack at "
-                "0.000 (~100 % cut); the validated judge reports 0.173 (~40 % cut). The engine cannot see the "
+                "0.000 (~100 % cut); the judge reports 0.173 (~40 % cut). The engine cannot see the "
                 "semantic / cross-document leakage the judge sees, so it overstates the defense.")
         st.subheader("Six-cell overall strict ASR")
         st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")

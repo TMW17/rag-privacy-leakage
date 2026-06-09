@@ -1,0 +1,130 @@
+{
+  "purpose": "Tier-1 honest uncertainty bounds on the 17.3% full-stack judged residual, derived from the judge's two measured error modes on the 46-record defended calibration sample. NO new model calls; recomputed from on-disk artifacts only.",
+  "no_new_model_calls": true,
+  "sources": {
+    "anchor_q": "results/phase3/ablation/metrics/final_metrics.json :: RQ2_L2L3_vs_full.C11111_judged_strict",
+    "confusion_matrix": "results/phase3_4/judge_defended_calibration/kappa_defended.json :: kappa_defended.judge_vs_human_binary",
+    "stratum_pool_sizes": "results/phase3_4/judge_defended_calibration/sample_manifest.json :: stratum_pool_counts"
+  },
+  "anchor": {
+    "raw_judged_residual_q": 0.1731,
+    "raw_judged_residual_pct": "17.3%",
+    "config": "C11111 (full stack), judged-strict overall",
+    "note": "Headline figure of record. Treated as FIXED for this correction; its own sampling CI is not re-opened. UNCHANGED by this task."
+  },
+  "calibration_sample": {
+    "n": 46,
+    "configs_pooled": [
+      "C01100",
+      "C11111"
+    ],
+    "design": "Stratified, ENRICHED for judge-positives: ALL 18 judge-flagged pool responses included; judge-negative strata subsampled. NOT a proportional random sample.",
+    "judge_vs_human_confusion": {
+      "TP": 7,
+      "FP": 11,
+      "FN": 3,
+      "TN": 25,
+      "n": 46
+    }
+  },
+  "error_modes": {
+    "over_flag_false_positive": {
+      "count_FP": 11,
+      "judge_positive_denominator": 18,
+      "PPV_def": "TP/(TP+FP)=7/18",
+      "PPV": 0.3889,
+      "binomial_SE_PPV": 0.1149,
+      "FDR_def": "FP/(TP+FP)=11/18",
+      "FDR": 0.6111,
+      "FPR_def": "FP/(TN+FP)=11/36",
+      "FPR": 0.3056,
+      "binomial_SE_FPR": 0.0768,
+      "note": "PPV/FDR denominator (18) is a CENSUS of all judge-positives in the 143-response pool -> exact for the pool. FPR denominator (36 human-negatives) is NOT a census."
+    },
+    "miss_false_negative": {
+      "count_FN": 3,
+      "human_leak_denominator": 10,
+      "sensitivity_def": "TP/(TP+FN)=7/10",
+      "sensitivity": 0.7,
+      "FNR_def": "FN/(TP+FN)=3/10",
+      "FNR": 0.3,
+      "binomial_SE_FNR": 0.1449,
+      "FOR_def": "FN/(FN+TN)=3/28",
+      "FOR": 0.1071,
+      "binomial_SE_FOR": 0.0585,
+      "note": "Only 3 missed-leak data points -> all per-mode rates are LOW PRECISION."
+    }
+  },
+  "method": {
+    "name": "Test-result-stratified prevalence decomposition",
+    "formula": "p_true = PPV*q + FOR*(1-q)",
+    "decomposition_uses": [
+      "PPV (7/18)",
+      "FOR (3/28)"
+    ],
+    "why_not_rogan_gladen": "Rogan-Gladen (q+spec-1)/(sens+spec-1) = -0.336 is DEGENERATE/negative here: sample specificity (25/36=0.694) is biased low because the enriched design captured ALL false positives but only a fraction of true negatives, so sample FPR (0.306) exceeds the apparent rate (0.173). Sensitivity/specificity do NOT transfer from a sample stratified on the judge's output; PPV and FOR do.",
+    "terms": {
+      "real_leaks_among_judge_positives_PPVxq": 0.0673,
+      "missed_leaks_among_judge_negatives_FORx(1-q)": 0.0886
+    }
+  },
+  "corrected_estimate": {
+    "point_estimate_p": 0.1559,
+    "point_estimate_pct": "15.6%",
+    "delta_vs_raw_pp": 1.7,
+    "delta_in_SE_units": 0.33,
+    "propagated_binomial_SE": 0.0523,
+    "approx_95pct_interval": [
+      0.0535,
+      0.2584
+    ],
+    "approx_95pct_interval_pct": [
+      "5.3%",
+      "25.8%"
+    ],
+    "interval_contains_raw_residual": true,
+    "interpretation": "Over-flag and missed-leak corrections nearly cancel. The 1.7pp recentering is 0.33 binomial SE -> NOT resolvable in direction. The ~5-26% band CONTAINS 17.3%. The data CANNOT place the residual below 17.3%."
+  },
+  "naive_overflag_only_floor": {
+    "value": 0.0673,
+    "value_pct": "6.7%",
+    "computation": "PPV*q = 0.389*0.173",
+    "WARNING": "Over-flag correction ALONE; IGNORES missed leaks among the large judge-negative mass. NOT a valid population estimate; must NOT be cited as 'true leakage'. Restoring the missed-leak term lifts it back to ~15.6%."
+  },
+  "sensitivity_stratum_weighted_FOR": {
+    "rationale": "All 3 misses fall in the redacted_residue stratum, which was under-sampled relative to clean_refusal (census). Pooled FOR=3/28 under-weights the only stratum containing misses.",
+    "FOR_by_stratum": {
+      "clean_refusal": "0/2=0.0000",
+      "degraded_answer": "0/13=0.0000",
+      "redacted_residue": "3/13=0.2308"
+    },
+    "pool_weights_judge_negatives": {
+      "clean_refusal": 2,
+      "degraded_answer": 59,
+      "redacted_residue": 64,
+      "total": 125
+    },
+    "FOR_stratum_weighted": 0.1182,
+    "point_estimate_stratum_weighted": 0.165,
+    "point_estimate_stratum_weighted_pct": "16.5%",
+    "note": "Accounting for non-proportional sampling nudges the point CLOSER to 17.3% (15.6% -> 16.5%), reinforcing that the data cannot place the residual below 17.3%. No separate tight CI is claimed for this variant."
+  },
+  "all_conditional_rates_with_denominators": {
+    "PPV_7_18": 0.3889,
+    "NPV_25_28": 0.8929,
+    "sensitivity_7_10": 0.7,
+    "specificity_25_36": 0.6944,
+    "FDR_11_18": 0.6111,
+    "FOR_3_28": 0.1071,
+    "FPR_11_36": 0.3056,
+    "FNR_3_10": 0.3
+  },
+  "hard_caveats": [
+    "n=46; only 18 judge-positives, 10 human-leaks, 3 missed leaks -> per-mode rates are LOW PRECISION and the interval is WIDE, not tight.",
+    "Normal-approx 95% band; with 3 events the normal approximation is rough -> exact/Wilson would be wider and asymmetric. Treat [5.3%,25.8%] as 'at least this wide'.",
+    "Sample is stratified and ENRICHED for judge-positives -> do NOT claim 'true leakage < 17.3%'. The point sits within 0.33 SE of 17.3% and the band contains it.",
+    "Calibration pools C01100+C11111; q is C11111-only. Cross-config transfer of PPV/FOR is assumed.",
+    "q held FIXED (headline of record); only judge-vs-human calibration uncertainty is propagated.",
+    "HONEST BOUNDING, not a new precise estimate. The 17.3% headline is UNCHANGED and remains the figure of record."
+  ]
+}

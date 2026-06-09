@@ -782,6 +782,22 @@ Cutting the other way, the leaks the judge missed were all re-identification by 
 caught --- so the residual this report treats as its central finding is corroborated by human judgment
 rather than being an artifact of the judge. Both instruments also miss some cross-document leakage, so
 the 17.3\% residual is a lower bound on what the instruments can see, not an upper one.
+
+It is worth asking what those two error rates do to the headline if we propagate them rather than
+merely note them. Correcting for over-flagging alone --- keeping only the seven of eighteen flagged
+responses the human confirmed --- would pull the residual down toward seven percent; but the judge also
+missed three of ten real leaks, and projecting that miss rate across the far larger body of responses it
+left unflagged adds roughly nine points back. Carried through together, the two corrections very nearly
+cancel: they recenter the residual by under two percentage points --- about a third of its own standard
+error, and so unresolvable in direction --- inside a wide ninety-five-percent interval of roughly five to
+twenty-six percent that comfortably contains 17.3\%. That interval is wide by construction, resting on
+eighteen flagged and ten human-confirmed responses with only three misses among them; and because the
+sample was deliberately enriched for the judge's positives, the slight recentring cannot be read as
+evidence that the true residual lies below 17.3\% --- all the less so because the three missed leaks were
+re-identification by linkage concentrated in one under-sampled stratum, so restoring the strata
+to their population weights moves the centre toward 17.3\%, not away. The propagated calibration error
+widens the interval around the residual; it does not lower it.
+
 The corpus is synthetic, and its absolute numbers should not be read as predictions, but the reason is
 not that they are conservative. Because each attribute is sampled independently, the corpus's
 combinatorial uniqueness is if anything inflated: independence maximizes the distinct attribute
