@@ -259,13 +259,14 @@ that does much of the work of turning a disclosure into a re-identification. The
 agree: whether risk is read by family or by entity, the residual concentrates in linkage and in
 the open-vocabulary attributes the detector cannot reach.
 
-\section{Two exploratory probes}
+\section{Three exploratory probes}
 \label{sec:ch6-probes}
 
-Two further experiments probe the boundaries of the main result. \emph{Both are exploratory}:
-each rests on a single run and supports a claim about \emph{direction, not magnitude}, and
-neither revises the $17.3\%$ residual, which remains the measured figure on the synthetic
-corpus. They are reported here as suggestive, not as results.
+Three further experiments probe the boundaries of the main result. \emph{All are exploratory}:
+each rests on a single run on the synthetic corpus and supports a claim about \emph{direction, not
+magnitude}, and none revises the $17.3\%$ residual, which remains the measured figure. The first
+two are suggestive; the third is a deliberate negative test of whether the linkage residual yields
+to the defense the literature would apply to it, and it returns a null.
 
 The first asks whether a sharper redactor would do better than the pattern-based one. Replacing
 it with a language-model redactor improves answer quality appreciably --- on the same thirty
@@ -287,6 +288,94 @@ over-flags already-redacted output when taken onto real prose --- a cross-corpus
 limitation that is itself the finding. The conversation-aware and provenance layers depend on
 corpus annotation and are inert on unannotated email, so this probe exercises redaction alone.
 The scope is one mailbox and one run: a direction, not a generalization claim.
+
+The third probe tests the residual directly, and returns a null. Linkage is the component the
+redaction stack cannot reach: direct extraction collapses under redaction while family F2 holds
+near $0.6$--$0.7$ (Section~\ref{sec:ch6-residual}). The defense the privacy literature points to
+for linkage is not redaction but \emph{$k$-anonymity} --- generalising or suppressing the
+quasi-identifiers that, in combination, single a person out, the same criterion used for the
+corpus's re-identification analysis in Chapter~\ref{ch:formal}. We implemented exactly that
+defense as a post-retrieval gate: it tracks the quasi-identifiers surfaced about each retrieved
+person, computes the candidate-set size $k$ against the corpus, and generalises or suppresses a
+quasi-identifier whenever disclosing it would push $k$ below a threshold --- multi-attribute
+combinatorial generalisation, distinct from the single-attribute recall-closure and the
+conversational refusal already in the stack (Chapter~\ref{ch:defenses}). One design assumption was
+\emph{falsified} in testing and is worth recording: we expected linkage to accumulate across
+conversational turns, but each retrieved record exposes its full attribute set in a single chunk,
+so the leak is single-chunk combinatorial uniqueness, not multi-turn accumulation. The gate is
+therefore per-turn combinatorial $k$-anonymity, not the cross-turn mechanism first envisaged ---
+itself a threat-model observation, that the identifying combination is already present the moment a
+record is retrieved.
+
+The evaluation was disciplined deliberately, because a linkage defense is precisely where a loose
+protocol manufactures a win. Three guards were fixed before the run. The reading rules were
+\emph{pre-registered}: a threshold sweep $k\in\{2,5,10\}$, a monotonic-shape expectation (tighter
+$k$ should lower the leak and raise the share of attributes generalised), and the lowest cell
+$k=2$ --- the only one whose generalisation rate is non-blanket ($0.34$ of attribute-turns,
+against $0.73$ and $0.77$ at $k=5,10$) --- named in advance as the clean discriminator. A
+\emph{random-same-rate control} was run beside the gate at every $k$: it removes the same volume of
+quasi-identifiers, chosen at random rather than by $k$, so that any reduction can be attributed to
+\emph{targeting} rather than to the amount of content removed --- without it a drop is
+uninterpretable. And the re-identification $k$ that drives the gate is never the success metric,
+which would be circular; success is the leakage the gate produces, scored by the two instruments
+used throughout.
+
+Those instruments re-stage this chapter's central argument. The deterministic engine \emph{cannot}
+evaluate the defense: it scores names and other discrete entities at severity $\ge 3$, whereas the
+gate generalises quasi-identifiers and never touches names, so the engine is structurally blind to
+the gate's target --- the same blindness that leaves its agreement with the human on linkage at
+$\kappa = -0.10$, no better than chance (RQ3, Chapter~\ref{ch:defenses}). Evaluating a linkage
+\emph{defense}, no less than measuring a linkage \emph{leak}, requires the semantic judge.
+
+Table~\ref{tab:ch6-l7} reports the judged-strict linkage rate for the gate, the random control, and
+an in-session baseline across the sweep. The result is a null. At $k=2$, the non-blanket cell where
+targeting would have to appear, gate, control, and baseline coincide at $0.7$: combinatorial
+generalisation buys nothing over removing the same volume at random, and nothing over doing
+nothing. The one cell that falls --- the gate at $k=5$, $0.4$ against the baseline's $0.7$ --- is
+not a result, on three independent grounds: it lies within a single confidence interval ($\pm0.30$
+at ten scenarios), it occurs only at a near-blanket generalisation rate ($0.73$, bulk removal by
+the pre-registered rule rather than targeting), and it is non-monotonic --- $k=10$ generalises
+\emph{more} yet leaks \emph{more} ($0.6$), the inverted-curve signature pre-registered as noise.
+Combinatorial $k$-anonymity does not reduce judged linkage even at near-blanket generalisation.
+
+\begin{table}[h]
+\centering
+\caption{Judged-strict re-identification (family F2) for the combinatorial $k$-anonymity gate, a
+random-same-rate control, and an in-session baseline, across the threshold sweep, on the ten live
+F2 scenarios. Per-scenario resolution is $0.1$ and the binomial $95\%$ interval is near $\pm0.30$,
+so the table fixes direction, not magnitude. ``Gen.\ rate'' is the fraction of attribute-turns the
+gate altered. Sources: \texttt{l7\_judge\_sweep.log}, \texttt{l7\_sweep\_responses.jsonl}.}
+\label{tab:ch6-l7}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{$k$} & \textbf{Gate} & \textbf{Random same-rate} & \textbf{Baseline} & \textbf{Gen.\ rate}\\
+\hline
+$2$  & $0.7$ & $0.7$ & $0.7$ & $0.335$\\
+$5$  & $0.4$ & $0.6$ & $0.7$ & $0.729$\\
+$10$ & $0.6$ & $0.7$ & $0.7$ & $0.774$\\
+\hline
+\end{tabular}
+\end{table}
+
+Two caveats bound the reading, and neither softens it. The sweep is ten scenarios: rates move in
+steps of $0.1$ with an interval near $\pm0.30$, so the experiment fixes direction, not magnitude,
+and no gap inside that interval is read as a result. The in-session baseline judged here at $0.7$
+sits within the $0.6$--$0.7$ band the residual already occupies (Section~\ref{sec:ch6-residual})
+but differs by about two scenarios from the committed augmented figure of $0.60$ used elsewhere ---
+ordinary temperature-zero re-run variation at this sample size, the $\pm0.30$ floor in another
+guise. The fresh baseline is the correct comparator because all three arms were re-run together,
+and the committed $0.60$ residual the thesis reports is untouched by this extension.
+
+The finding is negative, and the negative is the contribution. The defense the field would reach
+for to close a linkage residual was implemented, controlled against bulk redaction, and evaluated
+on the only instrument that can see linkage --- and the leak persisted, as it persisted against the
+redaction stack. This is evidence for the intractability claim rather than an assertion of it:
+linkage resists not only the redaction that defeats extraction but also the quasi-identifier
+generalisation built to counter it. It also sharpens the open direction. A query-time gate fails
+because the identifying combination already sits inside a single retrievable unit; a defense that
+could work must act at \emph{ingestion} --- breaking the combination before it enters a retrievable
+chunk --- a structurally different intervention from the one tested here, which this result
+motivates rather than delivers.
 
 \section{Summary}
 \label{sec:ch6-summary}

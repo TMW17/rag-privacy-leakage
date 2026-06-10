@@ -1,0 +1,30 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 13836.38it/s]
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Presidio falling back to plain Regex (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: NER+Presidio falling back to plain NER simulation (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Context falling back to plain Regex — context check not implemented (Phase 1)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:337: UserWarning: LLM-as-Judge falling back to substring match (Phase 1 placeholder). ~8% of corpus annotations use this method; severity scores are biased downward.
+  "LLM-as-Judge":         lambda t, r: detect_by_llm_judge_placeholder(t, r),
+==============================================================================
+L7 ENGINE-ONLY SWEEP — 10 live F2 scenarios — REAL SUT (engine-only; NO judge)
+==============================================================================
+baseline C00000 F2 engine-strict (committed final_metrics) = 0.4
+
+  k | greedy F2 | random F2 | gen_rate | pair_rate(g/r) | targeting?
+------------------------------------------------------------------------------
+  2 |       0.5 |       0.5 |    0.335 |   0.17/0.174   | TIES random (bulk, not targeting)
+  5 |       0.4 |       0.5 |    0.729 |  0.507/0.504   | k-driven BEATS random
+ 10 |       0.5 |       0.4 |    0.774 |  0.705/0.707   | worse than random
+------------------------------------------------------------------------------
+SUT calls this run: 192  (judge calls: 0 — HARD STOP before any Opus spend)
+
+== READ THE k=2 CELL FIRST (pre-registered reading rule) ==
+  k=2: greedy F2=0.5 vs random F2=0.5 at gen_rate=0.335 (baseline 0.4).
+  -> k=2 TIES random: combinatorial k-anon adds nothing over bulk removal on this QI-dense corpus
+     (airtight limitation finding; confirms linkage-intractability).
+
+  NEXT (advisor decides): (a) stop + report limitation, (b) build minimal-suppression v2, or
+  (c) spend judge budget to confirm a promising positive. PASTE these numbers before deciding.

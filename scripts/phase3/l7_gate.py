@@ -18,6 +18,7 @@ committed 84/100 and 40/63 — see Stage 1). No QI is (re)defined here.
 """
 import json
 import os
+import random
 import re
 import sys
 from collections import defaultdict
@@ -265,9 +266,75 @@ class L7Gate:
         # 3. rewrite chunks for any doc currently holding generalized QIs
         new_chunks = [self._apply_to_chunk(c, d) for c, d in zip(chunks, chunk_doc_ids)]
         n_fired = sum(1 for v in per_doc.values() if v["fired"])
-        trace = {"k_threshold": self.k, "docs_touched": len(surfaced),
-                 "docs_fired": n_fired, "per_doc": per_doc}
+        # gen-rate instrumentation: among QIs surfaced THIS turn, how many are now generalized + levels
+        n_present, gen_levels = 0, []
+        for did in surfaced:
+            for qi in surfaced[did]:
+                n_present += 1
+                if self.state[did][qi][1] > 0:
+                    gen_levels.append(self.state[did][qi][1])
+        trace = {"k_threshold": self.k, "docs_touched": len(surfaced), "docs_fired": n_fired,
+                 "n_present": n_present, "n_generalized": len(gen_levels), "gen_levels": gen_levels,
+                 "per_doc": per_doc}
         return new_chunks, trace
+
+
+# ── random-same-rate control (Stage 3 confound control 2) ─────────────────────
+class L7RandomGate:
+    """Confound control. Generalizes the SAME fraction (`rate`) of present QIs as k-driven L7, at
+    the same level distribution (`level_hist`), but chosen UNIFORMLY AT RANDOM (`seed`) — i.e. it
+    removes the same VOLUME of QI information while IGNORING the k-computation. Stateless; matches
+    the L7Gate interface so the pipeline can swap it in. If F2 under this control ~= F2 under
+    k-driven L7, the k-anonymity LOGIC added nothing beyond bulk removal; if k-driven L7 < this
+    control, that gap is L7's real (targeting) contribution. Decide once per (doc, QI), apply to
+    all of that doc's chunks (mirrors L7's per-doc-QI granularity)."""
+
+    def __init__(self, rate, level_hist, seed=42):
+        self.rate = rate
+        self.k = f"rand({round(rate, 3)})"   # label only (matches the pipeline's log interface)
+        self.levels = list(level_hist) if level_hist else None
+        self.rng = random.Random(seed)
+
+    def begin(self, *a, **k):   # stateless — matches L7Gate.begin() interface
+        pass
+
+    def process(self, chunks, chunk_doc_ids):
+        present = {}                                   # (did, qi) -> raw value  (deduped per doc)
+        for chunk, did in zip(chunks, chunk_doc_ids):
+            if not did:
+                continue
+            for qi, val in extract_qis(chunk).items():
+                present.setdefault((did, qi), val)
+        decisions, levels = {}, []
+        for (did, qi), val in present.items():
+            if self.rng.random() < self.rate:
+                lvl = int(self.rng.choice(self.levels)) if self.levels else max_level(qi)
+                lvl = min(lvl, max_level(qi))
+                if lvl > 0:
+                    decisions[(did, qi)] = (val, lvl)
+                    levels.append(lvl)
+        new_chunks = [self._apply(c, d, decisions) for c, d in zip(chunks, chunk_doc_ids)]
+        docs_present = {d for (d, _) in present}
+        docs_fired = {d for (d, _) in decisions}
+        return new_chunks, {"mode": "random", "rate": round(self.rate, 4),
+                            "docs_touched": len(docs_present), "docs_fired": len(docs_fired),
+                            "n_present": len(present), "n_generalized": len(decisions),
+                            "gen_levels": levels, "per_doc": {}}
+
+    def _apply(self, chunk, did, decisions):
+        if not did:
+            return chunk
+        out = []
+        for line in chunk.splitlines():
+            if ":" in line:
+                label, _, _ = line.partition(":")
+                qi = _LABELS.get(label.strip().lower())
+                if qi and (did, qi) in decisions:
+                    val, lvl = decisions[(did, qi)]
+                    out.append(f"{label.strip()}: {generalize(qi, val, lvl)}")
+                    continue
+            out.append(line)
+        return "\n".join(out)
 
 
 # ── FREE self-test (no API): synthetic multi-turn QI accumulation ─────────────

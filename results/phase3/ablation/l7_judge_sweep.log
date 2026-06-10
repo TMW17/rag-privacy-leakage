@@ -1,0 +1,33 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 10839.90it/s]
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Presidio falling back to plain Regex (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: NER+Presidio falling back to plain NER simulation (Phase 1 placeholder)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:408: UserWarning: Regex+Context falling back to plain Regex — context check not implemented (Phase 1)
+  if not detector(entity_text, response_text):
+/Users/user/Desktop/Final_Year_Project/Code/scripts/evaluation_engine.py:337: UserWarning: LLM-as-Judge falling back to substring match (Phase 1 placeholder). ~8% of corpus annotations use this method; severity scores are biased downward.
+  "LLM-as-Judge":         lambda t, r: detect_by_llm_judge_placeholder(t, r),
+======================================================================================
+L7 JUDGE SWEEP — 10 live F2 — REAL (SUT + Opus-v2 judge)  (PURE-JUDGE F2 = judge sev>=3)
+======================================================================================
+baseline C00000: PURE-JUDGE F2 = 0.7  (engine 0.6; committed augmented ref = 0.6)
+
+  k |  greedy Jf2 |  random Jf2 | baseline | gen_rate |   (eng g/r)
+--------------------------------------------------------------------------------------
+  2 |    0.7±0.284 |    0.7±0.284 |      0.7 |    0.335 |  0.6/0.6  
+  5 |    0.4±0.304 |    0.6±0.304 |      0.7 |    0.729 |  0.3/0.5  
+ 10 |    0.6±0.304 |    0.7±0.284 |      0.7 |    0.774 |  0.3/0.5  
+--------------------------------------------------------------------------------------
+SUT calls: 224 | judge calls (new): 224  (n=10 -> per-scenario step = 0.1)
+
+== THREE CONTRASTS (read against the pre-registered rule; n=10 CI in table) ==
+  k=2 (gen_rate 0.335): greedy 0.7 vs baseline 0.7 (Δ=0.0) | vs random 0.7 (Δ=0.0)
+  k=5 (gen_rate 0.729): greedy 0.4 vs baseline 0.7 (Δ=-0.3) | vs random 0.6 (Δ=-0.2)
+  k=10 (gen_rate 0.774): greedy 0.6 vs baseline 0.7 (Δ=-0.1) | vs random 0.7 (Δ=-0.1)
+
+  PATTERN MATCH (k=2 = the non-blanket discriminator):
+  -> greedy ~= baseline at every k: L7 does NOT move judged linkage even near-blanket
+     -> linkage even MORE intractable than redaction-resistance suggested (strong finding).
+
+  PAUSE — paste this table + the three contrasts for review before any chapter is written.
