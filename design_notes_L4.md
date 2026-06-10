@@ -15,6 +15,36 @@
 
 ---
 
+## 0. Stage-0 review outcome — decisions locked
+
+Reviewed; Stage 0 stands. Decisions:
+1. **Name = L7** — confirmed. The requested "L4" collides with the committed output-filter **L4**
+   and, more importantly, the linkage **recall-closure L6** (salary/medical suppression). Viva
+   consequence to address in the write-up: **L6 already targets linkage**, so the framing must say
+   *why L6 was not enough* and what L7 adds — combinatorial, cross-turn **k-anonimity** over QI
+   *combinations*, versus L6's single-attribute recall-closure.
+2. **Judge spend = engine-first, then judge (staged; do NOT skip the judge).** Engine-score the F2
+   campaign first (free) as a direction check; only if the engine moves do we re-judge the new F2
+   outputs with Opus-v2 (small, sha256-cached spend). An L7 result on engine-alone would be exactly
+   the single-instrument error RQ3 exposes — the judge is the primary verdict.
+3. **k-threshold = pre-register a sweep {k = 2, 5, 10}** (recommended: yields the *knee-for-k*
+   security–utility curve, mirroring the thesis's own Pareto-knee result), with **k = 5** the
+   reference point. *Pending final OK* — the sweep is ~3× the cells (more judge spend); lock **k = 5**
+   alone if a single value is preferred.
+
+**QI-consistency — VERIFIED on disk (no drift between thesis and extension).** The pre-registered
+seven-QI set is **identical** to `scripts/reidentification_risk.py::quasi_identifiers` =
+`{department, salary_range, medical_condition, performance, gender, age_range, office_location}` —
+*not* a superset chosen now. The committed headline figures are subsets of it: **84/100** = the worst
+**4-subset** `{department, medical_condition, age_range, office_location}`; **l-div 40/63** = the
+**3-subset** `{department, salary_range, medical_condition}` (sensitive set `{name, national_id,
+salary}`; `salary` enters both as the `salary_range` QI and as a protected sensitive attribute, per
+the committed analysis). Stage 1's consistency check (recompute 84/100 + 40/63 from the
+generalization hierarchy) must therefore reproduce; if it does not, the QI definition drifted and
+Stage 1 stops.
+
+---
+
 ## 1. The problem, precisely
 
 **What survives.** Judged-strict ASR (`results/phase3/ablation/metrics/final_metrics.json`,
@@ -219,8 +249,9 @@ the judge re-run (budget, §5) — a cost gate, not a missing artefact.
   baseline/number unchanged. ✔
 - **Honest-expectations frame:** partial F2 reduction at a utility cost, possibly not to zero,
   reported as-is; no optimisation toward a clean win. ✔
-- **Blockers:** none. **Open decisions for your review:** (1) confirm the layer name **L7**;
-  (2) greenlight (or defer) the **judge spend** on L7's new F2 outputs; (3) confirm **k = 5** and the
-  pre-registered QI list / generalization hierarchies.
+- **Blockers:** none. **Decisions (resolved at review — see §0):** L7 confirmed; judge staged
+  engine-first-then-judge; QI set verified identical to the committed re-id analysis. **One item
+  still open for you:** lock **k = 5** vs run the **k ∈ {2,5,10} sweep** (recommended; ~3× judge
+  spend).
 
 **PAUSE — Stage 0 ends here. No pipeline code, no API spend until you review this spine + the audit.**
