@@ -238,6 +238,26 @@ the new F2 outputs only on your go-ahead.** Do not assume the judge is free.
 
 ---
 
+## 5.1 Stage-2 carry-forward — watch-items (from review)
+
+1. **Firing test FIRST (cheap gate, before the campaign + any spend).** On a known F2 scenario,
+   confirm L7 carries QI state *across turns* and generalizes the *right* attribute as QIs
+   accumulate — i.e. does what L3 (last-turn refusal) and L6 (single-attribute recall-closure)
+   structurally cannot. **Firing ≠ success:** it must suppress the *accumulating* QI mid-conversation,
+   not just trigger. Only if it fires correctly does the full campaign run.
+2. **The "extractor" is value-localization, not open-vocab extraction.** L7 acts on the *structured*
+   retrieved context (chunk → doc_id → corpus record), reading QI *values* cleanly and tracking its
+   *own* allow-decisions — no parsing of SUT output to compute k. The only text operation is
+   localizing/replacing a *known* value-string in the chunk (like L2). Stage 2 must still **measure
+   that localization's precision/recall** on the F2 cases: a missed value = the gate silently passes
+   a QI ⇒ F2 won't move ⇒ **report as the localization/NER-recall caveat, never as "L7 fails."**
+3. **Genuine residual L7 cannot close:** SUT *reasoning/paraphrase* over the generalized context
+   (reasoning-based linkage). L7 controls context, not inference — this is the honest ceiling on the
+   partial F2 reduction.
+4. **L6/L3 distinction is the viva bar.** L6 (recall-closure) and L3 (refusal) both already targeted
+   this leak and did *not* move judged F2. Stage 2 must show what L7 adds — cross-turn, combinatorial
+   QI suppression as attributes accumulate — and report its marginal effect where L3/L6 already act.
+
 ## 6. Honest expectations (stated up front, so there is no pressure to fabricate)
 
 - F2 falls **partially**, likely **not to zero** — coarsened QIs can still re-identify, and L3
