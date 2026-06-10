@@ -377,6 +377,71 @@ could work must act at \emph{ingestion} --- breaking the combination before it e
 chunk --- a structurally different intervention from the one tested here, which this result
 motivates rather than delivers.
 
+\section{Ingestion-time generalisation: foreclosed by its information cost}
+\label{sec:ch6-p7}
+
+The probe above generalised at \emph{query time}: it altered the chunks a query retrieved while the
+unredacted record remained in the index, one retrieval away, and it did not move the residual. The obvious
+stronger version acts at \emph{ingestion} --- generalise the ground-truth records \emph{before} they are
+serialised and embedded, so the unredacted record never enters the index at all. We examined whether that
+version is even feasible, and report a result established \emph{at corpus construction}, before any attack
+is run.
+
+Applying the same pre-registered, consistency-checked QI hierarchy --- the one that reproduces the
+committed $84/100$ and $40/63$ (Chapter~\ref{ch:formal}) --- to the hundred ground-truth employee records,
+we built a globally $k$-anonymous corpus for each $k\in\{2,5,10\}$: generalising quasi-identifiers up their
+ladders until every record's combination is shared by at least $k$ records, and suppressing the residual
+records that remain unique even at maximum generalisation. Table~\ref{tab:ch6-p7} reports the information
+cost of reaching each $k$.
+
+Anonymity is \emph{achievable} --- all three corpora reach their target $k$. But the cost of reaching even
+the weakest, $k=2$, is to remove roughly half of the quasi-identifier information (an information loss of
+$0.52$, with four of the seven quasi-identifiers pushed to near-maximal generalisation) \emph{and} to
+delete nine of the hundred records outright; $k=5$ and $k=10$ cost more still ($0.60$ and $0.67$). The
+corpus that ingestion-time $k$-anonymity produces is, at every setting, too degraded to serve the benign
+workload it exists for. Ingestion-time $k$-anonymity is therefore foreclosed as a practical defense ---
+not because it fails to reduce linkage, which we did not test, but because the anonymised corpus is
+unusable: a conclusion reached at construction, before evaluation.
+
+\begin{table}[h]
+\centering
+\caption{Information cost of reaching global $k$-anonymity at ingestion, over the hundred employee
+records. ``Info-loss'' is the fraction of total quasi-identifier information removed (full-domain
+generalisation height); ``dropped'' is records suppressed because they remain unique at maximum
+generalisation. All three reach their target $k$; no F2 attack was run (see text). Source:
+\texttt{p7\_build\_corpora.py} and \texttt{corpus\_k\{2,5,10\}.json} (commit \texttt{8f25d54}).}
+\label{tab:ch6-p7}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Target $k$} & \textbf{Info-loss} & \textbf{Records dropped} & \textbf{Achieved $k$}\\
+\hline
+$2$  & $0.52$ & $9/100$ & $2$\\
+$5$  & $0.60$ & $4/100$ & $5$\\
+$10$ & $0.67$ & $0/100$ & $10$\\
+\hline
+\end{tabular}
+\end{table}
+
+We deliberately did not run the F2 attack against these corpora, for the same pre-registered reason that
+governed the L7 probe: a reduction in linkage that appears only under near-blanket generalisation reads as
+\emph{the corpus was gutted}, not \emph{the defense works}. At $k=2$ the generalisation is already
+near-blanket (an information loss of $0.52$), so a measured drop would be uninterpretable as a defense at
+an operating point no deployment would accept. The feasibility gate has already foreclosed the approach;
+running the attack would add cost without changing the conclusion. The economy is deliberate, not
+unfinished work.
+
+Three mechanisms have now been brought against the linkage residual: redaction, which defeats extraction
+but leaves linkage near $0.6$ (Section~\ref{sec:ch6-residual}); query-time $k$-anonymity (L7), with no
+measured effect; and ingestion-time $k$-anonymity, foreclosed here by its information cost. At both query
+and ingestion time, and by both targeted and bulk generalisation, linkage does not yield cheaply --- and
+the reason was visible from the formal analysis: re-identification is a property of the \emph{information
+itself} (four quasi-identifiers already make $84$ of $100$ employees unique, Chapter~\ref{ch:formal}), so
+removing enough of it to stop linkage necessarily destroys the utility the corpus exists to provide. This
+is the privacy--utility tension made concrete, and it reframes the residual as a \emph{data-governance}
+problem rather than a model-layer one: the defensible response to linkage is to minimise what enters the
+corpus and to control who may retrieve it --- the access-control direction of L5 --- not to generalise a
+corpus that must remain useful.
+
 \section{Summary}
 \label{sec:ch6-summary}
 

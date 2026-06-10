@@ -176,6 +176,87 @@ validated judge recalibrated on defended output, not a detector alone --- a depl
 the rule engine will believe it has eliminated leakage when it has reduced it by about forty
 percent.
 
+\section{From measurement to practice: recommendations and regulatory bearing}
+\label{sec:disc-recommendations}
+
+The practical implications above translate into guidance for practitioners under the one discipline that
+holds the rest of this thesis: every recommendation below traces to a specific measured result, and none
+is stated more strongly than the evidence supports. The findings show a layered defense that reduces
+leakage by about forty percent but does not eliminate it, a linkage residual that resisted three separate
+mechanisms, and instruments that disagree on defended output --- and the recommendations reflect exactly
+that, no more.
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+\item \textbf{Treat PII redaction as necessary, not sufficient.} Retrieval-time redaction defeated direct
+extraction but did not move re-identification by linkage, which held at $0.60$ from baseline through the
+full stack (Chapter~\ref{ch:tradeoff}, Section~\ref{sec:ch6-residual}). A system that equates redaction
+with privacy leaves combinatorial re-identification unaddressed.
+\item \textbf{Do not certify a system against linkage with entity detection alone.} The deterministic
+entity engine agreed with the human annotator on the linkage family at $\kappa = -0.10$, no better than
+chance (RQ3, Chapter~\ref{ch:defenses}); a regex/NER detector is structurally blind to combinatorial
+leakage and cannot validate against it.
+\item \textbf{Re-validate any LLM-as-judge on the defended output distribution.} The validated judge's
+agreement with the human fell from $\kappa = 0.827$ on undefended output to $\kappa = 0.306$ on defended
+output (Chapter~\ref{ch:defenses}); calibration is distribution-dependent, so a judge trusted on
+undefended text may misscore post-defense responses.
+\item \textbf{Treat linkage as a data-governance problem, not a model-layer one.} Three mechanisms were
+brought against the residual --- retrieval redaction (linkage unmoved), query-time $k$-anonymity (no
+measured effect), and ingestion-time $k$-anonymity (foreclosed by its information cost) --- and none
+reduced it (Chapter~\ref{ch:tradeoff}, Sections~\ref{sec:ch6-probes} and~\ref{sec:ch6-p7}). The defensible
+response is to minimise what enters the corpus and to control who may retrieve it, not a post-hoc model
+defense.
+\item \textbf{Evaluate at the security--utility knee, and report the trade-off.} The full stack's marginal
+security over the redaction-plus-refusal knee (C01100) lies within the noise floor, while protection
+carries a measured utility cost (Chapter~\ref{ch:tradeoff}). Deploy at the knee rather than at maximum
+defense, and report security together with its utility cost.
+\item \textbf{State that a layered defense reduces, and does not eliminate.} The measured reduction ---
+the headline $28.8\%$ to $17.3\%$, about forty percent --- is carried by redaction with refusal at the
+knee (Chapter~\ref{ch:defenses}, Chapter~\ref{ch:tradeoff}) and does not reach zero. Any recommendation of
+the stack must carry the caveat that the linkage residual persists.
+\end{enumerate}
+
+These findings bear on obligations under the instruments this work aligns with --- the GDPR
+(Regulation (EU) 2016/679), the NIS2 Directive (Directive (EU) 2022/2555), and ISO/IEC 27001:2022 ---
+though what follows is a \emph{mapping of measured results to regulatory themes, not a legal compliance
+assessment}. The linkage residual and the re-identification finding --- four quasi-identifiers already make
+$84$ of $100$ employees unique (Chapter~\ref{ch:formal}) --- bear on the GDPR's data-minimisation principle
+(Art.\ 5(1)(c)) and its standard for anonymisation: a corpus carrying these quasi-identifiers supports
+re-identification and is, on this evidence, not anonymous in that sense, which grounds the
+corpus-minimisation recommendation. The access-control recommendation bears on the security-of-processing
+and access-control controls common to the GDPR (Art.\ 32), NIS2, and ISO/IEC 27001. The judge-calibration
+finding bears on the accountability principle (Art.\ 5(2)): automated privacy-evaluation evidence is only
+as valid as the instrument's calibration on the distribution it scores. We claim no more than relevance to
+these obligations; we do not certify compliance, and the thesis is not a legal document.
+
+\begin{table}[h]
+\centering
+\caption{Traceability of each recommendation to its measured finding and the regulatory theme it bears on.
+Each recommendation cites a committed result; the regulatory column is a mapping, not a compliance claim.}
+\label{tab:disc-recommendations}
+\begin{tabularx}{\textwidth}{|L|L|L|}
+\hline
+\textbf{Recommendation} & \textbf{Grounding finding (chapter)} & \textbf{Regulatory bearing}\\
+\hline
+Redaction is necessary, not sufficient & Linkage unmoved at $0.60$ (\S\ref{sec:ch6-residual}) & GDPR data minimisation (Art.\ 5(1)(c))\\
+\hline
+Entity detection cannot certify linkage & Engine $\kappa=-0.10$, RQ3 (Ch.~\ref{ch:defenses}) & GDPR accountability (Art.\ 5(2))\\
+\hline
+Recalibrate the judge on defended output & Judge $\kappa$ $0.827\!\to\!0.306$ (Ch.~\ref{ch:defenses}) & GDPR accountability (Art.\ 5(2))\\
+\hline
+Linkage is data-governance, not model-layer & Three mechanisms failed (\S\ref{sec:ch6-probes},~\ref{sec:ch6-p7}) & GDPR data min.; NIS2 / ISO 27001 access control\\
+\hline
+Deploy at the security--utility knee & Knee $\approx$ full stack within noise (Ch.~\ref{ch:tradeoff}) & GDPR proportionate measures (Art.\ 25)\\
+\hline
+Layered defense reduces ($\sim$40\%), not eliminates & $28.8\%\!\to\!17.3\%$ at C01100 (Ch.~\ref{ch:defenses},~\ref{ch:tradeoff}) & GDPR security of processing (Art.\ 32)\\
+\hline
+\end{tabularx}
+\end{table}
+
+The honest position is the strength of this section: these are implications of the thesis's measurements
+for practice --- ``our measurements imply X'' --- not a recipe for a guaranteed-private system, which the
+thesis did not build or certify. Each recommendation stays within what was measured, and the regulatory
+mapping identifies which obligations the findings touch without asserting compliance.
+
 \section{Future work}
 \label{sec:disc-future}
 
