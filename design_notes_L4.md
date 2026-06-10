@@ -27,10 +27,13 @@ Reviewed; Stage 0 stands. Decisions:
    campaign first (free) as a direction check; only if the engine moves do we re-judge the new F2
    outputs with Opus-v2 (small, sha256-cached spend). An L7 result on engine-alone would be exactly
    the single-instrument error RQ3 exposes — the judge is the primary verdict.
-3. **k-threshold = pre-register a sweep {k = 2, 5, 10}** (recommended: yields the *knee-for-k*
-   security–utility curve, mirroring the thesis's own Pareto-knee result), with **k = 5** the
-   reference point. *Pending final OK* — the sweep is ~3× the cells (more judge spend); lock **k = 5**
-   alone if a single value is preferred.
+3. **k-threshold = LOCKED to the sweep k ∈ {2, 5, 10}, k = 5 reference.** Yields the *knee-for-k*
+   security–utility curve (the thesis's Pareto-knee move applied to linkage); ~3× the cells / judge
+   spend, greenlit. **Pre-registered expected shape (monotonic):** tightening k should *monotonically*
+   lower F2 ASR and *raise* the utility cost (k=2 barely moves F2 at low cost; k=10 moves it most at
+   heavy cost, hardest on the benign control). A **flat** (F2 unchanged across all three) or
+   **inverted** curve is a gate bug to debug — **not** a real null. Registered now so Stage 4 reads
+   the curve honestly rather than rationalising whatever comes out.
 
 **QI-consistency — VERIFIED on disk (no drift between thesis and extension).** The pre-registered
 seven-QI set is **identical** to `scripts/reidentification_risk.py::quasi_identifiers` =
@@ -125,6 +128,32 @@ secondary check; k-anonymity is primary for Stage 1.
 constraints are attributed to a target — per *retrieved record* (clean: the gate has each record's
 structured QIs) vs per accumulated *conversation constraint*. Stage 1 picks one and documents it;
 this does not change the Stage-0 design or audit.
+
+---
+
+## 2.1 QI generalization hierarchy + Stage-1 consistency check — DONE (PASS)
+
+Concrete ladders (machine-readable in `scripts/phase3/l7_consistency_check.py` → `QI_HIERARCHY`);
+L0 = committed Phase-1 bucket, last step = SUPPRESS; L1 groupings are the **actual** corpus value
+sets (not invented):
+
+| QI | L0 (committed) | L1 generalization | terminal |
+|---|---|---|---|
+| age_range | decades 20-30 … 60-70 | ≤40 / 40-60 / >60 | suppress |
+| salary_range | <50k … >110k | <70k / 70-110k / >110k | suppress |
+| department | {Engineering, Finance, HR, Legal, Marketing} | Technical / Corporate Services / Commercial | suppress |
+| office_location | building+floor (5 values) | building (A/B/C) → on-site | suppress |
+| medical_condition | {anxiety, asthma, diabetes, hypertension, none} | mental-health / respiratory / cardiometabolic / none → has-condition/none | suppress |
+| performance | {excellent, satisfactory, needs improvement} | meets / below | suppress |
+| gender | {female, male} | (none) | suppress |
+
+**Consistency check (`l7_consistency_check.py` — FREE: pure-Python, no pandas/API/pipeline) → PASS.**
+An independent reimplementation reproduces the committed re-id headlines from L0:
+k-anon worst 4-subset {department, medical_condition, age_range, office_location} = **84/100**;
+l-div 3-subset {department, salary_range, medical_condition} = **40 of 63** vulnerable; and every
+corpus value is covered by its L1 map. **No QI drift** — the gate's k-universe is exactly the one
+the thesis defends. The check is the executable QI-pre-registration guard and exits non-zero on any
+drift (re-run it after any QI/bucket change).
 
 ---
 
@@ -249,9 +278,11 @@ the judge re-run (budget, §5) — a cost gate, not a missing artefact.
   baseline/number unchanged. ✔
 - **Honest-expectations frame:** partial F2 reduction at a utility cost, possibly not to zero,
   reported as-is; no optimisation toward a clean win. ✔
-- **Blockers:** none. **Decisions (resolved at review — see §0):** L7 confirmed; judge staged
-  engine-first-then-judge; QI set verified identical to the committed re-id analysis. **One item
-  still open for you:** lock **k = 5** vs run the **k ∈ {2,5,10} sweep** (recommended; ~3× judge
-  spend).
+- **Blockers:** none. **All params locked (§0):** L7 name; engine-first→judge; k-sweep {2,5,10} /
+  k=5 ref / monotonic shape pre-registered; QI set + generalization hierarchy pre-registered and
+  **consistency-checked PASS** (§2.1, reproduces 84/100 + 40/63, no drift).
+- **Next gate:** advisor verifies the hierarchy reproduces the committed re-id numbers (it does —
+  `l7_consistency_check.py` exits 0), **then** Stage 2 = build the gate + run (pipeline code + the
+  greenlit judge spend). Nothing built/spent yet.
 
 **PAUSE — Stage 0 ends here. No pipeline code, no API spend until you review this spine + the audit.**
