@@ -1,0 +1,100 @@
+%!TEX program = xelatex
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[a4paper, top=1.0cm, bottom=0.8cm, left=2cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{english}
+\setotherlanguage[calendar=gregorian]{arabic}
+
+\setmainfont{Times New Roman}
+% NO ~ or -- inside \textarabic — use plain spaces and regular hyphen only
+\newfontfamily\arabicfont[Script=Arabic, Scale=1.15]{Al Nile}
+
+\definecolor{esiblue}{RGB}{0, 51, 102}
+\pagestyle{empty}
+
+\begin{document}
+\begin{center}
+
+%── 1. Bilingual header — all black, bigger ──────────────────────────────────
+\vspace{0.1cm}
+{\large\bfseries\textarabic{الجمهورية الجزائرية الديمقراطية الشعبية}}\\[4pt]
+{\large\bfseries République Algérienne Démocratique et Populaire}\\[6pt]
+{\large\bfseries\textarabic{وزارة التعليم العالي والبحث العلمي}}\\[4pt]
+{\large\bfseries Ministère de l'Enseignement Supérieur et de la Recherche Scientifique}
+
+\vspace{0.35cm}
+
+%── 2. School name — all black, bigger ───────────────────────────────────────
+{\Large\bfseries\textarabic{المدرسة العليا للإعلام الآلي - 08 ماي 1945 - بسيدي بلعباس}}\\[4pt]
+{\LARGE\bfseries Ecole Supérieure en Informatique}\\[3pt]
+{\LARGE\bfseries - 08 Mai 1945 - Sidi Bel Abbes}
+
+\vspace{0.35cm}
+
+%── 3. Logo ───────────────────────────────────────────────────────────────────
+\includegraphics[width=4.2cm]{logo.jpeg}
+
+\vspace{0.5cm}
+
+%── 4. Degree title ───────────────────────────────────────────────────────────
+{\LARGE\bfseries\textcolor{esiblue}{End-of-Study Dissertation}}
+
+\vspace{0.25cm}
+{\Large For the degree of \textbf{State Engineer}}
+
+\vspace{0.25cm}
+{\Large Field:~~\textbf{Computer Science}}\\[4pt]
+{\Large Specialty:~~\textbf{Artificial Intelligence and Data Science}}
+
+\vspace{0.4cm}
+
+%── 5. Theme — bigger, plain blue text, line underneath ──────────────────────
+\vspace{0.25cm}
+{\huge\bfseries Theme}
+
+\vspace{0.7cm}
+{\LARGE\bfseries\textcolor{esiblue}{Generative AI, Privacy and Personal Data:}}\\[9pt]
+{\LARGE\bfseries\textcolor{esiblue}{Mapping and Reducing Data Leakage in}}\\[9pt]
+{\LARGE\bfseries\textcolor{esiblue}{Retrieval-Augmented Generation Systems}}
+
+\vspace{0.3cm}
+\noindent\textcolor{esiblue}{\rule{\linewidth}{0.8pt}}
+\vspace{0.35cm}
+
+%── 6. Authors + Supervisors (left) | Date + Jury (right) ────────────────────
+\begin{minipage}[t]{0.46\textwidth}
+  \raggedright
+  {\Large\textbf{Presented by:}}\\[8pt]
+  \hspace{1em}$\bullet$~~{\Large Tadj Mohamed Walid}\\[12pt]
+  {\Large\textbf{Supervised by:}}\\[8pt]
+  \hspace{1em}$\bullet$~~{\Large Pr. Esma Aïmeur}\\[5pt]
+  \hspace{1em}$\bullet$~~{\Large Pr. Chaib Souleyman}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.50\textwidth}
+  \raggedright
+  {\Large Defended on:~~\textbf{00/00/2026}}\\[9pt]
+  {\Large\textbf{Before the jury:}}\\[6pt]
+  \begin{tabular}{@{}ll@{}}
+    {\Large M/Mme/Mlle XXX} & {\Large President}   \\[5pt]
+    {\Large M/Mme/Mlle XXX} & {\Large Examiner}    \\[5pt]
+    {\Large M/Mme/Mlle XXX} & {\Large Examiner}    \\[5pt]
+    {\Large M/Mme/Mlle XXX} & {\Large Guest}       \\
+  \end{tabular}
+\end{minipage}
+
+\vspace{0.35cm}
+\noindent\textcolor{esiblue}{\rule{\linewidth}{1.5pt}}
+\vspace{0.2cm}
+
+%── 7. Academic year ──────────────────────────────────────────────────────────
+{\Large\textbf{Academic Year:~~2025~~/~~2026}}
+
+\end{center}
+\end{document}

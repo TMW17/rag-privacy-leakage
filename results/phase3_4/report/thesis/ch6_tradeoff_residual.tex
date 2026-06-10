@@ -100,16 +100,16 @@ per-configuration utility (including the knee) is left as future work. Three met
 faithfulness, context precision, latency --- are instrumented. Source:
 \texttt{utility\_results.json}.}
 \label{tab:ch6-utility}
-\begin{tabular}{lccc}
-\toprule
+\begin{tabular}{|l|c|c|c|}
+\hline
 \textbf{Measure} & \textbf{No defense} & \textbf{Full stack} & \textbf{Change}\\
-\midrule
+\hline
 Questions answered (no over-refusal) & 1.000 & 1.000 & 0/30 refused\\
 Faithfulness & 0.953 & 0.933 & $-0.020$\\
 Relevance & 0.774 & 0.785 & $+0.011$\\
 Context precision & 0.755 & 0.658 & \textbf{$-0.097$}\\
 Latency (ms, mean) & 3727 & 6942 & $\approx 1.9\times$\\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
@@ -156,14 +156,14 @@ live attack and is assessed offline in Chapter~\ref{ch:threat}, so it carries no
 \caption{Judged attack-success rate by adversary, from no defense through the knee to the full
 stack. Source: \texttt{final\_metrics.json} (\texttt{RQ4\_per\_profile}).}
 \label{tab:ch6-profile}
-\begin{tabular}{lccc}
-\toprule
+\begin{tabular}{|l|c|c|c|}
+\hline
 \textbf{Adversary} & \textbf{No defense} & \textbf{Knee (C01100)} & \textbf{Full stack}\\
-\midrule
+\hline
 Internal (curious insider)   & 0.333 & 0.278 & \textbf{0.278}\\
 External (outside attacker)  & 0.296 & 0.185 & 0.148\\
 Privileged administrator     & 0.143 & 0.000 & 0.000\\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
@@ -205,17 +205,17 @@ over the matched 89-turn set. Baseline is the matched run-0 reused baseline (the
 analogue of the canonical C00000, which carries no severity). Source:
 \texttt{severity\_aggregates.json}.}
 \label{tab:ch6-severity}
-\begin{tabular}{lcc}
-\toprule
+\begin{tabular}{|l|c|c|}
+\hline
 \textbf{Configuration} & \textbf{Engine $\bar{S}$} & \textbf{Judge $\bar{S}$}\\
-\midrule
+\hline
 No defense (matched baseline) & 2.567 & 0.865\\
 Redaction only (L2, C01000)   & 1.252 & 0.405\\
 Knee (L2+L3, C01100)          & 1.252 & 0.405\\
 Full stack (C11111)           & \textbf{1.065} & \textbf{0.371}\\
-\midrule
+\hline
 $\Delta S$ vs.\ baseline (full stack) & $1.502$ & $0.494$\\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
@@ -236,17 +236,17 @@ rate into a prioritised risk.
 configuration, weighted by severity, and sorted by residual risk. Source: committed
 Phase~3--4 report §6 (risk matrix).}
 \label{tab:ch6-riskfam}
-\begin{tabular}{llccc}
-\toprule
+\begin{tabular}{|l|l|c|c|c|}
+\hline
 \textbf{Family} & \textbf{Privacy harm} & \textbf{Severity} & \textbf{Residual} & \textbf{Risk}\\
-\midrule
+\hline
 Linkability   & Linkability     & 4 & \textbf{0.700} & \textbf{2.80}\\
 Direct PII    & Identifiability & 5 & 0.222 & 1.11\\
 Reconnaissance & Detectability  & 3 & 0.333 & 1.00\\
 Jailbreak     & Disclosure      & 5 & 0.000 & 0.00\\
 Corpus poisoning & Disclosure   & 5 & 0.000 & 0.00\\
 Injection and others & Disclosure & 4--5 & 0.000 & 0.00\\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 

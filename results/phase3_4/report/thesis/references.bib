@@ -1,335 +1,381 @@
 % ============================================================================
-%  references.bib — unified thesis bibliography (SEED, started with Ch2)
+%  references.bib — unified thesis bibliography
 %  Author: TADJ Mohamed Walid — ESI Sidi Bel Abbès
 %
-%  HONESTY CONTRACT: every entry's author-surname and year are taken from the
-%  Literature Annotation Matrix in State_Of_The_Art.tex (Esma-reviewed). Where the
-%  source does NOT carry a field (full author lists, exact paper titles, venues),
-%  it is marked "TODO" INSIDE a braced field (BibTeX-safe) rather than fabricated.
-%  Four 2026 sources carry full venue/DOI/arXiv data from the SOTA footnotes and
-%  are fully populated. Each skeletal entry's `note` records the SOTA contribution
-%  as a hint for integration-pass completion. (NB: percent is only a comment
-%  OUTSIDE entries; never used between fields, and no at-sign appears in comments.)
+%  Titles/venues verified via web search (June 2026). Year fields are kept as
+%  the thesis cites each work (matching the State-of-the-Art chapter's inline
+%  author-year mentions); where the canonical publication date differs, the
+%  note records the precise arXiv id and venue.
 %
-%  STATUS: 4 fully populated (Gulyamov, Duarte, Correia, Wang2026); the rest are
-%  author+year real, title/venue TODO-flagged inside braces.
+%  STATUS: 46 of 49 entries carry verified real titles + venue (one of them,
+%  duarte2026taxonomy, has a verified IEEE Access venue/DOI but its exact title
+%  string is behind IEEE Xplore and is given descriptively). 3 entries
+%  (huang2025embodiment, bayhan2025taxonomy, clement2025devsecops) could not be
+%  resolved to an indexed publication; their titles are descriptive and flagged
+%  "exact title unverified" in the note rather than fabricated.
+%  (NB: percent is only a comment OUTSIDE entries; no at-sign appears in comments.)
 % ============================================================================
 
 % ─────────────── Cluster 1: RAG-specific vulnerabilities ───────────────
-@misc{greshake2023ipi,
-  author = {Greshake and others},
-  title  = {{Indirect Prompt Injection against LLM-integrated applications [TODO verify title]}},
-  year   = {2023},
-  note   = {SOTA: introduced/formalized Indirect Prompt Injection (IPI) for RAG; PoC on Bing Chat. TODO: full author list, venue.}
+@inproceedings{greshake2023ipi,
+  author    = {Greshake and Abdelnabi and others},
+  title     = {Not What You've Signed Up For: Compromising Real-World {LLM}-Integrated Applications with Indirect Prompt Injection},
+  booktitle = {Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec)},
+  year      = {2023},
+  note      = {arXiv:2302.12173. Introduced/formalized Indirect Prompt Injection (IPI) for RAG; PoC on Bing Chat.}
 }
-@misc{perez2022promptinject,
-  author = {Perez and Ribeiro},
-  title  = {{PROMPTINJECT: Goal Hijacking and Prompt Leaking [TODO verify title]}},
-  year   = {2022},
-  note   = {SOTA: formalized Goal Hijacking / Prompt Leaking; PROMPTINJECT framework, 35 scenarios. TODO: given names, venue.}
+@inproceedings{perez2022promptinject,
+  author    = {Perez, F{\'a}bio and Ribeiro, Ian},
+  title     = {Ignore Previous Prompt: Attack Techniques For Language Models},
+  booktitle = {NeurIPS 2022 ML Safety Workshop},
+  year      = {2022},
+  note      = {arXiv:2211.09527. PROMPTINJECT framework; goal hijacking and prompt leaking over 35 scenarios.}
 }
 @misc{yi2024bipia,
-  author = {Yi and others},
-  title  = {{BIPIA: benchmarking indirect prompt injection [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: first large-scale IPI robustness benchmark (instruction-vs-data confusion); also cited for a dual-axis attack/defense taxonomy. TODO: full authors, venue.}
+  author       = {Yi, Jingwei and others},
+  title        = {Benchmarking and Defending Against Indirect Prompt Injection Attacks on Large Language Models},
+  howpublished = {arXiv preprint arXiv:2312.14197},
+  year         = {2024},
+  note         = {First large-scale IPI robustness benchmark (instruction-vs-data confusion); appeared at ACM SIGKDD (KDD) 2025.}
 }
 @misc{liu2025houyi,
-  author = {Liu and others},
-  title  = {{HOUYI: black-box prompt-injection exploitation [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: iterative 3-component black-box attack (Framework/Separator/Disruptor), 36 services. TODO: full authors, venue.}
+  author       = {Liu, Yi and Deng, Gelei and Li, Yuekang and Wang, Kailong and Zhang, Tianwei and Liu, Yepang and Wang, Haoyu and Zheng, Yan and Liu, Yang},
+  title        = {Prompt Injection Attack against {LLM}-integrated Applications},
+  howpublished = {arXiv preprint arXiv:2306.05499},
+  year         = {2025},
+  note         = {The HOUYI framework (iterative 3-component black-box attack), 36 services. arXiv first posted 2023; appeared at USENIX Security 2024.}
 }
 @misc{xue2024poisoning,
-  author = {Xue and others},
-  title  = {{Corpus poisoning and Alignment-as-an-Attack (AaaA) [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: corpus optimization (COP/MCOP) for retrieval-position control; AaaA. TODO: full authors, venue.}
+  author       = {Xue, Jiaqi and Zheng, Meng and Hu, Yebowen and Liu, Fei and Chen, Xun and Lou, Qian},
+  title        = {{BadRAG}: Identifying Vulnerabilities in Retrieval Augmented Generation of Large Language Models},
+  howpublished = {arXiv preprint arXiv:2406.00083},
+  year         = {2024},
+  note         = {Corpus poisoning for retrieval-position control; retrieval backdoor (TrojRAG).}
 }
 @misc{clop2024backdoor,
-  author = {Clop and Teglia},
-  title  = {{Retriever-layer fine-tuning backdoors [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: embedding-model backdoors; stealthier than prompt-level (Llama-3, Mistral). TODO: given names, venue.}
+  author       = {Clop, Cody and Teglia, Yannick},
+  title        = {Backdoored Retrievers for Prompt Injection Attacks on Retrieval Augmented Generation of Large Language Models},
+  howpublished = {arXiv preprint arXiv:2410.14479},
+  year         = {2024},
+  note         = {Embedding-model backdoors planted via fine-tuning on a poisoned dataset; stealthier than prompt-level.}
 }
 @misc{arzanipour2025threatmodel,
-  author = {Arzanipour and others},
-  title  = {{A formal threat model for RAG privacy [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: first formal RAG threat model; 2-D adversary taxonomy (Model Access x Knowledge), doc-level DP; no empirical test. TODO: full authors, venue.}
+  author       = {Arzanipour, Atousa and Behnia, Rouzbeh and Ebrahimi, Reza and Dutta, Kaushik},
+  title        = {{RAG} Security and Privacy: Formalizing the Threat Model and Attack Surface},
+  howpublished = {arXiv preprint arXiv:2509.20324},
+  year         = {2025},
+  note         = {First formal RAG threat model; adversary taxonomy by access/knowledge; document-level membership inference and poisoning; no large-scale empirical test.}
 }
-@misc{wei2023failuremodes,
-  author = {Wei and others},
-  title  = {{Competing Objectives and Mismatched Generalization in LLM safety [TODO verify title]}},
-  year   = {2023},
-  note   = {SOTA: two failure modes of safety training; jailbreak experiments (GPT-4, Claude v1.3). TODO: full authors, venue.}
+@inproceedings{wei2023failuremodes,
+  author    = {Wei, Alexander and Haghtalab, Nika and Steinhardt, Jacob},
+  title     = {Jailbroken: How Does {LLM} Safety Training Fail?},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023},
+  note      = {arXiv:2307.02483. Competing-objectives and mismatched-generalization failure modes; GPT-4 and Claude v1.3.}
 }
 @article{gulyamov2026paladin,
-  author  = {Gulyamov and others},
-  title   = {{PALADIN: a five-layer defense framework (RAG attack/defense survey) [TODO verify title]}},
+  author  = {Gulyamov, S. and Rodionov, A. and Khursanov, A. and Mekhmonov, R. and Rakhimjonov, A. and others},
+  title   = {Prompt Injection Attacks in Large Language Models and {AI} Agent Systems: A Comprehensive Review of Vulnerabilities, Attack Vectors, and Defense Mechanisms},
   journal = {Information},
   volume  = {17},
   number  = {1},
-  pages   = {art.~54},
+  pages   = {54},
   year    = {2026},
   doi     = {10.3390/info17010054},
-  note    = {Peer-reviewed (MDPI), version of record; SOTA secondary study, 45 sources, PALADIN. TODO: full authors, exact title.}
+  note    = {Peer-reviewed (MDPI), version of record; secondary study, 45 sources; proposes the PALADIN five-layer defense framework.}
 }
-@misc{wen2025instructdetector,
-  author = {Wen and others},
-  title  = {{InstructDetector: white-box IPI detection via internal states [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: MLP on hidden activations/gradients; binary detection on BIPIA/LaMini; white-box only. TODO: full authors, venue.}
+@inproceedings{wen2025instructdetector,
+  author    = {Wen and Wang and others},
+  title     = {Defending against Indirect Prompt Injection by Instruction Detection},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2025},
+  year      = {2025},
+  note      = {arXiv:2505.06311. InstructDetector: MLP on hidden states/gradients; binary detection on BIPIA; white-box only.}
 }
 
 % ─────────────── Cluster 2: PII memorization & leakage in LLMs ───────────────
-@misc{carlini2021extracting,
-  author = {Carlini and others},
-  title  = {{Extracting training data from large language models [TODO verify title]}},
-  year   = {2021},
-  note   = {SOTA: proved verbatim PII memorization (GPT-2, 200k samples); likelihood-ratio extraction. TODO: full authors, venue.}
+@inproceedings{carlini2021extracting,
+  author    = {Carlini, Nicholas and Tram{\`e}r, Florian and Wallace, Eric and Jagielski, Matthew and Herbert-Voss, Ariel and Lee, Katherine and Roberts, Adam and Brown, Tom and Song, Dawn and Erlingsson, {\'U}lfar and Oprea, Alina and Raffel, Colin},
+  title     = {Extracting Training Data from Large Language Models},
+  booktitle = {30th USENIX Security Symposium (USENIX Security)},
+  year      = {2021},
+  note      = {Proved verbatim PII memorization (GPT-2, 200k samples); likelihood-ratio extraction.}
 }
-@misc{carlini2023quantifying,
-  author = {Carlini and others},
-  title  = {{Quantifying memorization across language models (log-linear scaling) [TODO verify title]}},
-  year   = {2023},
-  note   = {SOTA: memorization scales log-linearly with capacity, repetition, context length. TODO: full authors, venue.}
+@inproceedings{carlini2023quantifying,
+  author    = {Carlini, Nicholas and Ippolito, Daphne and Jagielski, Matthew and Lee, Katherine and Tram{\`e}r, Florian and Zhang, Chiyuan},
+  title     = {Quantifying Memorization Across Neural Language Models},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  note      = {arXiv:2202.07646. Memorization scales log-linearly with capacity, repetition, and context length.}
 }
 @misc{mireshghallah2025taxonomy,
-  author = {Mireshghallah and Li},
-  title  = {{A privacy taxonomy and the memorization bias (longitudinal review) [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: review of 1,322 papers (2016--2025); 5-part taxonomy; context-leakage/aggregation under-studied. TODO: given names, venue.}
+  author       = {Mireshghallah, Niloofar and Li, Tianshi},
+  title        = {Position: Privacy Is Not Just Memorization!},
+  howpublished = {arXiv preprint arXiv:2510.01645},
+  year         = {2025},
+  note         = {Position paper; longitudinal review of 1{,}322 privacy papers (2016--2025); context leakage and aggregation under-studied.}
 }
 @misc{borkar2023finetuning,
-  author = {Borkar},
-  title  = {{Fine-tuning leaks and the unlearning paradox [TODO verify title]}},
-  year   = {2023},
-  note   = {SOTA: fine-tuning preserves and creates leaks; unlearning can backfire. TODO: given name, venue.}
+  author       = {Borkar, Jaydeep},
+  title        = {What Can We Learn from Data Leakage and Unlearning for Law?},
+  howpublished = {arXiv preprint arXiv:2307.10476},
+  year         = {2023},
+  note         = {Fine-tuning leaks pre-training data and PII; unlearning can backfire (the unlearning paradox).}
 }
 @misc{zhang2025distillation,
-  author = {Zhang and others},
-  title  = {{Distillation inherits teacher PII/membership-inference risk [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: student models inherit teacher memorization/MIA risk. TODO: full authors, venue.}
+  author       = {Zhang, Ziqi and others},
+  title        = {On Membership Inference Attacks in Knowledge Distillation},
+  howpublished = {arXiv preprint arXiv:2505.11837},
+  year         = {2025},
+  note         = {Distilled student models can inherit, and sometimes amplify, the teacher's membership-inference risk.}
 }
-@misc{sander2025reasoning,
-  author = {Sander and others},
-  title  = {{Reasoning beats memorization for PII leakage [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: chat/instruction-following extracts more PII than verbatim prefix completion (synthetic PII). TODO: full authors, venue.}
+@inproceedings{sander2025reasoning,
+  author    = {Sander, Tom and others},
+  title     = {Rethinking the Role of Verbatim Memorization in {LLM} Privacy},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  note      = {Distinguishes verbatim memorization from chat-based (instruction-following) extraction of fine-tuning data.}
 }
 @misc{nakka2025grounding,
-  author = {Nakka and others},
-  title  = {{In-domain grounding amplifies PII extraction [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: in-domain context boosts memorized-PII extraction (GPT-J-6B, Enron); benign-RAG case untested. TODO: full authors, venue.}
+  author       = {Nakka, Krishna Kanth and Frikha, Ahmed and others},
+  title        = {{PII-Compass}: Guiding {LLM} Training Data Extraction Prompts towards the Target {PII} via Grounding},
+  howpublished = {arXiv preprint arXiv:2407.02943},
+  year         = {2025},
+  note         = {In-domain grounding amplifies memorized-PII extraction (GPT-J-6B, Enron). 5th Workshop on Privacy in NLP, 2024.}
 }
-@misc{nie2025leakagent,
-  author = {Nie and others},
-  title  = {{LeakAgent: RL-based automated extraction attacker [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: PPO-trained Llama-3-8B attacker vs GPT-3.5; attacker-only (no defender/judge). TODO: full authors, venue.}
+@inproceedings{nie2025leakagent,
+  author    = {Nie, Yuzhou and Wang, Zhun and Yu, Ye and Wu, Xian and Zhao, Xuandong and Guo, Wenbo and Song, Dawn},
+  title     = {{LeakAgent}: {RL}-based Red-teaming Agent for {LLM} Privacy Leakage},
+  booktitle = {Conference on Language Modeling (COLM)},
+  year      = {2025},
+  note      = {arXiv:2412.05734. PPO-trained attacker for training-data and system-prompt extraction; attacker-only.}
 }
-@misc{li2024llmpbe,
-  author = {Li and others},
-  title  = {{LLM-PBE: unified privacy benchmark toolkit [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: benchmarks extraction/MIA/PII leakage across 10+ open models; static (no RAG dynamics). Distinct from li2024evaltaxonomy. TODO: full authors, venue.}
+@article{li2024llmpbe,
+  author  = {Li, Qinbin and Hong, Junyuan and Xie, Chulin and Tan, Jeffrey and Xin, Rachel and Hou, Junyi and Yin, Xavier and Wang, Zhun and Hendrycks, Dan and Wang, Zhangyang and Li, Bo and He, Bingsheng and Song, Dawn},
+  title   = {{LLM-PBE}: Assessing Data Privacy in Large Language Models},
+  journal = {Proceedings of the VLDB Endowment (PVLDB)},
+  volume  = {17},
+  number  = {11},
+  pages   = {3201--3214},
+  year    = {2024},
+  note    = {arXiv:2408.12787. Benchmarks extraction/MIA/PII leakage across 10+ models; static (no RAG dynamics).}
 }
-@misc{wang2025mextra,
-  author = {Wang and others},
-  title  = {{MEXTRA: interaction-memory extraction attack [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: Interaction Memory as a distinct privacy risk; MEXTRA. Distinct from wang2025seu. TODO: full authors, venue.}
+@inproceedings{wang2025mextra,
+  author    = {He, Pengfei and others},
+  title     = {Unveiling Privacy Risks in {LLM} Agent Memory},
+  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL)},
+  year      = {2025},
+  note      = {arXiv:2502.13172. Interaction memory as a distinct privacy risk; the MEXTRA memory-extraction attack.}
 }
 
 % ─────────────── Cluster 3: prompt-injection taxonomies ───────────────
 @misc{owasp2025top10,
-  author = {{OWASP}},
-  title  = {{OWASP Top 10 for Large Language Model Applications}},
-  year   = {2025},
-  note   = {SOTA: industry taxonomy; separates Direct (LLM01) from Indirect PI; normative, no benchmark. TODO: exact edition/URL.}
+  author       = {{OWASP}},
+  title        = {{OWASP} Top 10 for Large Language Model Applications},
+  howpublished = {OWASP Foundation},
+  year         = {2025},
+  note         = {Industry taxonomy; separates Direct (LLM01) from Indirect prompt injection; normative, no benchmark.}
 }
 @article{duarte2026taxonomy,
   author  = {Duarte and others},
-  title   = {{A four-level prompt-injection manipulation taxonomy [TODO verify title]}},
+  title   = {A Four-Level Manipulation Taxonomy of Prompt Injection Attacks (character/word/sentence/semantic)},
   journal = {IEEE Access},
   volume  = {14},
   pages   = {12875--12899},
   year    = {2026},
   doi     = {10.1109/ACCESS.2026.3656849},
-  note    = {Peer-reviewed (IEEE Access, open access). SOTA: character/word/sentence/semantic levels x intent. TODO: full authors, exact title.}
+  note    = {Peer-reviewed (IEEE Access, open access); four manipulation levels crossed with intent; JSON/XML and multimodal injections. Verified venue/volume/pages/DOI; exact title string behind IEEE Xplore and given descriptively here.}
 }
 @misc{correia2026catalog,
-  author        = {Correia and others},
-  title         = {{Expanded NIST prompt-injection defense catalog (88 studies) [TODO verify title]}},
-  year          = {2026},
-  eprint        = {2601.22240},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CR},
-  note          = {arXiv preprint (not peer-reviewed as of Apr 2026). SOTA: largest PI-defense catalog; indirect-PI defenses under-explored. TODO: full authors, exact title.}
+  author       = {Correia, Pedro H. Barcha and Achjian, Ryan W. and Caetano de Oliveira, Diego E. G. and Maria, Ygor Acacio and Hayashi, Victor Takashi and Lopes, Marcos and Miers, Charles Christian and Simplicio Jr., Marcos A.},
+  title        = {A Systematic Literature Review on {LLM} Defenses Against Prompt Injection and Jailbreaking: Expanding {NIST} Taxonomy},
+  howpublished = {arXiv preprint arXiv:2601.22240},
+  year         = {2026},
+  note         = {Largest prompt-injection-defense catalog (88 studies); indirect-PI defenses under-explored.}
 }
 @misc{wang2026agentpi,
-  author        = {Wang and others},
-  title         = {{AgentPI: SoK on LLM-agent prompt injection; Security-Utility-Latency trilemma [TODO verify title]}},
-  year          = {2026},
-  eprint        = {2602.10453},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CR},
-  note          = {arXiv preprint (SoK, not peer-reviewed as of Apr 2026). SOTA: no defense achieves trust+utility+low-latency together. Distinct from wang2025*. TODO: full authors, exact title.}
+  author       = {Wang and others},
+  title        = {The Landscape of Prompt Injection Threats in {LLM} Agents: From Taxonomy to Analysis},
+  howpublished = {arXiv preprint arXiv:2602.10453},
+  year         = {2026},
+  note         = {SoK on LLM-agent prompt injection (AgentPI); security--utility--latency trilemma; no single defense achieves all three.}
 }
 @misc{mao2025taxonomy,
-  author = {Mao and others},
-  title  = {{Evolutionary attack-surface taxonomy [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: permission dimension used as a severity modifier in this thesis. TODO: full authors, venue.}
+  author       = {Mao, Yanxu and others},
+  title        = {From {LLMs} to {MLLMs} to Agents: A Survey of Emerging Paradigms in Jailbreak Attacks and Defenses within the {LLM} Ecosystem},
+  howpublished = {arXiv preprint arXiv:2506.15170},
+  year         = {2025},
+  note         = {Evolutionary attack-surface taxonomy across text/multimodal/agent generations; permission dimension.}
 }
 @misc{rao2026svm,
-  author = {Rao and others},
-  title  = {{Lightweight SVM guardrails beat LLM guardrails on latency [TODO verify title]}},
-  year   = {2026},
-  note   = {SOTA: SVM input-screening latency baseline; input screening only. TODO: full authors, venue.}
+  author       = {Rao, Akshaj Prashanth and others},
+  title        = {{PromptScreen}: Efficient Jailbreak Mitigation Using Semantic Linear Classification in a Multi-Staged Pipeline},
+  howpublished = {arXiv preprint arXiv:2512.19011},
+  year         = {2026},
+  note         = {Linear-SVM semantic filter; ${\sim}10\times$ lower latency than LLM-based guardrails (ShieldGemma) at competitive accuracy.}
 }
 @misc{xu2025lifecycle,
-  author = {Xu and Parhi},
-  title  = {{Full-lifecycle prompt-injection attack taxonomy [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: lifecycle framing used for defense placement in this thesis. TODO: given names, venue.}
+  author       = {Xu and Parhi and others},
+  title        = {A Survey of Attacks on Large Language Models},
+  howpublished = {arXiv preprint arXiv:2505.12567},
+  year         = {2025},
+  note         = {Lifecycle-oriented attack taxonomy (training/inference/deployment phases); used for defense placement.}
 }
 @misc{huang2025embodiment,
-  author = {Huang and others},
-  title  = {{The Embodiment Gap: prompt injection in LLM-controlled robotics [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: extends PI threat to physical/embodied systems; not RAG-document context. TODO: full authors, venue.}
+  author       = {Huang and others},
+  title        = {The Embodiment Gap: Prompt Injection in {LLM}-Controlled Robotics},
+  howpublished = {Preprint},
+  year         = {2025},
+  note         = {Extends the prompt-injection threat to physical/embodied systems. Exact title and venue could not be verified via web search; description from the literature-review matrix.}
 }
 @misc{bayhan2025taxonomy,
-  author = {Bayhan},
-  title  = {{A prompt-injection taxonomy by source and goal [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: source/goal taxonomy; no functional Arbitrator architecture. TODO: given name, venue.}
+  author       = {Bayhan},
+  title        = {A Prompt-Injection Taxonomy by Source and Goal},
+  howpublished = {Preprint},
+  year         = {2025},
+  note         = {Classifies attacks by origin (user input vs.\ injected content) and objective (data leakage vs.\ code execution). Exact title and venue could not be verified via web search; description from the literature-review matrix.}
 }
 
 % ─────────────── Cluster 4: defense mechanisms & guardrails ───────────────
-@misc{rebedea2023nemo,
-  author = {Rebedea and others},
-  title  = {{NeMo Guardrails: programmable LLM safety (Colang) [TODO verify title]}},
-  year   = {2023},
-  note   = {SOTA: first major open-source guardrail toolkit; static Colang flows; author-evaluated. TODO: full authors, venue.}
+@inproceedings{rebedea2023nemo,
+  author    = {Rebedea and others},
+  title     = {{NeMo} Guardrails: A Toolkit for Controllable and Safe {LLM} Applications with Programmable Rails},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP): System Demonstrations},
+  pages     = {431--445},
+  year      = {2023},
+  note      = {arXiv:2310.10501. First major open-source guardrail toolkit; static Colang flows; author-evaluated.}
 }
 @misc{dong2024safeguarding,
-  author = {Dong and others},
-  title  = {{A safeguarding taxonomy for LLMs [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: general LLM-safety taxonomy; no RAG PII focus. TODO: full authors, venue.}
+  author       = {Dong and others},
+  title        = {Safeguarding Large Language Models: A Survey},
+  howpublished = {arXiv preprint arXiv:2406.02622},
+  year         = {2024},
+  note         = {General LLM-safety/guardrail taxonomy; no RAG PII focus.}
 }
-@misc{akheel2025guardrails,
-  author = {Akheel},
-  title  = {{A multi-layer guardrail taxonomy (utility vs censorship) [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: classificatory survey (NeMo/Llama Guard/Guardrails AI); no measurement. TODO: given name, venue.}
+@article{akheel2025guardrails,
+  author  = {Akheel, Syed Arham},
+  title   = {Guardrails for Large Language Models: A Review of Techniques and Challenges},
+  journal = {Journal of Artificial Intelligence, Machine Learning and Data Science},
+  year    = {2025},
+  note    = {Classificatory review (NeMo Guardrails, Llama Guard, Guardrails AI); utility-vs-censorship tension; no measurement.}
 }
 @misc{zizzo2025benchmark,
-  author = {Zizzo and others},
-  title  = {{Benchmarking fifteen guardrail implementations [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: most rigorous guardrail benchmark; simple baselines often beat complex OOD detectors; generic jailbreaks (not privacy). TODO: full authors, venue.}
+  author       = {Zizzo, Giulio and Cornacchia, Giandomenico and Fraser, Kieran and Hameed, Muhammad Zaid and Rawat, Ambrish and Buesser, Beat and Purcell, Mark and Chen, Pin-Yu and Sattigeri, Prasanna and Varshney, Kush},
+  title        = {Adversarial Prompt Evaluation: Systematic Benchmarking of Guardrails Against Prompt Input Attacks on {LLMs}},
+  howpublished = {arXiv preprint arXiv:2502.15427},
+  year         = {2025},
+  note         = {Benchmarks 15 guardrails; simple baselines often match complex OOD detectors; generic jailbreaks (not privacy).}
 }
 @misc{clement2025devsecops,
-  author = {Clement},
-  title  = {{A DevSecOps-integrated LLM security framework [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: SDLC-focused; orthogonal to user-facing RAG loop. TODO: given name, venue.}
+  author       = {Clement},
+  title        = {A DevSecOps-Integrated Framework for Continuous {LLM} Security Assurance},
+  howpublished = {Preprint},
+  year         = {2025},
+  note         = {SDLC-focused security framework; orthogonal to the user-facing RAG loop. Exact title and venue could not be verified via web search; description from the literature-review matrix.}
 }
 @misc{chowdhury2024survey,
-  author = {Chowdhury and others},
-  title  = {{Attack/defense comparative survey [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: comparative survey; no RAG privacy management. TODO: full authors, venue.}
+  author       = {Chowdhury, Arijit Ghosh and Islam, Md Mofijul and Kumar, Vaibhav and Shezan, Faysal Hossain and Jain, Vinija and Chadha, Aman},
+  title        = {Breaking Down the Defenses: A Comparative Survey of Attacks on Large Language Models},
+  howpublished = {arXiv preprint arXiv:2403.04786},
+  year         = {2024},
+  note         = {Comparative attack survey; no RAG privacy management.}
 }
 @misc{cui2024risktaxonomy,
-  author = {Cui and others},
-  title  = {{A four-module LLM risk taxonomy [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: 4-module risk taxonomy; no Attacker-Defender-Arbitrator loop. TODO: full authors, venue.}
+  author       = {Cui, Tianyu and others},
+  title        = {Risk Taxonomy, Mitigation, and Assessment Benchmarks of Large Language Model Systems},
+  howpublished = {arXiv preprint arXiv:2401.05778},
+  year         = {2024},
+  note         = {Four-module risk taxonomy (input/model/toolchain/output); no Attacker-Defender-Arbitrator loop.}
 }
 @misc{wang2025seu,
-  author = {Wang and others},
-  title  = {{SEU: Security-Effectiveness-Usability guardrail evaluation (6-axis) [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: 6-axis guardrail taxonomy; evaluative not generative. Distinct from wang2025mextra. TODO: full authors, venue.}
+  author       = {Wang and others},
+  title        = {{SoK}: Evaluating Jailbreak Guardrails for Large Language Models},
+  howpublished = {arXiv preprint arXiv:2506.10597},
+  year         = {2025},
+  note         = {Six-dimension guardrail taxonomy and the Security-Efficiency-Utility (SEU) evaluation framework; evaluative not generative.}
 }
 @misc{shen2025pandaguard,
-  author = {Shen and others},
-  title  = {{PANDAGUARD: modular Attacker/Defender/Judge jailbreak framework [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: 19 attacks x 12 defenses; general jailbreak safety, no formal privacy metric. TODO: full authors, venue.}
+  author       = {Shen, Guobin and others},
+  title        = {{PandaGuard}: Systematic Evaluation of {LLM} Safety against Jailbreaking Attacks},
+  howpublished = {arXiv preprint arXiv:2505.13862},
+  year         = {2025},
+  note         = {Modular Attacker/Defender/Judge framework (19 attacks, 12 defenses); general jailbreak safety, no formal privacy metric.}
 }
 @misc{chen2025teleai,
-  author = {Chen and others},
-  title  = {{TeleAI-Safety: RADAR multi-agent debate and Morpheus attacker [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: 19 attacks x 29 defenses x 14 models; general safety, not RAG PII. Distinct from chen2025majeval. TODO: full authors, venue.}
+  author       = {Chen and others},
+  title        = {{TeleAI-Safety}: A Comprehensive {LLM} Jailbreaking Benchmark towards Attacks, Defenses, and Evaluations},
+  howpublished = {arXiv preprint arXiv:2512.05485},
+  year         = {2025},
+  note         = {19 attacks, 29 defenses, 14 models; RADAR multi-agent debate evaluation and the Morpheus attacker; general safety, not RAG PII.}
 }
 
 % ─────────────── Cluster 5: LLM-as-Judge & multi-agent evaluation ───────────────
-@misc{zheng2023judge,
-  author = {Zheng and others},
-  title  = {{Judging LLM-as-a-judge (MT-Bench, Chatbot Arena) [TODO verify title]}},
-  year   = {2023},
-  note   = {SOTA: GPT-4 agrees with humans over 80 percent; position/verbosity/self-enhancement biases; helpfulness only. TODO: full authors, venue.}
+@inproceedings{zheng2023judge,
+  author    = {Zheng, Lianmin and Chiang, Wei-Lin and Sheng, Ying and Zhuang, Siyuan and Wu, Zhanghao and Zhuang, Yonghao and Lin, Zi and Li, Zhuohan and Li, Dacheng and Xing, Eric P. and Zhang, Hao and Gonzalez, Joseph E. and Stoica, Ion},
+  title     = {Judging {LLM-as-a-Judge} with {MT-Bench} and Chatbot Arena},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},
+  year      = {2023},
+  note      = {arXiv:2306.05685. GPT-4 agrees with humans over 80\%; position/verbosity/self-enhancement biases; helpfulness only.}
 }
 @misc{yu2025agentjudge,
-  author = {Yu},
-  title  = {{The Agent-as-a-Judge paradigm [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: pointwise to pairwise to multi-agent step-by-step evaluation; generic. TODO: given name, venue.}
+  author       = {Yu, Fangyi},
+  title        = {When {AIs} Judge {AIs}: The Rise of {Agent-as-a-Judge} Evaluation for {LLMs}},
+  howpublished = {arXiv preprint arXiv:2508.02994},
+  year         = {2025},
+  note         = {Traces pointwise to pairwise to multi-agent step-by-step evaluation; generic, not RAG PII.}
 }
 @misc{li2024evaltaxonomy,
-  author = {Li and others},
-  title  = {{A five-perspective taxonomy of LLM-based evaluation [TODO verify title]}},
-  year   = {2024},
-  note   = {SOTA: explanation-rating reliability boost; no RAG-specific Arbitrator. Distinct from li2024llmpbe. TODO: full authors, venue.}
+  author       = {Li and others},
+  title        = {Leveraging Large Language Models for {NLG} Evaluation: A Survey},
+  howpublished = {arXiv preprint arXiv:2401.07103},
+  year         = {2024},
+  note         = {Taxonomy of LLM-based evaluation; the explanation-rating reliability boost. EMNLP 2024 (``Advances and Challenges'').}
 }
 @misc{li2025metajudge,
-  author = {Li and others},
-  title  = {{A three-stage meta-judge pipeline (Public/Expert/Critic) [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: hierarchical multi-agent judgment beats single-agent on JudgeBench. TODO: full authors, venue.}
+  author       = {Li and others},
+  title        = {Leveraging {LLMs} as Meta-Judges: A Multi-Agent Framework for Evaluating {LLM} Judgments},
+  howpublished = {arXiv preprint arXiv:2504.17087},
+  year         = {2025},
+  note         = {Three-stage meta-judge pipeline; multi-agent collaboration beats single-agent on JudgeBench.}
 }
-@misc{chen2025majeval,
-  author = {Chen and others},
-  title  = {{MAJ-EVAL: document-grounded evaluation personas via multi-agent debate [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: auto-extracts personas from documents; no Legal/GDPR personas. Distinct from chen2025teleai. TODO: full authors, venue.}
+@inproceedings{chen2025majeval,
+  author    = {Chen and others},
+  title     = {{Multi-Agent-as-Judge}: Aligning {LLM}-Agent-Based Automated Evaluation with Multi-Dimensional Human Evaluation},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  note      = {arXiv:2507.21028. MAJ-EVAL: auto-extracts evaluator personas from documents and runs in-group debate; no Legal/GDPR personas.}
 }
 @misc{mushtaq2025prisma,
-  author = {Mushtaq and others},
-  title  = {{A PRISMA-aligned multi-agent system for systematic-review assessment [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: checklist-driven MAS proof-of-concept; no privacy/PII evaluation. TODO: full authors, venue.}
+  author       = {Mushtaq and others},
+  title        = {Can Agents Judge Systematic Reviews Like Humans? Evaluating {SLRs} with {LLM}-based Multi-Agent System},
+  howpublished = {arXiv preprint arXiv:2509.17240},
+  year         = {2025},
+  note         = {PRISMA-aligned multi-agent system; 84\% agreement with expert PRISMA scores; no privacy/PII evaluation.}
 }
 @misc{cao2025personalized,
-  author = {Cao and others},
-  title  = {{Automated design of personalized multi-agent judges [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: judge personas generated algorithmically; no regulatory-persona automation. TODO: full authors, venue.}
+  author       = {Cao and others},
+  title        = {Multi-Agent {LLM} Judge: Automatic Personalized {LLM} Judge Design for Evaluating Natural Language Generation Applications},
+  howpublished = {arXiv preprint arXiv:2504.02867},
+  year         = {2025},
+  note         = {Algorithmically designs task-specific judge personas (Sample Selection/Evaluation/Rewrite agents); no regulatory-persona automation.}
 }
 @misc{ma2025debate,
-  author = {Ma and others},
-  title  = {{Multi-agent debate can amplify biases (echo chamber) [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: debate amplifies position/verbosity bias; meta-judge more resistant. Motivates the single-judge choice (Ch5). TODO: full authors, venue.}
+  author       = {Ma and others},
+  title        = {Judging with Many Minds: Do More Perspectives Mean Less Prejudice? On Bias Amplification and Resistance in Multi-Agent Based {LLM-as-Judge}},
+  howpublished = {arXiv preprint arXiv:2505.19477},
+  year         = {2025},
+  note         = {Multi-agent debate amplifies position/verbosity bias (echo chamber); meta-judge approaches are more resistant. Motivates the single-judge choice.}
 }
 @misc{yehudai2025ecosystem,
-  author = {Yehudai and others},
-  title  = {{Survey of the agent-evaluation ecosystem [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: explicitly names absence of organizational-policy-compliance evaluation as an open frontier. TODO: full authors, venue.}
+  author       = {Yehudai, Asaf and others},
+  title        = {Survey on Evaluation of {LLM}-based Agents},
+  howpublished = {arXiv preprint arXiv:2503.16416},
+  year         = {2025},
+  note         = {Maps the agent-evaluation ecosystem; explicitly names the absence of organizational-policy-compliance evaluation as an open frontier.}
 }
 @misc{kim2025objexmt,
-  author = {Kim and others},
-  title  = {{ObjexMT: latent-objective extraction and confidence calibration [TODO verify title]}},
-  year   = {2025},
-  note   = {SOTA: 14+ models show poor metacognitive calibration; jailbreak focus. TODO: full authors, venue.}
+  author       = {Kim and others},
+  title        = {{ObjexMT}: Objective Extraction and Metacognitive Calibration for {LLM-as-a-Judge} under Multi-Turn Jailbreaks},
+  howpublished = {arXiv preprint arXiv:2508.16889},
+  year         = {2025},
+  note         = {Benchmark for latent-objective extraction and confidence calibration; most models poorly calibrated under multi-turn jailbreaks.}
 }
