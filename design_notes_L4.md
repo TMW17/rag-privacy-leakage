@@ -300,6 +300,72 @@ the new F2 outputs only on your go-ahead.** Do not assume the judge is free.
 4. **L6/L3 distinction is the viva bar.** L6 (recall-closure) and L3 (refusal) both already targeted
    this leak and did *not* move judged F2. Stage 2 must show what L7 adds — cross-turn, combinatorial
    QI suppression as attributes accumulate — and report its marginal effect where L3/L6 already act.
+   *(REVISED post-Stage-2, §2.2: the cross-turn part was falsified; L7's distinction is the
+   COMBINATORIAL part only.)*
+
+---
+
+## 5.2 Stage-3 sweep design — VIABILITY test (not a win-search) + two confound controls
+
+**Reframed objective (post-Stage-2).** L7 is a **combinatorial in-context k-anonymity gate** (the
+cross-turn claim is dropped). Stage 3 tests *whether QI-combination suppression can reduce the F2
+residual, and at what utility cost* — reporting the **security–utility curve across k**. It is a
+**viability test**: an honest possible outcome is "the k needed to move F2 imposes near-blanket
+generalization → combinatorial k-anon on a 100-record, QI-dense corpus is not viable without gutting
+utility" — a legitimate limitation finding, not a failure.
+
+**Sweep + conditions** (primary = **L7-alone**, the clean attribution vs C00000):
+
+| Condition | k | role |
+|---|---|---|
+| C00000 | — | baseline (reused; not regenerated) |
+| L7-alone | **2** | light-touch — the DISCRIMINATING point (does targeted suppression move F2 *before* near-blanket?) |
+| L7-alone | 5 | reference |
+| L7-alone | 10 | aggressive |
+| **random-same-rate** | matched per k | **confound control 2** (below) |
+| C11111+L7 | 5 | full-stack (SECONDARY; needs the L5+L7 fix below) |
+
+**Confound control 1 — generalization-rate-per-k (pre-registered companion to the monotonic shape).**
+At each k, report alongside F2 ASR / ΔS / utility: **gen_rate** = fraction of doc-turns where L7
+generalized ≥1 QI (≈76% at k=5 in Stage 2), and **gen_depth** = mean #QIs generalized + mean level
+reached. **Pre-registered reading rule (the effectiveness-claim analogue of the circularity guard):**
+if F2 drops but gen_rate is near-blanket (>~70%), the result is **"blanket redaction," not "targeted
+k-anonymity"** — and is reported as such, not as a clever win.
+
+**Confound control 2 — random-same-rate redaction baseline (the key control).** For each k, a control
+gate generalizes the **same number** of (doc, QI) pairs as k-driven L7, chosen **uniformly at random**
+among QIs present in the context (seed 42), at the **same level/depth distribution** — i.e. it removes
+the *same amount* of content but ignores the k-computation. Run on the same F2 scenarios + judge.
+- random-same-rate F2 **≈** k-driven L7 F2 → L7's k-anonymity *logic* added nothing beyond bulk
+  removal (sobering but honest).
+- k-driven L7 F2 **<** random-same-rate F2 → L7's **targeting** is the real, defensible contribution.
+*Without this control, an F2 drop cannot be attributed to the k-anonymity logic rather than to the
+volume of content removed.* (Build: a `mode="random"` variant of `L7Gate` matching the per-turn action
+count + depth.)
+
+**L5+L7 fix (full-stack secondary only).** Stage 2 deferred per-chunk doc-id tracking through L5
+(`_decomposed_query` raises for L5+L7). The **primary** sweep is L7-alone (no L5) and needs no fix.
+For C11111+L7, either (a) make `_l5_filter` also return per-chunk kept doc-ids (behavior-preserving;
+re-verify bit-compat) or (b) defer full-stack-L7 to follow-up. **Recommend (b)** unless the full-stack
+cell is essential — L7-alone + the random control already answer the viability + intelligence questions.
+
+**Metrics / scenarios / invariants.** F2 ASR (engine + Opus-v2 judge, strict), ΔS, utility
+(faithfulness / context-precision / latency on **BEN-001..030**), gen_rate + gen_depth per k. *Never
+the achieved-k* (circularity). Scenarios: 10 live F2 (primary) + BEN-001..030 (utility / over-
+suppression). Invariants: SUT Sonnet 4.6 / temp 0 / max_tokens 1024; judge Opus 4.7 / prompt v2 /
+Anthropic; MiniLM; ChromaDB top-k 5; chunk 512/64; seed 42; `begin_scenario()` first.
+
+**Budget (engine free; judge = greenlit Anthropic spend, sha256-cached).** L7-alone 3k×10 F2 + random
+3×10 F2 + BEN×(3k+base) ≈ 300–350 SUT turns (temp-0 dedup cuts real calls) ≈ ~$1–2 SUT; judge on the
+new F2 outputs ≈ ~$1–3. **Engine-first** as the free direction check, **then** judge.
+
+**Pre-registered expectations.** Monotonic: tighter k → lower F2, higher utility cost (flat/inverted =
+bug). gen_rate rises with k (near-blanket at k=5/10, lower at k=2). The **k=2 vs random-same-rate**
+contrast is the result that decides whether L7 is *targeted* or merely *bulk*.
+
+**STOP — paste §2.2 + §5.2 for confound-control verification before any sweep budget is spent.**
+
+---
 
 ## 6. Honest expectations (stated up front, so there is no pressure to fabricate)
 
