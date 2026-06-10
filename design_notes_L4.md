@@ -157,6 +157,49 @@ drift (re-run it after any QI/bucket change).
 
 ---
 
+## 2.2 Stage-2 outcome — gate built + firing test (the cross-turn mechanism was FALSIFIED)
+
+**Built (uncommitted, awaiting review):** `L7Gate` in `scripts/phase3/l7_gate.py`; wired in
+`defense_pipeline.py` decomposed path (post-L2/L6, pre-generate) as the additive 6th bit
+`L7_linkage_gate` (default off, per-conversation state). The candidate-set k is the suppression
+DRIVER only, never reported (circularity guard in code). Gate self-test (synthetic) PASS.
+
+- **Bit-compat: PASS** — all six committed cells load with L7=off, `active_layers` unchanged,
+  `config_set6.json` still 5-bit; the L7-off path is byte-identical to pre-L7 → committed numbers frozen.
+- **QI extractor: structured chunks precision/recall = 1.00** (663 QIs — the gate's real input);
+  **prose = 1.00 / 0.846** (the 2 misses are age-in-prose: hyphenated "52-year-old", word "forties").
+  Named limitation; the gate operates on structured chunks (recall 1.0), so prose is a robustness bound.
+- **FINDING — the pre-registered cross-turn mechanism DID NOT MATERIALIZE.** `qi-accumulated-across-turns
+  = 0` on **all three** F2 scenarios. Each employee chunk exposes **4–6 QIs at once**, so a record is
+  fully exposed in whatever turn it is retrieved — the "records split → QIs scatter across turns →
+  accumulate" assumption reasoned to before building is **empirically wrong**. The firing trace caught it.
+
+**Claim split (honest):**
+- **Combinatorial — YES.** L7 reasons over QI *combinations* and generalizes them: genuinely distinct
+  from L6's single-attribute closure and L3's refusal. *(b) generalizes the right QI when k<5 is SOLID.*
+- **Cross-turn accumulation — NO.** Not demonstrated on any scenario. "State carried" is only
+  **persistence** (a doc generalized in turn 0 stays generalized on recurrence; 2/3 scenarios) — a
+  weaker, different property. The self-test's clean accumulation was **synthetic** (one QI hand-fed per
+  turn). Criterion (c) "fires on earlier turns *as QIs accumulate*" is a **trivial** pass: L7 fires at
+  turn 0 because turn-0 records are *already* unique on their own QIs, not because anything accumulated.
+- **Firing intensity at k=5 ≈ 76% of doc-turns generalized = near-blanket** → Stage-3 attribution risk
+  (an F2 drop would be confounded with "L7 redacted almost everything"); **k=2 is the discriminating
+  sweep point.**
+
+**L3/L6 viva-bar REVISED:** L7's distinct value is **combinatorial multi-QI generalization vs L3
+refusal / L6 single-attribute closure** — **NOT** "cross-turn." The cross-turn claim (pre-registered as
+the hardest question this extension invites) **was not met and must not be claimed.**
+
+**DECISION — (A) accepted (review).** Accept per-turn, in-context **combinatorial** k-anonymization as
+L7's actual mechanism; **drop the cross-turn claim**; reframe the contribution per the finding (§5.2);
+proceed to the Stage-3 sweep with two added confound controls. **(B)** (per-conversation candidate-set
+tracking) was rejected on evidence: a *single* chunk already collapses k<5, so set-narrowing would also
+fire at turn 0 — B would rediscover the same finding after a redesign and more spend. The deeper point:
+the F2 leak in this corpus is **single-chunk combinatorial uniqueness, not cross-turn accumulation** —
+a finding about the **threat model**, folded into the contribution (§5.2), not hidden.
+
+---
+
 ## 3. The circularity hazard — the single most important methodological point
 
 This is exactly the failure RQ3 (panel circularity) predicts: **if the defense is optimised against

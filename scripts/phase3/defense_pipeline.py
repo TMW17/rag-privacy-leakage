@@ -71,6 +71,8 @@ from scripts.evaluation_engine import check_response_for_leakage  # noqa: E402
 from scripts.phase3.l1_filter import classify_input as _l1_classify, ENGINE as _L1_ENGINE  # noqa: E402
 # L6 (Task 3.5): targeted recall-closure on the F2 attribute pathway (salary-prose + medical).
 from scripts.phase3.l6_linkage import redact_linkage as _l6_redact  # noqa: E402
+# L7 (Phase 6): stateful cross-turn k-anonymity linkage gate (additive 6th config bit).
+from scripts.phase3.l7_gate import L7Gate  # noqa: E402
 
 
 # =============================================================================
@@ -84,6 +86,7 @@ class DefenseConfig:
     L3_conversation_refusal: bool = False
     L4_output_filter: bool = False
     L5_provenance_check: bool = False
+    L7_linkage_gate: bool = False           # Phase 6: stateful cross-turn k-anonymity gate (6th bit)
     context_minimization: bool = False
     confidence_threshold: bool = False
     audit_log: bool = False
@@ -99,7 +102,8 @@ class DefenseConfig:
 
 # Mid-flow layers that act before the SUT (cannot affect the atomic core in Sprint 0)
 _MID_FLOW = ("L5_provenance_check", "context_minimization",
-             "L2_retrieval_redaction", "L2_llm_redaction", "L3_conversation_refusal")
+             "L2_retrieval_redaction", "L2_llm_redaction", "L3_conversation_refusal",
+             "L7_linkage_gate")
 _STUB_MIDFLOW = ("STUB no-op — INERT in Sprint 0; real effect requires the Sprint-1 "
                  "retrieve()/generate() split (SUT already ran on original context)")
 
@@ -186,7 +190,7 @@ class DefensePipeline:
     def __init__(self, rag: RAGSystem, config: DefenseConfig, run_id: str = "defense",
                  l3_config: "L3Config" = None, l4_mode: str = "redact", l5_acl: bool = True,
                  conf_threshold: float = 10.0, conf_mode: str = "suppress", l6: bool = False,
-                 l2_llm_redactor=None):
+                 l2_llm_redactor=None, l7_k: int = 5):
         self.rag = rag
         self.cfg = config
         self.run_id = run_id
@@ -214,6 +218,8 @@ class DefensePipeline:
         self.last_l4 = None
         self.last_l5 = None
         self.last_l6 = None
+        self.l7gate = L7Gate(k_threshold=l7_k)   # Phase 6: per-conversation k-anon state
+        self.last_l7 = None
 
     def begin_scenario(self, scenario_id: str, run_index: int = 0, family: str = None):
         self._scenario_id = scenario_id
@@ -221,10 +227,12 @@ class DefensePipeline:
         self._family = family               # attack family (F1..F8) for the audit record
         self._turn = 0
         self._l3_state = defaultdict(set)   # sensitivity state is per-conversation
+        self.l7gate.begin()                 # Phase 6: reset L7 cross-turn QI state
 
     # ── query_fn compatible with run_single_scenario ─────────────────────────
     def query(self, user_query, profile, conversation_history=None) -> RAGResponse:
         steps = []
+        self.last_l7 = None
 
         def log(layer, fired, action):
             steps.append({"layer": layer, "fired": fired, "action": action})
@@ -312,6 +320,7 @@ class DefensePipeline:
                        [{"doc_id": e.get("document_id"), "entity_type": e.get("entity_type"),
                          "severity": e.get("severity")} for e in (eng.events or [])]),
             "confidence_threshold": conf_info,
+            "l7": self.last_l7,                      # Phase 6: per-turn L7 firing trace (None if off)
             "response_modified": text != resp.response_text,
             # detailed step-by-step trail only when the audit_log toggle is on
             "audit_trail": steps if self.cfg.audit_log else None,
@@ -381,6 +390,7 @@ class DefensePipeline:
 
     def _decomposed_query(self, q, profile, conversation_history, log):
         chunks, chunk_doc_ids, doc_ids = self._retrieve(q)
+        l7_chunk_ids = list(chunk_doc_ids)   # per-chunk doc ids (valid for L7 when L5 is off)
         log(f"retrieve_k={self.rag.k}", True,
             "decomposed retrieval (reuses RAGSystem embedder+collection)")
         # L5 provenance quarantine (+ optional role-based ACL) — REAL, before context build
@@ -441,6 +451,17 @@ class DefensePipeline:
                 f"recall-closure: {n6['n_salary']} salary + {n6['n_medical']} medical suppressed")
         else:
             log("L6_linkage", False, "skip(disabled)")
+        # L7 (Phase 6): stateful cross-turn k-anonymity gate over the (redacted) context.
+        if self.cfg.L7_linkage_gate:
+            if self.cfg.L5_provenance_check:
+                raise NotImplementedError(
+                    "L7+L5 per-chunk doc-id tracking is Stage 3; the Stage-2 firing test runs L7 alone.")
+            chunks, l7trace = self.l7gate.process(chunks, l7_chunk_ids)
+            self.last_l7 = l7trace
+            log("L7_linkage_gate", True,
+                f"k>={self.l7gate.k}: {l7trace['docs_fired']}/{l7trace['docs_touched']} docs generalized")
+        else:
+            log("L7_linkage_gate", False, "skip(disabled)")
         gen = self._generate(q, chunks, conversation_history)
         log("LLM_SUT", True, "claude-sonnet-4-6 temp=0 max_tokens=1024 (decomposed generate)")
         gen = replace(gen, retrieved_doc_ids=doc_ids)
