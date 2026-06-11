@@ -52,7 +52,7 @@ optimistic, not random.
 
 Here the line between measurement and argument must be drawn. That \emph{this} corpus shows a
 $0.000$-versus-$17.3\%$ gap, concentrated in the linkability family, is measured. That the
-finding \emph{generalizes} is an argument, and we make it as one: we argue that any
+finding \emph{generalizes} is an argument, and we make it as one: any
 annotation-bound or pattern-based detector is structurally unable to see leakage that is
 \emph{emergent} (paraphrased, inferred, or re-assembled across documents), because such
 leakage corresponds to no discrete entity it can match, and that a defense which suppresses
@@ -65,12 +65,12 @@ should not be read as a prediction.
 \section{Five questions, one problem}
 \label{sec:disc-throughline}
 
-The five research questions are usually answered in sequence, but we argue they are better
+The five research questions are usually answered in sequence, but they are better
 understood as five faces of a single phenomenon, and that reading them this way is what turns a
 set of results into a finding. The connecting thread is the nature of re-identification by
 linkage. A person reconstructed from individually innocuous attributes scattered across
-documents is not a discrete entity sitting in one record; the disclosure is \emph{emergent}. We
-argue that this single property explains the otherwise separate results of the four empirical
+documents is not a discrete entity sitting in one record; the disclosure is \emph{emergent}, and
+this single property explains the otherwise separate results of the four empirical
 questions at once.
 
 Consider them in turn, each a face of the same thing. The undefended baseline (RQ1) is
@@ -93,8 +93,8 @@ and $S$ (Chapter~\ref{ch:tradeoff}).
 The interpretation we draw from this is the chapter's central claim: \textbf{the leak that is
 hardest to prevent is hardest to measure, and not by coincidence.} The same emergence that puts
 linkage beyond redaction's reach also puts it beyond a deterministic detector's sight and at the
-edge of a semantic judge's reliability. We argue, therefore, that the defense gap and the
-measurement gap in this thesis are not two difficulties but one, seen from two sides. One
+edge of a semantic judge's reliability. The defense gap and the
+measurement gap in this thesis are therefore not two difficulties but one, seen from two sides. One
 consequence of this reading deserves emphasis because it cuts against over-claiming: the leaks
 the judge missed were exactly the linkage cases the human annotator caught
 (Chapter~\ref{ch:defenses}). The residual is thus corroborated by human judgment rather than
@@ -105,7 +105,7 @@ instruments can see, not an upper one.
 \label{sec:disc-judge}
 
 Because the headline rests on a language-model judge, the thesis treats that judge as an object
-of measurement in its own right, and we argue the resulting calibration story is a contribution
+of measurement in its own right, and the resulting calibration story is a contribution
 independent of the privacy numbers. The measured facts are these: judge--human agreement falls
 from $\kappa = 0.827$ on undefended output to $\kappa = 0.306$ on the defended distribution,
 with raw agreement (the prevalence-independent companion) falling from $93\%$ to $70\%$; the
@@ -118,14 +118,14 @@ forbidden, because the calibration sample took every judge-positive, so the visi
 cannot be projected into a downward correction without selection bias.
 
 Two interpretive lessons follow, and we offer both as arguments. First, on the abandoned
-multi-agent panel: we argue that an arbitration panel whose members share a model-family lineage
+multi-agent panel: an arbitration panel whose members share a model-family lineage
 manufactures the appearance of independence without its substance, since an arbitrator from the
 same family cannot, even in principle, improve on the judge it arbitrates. This is a concrete
 instance of the echo-chamber effect that the surveyed literature anticipated
 (\cite{ma2025debate}), and the honest resolution, a single validated judge corroborated across
-vendors, is, we argue, a finding rather than a retreat. Second, this suggests that judge
+vendors, is a finding rather than a retreat. Second, this suggests that judge
 reliability is \emph{distribution-dependent}: a judge validated on raw output cannot be assumed
-reliable on the redacted and refused output a defense produces, and we argue that
+reliable on the redacted and refused output a defense produces, and
 defended-distribution recalibration should be treated as standard practice rather than an
 afterthought. Both lessons answer, in part, the open frontier that \cite{yehudai2025ecosystem}
 names, organizational-policy-compliance evaluation, and both are consistent with the poor
@@ -148,7 +148,7 @@ cluster: only three quality dimensions were instrumented, and the cost was measu
 extremes rather than isolated at the knee (Chapter~\ref{ch:tradeoff}).
 
 We interpret these characterized limitations as a sign of methodological maturity rather than
-weakness, and we argue the point is consistent with the thesis's own headline: if a result is
+weakness, and the point is consistent with the thesis's own headline: if a result is
 only as trustworthy as the instrument that measured it, then measuring and bounding the
 instrument (the judge's defended-distribution $\kappa$, the noise floor, the upper-bound
 reading of the re-identification figure) is not a concession but the discipline the headline
@@ -163,15 +163,15 @@ For a practitioner deploying enterprise RAG, four implications follow, and we se
 measured basis of each from the recommendation we draw from it. The deployment recommendation is
 the knee (redaction plus conversational refusal): it captures essentially all of the full
 stack's measured security ($0.192$ against $0.173$, within the noise floor;
-Chapter~\ref{ch:tradeoff}), and we argue the full stack is therefore best understood as
+Chapter~\ref{ch:tradeoff}), and the full stack is therefore best understood as
 defense-in-depth for attack surfaces the benign workload never exercises, not as a measured
 improvement. Redaction is the decisive layer, the only one that clears the noise
-floor (Chapter~\ref{ch:defenses}), and budget should reflect that. On the residual, we argue
-that linkage will not yield to redaction and requires a different class of defense entirely:
+floor (Chapter~\ref{ch:defenses}), and budget should reflect that. On the residual, linkage
+will not yield to redaction and requires a different class of defense entirely:
 roughly two-thirds of the residual is a detector-recall gap that better recognizers could close,
-but the remaining third is genuine re-identification that, we argue, needs entity-resolution or
+but the remaining third is genuine re-identification that needs entity-resolution or
 directory-aware controls that redaction cannot provide (Chapter~\ref{ch:tradeoff}). Finally, and
-most directly tied to the headline, we argue that a defended system should be evaluated with a
+most directly tied to the headline, a defended system should be evaluated with a
 validated judge recalibrated on defended output, not a detector alone: a deployment that trusts
 the rule engine will believe it has eliminated leakage when it has reduced it by about forty
 percent.
