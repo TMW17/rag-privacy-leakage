@@ -575,7 +575,7 @@ The other two (\texttt{QUASI\_IDENTIFIER} and \texttt{PARTIAL\_ADDRESS}) are \te
 
 These two threats are not unmeasured. They are evaluated at the \textbf{dataset level} in \Cref{sec:ch3-reid}, where the $k$-anonymity and $l$-diversity analysis quantifies exactly the risk that the per-entity annotations would have captured. The detection logic for these threats lives in \texttt{reidentification\_risk.py}, not in the per-response evaluation engine. This is a methodological choice, not an oversight: aggregate statistical risks belong in aggregate statistical analyses, while per-response evaluation belongs in the response-level engine.
 
-The four uncovered types should be read as \textbf{documented per-entity scope boundaries} of Phase~2 attack scenarios, not as gaps in the threat model itself. Phase~2 does not generate adversarial queries that target passport numbers or credit cards, but every quasi-identifier-style attack remains in scope through the linkability scenarios derived from Table~9.
+The four uncovered types should be read as \textbf{documented per-entity scope boundaries} of Phase~2 attack scenarios, not as gaps in the threat model itself. Phase~2 does not generate adversarial queries that target passport numbers or credit cards, but every quasi-identifier-style attack remains in scope through the linkability scenarios derived from \Cref{tab:ch3-families}.
 
 
 
