@@ -68,7 +68,7 @@ This chapter is a structured, critical walk through the literature sitting at th
   \item \textbf{LLM-as-Judge and Multi-Agent Evaluation} (\Cref{sec:llm-judge}): using language models to evaluate other language models, and the shift toward multi-agent debate and arbitration.
 \end{enumerate}
 
-Each pillar ends with an explicit list of the methodological gaps the current literature leaves open. \Cref{sec:synthesis} then pulls these together into a unified research positioning statement, including a single sentence that captures the original contribution of this thesis relative to the 50 surveyed works.
+Each pillar ends with an explicit list of the methodological gaps the current literature leaves open. \Cref{sec:synthesis} then pulls these together into a unified research positioning statement, including a single sentence that captures the original contribution of this thesis relative to the 49 surveyed works.
 
 \begin{notebox}
 \textbf{A note on 2026 references.} This thesis surveys a fast-moving field. Some 2026 citations are arXiv preprints that have not yet completed peer review, while others are peer-reviewed journal publications. The first mention of each 2026 work carries a footnote with the verified publication status. Peer-reviewed entries cite their DOI; preprints cite their arXiv identifier and are labeled as such. Preprints are admissible evidence for a literature review of an emerging field, but their claims are treated as provisional.
@@ -433,14 +433,14 @@ No existing work in the surveyed literature brings all five of these capabilitie
 \end{notebox}
 
 \begin{transitionbox}[Original Contribution, the One-Sentence Statement]
-Of the 50 primary sources surveyed, none simultaneously couples (i) a mathematically formalized, LINDDUN-aligned privacy-leakage metric pair $(L, S)$ with (ii) a profile-dependent evaluation engine that distinguishes four attacker profiles with different authorization levels and (iii) a validated language-model judge grounded in a controlled PII ground-truth corpus, and this three-way integration (formal privacy metric $\times$ profile-dependence $\times$ validated automated adjudication, applied to RAG) is the original contribution of this thesis.
+Of the 49 primary sources surveyed, none simultaneously couples (i) a mathematically formalized, LINDDUN-aligned privacy-leakage metric pair $(L, S)$ with (ii) a profile-dependent evaluation engine that distinguishes four attacker profiles with different authorization levels and (iii) a validated language-model judge grounded in a controlled PII ground-truth corpus, and this three-way integration (formal privacy metric $\times$ profile-dependence $\times$ validated automated adjudication, applied to RAG) is the original contribution of this thesis.
 \end{transitionbox}
 
 \begin{notebox}
 \textbf{Plan versus realization.}\quad This positioning states the architecture as conceived during the literature review. The experimental work, reported in the chapters that follow, realized the adjudication layer as a \emph{single validated language-model judge} rather than the multi-agent arbitration panel described above: a panel whose members share a model family is circular, since an arbitrator cannot improve on the judge it arbitrates (Chapter~\ref{ch:discussion}). Likewise, the four attacker profiles comprise three evaluated through live interaction and a fourth, the Third-Party Provider, assessed offline because its exposure is bounded by an API contract rather than a query (Chapter~\ref{ch:threat}).
 \end{notebox}
 
-The value proposition is convergence rather than invention. Every individual component exists somewhere in the literature. None of the 50 surveyed works combines them in the configuration above, and several components, particularly the profile-dependent evaluation engine and the GDPR-grounded judge, are independently flagged as open frontiers by the surveyed community itself (Yehudai et al.\ 2025; Correia et al.\ 2026).
+The value proposition is convergence rather than invention. Every individual component exists somewhere in the literature. None of the 49 surveyed works combines them in the configuration above, and several components, particularly the profile-dependent evaluation engine and the GDPR-grounded judge, are independently flagged as open frontiers by the surveyed community itself (Yehudai et al.\ 2025; Correia et al.\ 2026).
 
 
 % ══════════════════════════════════════════════════════════
@@ -455,7 +455,7 @@ The value proposition is convergence rather than invention. Every individual com
 
 \begin{small}
 \begin{longtable}{W{3cm}C{1.2cm}W{3.5cm}W{3.5cm}C{1.5cm}}
-\caption{Complete literature annotation matrix (50 sources, 2021--2026).}
+\caption{Complete literature annotation matrix (49 sources, 2021--2026).}
 \label{tab:annotation-matrix} \\
 \toprule
 
@@ -479,7 +479,7 @@ The value proposition is convergence rather than invention. Every individual com
 \multicolumn{5}{r}{\small\textit{Continued on next page}} \\
 \midrule
 \endfoot
-\midrule
+\bottomrule
 \endlastfoot
 
 
@@ -567,7 +567,7 @@ Chen et al.\ (2025) & RQ2, 4, 5 & TeleAI-Safety; RADAR multi-agent debate & Gene
 \midrule
 
 \multicolumn{5}{l}{\textbf{\color{navy}Cluster 5: LLM-as-Judge}} \\
-\bottomrule
+\midrule
 
 Zheng et al.\ (2023) & RQ2, 5 & GPT-4 as human-proxy judge; bias analysis & Helpfulness only, no safety/GDPR & Critical \\
 
