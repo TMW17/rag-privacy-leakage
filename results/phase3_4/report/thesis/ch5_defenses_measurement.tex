@@ -42,20 +42,19 @@ much of the baseline leakage they remove, and asks whether the instrument used t
 that removal can itself be trusted. These are the two empirical questions at the centre of
 the thesis. \textbf{RQ2} asks how much existing defense mechanisms actually reduce measured
 leakage; \textbf{RQ3} asks whether a language-model judge can detect and classify that
-leakage with calibrated confidence and a bounded false-positive rate. The two questions
-turn out to be inseparable, because the answer to RQ2 depends entirely on which instrument
-does the measuring, and the central result of the chapter is that the two natural
-instruments---a deterministic rule engine and a validated language-model judge---disagree,
-systematically and in opposite directions, on exactly the redacted and refused output the
-defenses produce. That disagreement is not noise to be averaged away. It is the finding:
-the measured leakage rate of a defended retrieval-augmented system is
-instrument-dependent, and reporting a single number from a single instrument conceals more
-than it reveals.
+leakage with calibrated confidence and a bounded false-positive rate. The two questions are
+inseparable, because the answer to RQ2 depends on which instrument does the measuring. The
+central result of the chapter is that the two natural instruments, a deterministic rule engine and
+a validated language-model judge, disagree systematically and in opposite directions on exactly
+the redacted and refused output the defenses produce. That disagreement is not noise to be
+averaged away; it is itself the finding. The measured leakage rate of a defended
+retrieval-augmented system is instrument-dependent, and a single number from a single instrument
+conceals more than it reveals.
 
-The chapter is, throughout, a \emph{demonstration} of how to measure a defended system
-honestly on a controlled corpus---not a certification that the resulting system is safe to
-deploy. The numbers below are exact for this corpus and these scenarios; their value is the
-method and the relative findings they establish, not an absolute guarantee.
+The chapter is, throughout, a \emph{demonstration} of how to measure a defended system honestly on
+a controlled corpus, not a certification that the resulting system is safe to deploy. The numbers
+below are exact for this corpus and these scenarios; their value is the method and the relative
+findings they establish, not an absolute guarantee.
 
 \section{The layered defense}
 \label{sec:ch5-defense}
@@ -386,25 +385,23 @@ individually innocuous. That asymmetry is where the two instruments part company
 \label{sec:ch5-disagreement}
 
 Read through the rule engine alone, the defense looks total: leakage falls from $0.192$ to
-$0.000$, an apparent near-elimination. Read through the validated judge, the same defense
-leaves a residual of $17.3\%$. The gap between these two readings is not measurement error
-to be split down the middle. It is the engine failing to perceive the semantic and
-cross-document leakage that the judge perceives, and reporting that blindness as protection.
-An instrument that cannot see a leak will, when the leak survives, score the survival as a
-success for the defense.
+$0.000$, an apparent near-elimination. Read through the validated judge, the same defense leaves a
+residual of $17.3\%$. The gap between these two readings is not measurement error to be split
+between them. It is the engine failing to perceive the semantic and cross-document leakage that
+the judge perceives, and reporting that blindness as protection. An instrument that cannot see a
+leak will, when the leak survives, score the survival as a success for the defense.
 
-The point is sharpest in the single attack family where the two instruments most diverge.
-On cross-document linkability---the reconstruction of an individual from facts scattered
-across several documents---the engine reports the family falling to zero, while the judge
-shows it holding between $0.6$ and $0.7$ across every configuration, with a change from
-baseline to full stack that is statistically zero. No redaction layer can prevent the model
-from re-associating a person---the attributes from which it rebuilds them, age and gender
-above all, are precisely the open-vocabulary items the detector cannot flag
-(Section~\ref{sec:ch5-ceiling}), so they are never redacted in the first place---and the rule
-engine cannot even detect that the re-association has occurred, because the leaked attribute
-appears on no single retrieved document as an annotated entity. On precisely the family where the engine is blindest, it most overstates
-the fix. This is the cleanest illustration of the chapter's theme, and the reason a single
-engine-only number would have been not merely incomplete but actively misleading.
+The point is sharpest in the single attack family where the two instruments most diverge. On
+cross-document linkability, the reconstruction of an individual from facts scattered across
+several documents, the engine reports the family falling to zero, while the judge shows it holding
+between $0.6$ and $0.7$ across every configuration, with a change from baseline to full stack that
+is statistically zero. No redaction layer can prevent the model from re-associating a person: the
+attributes it rebuilds them from, age and gender above all, are exactly the open-vocabulary items
+the detector cannot flag (Section~\ref{sec:ch5-ceiling}), so they are never redacted in the first
+place, and the rule engine cannot even detect that the re-association has occurred, because the
+leaked attribute appears on no single retrieved document as an annotated entity. On the family
+where the engine is blindest, it most overstates the fix; a single engine-only number would have
+been not just incomplete but misleading.
 
 \begin{figure}[h]
 \centering
