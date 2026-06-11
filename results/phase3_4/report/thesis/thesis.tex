@@ -184,25 +184,25 @@
 \noindent Enterprise retrieval-augmented generation (RAG) makes a sensitive document
 corpus conversationally accessible, and in doing so can disclose personal data to users and
 attackers not authorised to see it. This thesis measures that leakage rather than asserting
-it. It formalises a LINDDUN-aligned metric pair --- a binary leakage function $L$ and a
-severity score $S$ --- evaluated through a profile-dependent engine across four CVSS-calibrated
+it. It formalises a LINDDUN-aligned metric pair (a binary leakage function $L$ and a
+severity score $S$) evaluated through a profile-dependent engine across four CVSS-calibrated
 attacker profiles and a systematic adversarial campaign of eight attack families, over a
 deterministically generated corpus of 155 synthetic documents (2{,}190 entity-level PII
 annotations; inter-annotator $\kappa = 0.875$), and quantifies a layered defense by ablation.
 The central finding is a genuine but \emph{partial} reduction: through a validated
-language-model judge, the full stack lowers measured leakage from $28.8\%$ to $17.3\%$ ---
+language-model judge, the full stack lowers measured leakage from $28.8\%$ to $17.3\%$,
 about forty percent, \textbf{not} an elimination. Redaction defeats direct PII extraction, but
-\emph{re-identification by linkage} --- a person reassembled from individually innocuous
-attributes scattered across documents --- is the dominant unreduced residual, and is shown
+\emph{re-identification by linkage}, a person reassembled from individually innocuous
+attributes scattered across documents, is the dominant unreduced residual, and is shown
 \emph{intractable at the model layer} across three independent mechanisms: redaction,
 query-time $k$-anonymity, and ingestion-time $k$-anonymity all fail or are foreclosed by their
 information cost. Linkage is therefore a \emph{data-governance} problem, not a model-layer one:
 access control \emph{solves} the external, unauthorised attacker, whereas the authorised user
-who brings outside knowledge leaves a residual that can be \emph{bounded} --- minimised and
-audited --- but not eliminated. A methodological contribution underwrites these results: the
+who brings outside knowledge leaves a residual that can be \emph{bounded}, minimised and
+audited, but not eliminated. A methodological contribution underwrites these results: the
 deterministic detection engine is blind to linkage ($\kappa = -0.10$ against human judgement),
 while the language-model judge, reliable on undefended output ($\kappa = 0.827$), degrades on
-the defended distribution ($\kappa = 0.306$) --- so leakage evaluation must be re-validated on
+the defended distribution ($\kappa = 0.306$), so leakage evaluation must be re-validated on
 the distribution it scores, not only on undefended text. The absolute percentages demonstrate
 a measurement methodology on a controlled corpus; they are not a safety certification for any
 particular deployment.
