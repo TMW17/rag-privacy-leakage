@@ -402,7 +402,7 @@ v3.1 Base Score} as specified by FIRST.org (2019), rather than from qualitative
 judgement. Each profile carries an explicit \emph{metric vector} of the form
 
 \begin{center}
-\cvssvec{CVSS:3.1/AV:[N|L]/AC:[L|H]/PR:[N|L|H]/UI:[N|R]/S:[U|C]/C:[H|L|N]/I:[H|L|N]/A:[H|L|N]}
+{\ttfamily\scriptsize CVSS:3.1/AV:[N|L]/AC:[L|H]/PR:[N|L|H]/UI:[N|R]/S:[U|C]/C:[H|L|N]/I:[H|L|N]/A:[H|L|N]}
 \end{center}
 
 and the resulting Base Score is computed by the standard FIRST.org
@@ -716,10 +716,12 @@ department. This is a textbook Linkability attack as defined in LINDDUN.
 \end{center}
 \vspace{8pt}
 \begin{tabular}{W{3.4cm}W{2.2cm}W{7.8cm}}
+\toprule
   
   \small\textbf{Metric} &
   \small\textbf{Value} &
   \small\textbf{Justification} \\
+  \midrule
   
   \small Attack Vector (AV)     & \small Network (N) & \small Exploit over the network via the chat API endpoint. \\
   
@@ -736,6 +738,7 @@ department. This is a textbook Linkability attack as defined in LINDDUN.
   \small Integrity (I)          & \small None (N)    & \small Read-only chat endpoint; no data modification. \\
   
   \small Availability (A)       & \small None (N)    & \small No service disruption. \\
+  \bottomrule
 \end{tabular}
 \vspace{6pt}
 
@@ -947,10 +950,12 @@ between the LLM's content generation logic and its privacy constraints.
 \end{center}
 \vspace{8pt}
 \begin{tabular}{W{3.4cm}W{2.2cm}W{7.8cm}}
+\toprule
   
   \small\textbf{Metric} &
   \small\textbf{Value} &
   \small\textbf{Justification} \\
+  \midrule
   
   \small Attack Vector (AV)     & \small Network (N) & \small Public-facing API; exploitable from the open internet. \\
   
@@ -967,6 +972,7 @@ between the LLM's content generation logic and its privacy constraints.
   \small Integrity (I)          & \small Low (L)     & \small Response content can be manipulated; no corpus writes. \\
   
   \small Availability (A)       & \small None (N)    & \small No service disruption. \\
+  \bottomrule
 \end{tabular}
 \vspace{6pt}
 
@@ -1210,10 +1216,12 @@ for the organization's GDPR Article~33 breach notification obligations.
 \end{center}
 \vspace{8pt}
 \begin{tabular}{W{3.4cm}W{2.2cm}W{7.8cm}}
+\toprule
   
   \small\textbf{Metric} &
   \small\textbf{Value} &
   \small\textbf{Justification} \\
+  \midrule
   
   \small Attack Vector (AV)     & \small Network (N) & \small Remote admin channel (SSH, cloud console, CI/CD). \\
   
@@ -1230,6 +1238,7 @@ for the organization's GDPR Article~33 breach notification obligations.
   \small Integrity (I)          & \small High (H)    & \small Corpus poisoning and system prompt rewrites. \\
   
   \small Availability (A)       & \small High (H)    & \small Log destruction and BadRAG-style DoS per Xue et al. (2024). \\
+  \bottomrule
 \end{tabular}
 \vspace{6pt}
 
@@ -1470,10 +1479,12 @@ realized form and is the single worst-case instance of this profile.
 \end{center}
 \vspace{8pt}
 \begin{tabular}{W{3.4cm}W{2.2cm}W{7.8cm}}
+\toprule
   
   \small\textbf{Metric} &
   \small\textbf{Value} &
   \small\textbf{Justification} \\
+  \midrule
   
   \small Attack Vector (AV)     & \small Network (N) & \small API-based; inherently remote. \\
   
@@ -1490,6 +1501,7 @@ realized form and is the single worst-case instance of this profile.
   \small Integrity (I)          & \small None (N)    & \small Provider does not modify enterprise data in-place. \\
   
   \small Availability (A)       & \small None (N)    & \small Provider outages are scoped out of this assessment. \\
+  \bottomrule
 \end{tabular}
 \vspace{6pt}
 
