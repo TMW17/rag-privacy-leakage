@@ -146,8 +146,8 @@ LangChain; the vector store is ChromaDB; embeddings are local \texttt{all-MiniLM
 (384-dimensional); the generating model is Claude Sonnet~4.6 at temperature~$0$. The system
 prompt is generic and contains no privacy instruction, no role restriction, and no refusal
 policy, because a defensively crafted prompt would itself be an uncharacterised defense and
-would contaminate the reference. The corpus is the Phase~1 ground truth --- 155 synthetic
-documents, $2{,}190$ annotated entities, described in full in Chapter~\ref{ch:formal} --- and
+would contaminate the reference. The corpus is the Phase~1 ground truth (155 synthetic
+documents, $2{,}190$ annotated entities, described in full in Chapter~\ref{ch:formal}), and
 no real personal data is used at any stage.
 
 Each scenario was executed three times under deterministic decoding to expose
@@ -165,7 +165,7 @@ are responses to a specific weakness of deterministic detection.
 
 \paragraph{Two thresholds.} The deterministic engine fires whenever a response contains an
 entity whose severity exceeds the requester's authorization level. For the External profile
-that threshold is zero, so \emph{any} disclosed category counts --- including a severity-2
+that threshold is zero, so \emph{any} disclosed category counts, including a severity-2
 category noun (``department,'' ``job title'') that appears in the act of \emph{refusing}: a
 response such as ``I cannot share salary or departmental data'' trips the engine on
 ``departmental'' though it discloses nothing. The campaign therefore reports two rates. The
@@ -179,8 +179,8 @@ and ``$28.8\%$'' refers to it.
 genuine disclosure from a refusal that names a category, nor can it see a leak the model
 \emph{paraphrases} rather than reproduces verbatim. A language-model judge (Claude Opus~4.7)
 reads each response semantically as a second labeller. The full treatment of the two
-instruments --- why the judge is primary, why the engine is a lower bound, and how the judge's
-reliability shifts once defenses redact and refuse --- belongs to Chapter~\ref{ch:defenses}
+instruments (why the judge is primary, why the engine is a lower bound, and how the judge's
+reliability shifts once defenses redact and refuse) belongs to Chapter~\ref{ch:defenses}
 and is not repeated here. What this chapter needs is the Phase-2 validation that licensed the
 judge in the first place: on a 46-record stratified calibration sample, the judge agreed with
 the human annotator at Cohen's $\kappa = 0.827$ (almost perfect; raw agreement $43/46 = 93.5\%$),
@@ -214,15 +214,15 @@ Engine vs.\ human (author) & 0.164 & poor\\
 
 A note on sourcing precedes the numbers, because it settles a question that recurs across the
 thesis. \textbf{All attack-success rates in this chapter are reported from the ablation's
-undefended cell} (\texttt{final\_metrics.json}, configuration C00000) --- the same artifact,
-and the same baseline, that Chapter~\ref{ch:defenses} measures every reduction against --- so
+undefended cell} (\texttt{final\_metrics.json}, configuration C00000), the same artifact
+and the same baseline that Chapter~\ref{ch:defenses} measures every reduction against, so
 that the baseline and the reductions taken from it are one number, family by family. Severity,
 retrieval-precision, hand-verified-audit, and judge-calibration figures, which that artifact
 does not carry, are drawn from the Phase~2 campaign run
 (\texttt{baseline\_metrics\_augmented.json}) and are labelled as such where they appear.
 
 With the framework and protocol fixed, the undefended system was run across the full campaign.
-At the execution level the judge --- the primary instrument --- reports a strict
+At the execution level the judge, the primary instrument, reports a strict
 attack-success rate of $\mathbf{28.8\%}$ ($45/156$), against $19.2\%$ read through the
 deterministic engine alone (Table~\ref{tab:ch4-headline}). The judge reads higher because it
 perceives the paraphrased name-plus-attribute disclosures that annotation-grounded matching
@@ -251,7 +251,7 @@ The mechanism behind the engine--judge gap is visible in the Phase~2 turn-level
 cross-tabulation (267 turns): the engine fired on 95 turns, the judge on 57, their union on
 115. Of the engine's 95, only 37 were also judged leaks; 58 were the severity-2 External
 refusal artifacts the strict threshold exists to exclude, and 20 further leaks were seen by the
-judge alone --- the paraphrased name-plus-attribute disclosures. This is the empirical
+judge alone: the paraphrased name-plus-attribute disclosures. This is the empirical
 justification for both the strict threshold and the second instrument, treated in full in
 Chapter~\ref{ch:defenses}.
 
@@ -291,7 +291,7 @@ scenarios, three runs each at temperature~0. Source: \texttt{baseline\_metrics.j
 \label{fig:ch4-asr-profile}
 \end{figure}
 
-\paragraph{By family --- the RQ1 answer.} The decomposition by attack family answers RQ1
+\paragraph{By family: the RQ1 answer.} The decomposition by attack family answers RQ1
 directly and unambiguously (Table~\ref{tab:ch4-family}). \textbf{Direct PII extraction (F1) is
 the strongest attack family, at a strict judged ASR of $0.778$}, followed by cross-document
 linkability (F2) at $0.600$. The two are in a class of their own: the next-highest family sits at $0.200$ and the rest at
