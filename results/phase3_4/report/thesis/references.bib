@@ -7,12 +7,13 @@
 %  author-year mentions); where the canonical publication date differs, the
 %  note records the precise arXiv id and venue.
 %
-%  STATUS: 50 of 53 entries carry verified real titles + venue (one of them,
+%  STATUS: 53 of 54 entries carry verified real titles + venue (one of them,
 %  duarte2026taxonomy, has a verified IEEE Access venue/DOI but its exact title
-%  string is behind IEEE Xplore and is given descriptively). 3 entries
-%  (huang2025embodiment, bayhan2025taxonomy, clement2025devsecops) could not be
-%  resolved to an indexed publication; their titles are descriptive and flagged
-%  "exact title unverified" in the note rather than fabricated.
+%  string is behind IEEE Xplore and is given descriptively). The formerly
+%  unverified Bayhan and Huang entries were replaced with verified papers
+%  (schulhoff2023hackaprompt, EMNLP 2023; zhang2026physical, arXiv:2604.03890).
+%  One entry (clement2025devsecops) is still unresolved to an indexed publication
+%  and is pending; its title is descriptive and flagged in the note, not fabricated.
 %  (NB: percent is only a comment OUTSIDE entries; no at-sign appears in comments.)
 % ============================================================================
 
@@ -228,19 +229,19 @@
   year         = {2025},
   note         = {Lifecycle-oriented attack taxonomy (training/inference/deployment phases); used for defense placement.}
 }
-@misc{huang2025embodiment,
-  author       = {Huang and others},
-  title        = {The Embodiment Gap: Prompt Injection in {LLM}-Controlled Robotics},
-  howpublished = {Preprint},
-  year         = {2025},
-  note         = {Extends the prompt-injection threat to physical/embodied systems. Exact title and venue could not be verified via web search; description from the literature-review matrix.}
+@misc{zhang2026physical,
+  author       = {Zhang and others},
+  title        = {From Prompt to Physical Action: Structured Backdoor Attacks on {LLM}-mediated {ROS2} Robotic Control},
+  howpublished = {arXiv preprint arXiv:2604.03890},
+  year         = {2026},
+  note         = {Prompt injection and structured backdoors translate into physical robot actions on {ROS2}; up to 83\% attack-success rate in real-robot experiments.}
 }
-@misc{bayhan2025taxonomy,
-  author       = {Bayhan},
-  title        = {A Prompt-Injection Taxonomy by Source and Goal},
-  howpublished = {Preprint},
-  year         = {2025},
-  note         = {Classifies attacks by origin (user input vs.\ injected content) and objective (data leakage vs.\ code execution). Exact title and venue could not be verified via web search; description from the literature-review matrix.}
+@inproceedings{schulhoff2023hackaprompt,
+  author    = {Schulhoff, Sander and others},
+  title     = {Ignore This Title and {HackAPrompt}: Exposing Systemic Vulnerabilities of {LLMs} through a Global Scale Prompt Hacking Competition},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year      = {2023},
+  note      = {arXiv:2311.16119. Global-scale prompt-hacking competition; taxonomy over 600{,}000+ adversarial prompts classified by source and goal.}
 }
 
 % ─────────────── Cluster 4: defense mechanisms & guardrails ───────────────

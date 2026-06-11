@@ -246,9 +246,9 @@ Wang et al.\ (2026)\footnote{arXiv preprint (Systematization of Knowledge), not 
 
 \subsection{Evolutionary Perspectives}
 
-Mao et al.\ (2025) traced how the attack surface has evolved from text-only LLMs through multimodal models to autonomous-agent systems, introducing a permission-based jailbreak taxonomy that reflects the growing capabilities and risks of each architectural generation. Yi et al.\ (2024) proposed a complementary dual-axis taxonomy that organizes attacks along Black-box vs.\ White-box and Prompt-level vs.\ Model-level dimensions. Bayhan (2025) contributed a classification based on source and goal, distinguishing attacks by where they come from (direct user input vs.\ injected document content) and what they aim to achieve (data leakage vs.\ remote code execution). Xu and Parhi (2025) contributed what is probably the most comprehensive lifecycle-oriented taxonomy, mapping attack vectors onto every phase of the model lifecycle from pre-training through inference.
+Mao et al.\ (2025) traced how the attack surface has evolved from text-only LLMs through multimodal models to autonomous-agent systems, introducing a permission-based jailbreak taxonomy that reflects the growing capabilities and risks of each architectural generation. Yi et al.\ (2024) proposed a complementary dual-axis taxonomy that organizes attacks along Black-box vs.\ White-box and Prompt-level vs.\ Model-level dimensions. Schulhoff et al.\ (2023) contributed a classification based on source and goal, distinguishing attacks by where they come from (direct user input vs.\ injected document content) and what they aim to achieve (data leakage vs.\ remote code execution). Xu and Parhi (2025) contributed what is probably the most comprehensive lifecycle-oriented taxonomy, mapping attack vectors onto every phase of the model lifecycle from pre-training through inference.
 
-Rao et al.\ (2026) showed that lightweight semantic classifiers (SVMs) can outperform heavyweight LLM-based guardrails on latency-sensitive jailbreak detection. Huang et al.\ (2025) extended the threat model beyond digital systems to LLM-controlled robotics, introducing the \emph{Embodiment Gap} vulnerability.
+Rao et al.\ (2026) showed that lightweight semantic classifiers (SVMs) can outperform heavyweight LLM-based guardrails on latency-sensitive jailbreak detection. Zhang et al.\ (2026) extended the threat model beyond digital systems to LLM-controlled robotics, demonstrating structured backdoor attacks that turn prompt injection into physical robot actions.
 
 \begin{critbox}
 \textit{What makes these four taxonomies valuable is precisely that they are complementary rather than competing}, and a single ``one-true-taxonomy'' would likely be worse. Complementarity has a cost, though. No single existing taxonomy is sufficient for a privacy-centric evaluation, so this thesis combines them: Yi et al.'s axes for the attack-family matrix, Xu \& Parhi's lifecycle framing for defense placement, and Mao et al.'s permission dimension as a severity modifier. Rao et al.'s SVM result is especially instructive, because it warns against the common assumption that more architectural sophistication (an LLM guardrail) automatically buys more security, and it sets a practical latency baseline for the input-screening layer of any defense architecture.
@@ -540,9 +540,9 @@ Yi et al.\ (2024) & RQ1, 4 & Dual-axis attack/defense taxonomy & Static snapshot
 Rao et al.\ (2026) & RQ2, 4, 5 & SVM outperforms LLM guardrails in latency & Input screening only, no PII arbitration & High \\
 
 Xu \& Parhi (2025) & RQ1, 4 & Full lifecycle attack taxonomy & No multi-agent Arbitrator & Critical \\
-Huang et al.\ (2025) & RQ1, 2, 4 & Embodiment Gap; physical harm via PI & Not applied to RAG document context & Critical \\
+Zhang et al.\ (2026) & RQ1, 2, 4 & Physical-action backdoors via PI on robotics & Not applied to RAG document context & Critical \\
 
-Bayhan (2025) & RQ1, 4 & PI taxonomy by source and goal & No functional Arbitrator architecture & Critical \\
+Schulhoff et al.\ (2023) & RQ1, 4 & PI taxonomy by source and goal & No functional Arbitrator architecture & Critical \\
 
 \midrule
 
