@@ -23,8 +23,8 @@
 % (The title page is a separate XeLaTeX PDF, \includepdf'd below, so its
 %  Arabic/polyglossia stack never touches this master.)
 \usepackage{fontspec}
-\setmainfont{Arial}                         % style spec: sans-serif body
-\usepackage[a4paper,margin=2cm]{geometry}   % style spec: 2cm margins (use left=4.5cm if binding)
+\setmainfont{Times New Roman}               % CS-layout spec: 12pt serif body
+\usepackage[a4paper,left=3.18cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}   % CS-layout spec: 3.18cm binding margin, 2.5cm elsewhere
 \usepackage{pdfpages}
 
 % ---- colour FIRST: tcolorbox/pgf load xcolor internally; loading it later clashes ----
@@ -138,7 +138,7 @@
 \usepackage{ragged2e}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 2pt minus 1pt}   % 0 before / 12 after
-\AtBeginDocument{\RaggedRight}                   % style spec: left alignment (ragged right)
+% CS-layout spec: main text JUSTIFIED (LaTeX default; previous \RaggedRight removed)
 % H1 chapter: 16pt bold ALL CAPS, centred, 0 before / 24 after, single-spaced
 \titleformat{\chapter}[display]
   {\singlespacing\centering\bfseries\color{esiblue}\fontsize{16}{19}\selectfont}
@@ -167,35 +167,51 @@
 % ================================ ABSTRACT ================================
 \begin{abstract}
 \noindent Enterprise retrieval-augmented generation (RAG) makes a sensitive document
-corpus conversationally accessible, and in doing so it can disclose personal data to users
-and attackers who are not authorised to see it. This thesis measures that leakage rather than
-asserting it, and asks how much a layered defense can reduce it. The contribution is
-\emph{convergence, not invention}: it integrates into one framework, applied to RAG, five
-capabilities the literature had pursued only separately --- a mathematically formalised,
-LINDDUN-aligned leakage metric pair, the binary leakage function $L$ and the severity score
-$S$; a profile-dependent evaluation engine distinguishing four LINDDUN- and CVSS-calibrated
-attacker profiles; a systematic adversarial campaign across eight attack families; layered
-defenses whose effect is quantified with $\Delta S$; and a validated language-model judge as
-the leakage adjudicator. The instrument is exercised on a controlled, deterministically
-generated corpus of 155 synthetic documents bearing 2{,}190 entity-level PII annotations
-(inter-annotator $\kappa = 0.875$). The central finding is a genuine but \emph{partial}
-reduction: through the validated judge, the full defense stack lowers measured leakage from
-$28.8\%$ to $17.3\%$ --- a reduction of roughly forty percent, \textbf{not an elimination} ---
-with re-identification by linkage the dominant unreduced residual, because redaction defeats
-direct extraction but cannot remove a person reassembled from individually innocuous
-attributes scattered across documents. The instrument that delivers this figure is itself
-bounded: the judge agrees with human annotation at $\kappa = 0.827$ on undefended output but
-falls to $\kappa = 0.306$ on the defended distribution, so the headline is reported as an
-honest interval rather than an airtight point estimate. The right reading of the whole is as
-a demonstration of a measurement methodology on a controlled corpus --- the relative findings
-transfer, the absolute percentages are not predictions for any particular organisation ---
-not as a certification that a deployable system is safe.
+corpus conversationally accessible, and in doing so can disclose personal data to users and
+attackers not authorised to see it. This thesis measures that leakage rather than asserting
+it. It formalises a LINDDUN-aligned metric pair --- a binary leakage function $L$ and a
+severity score $S$ --- evaluated through a profile-dependent engine across four CVSS-calibrated
+attacker profiles and a systematic adversarial campaign of eight attack families, over a
+deterministically generated corpus of 155 synthetic documents (2{,}190 entity-level PII
+annotations; inter-annotator $\kappa = 0.875$), and quantifies a layered defense by ablation.
+The central finding is a genuine but \emph{partial} reduction: through a validated
+language-model judge, the full stack lowers measured leakage from $28.8\%$ to $17.3\%$ ---
+about forty percent, \textbf{not} an elimination. Redaction defeats direct PII extraction, but
+\emph{re-identification by linkage} --- a person reassembled from individually innocuous
+attributes scattered across documents --- is the dominant unreduced residual, and is shown
+\emph{intractable at the model layer} across three independent mechanisms: redaction,
+query-time $k$-anonymity, and ingestion-time $k$-anonymity all fail or are foreclosed by their
+information cost. Linkage is therefore a \emph{data-governance} problem, not a model-layer one:
+access control \emph{solves} the external, unauthorised attacker, whereas the authorised user
+who brings outside knowledge leaves a residual that can be \emph{bounded} --- minimised and
+audited --- but not eliminated. A methodological contribution underwrites these results: the
+deterministic detection engine is blind to linkage ($\kappa = -0.10$ against human judgement),
+while the language-model judge, reliable on undefended output ($\kappa = 0.827$), degrades on
+the defended distribution ($\kappa = 0.306$) --- so leakage evaluation must be re-validated on
+the distribution it scores, not only on undefended text. The absolute percentages demonstrate
+a measurement methodology on a controlled corpus; they are not a safety certification for any
+particular deployment.
 
 \medskip
-\noindent\textbf{Keywords:} retrieval-augmented generation, privacy leakage, personally
-identifiable information, GDPR, prompt injection, LINDDUN, defense ablation, LLM-as-judge,
-re-identification.
+\noindent\textbf{Keywords:} retrieval-augmented generation, privacy leakage, re-identification
+by linkage, LLM-as-judge evaluation, data governance, GDPR.
 \end{abstract}
+
+% French résumé / Arabic ملخص (if the school requires them) are added here later as sibling
+% blocks --- a parallel \begin{abstract}...\end{abstract} (or \chapter*{Résumé}) below;
+% translations only, not part of the English-abstract task.
+
+% ============================ ACKNOWLEDGMENTS ============================
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+\markboth{Acknowledgments}{}
+% NOTE: personalise this wording before submission --- it names the real supervisors, but the
+% sentiment should be your own.
+I would like to express my sincere gratitude to my supervisors, Professor Esma Aïmeur and
+Professor Souleyman Chaib, for their guidance, insight, and patience throughout this work. I am
+grateful to the École Supérieure en Informatique (ESI--SBA) and its faculty for the academic
+environment that made this research possible, and I thank my family and friends for their
+constant support and encouragement.
 
 % ====================== PROBLEM STATEMENT (after abstract) ======================
 \chapter*{Problem Statement}
@@ -315,6 +331,8 @@ $\kappa$ & Cohen's kappa: annotation $0.875$ (Ch.~\ref{ch:formal}); judge--human
 \end{tabularx}
 
 \tableofcontents
+\listoffigures
+\listoftables
 
 % ============================ BODY (8 chapters) ============================
 \cleardoublepage
@@ -334,7 +352,8 @@ $\kappa$ & Cohen's kappa: annotation $0.875$ (Ch.~\ref{ch:formal}); judge--human
 % The verbatim State-of-the-Art chapter cites its 50 sources inline (author--year) and
 % in its own annotation matrix rather than via \cite; \nocite{*} therefore lists every
 % entry in references.bib so the bibliography reflects the full surveyed corpus.
-% (45 of the 49 entries still carry placeholder titles pending the bibliography-completion pass.)
+% (references.bib: 50 of 53 entries carry verified titles + venues; see the .bib header for the
+%  3 still-pending items.)
 \nocite{*}
 \bibliographystyle{plain}
 \bibliography{references}
