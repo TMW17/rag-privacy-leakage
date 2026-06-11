@@ -399,20 +399,20 @@ Looking across the five pillars reviewed above, a clear pattern emerges. Each su
 \label{tab:gap-matrix}
 \footnotesize
 
-\begin{tabular}{|C{0.5cm}|W{6.5cm}|C{1.2cm}|W{4.5cm}|}
-\hline
+\begin{tabular}{C{0.5cm}W{6.5cm}C{1.2cm}W{4.5cm}}
+\toprule
 
 \textbf{\#} &
 \textbf{Gap} &
 \textbf{RQ} &
 \textbf{Addressed By} \\
-\hline
+\midrule
 G1 & No formal privacy framework (LINDDUN) applied to RAG leakage classification & RQ1 & Formal leakage definitions ($L$, $S$) with LINDDUN-mapped severity taxonomy \\
 G2 & No empirical comparison of defense combinations against PII-specific attacks in RAG & RQ2 & Controlled experiments with layered defense configurations and $\Delta S$ measurement \\
 G3 & No multi-agent Arbitrator for automated, real-time PII leak adjudication & RQ3 & Three-agent framework (Attacker, Defender, Arbitrator) with consensus-based judgment \\
 G4 & No controlled comparison of attack effectiveness across differentiated attacker profiles & RQ4 & Three-profile threat model with profile-dependent evaluation engine \\
 G5 & No quantification of the security-utility trade-off using continuous privacy metrics in RAG & RQ5 & Residual risk measurement ($\bar{S}_{\text{full-stack}}$) under full defense deployment \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -450,37 +450,37 @@ The value proposition is convergence rather than invention. Every individual com
 The table below presents the full annotation matrix used to build the thematic synthesis in the preceding sections. Each entry records the citation, the research questions it maps to, its key contribution, the gap it leaves relative to this thesis, and how relevant we judged it to be. Entries are grouped by thematic cluster. Publication status for 2026 entries is indicated in the body text of the relevant section; the matrix intentionally keeps the status footnotes out to avoid visual crowding.
 
 \begin{small}
-\begin{longtable}{|W{3cm}|C{1.2cm}|W{3.5cm}|W{3.5cm}|C{1.5cm}|}
+\begin{longtable}{W{3cm}C{1.2cm}W{3.5cm}W{3.5cm}C{1.5cm}}
 \caption{Complete literature annotation matrix (50 sources, 2021--2026).}
 \label{tab:annotation-matrix} \\
-\hline
+\toprule
 
 \textbf{Citation} &
 \textbf{RQ} &
 \textbf{Key Contribution} &
 \textbf{Gap Identified} &
 \textbf{Relevance} \\
-\hline
+\midrule
 \endfirsthead
-\hline
+\midrule
 
 \textbf{Citation} &
 \textbf{RQ} &
 \textbf{Key Contribution} &
 \textbf{Gap Identified} &
 \textbf{Relevance} \\
-\hline
+\midrule
 \endhead
-\hline
+\midrule
 \multicolumn{5}{r}{\small\textit{Continued on next page}} \\
-\hline
+\midrule
 \endfoot
-\hline
+\midrule
 \endlastfoot
 
 
 \multicolumn{5}{l}{\textbf{\color{navy}Cluster 1: RAG Vulnerabilities}} \\
-\hline
+\midrule
 
 Greshake et al.\ (2023) & RQ1 & Formalized Indirect Prompt Injection for RAG & No LINDDUN framework, no PII benchmarking & High \\
 
@@ -498,10 +498,10 @@ Wen et al.\ (2025) & RQ2 & InstructDetector: white-box IPI defense & Binary only
 
 Clop \& Teglia (2024) & RQ1 & Retriever-layer backdoors & No PII taxonomy, no Arbitrator & High \\
 
-\hline
+\midrule
 
 \multicolumn{5}{l}{\textbf{\color{navy}Cluster 2: PII Leakage in LLMs}} \\
-\hline
+\midrule
 
 Carlini et al.\ (2021) & RQ1, 5 & Proved verbatim PII memorization in LLMs & GPT-2 only, no RAG pipeline & Critical \\
 
@@ -519,10 +519,10 @@ Li et al.\ (2024) & RQ2, 3 & LLM-PBE: unified privacy benchmark toolkit & Static
 
 Wang et al.\ (2025) & RQ1, 2 & MEXTRA attack; Interaction Memory risk & Session memory only, no knowledge base & Very High \\
 
-\hline
+\midrule
 
 \multicolumn{5}{l}{\textbf{\color{navy}Cluster 3: Prompt Injection Taxonomy}} \\
-\hline
+\midrule
 
 OWASP (2025) & RQ1, 4 & Industry taxonomy for LLM attacks & Static document, no empirical benchmark & Critical \\
 
@@ -540,10 +540,10 @@ Huang et al.\ (2025) & RQ1, 2, 4 & Embodiment Gap; physical harm via PI & Not ap
 
 Bayhan (2025) & RQ1, 4 & PI taxonomy by source and goal & No functional Arbitrator architecture & Critical \\
 
-\hline
+\midrule
 
 \multicolumn{5}{l}{\textbf{\color{navy}Cluster 4: Defense Mechanisms}} \\
-\hline
+\midrule
 
 Rebedea et al.\ (2023) & RQ2, 5 & NeMo Guardrails toolkit & Static Colang flows, no dynamic negotiation & Critical \\
 
@@ -561,10 +561,10 @@ Shen et al.\ (2025) & RQ2, 4, 5 & PANDAGUARD: multi-agent jailbreak framework & 
 
 Chen et al.\ (2025) & RQ2, 4, 5 & TeleAI-Safety; RADAR multi-agent debate & General safety, not RAG PII leakage & Critical \\
 
-\hline
+\midrule
 
 \multicolumn{5}{l}{\textbf{\color{navy}Cluster 5: LLM-as-Judge}} \\
-\hline
+\bottomrule
 
 Zheng et al.\ (2023) & RQ2, 5 & GPT-4 as human-proxy judge; bias analysis & Helpfulness only, no safety/GDPR & Critical \\
 

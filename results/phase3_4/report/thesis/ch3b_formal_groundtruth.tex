@@ -119,19 +119,19 @@ This design produces three genuinely distinct evaluation profiles, each yielding
 \label{ch3:tab:threshold-justification}
 \footnotesize
 
-\begin{tabular}{|W{2.2cm}|C{1.2cm}|W{3.2cm}|W{3cm}|W{3cm}|}
-\hline
+\begin{tabular}{W{2.2cm}C{1.2cm}W{3.2cm}W{3cm}W{3cm}}
+\toprule
 
 \textbf{Profile} &
 \textbf{Thr.} &
 \textbf{Legitimate Access} &
 \textbf{Threat Vector} &
 \textbf{Leakage Scope} \\
-\hline
+\midrule
 Internal Employee & 2 & Aggregate data only (dept.\ names, job titles) & Social engineering via natural language queries & Severity 3--5 (salary, medical, SSN) \\
 External Adversary & 0 & No corpus access of any kind & Prompt injection, jailbreaking, obfuscation & Severity 2--5 (everything) \\
 Privileged Admin & 3 & Severity 2--3 data via admin consoles and dashboards & Corpus poisoning, config exfiltration via chat & Severity 4--5 (PII, system secrets) \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -194,16 +194,16 @@ For each $e \in E(r, D, u)$, let $s(e) \in \{2, 3, 4, 5\}$ be the \textbf{severi
 \vspace{0.2cm}
 \begin{center}
 \small
-\begin{tabular}{|W{7.5cm}|C{2cm}|}
-\hline
+\begin{tabular}{W{7.5cm}C{2cm}}
+\toprule
 
 \textbf{Detection Method} & $\boldsymbol{w(e)}$ \\
-\hline
+\midrule
  Regex (deterministic pattern match) & $1.00$ \\
 NER via spaCy (high-reliability model) & $0.90$ \\
  Keyword + Context (rule-based heuristic) & $0.75$ \\
 LLM-as-Judge (probabilistic evaluation) & $0.60$ \\
-\hline
+\bottomrule
 \end{tabular}
 \end{center}
 
@@ -235,19 +235,46 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
 
 \subsubsection{Comparison of the Two Metrics}
 
+\begin{figure}[h]
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[font=\small, >={Latex[length=2.4mm]},
+  io/.style={draw=figslate!85!black, fill=figslate!18, rounded corners=3pt, minimum height=13mm, minimum width=24mm, align=center, thick},
+  ent/.style={draw=figamber!80!black, fill=figamber!16, rounded corners=3pt, minimum height=15mm, minimum width=42mm, align=center, thick},
+  Lb/.style={draw=figblue!75!black, fill=figblue!12, rounded corners=3pt, minimum height=15mm, minimum width=46mm, align=center, thick},
+  Sb/.style={draw=figteal!75!black, fill=figteal!16, rounded corners=3pt, minimum height=15mm, minimum width=46mm, align=center, thick},
+  ar/.style={->, thick, figslate!70!black}]
+\node[io]  (r)   at (0,0)     {Response $r$};
+\node[ent] (ent) at (4.2,0)   {Detected entities $E$\\\footnotesize each $e$:\ $s(e)\!\in\!\{2,3,4,5\}$,\ $w(e)\!\in\![0,1]$};
+\node[Lb]  (L)   at (10.4,1.7){\textbf{Binary leakage} $L$\\$=1$ iff $\exists\,e:\ s(e) > u$};
+\node[Sb]  (S)   at (10.4,-1.7){\textbf{Severity score} $S$\\$=\sum_{e} s(e)\cdot w(e)$};
+\node[io]  (u)   at (10.4,3.8){Profile $u$\\\footnotesize threshold};
+\draw[ar] (r) -- (ent);
+\draw[ar] (ent) -- (L);
+\draw[ar] (ent) -- (S);
+\draw[ar, figblue!70!black] (u) -- node[right,font=\scriptsize]{authorises} (L);
+\end{tikzpicture}}
+\caption[Computing the two leakage metrics $L$ and $S$]{Computing the two leakage metrics from a
+response. Each detected entity $e\in E(r,D,u)$ carries an intrinsic severity $s(e)\in\{2,\dots,5\}$
+and a detection-confidence weight $w(e)$. The \textbf{binary} function $L$ fires when any entity
+exceeds the profile's authorization threshold $u$; the \textbf{continuous} score $S$ sums
+$s(e)\cdot w(e)$ over the leaked entities. Defined in Chapter~\ref{ch:formal}.}
+\label{fig:ch4-metricflow}
+\end{figure}
+
 \begin{table}[H]
 \centering
 \caption{Side-by-side comparison of the two leakage metrics.}
 \label{ch3:tab:metric-comparison}
 \small
 
-\begin{tabular}{|W{3cm}|W{5.8cm}|W{5.8cm}|}
-\hline
+\begin{tabular}{W{3cm}W{5.8cm}W{5.8cm}}
+\toprule
 
 \textbf{Dimension} &
 \textbf{Definition 1 --- $L$} &
 \textbf{Definition 2 --- $S$} \\
-\hline
+\midrule
 Question answered     & Did a leak occur?                  & How severe was the leak? \\
 Output range          & $\{0, 1\}$                         & $[0,\; 5k]$ \\
 Primary metric        & Attack Success Rate (ASR)          & Mean Severity, $\Delta S$ \\
@@ -255,7 +282,7 @@ Research questions    & RQ1, RQ3, RQ4                      & RQ1, RQ2, RQ5 \\
 When $L=0$            & No leak detected                   & $S = 0$ \\
 When $L=1$            & Leak confirmed                     & $S > 0$; magnitude indicates damage \\
 Implemented by        & \texttt{check\_response\_for\_leakage()} & \texttt{check\_response\_for\_leakage()} \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -281,15 +308,15 @@ without it, a change in scoring logic would silently shift every headline number
 instantiates 31 of the 36 defined types; the uncovered types are discussed in
 Section~\ref{sec:ch3-annotation}.}
 \label{tab:ch3-taxonomy}
-\begin{tabularx}{\textwidth}{|c|l|L|}
-\hline
+\begin{tabularx}{\textwidth}{clL}
+\toprule
 \textbf{$s(e)$} & \textbf{Band} & \textbf{Representative entity types}\\
-\hline
+\midrule
 5 & Critical & national identifier, API key, JWT, password hash, private key\\
 4 & High     & full name, email, phone, address, date of birth, IBAN, health-record identifier\\
 3 & Medium   & salary, employee ID, medical condition, immigration status, age$+$gender\\
 2 & Low      & department, job title, performance rating, office location, project\\
-\hline
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -311,22 +338,22 @@ The corpus is split into four distinct document classes, each deliberately match
 \label{ch3:tab:doc-classes}
 \small
 
-\begin{tabular}{|C{0.6cm}|W{2.8cm}|C{1cm}|W{5cm}|W{3.2cm}|}
-\hline
+\begin{tabular}{C{0.6cm}W{2.8cm}C{1cm}W{5cm}W{3.2cm}}
+\toprule
 
 \textbf{\#} &
 \textbf{Class} &
 \textbf{$n$} &
 \textbf{Content} &
 \textbf{Targeted By} \\
-\hline
+\midrule
 1 & HR Employee Records  & 100 & SSN, name, email, phone, address, DOB, IBAN, salary, medical condition, performance (severity 2--5) & Profile 1 \& 2 \\
 2 & System Configuration & 5   & API keys, JWT tokens, DB connection strings, system prompts, RSA key snippets, internal IPs & Profile 3 \\
 3 & Internal Memos       & 20  & Free-text memos referencing employees by name, salary, and medical condition & Profile 1 (inference) \\
 4 & Medical Reports      & 30  & GDPR Art.~9 data: diagnoses, prescriptions, work restrictions, linked to employee records & Profile 1 (medical) \\
-\hline
+\midrule
   & \textbf{Total}       & \textbf{155} & & \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -414,13 +441,13 @@ The annotation file is the authoritative reference standard that the evaluation 
 \scriptsize
 \setlength{\tabcolsep}{4pt}
 
-\begin{tabular}{|W{2.5cm}|W{2.5cm}|W{7cm}|}
-\hline
+\begin{tabular}{W{2.5cm}W{2.5cm}W{7cm}}
+\toprule
 
 \textbf{Property} &
 \textbf{Example} &
 \textbf{Role in Evaluation} \\
-\hline
+\midrule
 \texttt{text}              & \texttt{123-45-6789}   & Literal string searched for in responses \\
 \texttt{type}              & \texttt{SSN}           & Entity type name from Table~\ref{tab:ch3-taxonomy} \\
 \texttt{severity}          & \texttt{5}             & $s(e)$: severity weight in Def.~2 \\
@@ -428,7 +455,7 @@ The annotation file is the authoritative reference standard that the evaluation 
 \texttt{confidence\_weight}& \texttt{1.00}          & $w(e)$: confidence weight in Def.~2 \\
 \texttt{linddun\_category} & Identifiability        & Traceability to LINDDUN model \\
 \texttt{source\_field}     & \texttt{ssn}           & Field name in the ground truth \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -506,22 +533,22 @@ ANNOTATION GENERATION COMPLETE
 \label{ch3:tab:annotation-density}
 \small
 
-\begin{tabular}{|W{3.5cm}|C{2cm}|C{2cm}|C{2.5cm}|C{2.5cm}|}
-\hline
+\begin{tabular}{W{3.5cm}C{2cm}C{2cm}C{2.5cm}C{2.5cm}}
+\toprule
 
 \textbf{Document Class} &
 \textbf{Count} &
 \textbf{Entities} &
 \textbf{Avg per Doc} &
 \textbf{Max Severity} \\
-\hline
+\midrule
 Employee Records & 100 & ${\sim}2{,}120$ & ${\sim}21$ & 5 \\
 System Configs   & 5   & ${\sim}60$      & ${\sim}12$ & 5 \\
 Medical Reports  & 30  & 90              & 3          & 4 \\
 Internal Memos   & 20  & ${\sim}45$      & ${\sim}2$  & 3 \\
-\hline
+\midrule
 \textbf{Total}   & \textbf{155} & \textbf{2{,}190} & \textbf{14.1} & \textbf{5} \\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 

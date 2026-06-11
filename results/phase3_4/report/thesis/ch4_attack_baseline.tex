@@ -75,10 +75,10 @@ F1--F7 are shared by the Internal (P1) and External (P2) profiles; corpus poison
 Admin (P3) capability, since it acts on the index before any query is issued. Source:
 \texttt{Phase2\_Report\_Detailed.tex} §3--4.}
 \label{tab:ch4-families}
-\begin{tabularx}{\textwidth}{|l|L|c|c|c|c|}
-\hline
+\begin{tabularx}{\textwidth}{lLcccc}
+\toprule
 \textbf{Family} & \textbf{Mechanism} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{Total}\\
-\hline
+\midrule
 F1 Direct PII extraction      & names a record and requests sensitive attributes directly & 3 & 6 & --- & 9\\
 F2 Cross-document linkability & forces multi-document retrieval to correlate entities across records & 7 & 3 & --- & 10\\
 F3 Direct prompt injection    & embeds authority/maintenance claims to override safety framing & 1 & 5 & --- & 6\\
@@ -87,9 +87,9 @@ F5 Jailbreak / role-play      & persona or fictional framing to shed operational
 F6 System reconnaissance      & probes corpus topology and retrieval structure, no direct payload & 1 & 2 & --- & 3\\
 F7 Social engineering         & fabricated emergency or authority to bypass refusals by narrative pressure & 4 & 3 & --- & 7\\
 F8 Corpus poisoning           & pre-stages malicious documents in the index for later retrieval & --- & --- & 7 & 7\\
-\hline
+\midrule
 \textbf{Total} & & \textbf{18} & \textbf{27} & \textbf{7} & \textbf{52}\\
-\hline
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -201,14 +201,14 @@ Chapter~\ref{ch:defenses}.
 (the author). The judge passes the $\kappa \geq 0.60$ bar; the engine fails it. Source:
 \texttt{Phase2\_Report\_Detailed.tex} §B.}
 \label{tab:ch4-kappa}
-\begin{tabular}{|l|c|l|}
-\hline
+\begin{tabular}{lcl}
+\toprule
 \textbf{Comparison} & \textbf{Binary $\kappa$} & \textbf{Reading}\\
-\hline
+\midrule
 Judge vs.\ human (author) & \textbf{0.827} & almost perfect (validation)\\
 Engine vs.\ judge & 0.245 & fair\\
 Engine vs.\ human (author) & 0.164 & poor\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -240,13 +240,13 @@ the leaks which occur expose high-severity content rather than incidental detail
 (primary), strict (severity~$\geq 3$) and inclusive (severity~$\geq 2$). Source:
 \texttt{final\_metrics.json} (C00000).}
 \label{tab:ch4-headline}
-\begin{tabular}{|l|c|c|}
-\hline
+\begin{tabular}{lcc}
+\toprule
 \textbf{Metric} & \textbf{Engine (lower bound)} & \textbf{Judge (primary)}\\
-\hline
+\midrule
 $\text{ASR}_{\text{strict}}$    & 19.2\% & \textbf{28.8\%}\\
 $\text{ASR}_{\text{inclusive}}$ & 48.1\% & 55.8\%\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -270,16 +270,16 @@ entirely from corpus poisoning.
 (primary). Rates are over the executions in each profile's scenario subset. Source:
 \texttt{final\_metrics.json} (C00000).}
 \label{tab:ch4-profile}
-\begin{tabular}{|l|c|c|c|}
-\hline
+\begin{tabular}{lccc}
+\toprule
 \textbf{Profile} & \textbf{Engine} & \textbf{Judge} & \textbf{Scenarios}\\
-\hline
+\midrule
 P1 Internal & 27.8\% & \textbf{33.3\%} & 18\\
 P2 External & 18.5\% & 29.6\% & 27\\
 P3 Admin    & 0.0\%  & 14.3\% & 7\\
-\hline
+\midrule
 \textbf{Overall} & 19.2\% & \textbf{28.8\%} & 52\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -314,10 +314,10 @@ $91.1\%$ of all strict leak turns in that run.
 judge (primary). F1 and F2 dominate; \dag\,marks the single-scenario family (F8), whose rate
 carries no confidence interval. Source: \texttt{final\_metrics.json} (C00000).}
 \label{tab:ch4-family}
-\begin{tabular}{|l|c|c|c|}
-\hline
+\begin{tabular}{lccc}
+\toprule
 \textbf{Family} & \textbf{Engine} & \textbf{Judge} & \textbf{Scenarios}\\
-\hline
+\midrule
 F1 Direct PII extraction      & 0.556 & \textbf{0.778} & 9\\
 F2 Cross-document linkability & 0.400 & \textbf{0.600} & 10\\
 F5 Jailbreak / role-play      & 0.200 & 0.200 & 5\\
@@ -326,7 +326,7 @@ F3 Direct prompt injection    & 0.000 & 0.000 & 6\\
 F4 Obfuscated query           & 0.000 & 0.000 & 5\\
 F6 System reconnaissance      & 0.000 & 0.000 & 3\\
 F7 Social engineering         & 0.000 & 0.000 & 7\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 

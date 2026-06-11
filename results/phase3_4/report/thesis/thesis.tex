@@ -291,8 +291,8 @@ and methodological rather than as absolute predictions.
 \chapter*{List of Acronyms}
 \addcontentsline{toc}{chapter}{List of Acronyms}
 \markboth{List of Acronyms}{}
-\begin{tabularx}{\textwidth}{|l|L|}
-\hline
+\begin{tabularx}{\textwidth}{lL}
+\toprule
 \textbf{API}   & Application Programming Interface\\
 \textbf{ASR}   & Attack Success Rate (the mean of $L$ over a batch; defined Ch.~\ref{ch:formal})\\
 \textbf{BIPIA} & Indirect prompt-injection benchmark of Yi et al.\ (2024)\\
@@ -317,7 +317,7 @@ and methodological rather than as absolute predictions.
 \textbf{SUT}   & System Under Test\\
 \textbf{SVM}   & Support Vector Machine\\
 $\boldsymbol{\kappa}$ & Cohen's kappa (chance-corrected inter-rater agreement)\\
-\hline
+\bottomrule
 \end{tabularx}
 
 % ===== Notation glossary (transcribed from Ch3, which owns the definitions) =====
@@ -328,10 +328,10 @@ $\boldsymbol{\kappa}$ & Cohen's kappa (chance-corrected inter-rater agreement)\\
 Chapters~\ref{ch:defenses}--\ref{ch:tradeoff}; this table is a reference only.
 \medskip
 
-\begin{tabularx}{\textwidth}{|l|L|}
-\hline
+\begin{tabularx}{\textwidth}{lL}
+\toprule
 \textbf{Symbol} & \textbf{Meaning (definition: Ch.~\ref{ch:formal} unless noted)}\\
-\hline
+\midrule
 $L(q,r,D,u)$ & Binary leakage function: $1$ iff a disclosed entity's severity exceeds $u$'s authorization\\
 $S(q,r,D,u)$ & Severity score: $\sum_{e} s(e)\,w(e)$ over leaked entities\\
 $\text{ASR}$ & Attack-success rate, $\tfrac{1}{N}\sum_i L(q_i,r_i,D,u)$\\
@@ -343,7 +343,7 @@ $u$ & Attacker profile: P1 Internal (thr.\ 2), P2 External (thr.\ 0), P3 Admin (
 F1--F8 & The eight attack families (Ch.~\ref{ch:threat}, Ch.~\ref{ch:baseline})\\
 C[L1L2L3L4L5] & Defense-configuration encoding; C00000 = no defense, C11111 = full stack, C01100 = knee (L2+L3) (Ch.~\ref{ch:defenses})\\
 $\kappa$ & Cohen's kappa: annotation $0.875$ (Ch.~\ref{ch:formal}); judge--human $0.827$ undefended / $0.306$ defended (Ch.~\ref{ch:defenses})\\
-\hline
+\bottomrule
 \end{tabularx}
 
 \tableofcontents

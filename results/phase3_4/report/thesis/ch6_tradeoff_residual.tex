@@ -100,16 +100,16 @@ per-configuration utility (including the knee) is left as future work. Three met
 faithfulness, context precision, latency --- are instrumented. Source:
 \texttt{utility\_results.json}.}
 \label{tab:ch6-utility}
-\begin{tabular}{|l|c|c|c|}
-\hline
+\begin{tabular}{lccc}
+\toprule
 \textbf{Measure} & \textbf{No defense} & \textbf{Full stack} & \textbf{Change}\\
-\hline
+\midrule
 Questions answered (no over-refusal) & 1.000 & 1.000 & 0/30 refused\\
 Faithfulness & 0.953 & 0.933 & $-0.020$\\
 Relevance & 0.774 & 0.785 & $+0.011$\\
 Context precision & 0.755 & 0.658 & \textbf{$-0.097$}\\
 Latency (ms, mean) & 3727 & 6942 & $\approx 1.9\times$\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -156,14 +156,14 @@ live attack and is assessed offline in Chapter~\ref{ch:threat}, so it carries no
 \caption{Judged attack-success rate by adversary, from no defense through the knee to the full
 stack. Source: \texttt{final\_metrics.json} (\texttt{RQ4\_per\_profile}).}
 \label{tab:ch6-profile}
-\begin{tabular}{|l|c|c|c|}
-\hline
+\begin{tabular}{lccc}
+\toprule
 \textbf{Adversary} & \textbf{No defense} & \textbf{Knee (C01100)} & \textbf{Full stack}\\
-\hline
+\midrule
 Internal (curious insider)   & 0.333 & 0.278 & \textbf{0.278}\\
 External (outside attacker)  & 0.296 & 0.185 & 0.148\\
 Privileged administrator     & 0.143 & 0.000 & 0.000\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -232,19 +232,46 @@ over the matched 89-turn set. Baseline is the matched run-0 reused baseline (the
 analogue of the canonical C00000, which carries no severity). Source:
 \texttt{severity\_aggregates.json}.}
 \label{tab:ch6-severity}
-\begin{tabular}{|l|c|c|}
-\hline
+\begin{tabular}{lcc}
+\toprule
 \textbf{Configuration} & \textbf{Engine $\bar{S}$} & \textbf{Judge $\bar{S}$}\\
-\hline
+\midrule
 No defense (matched baseline) & 2.567 & 0.865\\
 Redaction only (L2, C01000)   & 1.252 & 0.405\\
 Knee (L2+L3, C01100)          & 1.252 & 0.405\\
 Full stack (C11111)           & \textbf{1.065} & \textbf{0.371}\\
-\hline
+\midrule
 $\Delta S$ vs.\ baseline (full stack) & $1.502$ & $0.494$\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar, bar width=18pt, width=0.92\textwidth, height=7cm,
+  ymin=0, ymax=2.85, ylabel={Mean severity $\bar{S}$}, ylabel style={font=\small},
+  symbolic x coords={baseline,knee,full},
+  xticklabels={No defense\\\footnotesize C00000,Knee\\\footnotesize C01100,Full stack\\\footnotesize C11111},
+  xtick=data, x tick label style={align=center, font=\small},
+  ytick={0,0.5,1.0,1.5,2.0,2.5}, ymajorgrids, grid style={gray!15,thin},
+  nodes near coords, nodes near coords style={font=\scriptsize\bfseries,/pgf/number format/fixed,/pgf/number format/precision=3},
+  legend style={at={(0.5,1.05)}, anchor=south, legend columns=2, font=\small, draw=gray!35, rounded corners=2pt},
+  enlarge x limits=0.35, axis line style={gray!55}, tick style={gray!55},
+]
+\addplot[fill=figslate, draw=figslate!60!black] coordinates {(baseline,2.567)(knee,1.252)(full,1.065)};
+\addplot[fill=figteal, draw=figteal!60!black] coordinates {(baseline,0.865)(knee,0.405)(full,0.371)};
+\legend{Engine $\bar{S}$ (lower bound), Judge $\bar{S}$ (primary)}
+\end{axis}
+\end{tikzpicture}
+\caption[Mean severity reduction across configurations]{Mean severity $\bar{S}$ by configuration,
+both instruments. The judge (primary) shows severity falling from $0.865$ undefended to $0.405$ at
+the knee and $0.371$ at the full stack ($\Delta S = 0.494$); the engine reads a larger absolute
+drop ($2.567\!\to\!1.065$) from its inflated baseline. Severity mirrors the leakage result:
+redaction (L2) does the work and the residual persists. Source: \texttt{severity\_aggregates.json}.}
+\label{fig:ch6-deltaS}
+\end{figure}
 
 \section{The risk matrix: where severity stratifies the residual}
 \label{sec:ch6-risk}
@@ -263,17 +290,17 @@ rate into a prioritised risk.
 configuration, weighted by severity, and sorted by residual risk. Source: committed
 Phase~3--4 report §6 (risk matrix).}
 \label{tab:ch6-riskfam}
-\begin{tabular}{|l|l|c|c|c|}
-\hline
+\begin{tabular}{llccc}
+\toprule
 \textbf{Family} & \textbf{Privacy harm} & \textbf{Severity} & \textbf{Residual} & \textbf{Risk}\\
-\hline
+\midrule
 Linkability   & Linkability     & 4 & \textbf{0.700} & \textbf{2.80}\\
 Direct PII    & Identifiability & 5 & 0.222 & 1.11\\
 Reconnaissance & Detectability  & 3 & 0.333 & 1.00\\
 Jailbreak     & Disclosure      & 5 & 0.000 & 0.00\\
 Corpus poisoning & Disclosure   & 5 & 0.000 & 0.00\\
 Injection and others & Disclosure & 4--5 & 0.000 & 0.00\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -334,6 +361,41 @@ therefore per-turn combinatorial $k$-anonymity, not the cross-turn mechanism fir
 itself a threat-model observation, that the identifying combination is already present the moment a
 record is retrieved.
 
+\begin{figure}[h]
+\centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}[font=\small, >={Latex[length=2.2mm]},
+  qi/.style={draw=figslate!70!black, fill=figslate!14, rounded corners=2pt, minimum height=9.5mm, minimum width=22mm, align=center, font=\footnotesize\bfseries},
+  l0/.style={draw=figteal!75!black, fill=figteal!16, rounded corners=2pt, minimum height=9.5mm, minimum width=25mm, align=center},
+  l1/.style={draw=figamber!85!black, fill=figamber!20, rounded corners=2pt, minimum height=9.5mm, minimum width=25mm, align=center},
+  sup/.style={draw=figcoral!80!black, fill=figcoral!15, rounded corners=2pt, minimum height=9.5mm, minimum width=24mm, align=center, font=\footnotesize, text=figcoral!45!black},
+  ar/.style={->, semithick, figslate!70!black}]
+\node[qi] (qa) {Age};
+\node[l0, right=5mm of qa] (a0) {30--40};
+\node[l1, right=5mm of a0] (a1) {$\leq 40$};
+\node[sup, right=5mm of a1] (as) {$\ast$ suppress};
+\node[qi, below=4mm of qa] (qs) {Salary};
+\node[l0, right=5mm of qs] (s0) {50--70k};
+\node[l1, right=5mm of s0] (s1) {$<70$k};
+\node[sup, right=5mm of s1] (ss) {$\ast$ suppress};
+\node[qi, below=4mm of qs] (qd) {Dept.};
+\node[l0, right=5mm of qd] (d0) {Engineering};
+\node[l1, right=5mm of d0] (d1) {Technical};
+\node[sup, right=5mm of d1] (ds) {$\ast$ suppress};
+\foreach \a/\b in {a0/a1,a1/as,s0/s1,s1/ss,d0/d1,d1/ds} \draw[ar] (\a)--(\b);
+\node[above=4mm of a0, font=\scriptsize\itshape, text=figteal!42!black] {L0: specific};
+\node[above=4mm of a1, font=\scriptsize\itshape, text=figorange!58!black] {L1: generalised};
+\node[above=4mm of as, font=\scriptsize\itshape, text=figcoral!48!black] {terminal: suppress};
+\end{tikzpicture}}
+\caption[The quasi-identifier generalisation ladders]{The pre-registered quasi-identifier
+generalisation hierarchy used by the linkage probes (three of the seven QIs shown). Each attribute
+climbs its ladder --- specific value (L0, teal), generalised group (L1, amber), then suppression
+(coral) --- as $k$-anonymity demands. The same hierarchy drives both the query-time gate (L7) and
+the ingestion-time generalisation (P7). Source: \texttt{l7\_consistency\_check.py}
+(\texttt{QI\_HIERARCHY}).}
+\label{fig:ch6-qiladder}
+\end{figure}
+
 The evaluation was disciplined deliberately, because a linkage defense is precisely where a loose
 protocol manufactures a win. Three guards were fixed before the run. The reading rules were
 \emph{pre-registered}: a threshold sweep $k\in\{2,5,10\}$, a monotonic-shape expectation (tighter
@@ -373,16 +435,45 @@ F2 scenarios. Per-scenario resolution is $0.1$ and the binomial $95\%$ interval 
 so the table fixes direction, not magnitude. ``Gen.\ rate'' is the fraction of attribute-turns the
 gate altered. Sources: \texttt{l7\_judge\_sweep.log}, \texttt{l7\_sweep\_responses.jsonl}.}
 \label{tab:ch6-l7}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
+\begin{tabular}{ccccc}
+\toprule
 \textbf{$k$} & \textbf{Gate} & \textbf{Random same-rate} & \textbf{Baseline} & \textbf{Gen.\ rate}\\
-\hline
+\midrule
 $2$  & $0.7$ & $0.7$ & $0.7$ & $0.335$\\
 $5$  & $0.4$ & $0.6$ & $0.7$ & $0.729$\\
 $10$ & $0.6$ & $0.7$ & $0.7$ & $0.774$\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar, bar width=15pt, width=0.92\textwidth, height=7cm,
+  ymin=0, ymax=0.95, ylabel={Judged F2 linkability ASR}, ylabel style={font=\small},
+  symbolic x coords={k2,k5,k10},
+  xticklabels={$k=2$\\\footnotesize gen.\ rate 0.34,$k=5$\\\footnotesize gen.\ rate 0.73,$k=10$\\\footnotesize gen.\ rate 0.77},
+  xtick=data, x tick label style={align=center, font=\small},
+  ytick={0,0.2,0.4,0.6,0.8}, ymajorgrids, grid style={gray!15,thin},
+  nodes near coords, nodes near coords style={font=\scriptsize\bfseries,/pgf/number format/fixed,/pgf/number format/precision=1},
+  legend style={at={(0.5,1.05)}, anchor=south, legend columns=3, font=\small, draw=gray!35, rounded corners=2pt},
+  enlarge x limits=0.35, axis line style={gray!55}, tick style={gray!55},
+]
+\addplot[fill=figblue, draw=figblue!60!black] coordinates {(k2,0.7)(k5,0.4)(k10,0.6)};
+\addplot[fill=figslate, draw=figslate!60!black] coordinates {(k2,0.7)(k5,0.6)(k10,0.7)};
+\addplot[fill=figamber, draw=figamber!60!black] coordinates {(k2,0.7)(k5,0.7)(k10,0.7)};
+\legend{Gate ($k$-anon), Random same-rate, Baseline}
+\end{axis}
+\end{tikzpicture}
+\caption[The L7 query-time $k$-anonymity sweep: a null result]{Judged F2 linkability for the
+combinatorial $k$-anonymity gate, a random-same-rate control, and an in-session baseline across the
+threshold sweep (ten F2 scenarios; per-scenario step $0.1$, interval $\approx\pm0.30$). At the
+non-blanket cell ($k{=}2$) gate, control, and baseline coincide at $0.7$; the gate's dip at $k{=}5$
+($0.4$) lies within one interval, occurs only at near-blanket generalisation ($0.73$), and is
+non-monotonic ($k{=}10$ leaks more). The result is a null. Source: \texttt{l7\_judge\_sweep.log}.}
+\label{fig:ch6-l7sweep}
+\end{figure}
 
 Two caveats bound the reading, and neither softens it. The sweep is ten scenarios: rates move in
 steps of $0.1$ with an interval near $\pm0.30$, so the experiment fixes direction, not magnitude,
@@ -438,14 +529,14 @@ generalisation height); ``dropped'' is records suppressed because they remain un
 generalisation. All three reach their target $k$; no F2 attack was run (see text). Source:
 \texttt{p7\_build\_corpora.py} and \texttt{corpus\_k\{2,5,10\}.json} (commit \texttt{8f25d54}).}
 \label{tab:ch6-p7}
-\begin{tabular}{|c|c|c|c|}
-\hline
+\begin{tabular}{cccc}
+\toprule
 \textbf{Target $k$} & \textbf{Info-loss} & \textbf{Records dropped} & \textbf{Achieved $k$}\\
-\hline
+\midrule
 $2$  & $0.52$ & $9/100$ & $2$\\
 $5$  & $0.60$ & $4/100$ & $5$\\
 $10$ & $0.67$ & $0/100$ & $10$\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 

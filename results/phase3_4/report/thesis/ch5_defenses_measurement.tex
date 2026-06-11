@@ -79,16 +79,16 @@ real attack rather than asserted in principle (Table~\ref{tab:ch5-layers}).
 validated against. Layer-validation counts are consolidated from the committed Phase~3--4
 report (§4).}
 \label{tab:ch5-layers}
-\begin{tabularx}{\textwidth}{|l|p{2.6cm}|X|}
-\hline
+\begin{tabularx}{\textwidth}{lp{2.6cm}X}
+\toprule
 \textbf{Mechanism} & \textbf{Where it acts} & \textbf{What it does, and how it was validated}\\
-\hline
+\midrule
 Input filter & before retrieval & Blocks injection and jailbreak attempts: 2/2 attacks blocked, 0/3 benign queries wrongly blocked; no model call once an attempt is rejected.\\
 Retrieval-time redaction & retrieved context & Removes severity-$\geq 3$ spans before the model sees them. The decisive layer (Table~\ref{tab:ch5-oracle}); what survives is the medical, surname, and immigration residue the detector cannot reach.\\
 Conversation-aware refusal & dialogue state & Refuses when disclosure accumulated about one person crosses a threshold; catches a name-plus-condition leak that redaction alone would miss in a constructed multi-turn handoff, though it adds no measurable reduction in the live campaign (Ch.~\ref{ch:tradeoff}); 0/3 false positives.\\
 Output filter & response & Redacts identifiers in the response; names and identifiers are removed, but a salary the model has reformatted into prose can slip past.\\
 Provenance and access & retrieval & Quarantines untrusted documents: corpus poisoning 3/3~$\to$~0/3, with 0/155 legitimate documents wrongly quarantined. Document-level access control proved too coarse here (below) and is used for provenance only.\\
-\hline
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -133,13 +133,13 @@ layer to refuse.
 \caption{Retrieval-time redaction with the target document forced into context. The
 disclosure rate is the fraction of trials in which the model reveals the protected content.}
 \label{tab:ch5-oracle}
-\begin{tabular}{|l|c|c|p{5.8cm}|}
-\hline
+\begin{tabular}{lccp{5.8cm}}
+\toprule
 \textbf{Redaction} & \textbf{Disclosure rate} & \textbf{Trials} & \textbf{What survives}\\
-\hline
+\midrule
 Off & 0.933 & 14/15 & everything\\
 On & \textbf{0.000} & 0/15 & only medical, surname, and immigration data\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -194,17 +194,17 @@ a re-identification.
 \caption{Where high-severity detection fails. These categories are why a single filter cannot
 suffice. Source: detector evaluation, consolidated from the committed Phase~3--4 report (§3).}
 \label{tab:ch5-ceiling}
-\begin{tabular}{|l|c|c|p{6.2cm}|}
-\hline
+\begin{tabular}{lccp{6.2cm}}
+\toprule
 \textbf{Category} & \textbf{Entities} & \textbf{Recall} & \textbf{Why it is missed}\\
-\hline
+\midrule
 Medical conditions & 93 & 0.00 & Open clinical vocabulary; needs a trained model, not a pattern\\
 Titled surnames & 100 & 0.51 & Name variants the recogniser does not generalise to\\
 Immigration status & 36 & 0.00 & Open-vocabulary phrasing\\
 Street addresses & 100 & 0.89 & Mostly caught; some formats slip through\\
 Embedded system text & 5 & 0.00 & Semantic content, not an identifier\\
 Age and gender & 100 & 0.00 & Stored form differs from the answer-key text; the linkage bridge\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -301,17 +301,17 @@ the stratification.
 judged figures are primary; the engine figures are a lower bound. Source:
 \texttt{final\_metrics.json}.}
 \label{tab:ch5-headline}
-\begin{tabular}{|l|c|c|l|}
-\hline
+\begin{tabular}{lccl}
+\toprule
 \textbf{Configuration} & \textbf{Rule engine} & \textbf{Validated judge} & \textbf{Effect (judged)}\\
-\hline
+\midrule
 No defense & 0.192 & \textbf{0.288} & ---\\
 Input filter only & 0.231 & 0.365 & within noise\\
 Retrieval redaction only & 0.019 & \textbf{0.192} & reduces leakage\\
 Conversational refusal only & 0.192 & 0.346 & within noise\\
 Redaction + refusal & 0.019 & 0.192 & reduces leakage\\
 Full stack & 0.000 & \textbf{0.173} & reduces leakage\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -333,14 +333,14 @@ it is reported as within noise rather than as a layer that makes leakage worse.
 instrument against its own noise floor (engine $0.04$, judged $0.08$). Source:
 \texttt{final\_metrics.json}.}
 \label{tab:ch5-marginal}
-\begin{tabular}{|l|c|l|c|l|}
-\hline
+\begin{tabular}{lclcl}
+\toprule
 \textbf{Layer} & \textbf{Judged $\Delta$} & \textbf{Verdict} & \textbf{Engine $\Delta$} & \textbf{Verdict}\\
-\hline
+\midrule
 Input filter & $+0.077$ & within noise & $+0.039$ & within noise\\
 Retrieval redaction & $-0.096$ & reduces leakage & $-0.173$ & reduces leakage\\
 Conversational refusal & $+0.058$ & within noise & $+0.000$ & within noise\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -494,16 +494,16 @@ curve was estimated, and none is claimed.
 figure's role. Source: \texttt{final\_metrics.json} (\texttt{RQ3\_judge\_validation\_CITED}),
 46-record sample.}
 \label{tab:ch5-kappa}
-\begin{tabularx}{\textwidth}{|l|c|X|}
-\hline
+\begin{tabularx}{\textwidth}{lcX}
+\toprule
 \textbf{Comparison} & \textbf{Cohen's $\kappa$} & \textbf{Role}\\
-\hline
+\midrule
 Judge vs.\ primary human & \textbf{0.827} & \textbf{Validation} --- the figure that licenses the judge as a stand-in for a human reader\\
 Cross-vendor (Claude vs.\ gpt-oss) & 0.843 & Corroboration --- not a human validation\\
 Independent vendor vs.\ human & 0.777 & Second vendor against the human reference\\
 Judge vs.\ second human annotator & 0.775 & Judge above the second annotator too\\
 Inter-human (annotator 2 vs.\ primary) & 0.692 & The human agreement ceiling the judge exceeds\\
-\hline
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -549,15 +549,15 @@ often a refusal misread than a real leak.
 \caption{Judge-versus-human confusion matrix on the defended calibration sample ($n=46$).
 Source: \texttt{kappa\_defended.json}.}
 \label{tab:ch5-confusion}
-\begin{tabular}{|l|c|c|c|}
-\hline
+\begin{tabular}{lccc}
+\toprule
  & \textbf{Human: leak} & \textbf{Human: no leak} & \textbf{Total}\\
-\hline
+\midrule
 Judge: leak    & 7  & 11 & 18\\
 Judge: no leak & 3  & 25 & 28\\
-\hline
+\midrule
 Total          & 10 & 36 & 46\\
-\hline
+\bottomrule
 \end{tabular}
 \end{table}
 

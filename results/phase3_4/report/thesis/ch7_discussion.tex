@@ -233,22 +233,22 @@ these obligations; we do not certify compliance, and the thesis is not a legal d
 \caption{Traceability of each recommendation to its measured finding and the regulatory theme it bears on.
 Each recommendation cites a committed result; the regulatory column is a mapping, not a compliance claim.}
 \label{tab:disc-recommendations}
-\begin{tabularx}{\textwidth}{|L|L|L|}
-\hline
+\begin{tabularx}{\textwidth}{LLL}
+\toprule
 \textbf{Recommendation} & \textbf{Grounding finding (chapter)} & \textbf{Regulatory bearing}\\
-\hline
+\midrule
 Redaction is necessary, not sufficient & Linkage unmoved at $0.60$ (\S\ref{sec:ch6-residual}) & GDPR data minimisation (Art.\ 5(1)(c))\\
-\hline
+\midrule
 Entity detection cannot certify linkage & Engine $\kappa=-0.10$, RQ3 (Ch.~\ref{ch:defenses}) & GDPR accountability (Art.\ 5(2))\\
-\hline
+\midrule
 Recalibrate the judge on defended output & Judge $\kappa$ $0.827\!\to\!0.306$ (Ch.~\ref{ch:defenses}) & GDPR accountability (Art.\ 5(2))\\
-\hline
+\midrule
 Linkage is data-governance, not model-layer & Three mechanisms failed (\S\ref{sec:ch6-probes},~\ref{sec:ch6-p7}) & GDPR data min.; NIS2 / ISO 27001 access control\\
-\hline
+\midrule
 Deploy at the security--utility knee & Knee $\approx$ full stack within noise (Ch.~\ref{ch:tradeoff}) & GDPR proportionate measures (Art.\ 25)\\
-\hline
+\midrule
 Layered defense reduces ($\sim$40\%), not eliminates & $28.8\%\!\to\!17.3\%$ at C01100 (Ch.~\ref{ch:defenses},~\ref{ch:tradeoff}) & GDPR security of processing (Art.\ 32)\\
-\hline
+\bottomrule
 \end{tabularx}
 \end{table}
 
@@ -271,6 +271,35 @@ governance-of-access direction those negatives point to. The controls change the
 ingested, who may retrieve, and how much may be enumerated --- and each is stated with the boundary of what
 it does and does not cover. Only one case, the external attacker, earns the word \emph{solves}; everywhere
 else the controls \emph{bound}, \emph{reduce}, or \emph{make accountable}.
+
+\begin{figure}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\small, >={Latex[length=2.4mm]},
+  stage/.style={draw=figslate!80!black, fill=figslate!12, rounded corners=3pt, minimum height=11mm, minimum width=20mm, align=center, thick},
+  c1/.style={draw=figteal!80!black, fill=figteal!16, rounded corners=3pt, minimum height=14mm, minimum width=26mm, align=center, very thick, text=figteal!30!black},
+  c2/.style={draw=figblue!80!black, fill=figblue!14, rounded corners=3pt, minimum height=14mm, minimum width=26mm, align=center, very thick, text=figblue!40!black},
+  c3/.style={draw=figamber!85!black, fill=figamber!20, rounded corners=3pt, minimum height=14mm, minimum width=26mm, align=center, very thick, text=figorange!55!black},
+  ar/.style={->, thick, figslate!70!black}]
+\node[stage] (corpus) {Corpus};
+\node[c1, right=5mm of corpus] (c1) {\textbf{C1}\\\footnotesize data\\minimisation};
+\node[stage, right=5mm of c1] (ret) {Retrieval};
+\node[c2, right=5mm of ret] (c2) {\textbf{C2}\\\footnotesize access\\control};
+\node[stage, right=5mm of c2] (gen) {Generation};
+\node[c3, right=5mm of gen] (c3) {\textbf{C3}\\\footnotesize aggregation\\control};
+\node[stage, right=5mm of c3] (ans) {Answer};
+\draw[ar](corpus)--(c1);\draw[ar](c1)--(ret);\draw[ar](ret)--(c2);\draw[ar](c2)--(gen);\draw[ar](gen)--(c3);\draw[ar](c3)--(ans);
+\node[draw=figgreen!75!black, fill=figgreen!15, rounded corners=3pt, align=center, text width=48mm, font=\footnotesize, text=figgreen!32!black, below=11mm of ret] (ext) {\textbf{External attacker:} \emph{solved}\\(no sensitive tier served)};
+\node[draw=figcoral!75!black, fill=figcoral!12, rounded corners=3pt, align=center, text width=54mm, font=\footnotesize, text=figcoral!45!black, below=11mm of gen] (auth) {\textbf{Authorised user $+$ auxiliary knowledge:}\\\emph{bounded}, not eliminated};
+\end{tikzpicture}}
+\caption[The governance-of-access controls]{The three governance-of-access controls as a
+defence-in-depth: \textbf{C1} minimise what enters the corpus, \textbf{C2} gate retrieval by
+authorisation, \textbf{C3} control aggregation at the answer layer. Against the external,
+unauthorised attacker the approach \emph{solves} the problem (nothing sensitive is served); for
+the authorised user who brings outside knowledge the residual is \emph{bounded} --- minimised and
+made accountable --- but not eliminated.}
+\label{fig:ch7-governance}
+\end{figure}
 
 \paragraph{Control 1 --- purpose-bound data minimisation at ingestion.} Index only the fields the system's
 defined purpose requires, and never ingest the quasi-identifiers it does not. This is confident because it
