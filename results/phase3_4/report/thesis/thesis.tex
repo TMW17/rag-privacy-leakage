@@ -33,15 +33,20 @@
 
 % ---- colour FIRST: tcolorbox/pgf load xcolor internally; loading it later clashes ----
 \usepackage[table,dvipsnames]{xcolor}
-% TWO-COLOUR PALETTE (style spec): only esiblue + esidark (plus the white page).
+% PALETTE: esiblue is reserved for TITLES (headings) and FIGURES only; everything else
+% (body text, boxes, badges, table headers) renders in esidark. Blue removed from the chrome.
 \definecolor{esiblue}{RGB}{0,51,102}
 \definecolor{esidark}{RGB}{26,26,26}
-% Remap every legacy palette name onto the two-colour scheme, so ALL existing
-% \textcolor / box-frame / table-header references render in just blue + dark:
-\colorlet{navy}{esiblue}\colorlet{steel}{esiblue}\colorlet{accent}{esiblue}
-\colorlet{ink}{esidark}\colorlet{headerrow}{esidark}\colorlet{steelmid}{esiblue}
-\colorlet{medgray}{esiblue}\colorlet{codeframe}{esiblue}\colorlet{danger}{esiblue}
-\colorlet{warn}{esiblue}\colorlet{safe}{esiblue}\colorlet{capyes}{esiblue}\colorlet{capno}{esidark}
+% --- Navy & Steel academic palette (requested): 60-30-10, colour-blind-safe ---
+\definecolor{primarylink}{HTML}{1565C0}    % blue: links, key terms
+\definecolor{secondarycite}{HTML}{0D47A1}  % navy: citations
+\definecolor{accentcolor}{HTML}{E53935}    % crimson: alerts / highlights
+\definecolor{darkcharcoal}{HTML}{263238}   % charcoal: headers / structural
+% Every legacy palette name now maps to esidark, so boxes / badges / inline colour are dark:
+\colorlet{navy}{darkcharcoal}\colorlet{steel}{darkcharcoal}\colorlet{accent}{darkcharcoal}
+\colorlet{ink}{darkcharcoal}\colorlet{headerrow}{darkcharcoal}\colorlet{steelmid}{darkcharcoal}
+\colorlet{medgray}{darkcharcoal}\colorlet{codeframe}{darkcharcoal}\colorlet{danger}{accentcolor}
+\colorlet{warn}{accentcolor}\colorlet{safe}{darkcharcoal}\colorlet{capyes}{darkcharcoal}\colorlet{capno}{darkcharcoal}
 \colorlet{rowodd}{white}\colorlet{roweven}{white}\colorlet{linddunblue}{white}
 \colorlet{blockbg}{white}\colorlet{steellight}{white}\colorlet{lightgray}{white}\colorlet{codebg}{white}
 % ---- FIGURE data-viz palette (NOT remapped; figures may use colour even though body chrome is 2-colour) ----
@@ -84,57 +89,49 @@
 
 % ---- rich callout boxes (ONE unified set shared by Ch2 and Ch3) ----
 \usepackage[most]{tcolorbox}
-\newtcolorbox{prosebox}{enhanced, breakable, colback=white, colframe=esiblue!40,
+% Simple, uncoloured callout boxes: white background, thin neutral-grey frame, plain bold
+% dark title (no coloured title bars, left rules, or tinted backgrounds).
+\newtcolorbox{prosebox}{enhanced, breakable, colback=white, colframe=gray!45,
   boxrule=0.5pt, arc=2pt, left=8pt, right=8pt, top=6pt, bottom=6pt}
-\newtcolorbox{notebox}{enhanced, breakable, colback=white, colframe=navy!40,
-  boxrule=0.5pt, arc=2pt, borderline west={2.5pt}{0pt}{accent!70},
-  left=10pt, right=8pt, top=6pt, bottom=6pt}
-\newtcolorbox{critbox}{enhanced, breakable, colback=navy!4, colframe=navy!45,
-  boxrule=0.4pt, arc=2pt, borderline west={2pt}{0pt}{navy!70},
-  left=10pt, right=8pt, top=5pt, bottom=5pt, fontupper=\small}
-\newtcolorbox{gapbox}[1][]{enhanced, breakable, colback=accent!3, colframe=accent!60,
-  boxrule=0.8pt, arc=2pt, fonttitle=\bfseries\color{white}, coltitle=white,
-  colbacktitle=accent!80, toptitle=3pt, bottomtitle=3pt,
+\newtcolorbox{notebox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, left=10pt, right=8pt, top=6pt, bottom=6pt}
+\newtcolorbox{critbox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, left=10pt, right=8pt, top=5pt, bottom=5pt, fontupper=\small}
+\newtcolorbox{gapbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries, coltitle=darkcharcoal, colbacktitle=white,
   left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
-\newtcolorbox{transitionbox}[1][]{enhanced, breakable, colback=navy!4, colframe=navy!55,
-  boxrule=0.6pt, arc=2pt, fonttitle=\bfseries\color{white}, coltitle=white,
-  colbacktitle=navy!75, toptitle=3pt, bottomtitle=3pt,
+\newtcolorbox{transitionbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries, coltitle=darkcharcoal, colbacktitle=white,
   left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
-\newtcolorbox{profilebanner}[2]{enhanced, breakable, colback=blockbg, colframe=steel,
-  leftrule=5pt, rightrule=0.4pt, toprule=0.4pt, bottomrule=0.4pt, arc=0pt,
-  fonttitle=\bfseries\normalsize\color{steel}, title={#1},
-  after title={\hfill\textcolor{steel}{\small #2}},
-  top=5pt, bottom=5pt, left=10pt, right=8pt}
-\newtcolorbox{attackbox}{enhanced, breakable, colback=steellight, colframe=steelmid,
-  leftrule=2pt, rightrule=0.2pt, toprule=0.2pt, bottomrule=0.2pt, arc=0pt,
-  top=3pt, bottom=3pt, left=6pt, right=6pt, fontupper=\small\ttfamily\color{ink}}
-\newtcolorbox{cvssbox}[1]{enhanced, breakable, colback=blockbg, colframe=steel,
-  leftrule=4pt, rightrule=0.4pt, toprule=0.4pt, bottomrule=0.4pt, arc=0pt,
-  title={\textbf{\color{steel}CVSS v3.1 Base Score \quad #1}}, fonttitle=\normalsize,
-  top=5pt, bottom=5pt, left=10pt, right=8pt}
-\newtcolorbox{limitbox}{enhanced, breakable, colback=blockbg, colframe=warn,
-  leftrule=4pt, rightrule=0.3pt, toprule=0.3pt, bottomrule=0.3pt, arc=0pt,
-  top=5pt, bottom=5pt, left=8pt, right=6pt}
-\newtcolorbox{defbox}[1][]{enhanced, breakable, colback=navy!3, colframe=navy!70,
-  boxrule=0.8pt, arc=2pt, fonttitle=\bfseries\color{white}, coltitle=white,
-  colbacktitle=navy!80, toptitle=3pt, bottomtitle=3pt,
+\newtcolorbox{profilebanner}[2]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries\normalsize, coltitle=darkcharcoal, colbacktitle=white,
+  title={#1}, after title={\hfill{\small #2}}, top=5pt, bottom=5pt, left=10pt, right=8pt}
+\newtcolorbox{attackbox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, top=3pt, bottom=3pt, left=6pt, right=6pt, fontupper=\small\ttfamily}
+\newtcolorbox{cvssbox}[1]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, title={\textbf{CVSS v3.1 Base Score \quad #1}}, fonttitle=\normalsize,
+  coltitle=darkcharcoal, colbacktitle=white, top=5pt, bottom=5pt, left=10pt, right=8pt}
+\newtcolorbox{limitbox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, top=5pt, bottom=5pt, left=8pt, right=6pt}
+\newtcolorbox{defbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries, coltitle=darkcharcoal, colbacktitle=white,
   left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
-\newtcolorbox{resultbox}[1][]{enhanced, breakable, colback=lightgray, colframe=steel!60,
-  boxrule=0.6pt, arc=2pt, fonttitle=\bfseries\small, toptitle=2pt, bottomtitle=2pt,
+\newtcolorbox{resultbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries\small, coltitle=darkcharcoal, colbacktitle=white,
   left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
 
 % ---- badge / capability commands used by the imported threat-model content ----
-\newcommand{\badgecritical}{\colorbox{danger}{\color{white}\small\textbf{~Critical~}}}
-\newcommand{\badgehigh}{\colorbox{warn}{\color{white}\small\textbf{~High~}}}
-\newcommand{\badgemedium}{\colorbox{safe}{\color{white}\small\textbf{~Medium~}}}
+\newcommand{\badgecritical}{\colorbox{gray!15}{\small\textbf{~Critical~}}}
+\newcommand{\badgehigh}{\colorbox{gray!15}{\small\textbf{~High~}}}
+\newcommand{\badgemedium}{\colorbox{gray!15}{\small\textbf{~Medium~}}}
 \newcommand{\yes}{\textcolor{capyes}{\ding{51}}}
 \newcommand{\no}{\textcolor{capno}{\ding{55}}}
 \newcommand{\cvssvec}[1]{\texttt{\small #1}}
 
 % ---- listing styles (terminal output + python) ----
 \lstdefinestyle{pythonstyle}{language=Python, backgroundcolor=\color{codebg},
-  basicstyle=\ttfamily\footnotesize, keywordstyle=\color{navy}\bfseries,
-  stringstyle=\color{accent!80!black}, commentstyle=\color{steel!70}\itshape,
+  basicstyle=\ttfamily\footnotesize, keywordstyle=\color{primarylink}\bfseries,
+  stringstyle=\color{purple!75!black}, commentstyle=\color{green!55!black}\itshape,
   frame=single, rulecolor=\color{codeframe}, framesep=5pt, xleftmargin=5pt,
   xrightmargin=5pt, breaklines=true, showstringspaces=false, tabsize=4,
   captionpos=b, aboveskip=8pt, belowskip=8pt}
@@ -146,7 +143,9 @@
 
 \usepackage{microtype}
 \usepackage{setspace}\onehalfspacing   % style spec: 1.5 line spacing
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=primarylink, urlcolor=primarylink,
+  filecolor=primarylink, citecolor=secondarycite}
 \usepackage{cleveref}                   % MUST load after hyperref
 
 % ---- thesis style spec: alignment, paragraph spacing, heading styles ----
@@ -157,17 +156,17 @@
 % CS-layout spec: main text JUSTIFIED (LaTeX default; previous \RaggedRight removed)
 % H1 chapter: 16pt bold ALL CAPS, centred, 0 before / 24 after, single-spaced
 \titleformat{\chapter}[display]
-  {\sffamily\singlespacing\centering\bfseries\color{esiblue}\fontsize{16}{19}\selectfont}
+  {\sffamily\singlespacing\centering\bfseries\color{darkcharcoal}\fontsize{16}{19}\selectfont}
   {\MakeUppercase{\chaptertitlename}\ \thechapter}{6pt}{\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{0pt}{24pt}
 % H2 section: 14pt bold, left, 15 before / 12 after
-\titleformat{\section}{\sffamily\bfseries\color{esiblue}\fontsize{14}{17}\selectfont}{\thesection}{0.6em}{}
+\titleformat{\section}{\sffamily\bfseries\color{darkcharcoal}\fontsize{14}{17}\selectfont}{\thesection}{0.6em}{}
 \titlespacing*{\section}{0pt}{15pt}{12pt}
 % H3 subsection: 12pt bold, left, 12 before / 9 after
-\titleformat{\subsection}{\sffamily\bfseries\color{esidark}\fontsize{12}{15}\selectfont}{\thesubsection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\color{darkcharcoal}\fontsize{12}{15}\selectfont}{\thesubsection}{0.6em}{}
 \titlespacing*{\subsection}{0pt}{12pt}{9pt}
 % H4 subsubsection: 12pt bold italic, left, 9 before / 6 after
-\titleformat{\subsubsection}{\sffamily\bfseries\itshape\color{esidark}\fontsize{12}{15}\selectfont}{\thesubsubsection}{0.6em}{}
+\titleformat{\subsubsection}{\sffamily\bfseries\itshape\color{darkcharcoal}\fontsize{12}{15}\selectfont}{\thesubsubsection}{0.6em}{}
 \titlespacing*{\subsubsection}{0pt}{9pt}{6pt}
 
 \begin{document}
@@ -234,58 +233,56 @@ constant support and encouragement.
 \addcontentsline{toc}{chapter}{Problem Statement}
 \markboth{Problem Statement}{}
 
-Organisations hold years of sensitive internal data --- human-resources files, medical
-reports, internal memoranda, system configurations --- and increasingly want it
-conversationally accessible. Retrieval-augmented generation makes that possible: documents are
-embedded into a vector store, retrieved on demand, and used to ground a large language model's
-answers. The appeal is real, and so is a privacy problem that hides in plain sight. The
-retriever does not know who is allowed to see what, and neither does the model; both are
-engineered to be \emph{helpful}, not \emph{minimally informative}. When an employee asks for a
-colleague's salary, the pipeline retrieves the record and the model relays it; when an outside
-attacker hides an instruction inside a document the retriever later fetches, the same pipeline
-can be steered into disclosure. Two separately documented phenomena --- language models
-memorising and reproducing training data, and adversarial prompts steering model behaviour ---
-compound in RAG into a third, because the retriever itself becomes an attacker-influenceable
-channel into the model's context.
+Organisations hold years of sensitive internal data: human-resources files, medical reports,
+internal memoranda, and system configurations. Increasingly they want this data conversationally
+accessible, and retrieval-augmented generation makes that possible. Documents are embedded into a
+vector store, retrieved on demand, and used to ground a large language model's answers. The
+capability is useful, but it carries a privacy problem that is easy to miss. The retriever does
+not know who is allowed to see what, and neither does the model; both are built to be
+\emph{helpful} rather than \emph{minimally informative}. If an employee asks for a colleague's
+salary, the pipeline retrieves the record and the model relays it. If an outside attacker hides an
+instruction in a document that the retriever later fetches, the same pipeline can be steered into
+disclosure. Two well-documented phenomena combine here into a third: language models can memorise
+and reproduce training data, and adversarial prompts can steer model behaviour; in RAG, the
+retriever itself becomes a channel into the model's context that an attacker can influence.
 
-The consequences are governed by data-protection law (the GDPR in particular), under which
-unauthorised disclosure of personal data is a reportable harm, and they are made worse by the
-nature of the most damaging leak. The worst disclosure in this setting is not a single record
-read out verbatim but \emph{re-identification by linkage}: a person reconstructed from
-attributes that are individually innocuous and scattered across documents. Such a leak
-corresponds to no discrete field a filter can excise, which makes it both hard to prevent and,
-as this thesis argues, hard to measure. The substantive question is therefore threefold: how
-much sensitive data a baseline enterprise RAG deployment leaks, under what attack conditions
-and against which attacker; how much existing defenses actually reduce that leakage under
-matched conditions; and --- a question the others quietly depend on --- how we know the
-measurement itself is trustworthy rather than an artifact of one instrument's blind spots.
+The consequences fall under data-protection law, the GDPR in particular, where unauthorised
+disclosure of personal data is a reportable harm. They are compounded by the nature of the most
+damaging leak. The worst disclosure in this setting is not a single record read out verbatim, but
+\emph{re-identification by linkage}: a person reconstructed from attributes that are individually
+innocuous and scattered across documents. Such a leak corresponds to no discrete field that a
+filter can excise, which makes it both hard to prevent and, as this thesis argues, hard to
+measure. The substantive question is therefore threefold. How much sensitive data does a baseline
+enterprise RAG deployment leak, under what attack conditions and against which attacker? How much
+do existing defenses actually reduce that leakage under matched conditions? And, underlying both,
+how do we know the measurement itself is trustworthy rather than an artefact of one instrument's
+blind spots?
 
 % ====================== PROPOSED APPROACH (after abstract) ======================
 \chapter*{Proposed Approach}
 \addcontentsline{toc}{chapter}{Proposed Approach}
 \markboth{Proposed Approach}{}
 
-This thesis addresses the problem by building a single, unified measurement framework and
-applying it to a controlled enterprise-RAG testbed, rather than by proposing a new attack or a
-new defense in isolation. The approach has five parts, each closing a gap the literature
-review identifies. First, privacy leakage is given a precise mathematical foundation through
-two complementary metrics --- the binary leakage function $L$, which decides whether an
-unauthorised disclosure occurred, and the continuous severity score $S$, which measures how
-bad it was --- both grounded in the LINDDUN privacy-threat taxonomy and made operational by a
-profile-dependent authorization threshold. Second, the threat surface is fixed in advance as
-four attacker profiles (curious insider, external adversary, malicious administrator, and
-offline third-party provider), each calibrated against a CVSS~v3.1 base score and mapped to the
-LINDDUN categories it activates. Third, an adversarial campaign organised into eight attack
-families exercises the baseline and the defended configurations systematically. Fourth, a
-layered defense --- input filtering, retrieval-time redaction, conversation-aware refusal,
-output filtering, and access control --- is ablated configuration by configuration, with its
-effect quantified by the severity reduction $\Delta S$ and the residual $\bar{S}_{\text{residual}}$.
-Fifth, because every leakage number is only as trustworthy as the instrument that produced it,
-a language-model judge is validated against human annotation and re-checked on the defended
-distribution, and a deterministic detection engine is reported alongside it as a lower bound.
-The framework is exercised on a deterministically generated synthetic corpus, so that every
-figure is reproducible and no real person is exposed, and its findings are read as relative
-and methodological rather than as absolute predictions.
+This thesis addresses the problem by building one unified measurement framework and applying it
+to a controlled enterprise-RAG testbed, rather than by proposing a new attack or a new defense in
+isolation. The framework has five parts, each closing a gap identified in the literature review.
+First, it gives privacy leakage a precise mathematical foundation through two complementary
+metrics: the binary leakage function $L$, which decides whether an unauthorised disclosure
+occurred, and the continuous severity score $S$, which measures how serious it was. Both are
+grounded in the LINDDUN privacy-threat taxonomy and made operational by a profile-dependent
+authorization threshold. Second, it fixes the threat surface in advance as four attacker profiles
+(a curious insider, an external adversary, a malicious administrator, and an offline third-party
+provider), each calibrated against a CVSS~v3.1 base score and mapped to the LINDDUN categories it
+activates. Third, an adversarial campaign of eight attack families exercises the baseline and the
+defended configurations systematically. Fourth, a layered defense (input filtering, retrieval-time
+redaction, conversation-aware refusal, output filtering, and access control) is ablated
+configuration by configuration, and its effect is quantified by the severity reduction $\Delta S$
+and the residual $\bar{S}_{\text{residual}}$. Fifth, because a leakage number is only as trustworthy
+as the instrument that produced it, a language-model judge is validated against human annotation
+and re-checked on the defended distribution, with a deterministic detection engine reported
+alongside it as a lower bound. The whole framework runs on a deterministically generated synthetic
+corpus, so that every figure is reproducible and no real person is exposed, and its findings are
+read as relative and methodological rather than as absolute predictions.
 
 % ===== List of acronyms =====
 \chapter*{List of Acronyms}
