@@ -170,6 +170,33 @@ Privileged administrator     & 0.143 & 0.000 & 0.000\\
 \section{RQ5: the residual, in both leakage and severity}
 \label{sec:ch6-residual}
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar, bar width=46pt, width=0.86\textwidth, height=7.2cm,
+  ymin=0, ymax=1.0, ylabel={Judged F2 linkability ASR}, ylabel style={font=\small},
+  symbolic x coords={C00000,C01100,C11111},
+  xticklabels={C00000\\\footnotesize undefended,C01100\\\footnotesize knee,C11111\\\footnotesize full stack},
+  xtick=data, x tick label style={align=center, font=\small},
+  ytick={0,0.2,0.4,0.6,0.8,1.0}, ymajorgrids, grid style={gray!15,thin},
+  nodes near coords, nodes near coords style={font=\footnotesize\bfseries,/pgf/number format/fixed,/pgf/number format/precision=2},
+  enlarge x limits=0.4, axis line style={gray!55}, tick style={gray!55},
+]
+\addplot[fill=figcoral, draw=figcoral!60!black, line width=0.5pt] coordinates {(C00000,0.60)(C01100,0.70)(C11111,0.60)};
+\draw[dashed, figblue, very thick] (axis cs:C00000,0.60) -- (axis cs:C11111,0.60);
+\node[fill=white, draw=figblue!45, rounded corners=2pt, font=\scriptsize\bfseries, text=figblue, inner sep=2.5pt] at (axis cs:C01100,0.87) {residual unreduced};
+\end{axis}
+\end{tikzpicture}
+\caption[The cross-document linkability residual is unreduced by the defense stack]{Judged
+cross-document linkability (family F2) across configurations: $0.60$ undefended, $0.70$ at the
+knee, $0.60$ at the full stack --- statistically unchanged. Redaction defeats direct extraction
+but not linkage, and the query-time gate (Section~\ref{sec:ch6-probes}) and ingestion-time gate
+(Section~\ref{sec:ch6-p7}) likewise leave it unmoved or are foreclosed by their information cost.
+Source: \texttt{final\_metrics.json} (\texttt{F2\_LINKABILITY} per cell).}
+\label{fig:ch6-f2residual}
+\end{figure}
+
 RQ5 asks for the residual risk after the full stack as a quantified leakage score. The formal
 framework answers it in two registers, $L$ and $S$, and both are reported here.
 
@@ -421,6 +448,36 @@ $10$ & $0.67$ & $0/100$ & $10$\\
 \hline
 \end{tabular}
 \end{table}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar, bar width=52pt, width=0.82\textwidth, height=7.2cm,
+  ymin=0, ymax=0.82, ylabel={Information loss (fraction of QI removed)}, ylabel style={font=\small},
+  xlabel={Target $k$ (global $k$-anonymity at ingestion)}, xlabel style={font=\small},
+  symbolic x coords={k2,k5,k10}, xticklabels={$k=2$,$k=5$,$k=10$},
+  xtick=data, x tick label style={font=\small},
+  ytick={0,0.2,0.4,0.6,0.8}, ymajorgrids, grid style={gray!15,thin},
+  nodes near coords, nodes near coords style={font=\footnotesize\bfseries,/pgf/number format/fixed,/pgf/number format/precision=2},
+  enlarge x limits=0.4, axis line style={gray!55}, tick style={gray!55},
+]
+\addplot[fill=figamber, draw=figamber!60!black, bar shift=0pt] coordinates {(k2,0.52)};
+\addplot[fill=figorange, draw=figorange!60!black, bar shift=0pt] coordinates {(k5,0.60)};
+\addplot[fill=figcoral, draw=figcoral!60!black, bar shift=0pt] coordinates {(k10,0.67)};
+\node[font=\scriptsize\bfseries, text=white] at (axis cs:k2,0.07) {9 dropped};
+\node[font=\scriptsize\bfseries, text=white] at (axis cs:k5,0.07) {4 dropped};
+\node[font=\scriptsize\bfseries, text=white] at (axis cs:k10,0.07) {0 dropped};
+\end{axis}
+\end{tikzpicture}
+\caption[The information cost of ingestion-time $k$-anonymity (P7)]{The information cost of
+reaching global $k$-anonymity at ingestion. Even the weakest setting, $k{=}2$, removes $0.52$ of
+the quasi-identifier information and suppresses $9$ of $100$ records; $k{=}5$ and $k{=}10$ cost
+$0.60$ and $0.67$. The corpus is too degraded to serve its benign workload before any attack is
+run --- the approach is foreclosed at construction (Table~\ref{tab:ch6-p7}). Source:
+\texttt{p7\_build\_corpora.py}, \texttt{corpus\_k\{2,5,10\}.json}.}
+\label{fig:ch6-p7infoloss}
+\end{figure}
 
 We deliberately did not run the F2 attack against these corpora, for the same pre-registered reason that
 governed the L7 probe: a reduction in linkage that appears only under near-blanket generalisation reads as

@@ -40,6 +40,15 @@
 \colorlet{warn}{esiblue}\colorlet{safe}{esiblue}\colorlet{capyes}{esiblue}\colorlet{capno}{esidark}
 \colorlet{rowodd}{white}\colorlet{roweven}{white}\colorlet{linddunblue}{white}
 \colorlet{blockbg}{white}\colorlet{steellight}{white}\colorlet{lightgray}{white}\colorlet{codebg}{white}
+% ---- FIGURE data-viz palette (NOT remapped; figures may use colour even though body chrome is 2-colour) ----
+\definecolor{figblue}{RGB}{31,78,121}
+\definecolor{figteal}{RGB}{33,158,150}
+\definecolor{figgreen}{RGB}{82,170,110}
+\definecolor{figamber}{RGB}{240,170,60}
+\definecolor{figorange}{RGB}{232,125,55}
+\definecolor{figcoral}{RGB}{214,80,72}
+\definecolor{figslate}{RGB}{120,135,155}
+\definecolor{figviolet}{RGB}{124,103,196}
 
 % ---- tables / lists / floats / symbols ----
 \usepackage{booktabs}
@@ -55,7 +64,10 @@
 \usepackage{graphicx}
 % chapters' per-file \graphicspath are guarded out in master mode; set the union here so
 % ch5 (fig_marginal_and_rq2), ch6 (pareto) and ch3 (the two architecture maps) resolve:
-\graphicspath{{.}{../}{../../../phase3/report/}{../../../phase3/ablation/metrics/}{../../../phase3/tradeoff/}}
+\graphicspath{{.}{../}{../../../phase3/report/}{../../../phase3/ablation/metrics/}{../../../phase3/tradeoff/}{../../../figures/phase2/}}
+\usepackage{pgfplots}                       % vector data charts (CS-layout spec: vector figures)
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds,shapes.geometric}
 \usepackage{caption}
 \captionsetup{font=small,labelfont={bf,color=esidark}}  % style spec: caption bold, small
 \usepackage{listings}

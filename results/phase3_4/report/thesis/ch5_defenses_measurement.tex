@@ -92,6 +92,33 @@ Provenance and access & retrieval & Quarantines untrusted documents: corpus pois
 \end{tabularx}
 \end{table}
 
+\begin{figure}[h]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\footnotesize,
+  stage/.style={draw=esidark, fill=white, rounded corners=2pt, minimum height=10mm, minimum width=16mm, align=center},
+  layer/.style={draw=esiblue, fill=esiblue!12, rounded corners=2pt, minimum height=10mm, minimum width=14mm, align=center, text=esiblue},
+  arr/.style={-{Latex[length=2mm]}, esidark, semithick}]
+\node[stage] (q) {User\\query};
+\node[layer, right=3.5mm of q] (l1) {\textbf{L1}\\input};
+\node[stage, right=3.5mm of l1] (ret) {Retriever\\ChromaDB\\$k{=}5$};
+\node[layer, right=3.5mm of ret] (l5) {\textbf{L5}\\prov.\,/\,ACL};
+\node[layer, right=3.5mm of l5] (l2) {\textbf{L2}\\redact};
+\node[stage, right=3.5mm of l2] (llm) {LLM\\Sonnet\,4.6};
+\node[layer, right=3.5mm of llm] (l3) {\textbf{L3}\\refuse};
+\node[layer, right=3.5mm of l3] (l4) {\textbf{L4}\\output};
+\node[stage, right=3.5mm of l4] (resp) {Response};
+\draw[arr](q)--(l1);\draw[arr](l1)--(ret);\draw[arr](ret)--(l5);\draw[arr](l5)--(l2);\draw[arr](l2)--(llm);\draw[arr](llm)--(l3);\draw[arr](l3)--(l4);\draw[arr](l4)--(resp);
+\end{tikzpicture}}
+\caption[The layered defense pipeline]{The layered defense pipeline. Pipeline stages (white)
+interleave with the five defense layers (blue): \textbf{L1} input filter before retrieval;
+\textbf{L5} provenance/access and \textbf{L2} retrieval-time redaction on the retrieved context;
+\textbf{L3} conversation-aware refusal and \textbf{L4} output filter around generation. The
+configuration encoding $\mathrm{C}[\mathrm{L1\,L2\,L3\,L4\,L5}]$ toggles each layer independently
+(Table~\ref{tab:ch5-layers}).}
+\label{fig:ch5-pipeline}
+\end{figure}
+
 The single most important test in the study isolates retrieval-time redaction. To remove
 the variability of retrieval itself, we force the target document into the model's context
 and ask directly for its sensitive contents. Without redaction the model discloses that
@@ -195,6 +222,18 @@ detector could ever reach.
 \section{Two instruments, and why two are needed}
 \label{sec:ch5-instruments}
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.82\textwidth]{fig5_severity_distribution}
+\caption[Turn-level leak counts by maximum disclosed-entity severity]{Turn-level leak counts by
+maximum disclosed-entity severity for the three labeller signals. The engine fires on severity-2
+entities in $66\%$ of its $L=1$ turns ($63/95$); the judge fires on severity-2 in only $2\%$
+($1/57$). The augmented severity-3 and severity-4 columns are driven entirely by the judge
+signal --- the empirical signature of the engine's severity-2 false-positive class. Source:
+per-turn logs and \texttt{judge\_verdicts\_full.jsonl}.}
+\label{fig:ch5-severity}
+\end{figure}
+
 Every configuration is scored twice, by two independent instruments, and the reason is
 methodological rather than ornamental. The \emph{rule engine} is deterministic: it matches a
 model's response against the 2{,}190-entity ground-truth annotation set, applies the active
@@ -217,6 +256,35 @@ useful precisely because it cannot over-count.
 
 \section{RQ2: how much the defenses reduce leakage}
 \label{sec:ch5-rq2}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar, bar width=22pt, width=0.95\textwidth, height=7.4cm,
+  ymin=0, ymax=34, ylabel={Strict attack-success rate (\%)}, ylabel style={font=\small},
+  symbolic x coords={C00000,C01100,C11111},
+  xticklabels={C00000\\\footnotesize undefended,C01100\\\footnotesize knee (L2+L3),C11111\\\footnotesize full stack},
+  xtick=data, x tick label style={align=center, font=\small},
+  ytick={0,5,10,15,20,25,30}, ymajorgrids, grid style={gray!15, thin},
+  nodes near coords, nodes near coords style={font=\footnotesize\bfseries, /pgf/number format/fixed, /pgf/number format/precision=1},
+  legend style={at={(0.5,1.05)}, anchor=south, legend columns=2, font=\small, draw=gray!35, rounded corners=2pt},
+  enlarge x limits=0.35, axis line style={gray!55}, tick style={gray!55},
+]
+\addplot[fill=figamber, draw=figamber!60!black, line width=0.5pt] coordinates {(C00000,19.2)(C01100,1.9)(C11111,0.0)};
+\addplot[fill=figblue, draw=figblue!60!black, line width=0.5pt] coordinates {(C00000,28.8)(C01100,19.2)(C11111,17.3)};
+\legend{Engine (lower bound), Judge (primary)}
+\end{axis}
+\end{tikzpicture}
+\caption[Leakage reduction across configurations, read through both instruments]{Strict
+attack-success rate across three configurations, by instrument. The judge (primary) shows leakage
+falling from $28.8\%$ undefended to $19.2\%$ at the redaction-plus-refusal knee (C01100) and
+$17.3\%$ at the full stack --- a partial reduction of about forty percent, not an elimination.
+The engine reads the same defenses as near-total ($19.2\%\!\to\!0.0\%$); the gap between the two
+readings is the methodological finding of Section~\ref{sec:ch5-disagreement}, not measurement
+error. Source: \texttt{final\_metrics.json} (per-cell strict ASR).}
+\label{fig:ch5-reduction}
+\end{figure}
 
 With the stack assembled, six configurations were measured across the full campaign---the
 undefended baseline, each of the three most informative layers in isolation, the pairing of
@@ -338,8 +406,53 @@ appears on no single retrieved document as an annotated entity. On precisely the
 the fix. This is the cleanest illustration of the chapter's theme, and the reason a single
 engine-only number would have been not merely incomplete but actively misleading.
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar, width=0.9\textwidth, height=7.2cm,
+  ymin=-0.27, ymax=1.08, ylabel={Cohen's $\kappa$ vs.\ human annotation}, ylabel style={font=\small},
+  xtick={1,2,3}, xticklabels={Engine\\\footnotesize linkage family,Judge\\\footnotesize undefended,Judge\\\footnotesize defended},
+  x tick label style={align=center, font=\small},
+  ytick={-0.2,0,0.2,0.4,0.6,0.8,1.0}, ymajorgrids, grid style={gray!15,thin},
+  enlarge x limits=0.3, axis line style={gray!55}, tick style={gray!55},
+]
+\draw[dashed, gray!60, semithick] (axis cs:0.4,0) -- (axis cs:3.6,0);
+\node[font=\scriptsize, text=gray!55!black, anchor=south west] at (axis cs:0.42,0.015) {chance ($\kappa{=}0$)};
+\draw[dashed, figgreen!70!black, semithick] (axis cs:0.4,0.6) -- (axis cs:3.6,0.6);
+\node[font=\scriptsize, text=figgreen!42!black, anchor=south west] at (axis cs:0.42,0.615) {gate ($\kappa{\geq}0.6$)};
+\addplot+[ybar, bar width=38pt, bar shift=0pt, fill=figcoral, draw=figcoral!60!black,
+  nodes near coords={$-0.10$}, every node near coord/.append style={font=\footnotesize\bfseries, anchor=north, yshift=-3pt, text=figcoral!55!black}] coordinates {(1,-0.10)};
+\addplot+[ybar, bar width=38pt, bar shift=0pt, fill=figteal, draw=figteal!60!black,
+  nodes near coords={$0.827$}, every node near coord/.append style={font=\footnotesize\bfseries, text=figteal!40!black}] coordinates {(2,0.827)};
+\addplot+[ybar, bar width=38pt, bar shift=0pt, fill=figamber, draw=figamber!65!black,
+  nodes near coords={$0.306$}, every node near coord/.append style={font=\footnotesize\bfseries, text=figorange!65!black}] coordinates {(3,0.306)};
+\end{axis}
+\end{tikzpicture}
+\caption[The two-instrument finding: the engine is blind to linkage; the judge degrades on the
+defended distribution]{The two-instrument finding. The deterministic engine's agreement with the
+human annotator on the linkage family is $\kappa=-0.10$ --- no better than chance --- so it is
+structurally blind to re-identification by linkage. The validated judge agrees at $\kappa=0.827$
+on undefended output but degrades to $\kappa=0.306$ on the defended distribution. Source:
+\texttt{kappa\_results.json} (judge, undefended), \texttt{kappa\_defended.json} (judge, defended),
+Chapter~\ref{ch:defenses} (engine, linkage family); no value is estimated.}
+\label{fig:ch5-kappa}
+\end{figure}
+
 \section{Validating the judge, and the panel that was abandoned}
 \label{sec:ch5-validate}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{fig4_kappa_heatmap}
+\caption[Cohen's $\kappa$ across labeller pairs and label dimensions]{Cohen's $\kappa$ across
+labeller pairs (Engine--Human, Judge--Human, Engine--Judge) and label dimensions (binary,
+categorical, severity) on the 46-record calibration sample. Judge--Human binary $\kappa=0.827$
+(almost perfect) passes the calibration threshold $\kappa\geq0.60$; Engine--Human binary
+$\kappa=0.164$ (poor) validates the engine's false-positive tendency on severity-2 refusal turns.
+Source: \texttt{kappa\_results.json} (46-record stratified sample).}
+\label{fig:ch5-kappa-heatmap}
+\end{figure}
 
 If the judge is to be the primary instrument, its trustworthiness has to be established
 rather than assumed, which is the substance of RQ3. The original design called for a
