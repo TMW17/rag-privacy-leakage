@@ -30,8 +30,8 @@
 
 The preceding chapters established a baseline, built a layered defense, measured its effect
 through two instruments, and quantified what it leaves behind. This chapter steps back from the
-numbers to ask what they mean together. It does not re-derive any result --- each measured claim
-points by reference to the chapter that establishes it --- and it is careful, throughout, to
+numbers to ask what they mean together. It does not re-derive any result (each measured claim
+points by reference to the chapter that establishes it), and it is careful, throughout, to
 keep two kinds of statement apart: what the data shows, and what we argue follows from it. The
 discussion's value is in the second kind, but its credibility depends on never dressing the
 second as the first.
@@ -54,7 +54,7 @@ Here the line between measurement and argument must be drawn. That \emph{this} c
 $0.000$-versus-$17.3\%$ gap, concentrated in the linkability family, is measured. That the
 finding \emph{generalizes} is an argument, and we make it as one: we argue that any
 annotation-bound or pattern-based detector is structurally unable to see leakage that is
-\emph{emergent} --- paraphrased, inferred, or re-assembled across documents --- because such
+\emph{emergent} (paraphrased, inferred, or re-assembled across documents), because such
 leakage corresponds to no discrete entity it can match, and that a defense which suppresses
 discrete disclosures while leaving emergent ones intact will therefore read as near-total under
 such a detector on any corpus. What travels beyond this study, in other words, is the
@@ -78,11 +78,11 @@ dominated by two families: direct PII extraction at a judged $0.778$ and cross-d
 linkability at $0.600$ (Chapter~\ref{ch:baseline}). Retrieval-time redaction (RQ2) is the
 decisive layer, cutting the headline from $28.8\%$ to $17.3\%$, but it acts on discrete
 entities: direct extraction collapses to $0.222$ while linkability does not move from $0.600$
-(Chapter~\ref{ch:defenses}, Chapter~\ref{ch:tradeoff}). The reason is the emergence property ---
+(Chapter~\ref{ch:defenses}, Chapter~\ref{ch:tradeoff}). The reason is the emergence property:
 there is no discrete span for redaction to remove. The same property means the deterministic
 engine cannot even \emph{detect} the surviving linkage (its agreement with the human on defended
 output is $\kappa = -0.10$, no better than chance; Chapter~\ref{ch:defenses}), so the only
-instrument that can see it is the semantic judge --- which is precisely the instrument whose
+instrument that can see it is the semantic judge, which is precisely the instrument whose
 reliability degrades on defended output (RQ3: $\kappa$ falls from $0.827$ to $0.306$), and whose
 three missed leaks are \emph{all} re-identification by linkage. And because the insider attacks
 by linkage rather than extraction, the insider is the hardest adversary to defend, barely moving
@@ -110,8 +110,8 @@ independent of the privacy numbers. The measured facts are these: judge--human a
 from $\kappa = 0.827$ on undefended output to $\kappa = 0.306$ on the defended distribution,
 with raw agreement (the prevalence-independent companion) falling from $93\%$ to $70\%$; the
 error is bidirectional, eleven over-flags (refusals read as disclosures) against three
-under-detected linkage leaks; and propagating the two error rates honestly --- after the textbook
-Rogan--Gladen correction degenerates under the judge-positive-enriched sample --- yields a wide
+under-detected linkage leaks; and propagating the two error rates honestly, after the textbook
+Rogan--Gladen correction degenerates under the judge-positive-enriched sample, yields a wide
 interval of roughly $[5.3\%, 25.8\%]$ that contains $17.3\%$ (Chapter~\ref{ch:defenses}). One
 claim is deliberately \emph{not} made: that the true rate lies below $17.3\%$. We treat that as
 forbidden, because the calibration sample took every judge-positive, so the visible over-flagging
@@ -122,13 +122,13 @@ multi-agent panel: we argue that an arbitration panel whose members share a mode
 manufactures the appearance of independence without its substance, since an arbitrator from the
 same family cannot, even in principle, improve on the judge it arbitrates. This is a concrete
 instance of the echo-chamber effect that the surveyed literature anticipated
-(\cite{ma2025debate}), and the honest resolution --- a single validated judge corroborated across
-vendors --- is, we argue, a finding rather than a retreat. Second, this suggests that judge
+(\cite{ma2025debate}), and the honest resolution, a single validated judge corroborated across
+vendors, is, we argue, a finding rather than a retreat. Second, this suggests that judge
 reliability is \emph{distribution-dependent}: a judge validated on raw output cannot be assumed
 reliable on the redacted and refused output a defense produces, and we argue that
 defended-distribution recalibration should be treated as standard practice rather than an
 afterthought. Both lessons answer, in part, the open frontier that \cite{yehudai2025ecosystem}
-names --- organizational-policy-compliance evaluation --- and both are consistent with the poor
+names, organizational-policy-compliance evaluation, and both are consistent with the poor
 metacognitive calibration that \cite{kim2025objexmt} reports for LLM judges generally.
 
 \section{Limitations, and why naming them is the point}
@@ -150,8 +150,8 @@ extremes rather than isolated at the knee (Chapter~\ref{ch:tradeoff}).
 We interpret these characterized limitations as a sign of methodological maturity rather than
 weakness, and we argue the point is consistent with the thesis's own headline: if a result is
 only as trustworthy as the instrument that measured it, then measuring and bounding the
-instrument --- the judge's defended-distribution $\kappa$, the noise floor, the upper-bound
-reading of the re-identification figure --- is not a concession but the discipline the headline
+instrument (the judge's defended-distribution $\kappa$, the noise floor, the upper-bound
+reading of the re-identification figure) is not a concession but the discipline the headline
 demands. The honest scope of the work follows from the same stance: this is a demonstration of a
 measurement methodology on a controlled corpus, not a certification that a deployable product is
 safe.
@@ -165,14 +165,14 @@ the knee (redaction plus conversational refusal): it captures essentially all of
 stack's measured security ($0.192$ against $0.173$, within the noise floor;
 Chapter~\ref{ch:tradeoff}), and we argue the full stack is therefore best understood as
 defense-in-depth for attack surfaces the benign workload never exercises, not as a measured
-improvement. Redaction is the load-bearing layer --- it is the only one that clears the noise
-floor (Chapter~\ref{ch:defenses}) --- and budget should reflect that. On the residual, we argue
+improvement. Redaction is the decisive layer, the only one that clears the noise
+floor (Chapter~\ref{ch:defenses}), and budget should reflect that. On the residual, we argue
 that linkage will not yield to redaction and requires a different class of defense entirely:
 roughly two-thirds of the residual is a detector-recall gap that better recognizers could close,
 but the remaining third is genuine re-identification that, we argue, needs entity-resolution or
 directory-aware controls that redaction cannot provide (Chapter~\ref{ch:tradeoff}). Finally, and
 most directly tied to the headline, we argue that a defended system should be evaluated with a
-validated judge recalibrated on defended output, not a detector alone --- a deployment that trusts
+validated judge recalibrated on defended output, not a detector alone: a deployment that trusts
 the rule engine will believe it has eliminated leakage when it has reduced it by about forty
 percent.
 
@@ -183,7 +183,7 @@ The practical implications above translate into guidance for practitioners under
 holds the rest of this thesis: every recommendation below traces to a specific measured result, and none
 is stated more strongly than the evidence supports. The findings show a layered defense that reduces
 leakage by about forty percent but does not eliminate it, a linkage residual that resisted three separate
-mechanisms, and instruments that disagree on defended output --- and the recommendations reflect exactly
+mechanisms, and instruments that disagree on defended output; the recommendations reflect exactly
 that, no more.
 
 \begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
@@ -200,8 +200,8 @@ agreement with the human fell from $\kappa = 0.827$ on undefended output to $\ka
 output (Chapter~\ref{ch:defenses}); calibration is distribution-dependent, so a judge trusted on
 undefended text may misscore post-defense responses.
 \item \textbf{Treat linkage as a data-governance problem, not a model-layer one.} Three mechanisms were
-brought against the residual --- retrieval redaction (linkage unmoved), query-time $k$-anonymity (no
-measured effect), and ingestion-time $k$-anonymity (foreclosed by its information cost) --- and none
+brought against the residual: retrieval redaction (linkage unmoved), query-time $k$-anonymity (no
+measured effect), and ingestion-time $k$-anonymity (foreclosed by its information cost). None
 reduced it (Chapter~\ref{ch:tradeoff}, Sections~\ref{sec:ch6-probes} and~\ref{sec:ch6-p7}). The defensible
 response is to minimise what enters the corpus and to control who may retrieve it, not a post-hoc model
 defense.
@@ -209,17 +209,17 @@ defense.
 security over the redaction-plus-refusal knee (C01100) lies within the noise floor, while protection
 carries a measured utility cost (Chapter~\ref{ch:tradeoff}). Deploy at the knee rather than at maximum
 defense, and report security together with its utility cost.
-\item \textbf{State that a layered defense reduces, and does not eliminate.} The measured reduction ---
-the headline $28.8\%$ to $17.3\%$, about forty percent --- is carried by redaction with refusal at the
+\item \textbf{State that a layered defense reduces, and does not eliminate.} The measured reduction,
+the headline $28.8\%$ to $17.3\%$, about forty percent, is carried by redaction with refusal at the
 knee (Chapter~\ref{ch:defenses}, Chapter~\ref{ch:tradeoff}) and does not reach zero. Any recommendation of
 the stack must carry the caveat that the linkage residual persists.
 \end{enumerate}
 
-These findings bear on obligations under the instruments this work aligns with --- the GDPR
-(Regulation (EU) 2016/679), the NIS2 Directive (Directive (EU) 2022/2555), and ISO/IEC 27001:2022 ---
-though what follows is a \emph{mapping of measured results to regulatory themes, not a legal compliance
-assessment}. The linkage residual and the re-identification finding --- four quasi-identifiers already make
-$84$ of $100$ employees unique (Chapter~\ref{ch:formal}) --- bear on the GDPR's data-minimisation principle
+These findings bear on obligations under the instruments this work aligns with: the GDPR
+(Regulation (EU) 2016/679), the NIS2 Directive (Directive (EU) 2022/2555), and ISO/IEC 27001:2022.
+What follows, though, is a \emph{mapping of measured results to regulatory themes, not a legal compliance
+assessment}. The linkage residual and the re-identification finding (four quasi-identifiers already make
+$84$ of $100$ employees unique, Chapter~\ref{ch:formal}) bear on the GDPR's data-minimisation principle
 (Art.\ 5(1)(c)) and its standard for anonymisation: a corpus carrying these quasi-identifiers supports
 re-identification and is, on this evidence, not anonymous in that sense, which grounds the
 corpus-minimisation recommendation. The access-control recommendation bears on the security-of-processing
@@ -253,22 +253,22 @@ Layered defense reduces ($\sim$40\%), not eliminates & $28.8\%\!\to\!17.3\%$ at 
 \end{table}
 
 The honest position is the strength of this section: these are implications of the thesis's measurements
-for practice --- ``our measurements imply X'' --- not a recipe for a guaranteed-private system, which the
+for practice (``our measurements imply X''), not a recipe for a guaranteed-private system, which the
 thesis did not build or certify. Each recommendation stays within what was measured, and the regulatory
 mapping identifies which obligations the findings touch without asserting compliance.
 
 \subsection{Governance controls for the linkage residual}
 \label{sec:disc-governance}
 
-The three negatives of the preceding chapters --- redaction, the query-time gate (L7), and the
-ingestion-time generalisation (P7) --- establish that linkage cannot be defended at the model layer
+The three negatives of the preceding chapters (redaction, the query-time gate L7, and the
+ingestion-time generalisation P7) establish that linkage cannot be defended at the model layer
 without destroying utility, because re-identification is a property of the information itself
 \cite{sweeney2002kanonymity}: four quasi-identifiers make $84$ of $100$ employees unique
 (Chapter~\ref{ch:formal}). What follows is therefore \emph{not} another model-layer defense, and
-\emph{not} a tested defense stack with a measured F2 --- none of these controls was run as an experiment.
+\emph{not} a tested defense stack with a measured F2; none of these controls was run as an experiment.
 It is a reasoned proposal, grounded in the thesis's own findings and in the established literature, for the
-governance-of-access direction those negatives point to. The controls change the problem --- what is
-ingested, who may retrieve, and how much may be enumerated --- and each is stated with the boundary of what
+governance-of-access direction those negatives point to. The controls change the problem (what is
+ingested, who may retrieve, and how much may be enumerated), and each is stated with the boundary of what
 it does and does not cover. Only one case, the external attacker, earns the word \emph{solves}; everywhere
 else the controls \emph{bound}, \emph{reduce}, or \emph{make accountable}.
 
@@ -301,42 +301,42 @@ made accountable --- but not eliminated.}
 \label{fig:ch7-governance}
 \end{figure}
 
-\paragraph{Control 1 --- purpose-bound data minimisation at ingestion.} Index only the fields the system's
+\paragraph{Control 1: purpose-bound data minimisation at ingestion.} Index only the fields the system's
 defined purpose requires, and never ingest the quasi-identifiers it does not. This is confident because it
-is definitional: absent data cannot leak, and --- unlike P7, which generalised \emph{all} fields and so
-gutted the corpus (Section~\ref{sec:ch6-p7}) --- it removes only \emph{un-needed} fields, costing no needed
+is definitional: absent data cannot leak, and, unlike P7, which generalised \emph{all} fields and so
+gutted the corpus (Section~\ref{sec:ch6-p7}), it removes only \emph{un-needed} fields, costing no needed
 utility. Its boundary is equally clear: it eliminates linkage only if the fields the purpose \emph{does}
 require are themselves non-identifying, which for an HR corpus they are not. It therefore \emph{reduces} the
 linkage surface to the purpose-minimum; it does not clear the residual.
 
-\paragraph{Control 2 --- authorisation-gated retrieval.} Partition the corpus by sensitivity and enforce
+\paragraph{Control 2: authorisation-gated retrieval.} Partition the corpus by sensitivity and enforce
 role- or attribute-based access control at the retrieval layer, so a request is served only the content its
 identity is authorised for \cite{ozgur2024rbacrag}. This case splits, and the split is the whole point.
 \emph{For the external, unauthorised attacker} (profile P2, whose authorisation threshold is zero, so any
 disclosure is a leak), serving no sensitive content \emph{solves} the problem: with nothing sensitive
-retrieved, there is nothing to link. This is the one place the word is earned --- it is definitional and
+retrieved, there is nothing to link. This is the one place the word is earned: it is definitional and
 tied directly to the threat model. \emph{For an authorised, internal user} (P1) it does \emph{not} stop
-linkage, and we do not claim it does: linkage rides on the low- and medium-severity quasi-identifiers ---
-department, age, office, gender --- that clearance-gating passes through, and the re-identification analysis
+linkage, and we do not claim it does: linkage rides on the low- and medium-severity quasi-identifiers
+(department, age, office, gender) that clearance-gating passes through, and the re-identification analysis
 shows roughly four such attributes (several of severity $\le 2$) make $84$ of $100$ employees unique
 (Chapter~\ref{ch:formal}), with the age--gender combination precisely the gap the detector misses
-(Chapter~\ref{ch:tradeoff}). An authorised user --- particularly one who already
-knows a few attributes of a target from outside the system --- clears the access check and still completes
+(Chapter~\ref{ch:tradeoff}). An authorised user, particularly one who already
+knows a few attributes of a target from outside the system, clears the access check and still completes
 the re-identification from the quasi-identifiers the system legitimately returns. This within-clearance,
-auxiliary-knowledge linkage is bounded --- narrowed by minimisation (Control~1) and made accountable by
-audit --- but it is not eliminated. We note
+auxiliary-knowledge linkage is bounded, narrowed by minimisation (Control~1) and made accountable by
+audit, but it is not eliminated. We note
 honestly, too, that the entity-level access control this control assumes is \textsc{untested}: the
 document-level access control the thesis did evaluate proved too coarse, because every legitimate document
 carries some high-severity content, so filtering by clearance blocked all retrieval
 (Chapter~\ref{ch:defenses}); the finer-grained version is a plausible refinement, not a measured result.
 
-\paragraph{Control 3 --- aggregation control at the answer layer.} The linkage attack is a request to
+\paragraph{Control 3: aggregation control at the answer layer.} The linkage attack is a request to
 narrow a candidate set; the classical statistical-disclosure-control response is to answer such queries with
-suppressed aggregates --- counts rather than individuals, with sets smaller than a threshold withheld ---
+suppressed aggregates (counts rather than individuals, with sets smaller than a threshold withheld),
 backed by a per-session query budget. The suppression \emph{mechanism} is well established
 \cite{adam1989sdc}. Two boundaries are honest, however. First, it depends on \emph{detecting} that a query is a set-narrowing one, and
 detection is exactly what this thesis found hard: the deterministic engine's agreement with the human on
-linkage is $\kappa = -0.10$ (Chapter~\ref{ch:defenses}), no better than chance --- so the confidence lives
+linkage is $\kappa = -0.10$ (Chapter~\ref{ch:defenses}), no better than chance, so the confidence lives
 in the suppression, not in the detection. Second, suppression is not unconditional: the disclosure-control
 and differential-privacy literature shows that small suppressed cells remain recoverable and that unlimited
 accurate queries eventually leak, which is why the per-session budget is required
@@ -346,7 +346,7 @@ accurate queries eventually leak, which is why the per-session budget is require
 not a model-layer fix: minimise what enters the corpus (Control~1), gate retrieval by authorisation
 (Control~2), and throttle or aggregate enumeration while auditing the rest (Control~3). For the unauthorised
 attacker this is a definitional solve; for the authorised user the within-clearance residual is
-\emph{bounded} --- minimised, throttled, and made accountable --- but not eliminated, and the thesis is
+\emph{bounded}, minimised, throttled, and made accountable, but not eliminated, and the thesis is
 right that it cannot be eliminated cheaply. These controls are a reasoned, finding- and literature-grounded
 proposal, not a tested stack; turning them into measured defences is future work.
 
@@ -354,13 +354,13 @@ proposal, not a tested stack; turning them into measured defences is future work
 line, as the session-level companion to Control~3, because it can be foreclosed without spending: a
 per-session \emph{disclosure accountant} that tracks, across a user's query sequence, the intersection of
 the candidate sets the session has narrowed to, and throttles once that running set falls below $k$. It is
-foreclosed as a standalone defense by a finding this thesis already recorded --- the linkage here is
-\emph{single-chunk}: the identifying combination is present the moment a record is retrieved, not
+foreclosed as a standalone defense by a finding this thesis already recorded: the linkage here is
+\emph{single-chunk}, with the identifying combination present the moment a record is retrieved, not
 accumulated across turns (Section~\ref{sec:ch6-probes}). An accountant therefore fires on the \emph{first}
-query, where the candidate set already collapses below $k$ --- single-query disclosure, out of scope for a
+query, where the candidate set already collapses below $k$: single-query disclosure, out of scope for a
 mechanism whose only purpose is to bound \emph{cross-query} narrowing. Its one honest home is
 \emph{contingent}: cross-query accounting bounds linkage only when layered on top of single-query
-(combined-constraint) blocking --- catching an attacker who, denied the one-shot query, tries to reconstruct
+(combined-constraint) blocking, catching an attacker who, denied the one-shot query, tries to reconstruct
 it incrementally. It is therefore a \emph{complement to, not a substitute for}, single-query control, not a
 standalone defense.
 
@@ -369,18 +369,18 @@ standalone defense.
 
 Each direction for future work answers a limitation named above. The single-vendor/single-annotator
 exposure of the instrument cluster calls for a second human annotator and a full multi-vendor
-judge panel, and for treating defended-distribution recalibration --- lifting the judge above the
-measured $\kappa = 0.306$ --- as a first-class task. The corpus cluster calls for validation
+judge panel, and for treating defended-distribution recalibration (lifting the judge above the
+measured $\kappa = 0.306$) as a first-class task. The corpus cluster calls for validation
 beyond the single Enron probe, where the open question is the judge-transfer over-flagging
 observed on real prose. The residual itself calls for the linkage-specific defenses the practical
 implications identify: entity-resolution controls for the genuine re-identification third, and
 per-attribute recognizers for the detector-recall two-thirds. A query-time $k$-anonymity gate over
 the quasi-identifiers was tested directly (Section~\ref{sec:ch6-probes}) and did not move the
-residual, which points this work toward \emph{ingestion-time} generalisation --- breaking the
-identifying combination before it enters a retrievable unit --- rather than a query-time filter. The utility cluster calls for
+residual, which points this work toward \emph{ingestion-time} generalisation (breaking the
+identifying combination before it enters a retrievable unit) rather than a query-time filter. The utility cluster calls for
 per-configuration measurement that isolates the knee's marginal cost. And because every attacker
-profile here is analysed in isolation, compositional, multi-actor threats --- where a
-supply-chain compromise hands an external adversary privileged access --- remain open, and we
+profile here is analysed in isolation, compositional, multi-actor threats, where a
+supply-chain compromise hands an external adversary privileged access, remain open, and we
 expect them to be the setting in which the linkage residual matters most.
 
 \ifdefined\ThesisMaster\else
