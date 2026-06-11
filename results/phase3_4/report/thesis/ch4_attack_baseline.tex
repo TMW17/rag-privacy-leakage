@@ -42,21 +42,18 @@
 \chapter{Attack Framework and the Undefended Baseline}
 \label{ch:baseline}
 
-The defenses evaluated in Chapter~\ref{ch:defenses} are measured as reductions from a
-reference, and this chapter establishes that reference. It specifies the adversarial campaign
---- fifty-two scenarios across eight attack families --- describes the retrieval-augmented
-system under test, fixes the dual-instrument measurement protocol, and reports the leakage of
-that system with no privacy defenses in place. The chapter answers \textbf{RQ1}: on an
-undefended enterprise RAG deployment, which kinds of attack actually produce privacy leakage,
-and which dominate. Its central number, a strict attack-success rate of $28.8\%$, is the
-anchor every later figure in the thesis is read against; if it is fuzzy here, every reduction
-downstream is fuzzy too, so the chapter is deliberate about what that number does and does not
-count.
+The defenses evaluated in Chapter~\ref{ch:defenses} are measured as reductions from a reference,
+and this chapter establishes that reference. It specifies the adversarial campaign of fifty-two
+scenarios across eight attack families, describes the retrieval-augmented system under test, fixes
+the dual-instrument measurement protocol, and reports the leakage of that system with no privacy
+defenses in place. The chapter answers \textbf{RQ1}: on an undefended enterprise RAG deployment,
+which kinds of attack actually produce privacy leakage, and which dominate. Its central number, a
+strict attack-success rate of $28.8\%$, is the anchor against which every later figure in the
+thesis is read, so the chapter is careful about what that number does and does not count.
 
-The threat actors, the LINDDUN-grounded profiles, the leakage taxonomy, and the formal
-$(L,S)$ definitions are established in Chapter~\ref{ch:threat} and are used here without
-restatement; this chapter is about the \emph{attack framework} and the \emph{baseline}, not a
-second derivation of the foundations.
+The threat actors, the LINDDUN-grounded profiles, the leakage taxonomy, and the formal $(L,S)$
+definitions are established in Chapter~\ref{ch:threat} and used here without restatement; this
+chapter concerns the \emph{attack framework} and the \emph{baseline}, not the foundations.
 
 \section{The attack framework}
 \label{sec:ch4-framework}
@@ -297,16 +294,15 @@ scenarios, three runs each at temperature~0. Source: \texttt{baseline\_metrics.j
 \paragraph{By family --- the RQ1 answer.} The decomposition by attack family answers RQ1
 directly and unambiguously (Table~\ref{tab:ch4-family}). \textbf{Direct PII extraction (F1) is
 the strongest attack family, at a strict judged ASR of $0.778$}, followed by cross-document
-linkability (F2) at $0.600$. The two are in a class of their own --- the next-highest family
-sits at $0.200$ and the rest at $0.143$ or below. The manipulation families --- direct
-injection (F3), obfuscation (F4), reconnaissance (F6), and social engineering (F7) --- register
-$0.000$ under the strict threshold, because on this corpus they either fail to surface
-above-severity-2 content or are refused; jailbreak (F5) reaches only $0.200$. Corpus poisoning
-(F8) registers $0.143$, but from a single reproducible scenario, the descriptive-poisoning
-exploit P3-POISON-007: a one-scenario family rate carries no confidence interval and is not
-robustness-comparable to the multi-scenario F1 and F2 rates. The Phase~2 turn-level analysis
-corroborates the concentration from the other direction --- F1 and F2 together accounted for
-$91.1\%$ of all strict leak turns in that run.
+linkability (F2) at $0.600$. The two are in a class of their own: the next-highest family sits at $0.200$ and the rest at
+$0.143$ or below. The manipulation families (direct injection F3, obfuscation F4, reconnaissance
+F6, and social engineering F7) register $0.000$ under the strict threshold, because on this corpus
+they either fail to surface above-severity-2 content or are refused; jailbreak (F5) reaches only
+$0.200$. Corpus poisoning (F8) registers $0.143$, but from a single reproducible scenario, the
+descriptive-poisoning exploit P3-POISON-007: a one-scenario family rate carries no confidence
+interval and is not robustness-comparable to the multi-scenario F1 and F2 rates. The Phase~2
+turn-level analysis corroborates the concentration from the other side: F1 and F2 together
+accounted for $91.1\%$ of all strict leak turns in that run.
 
 \begin{table}[h]
 \centering
@@ -342,15 +338,14 @@ turn-level strict leaks. F8 (Corpus Poisoning) at $14.3\%$ reflects a single rep
 \end{figure}
 
 The shape of this result, not merely its magnitude, sets the agenda for the rest of the thesis.
-Leakage on an undefended enterprise RAG system is overwhelmingly a problem of the
-system \emph{doing what it was built to do} --- retrieving a record and relaying its contents
-(F1), or retrieving several and letting the model correlate them (F2) --- rather than of
-exotic adversarial manipulation, which the underlying model largely refuses. The severity
-profile of the Phase~2 run confirms the same point: the judge's leak turns concentrate at
-severity~3 and~4 (56 of 57), whereas two-thirds of the engine's sit at severity~2, the
-refusal-noise band. The defenses of Chapter~\ref{ch:defenses} are therefore aimed where the
-leakage actually is --- at F1 and F2 --- and the priority order falls directly out of this
-table.
+Leakage on an undefended enterprise RAG system is overwhelmingly a problem of the system
+\emph{doing what it was built to do}: retrieving a record and relaying its contents (F1), or
+retrieving several and letting the model correlate them (F2), rather than of exotic adversarial
+manipulation, which the underlying model largely refuses. The severity profile of the Phase~2 run
+confirms the same point: the judge's leak turns concentrate at severity~3 and~4 (56 of 57),
+whereas two-thirds of the engine's sit at severity~2, the refusal-noise band. The defenses of
+Chapter~\ref{ch:defenses} are therefore aimed where the leakage actually is, at F1 and F2, and the
+priority order falls directly out of this table.
 
 \begin{figure}[h]
 \centering
@@ -374,7 +369,7 @@ retriever did not fetch is uncounted. Two facts from the Phase~2 campaign make t
 Retrieval precision on the target document is low ($8.3\%$), so the retriever frequently
 returns neighbouring rather than targeted records, and a disclosure reconstructed from those is
 invisible to the engine. And a manual audit independently confirmed ten leak cases by hand,
-including the most severe --- medical conditions co-occurring with a salary and a name --- and
+including the most severe (medical conditions co-occurring with a salary and a name) and
 two cross-reference disclosures in which the response enumerated retrieval-context document IDs
 never present in the user's query. The true undefended leakage rate is thus at least $28.8\%$;
 the measurement understates it rather than overstating it.
@@ -399,7 +394,7 @@ This chapter fixed the reference point for the thesis. On an undefended enterpri
 measured over 52 scenarios and 156 executions with a dual-threshold, dual-instrument protocol,
 the strict attack-success rate is $28.8\%$. \textbf{RQ1 is answered: direct PII extraction
 (F1, $0.778$) and cross-document linkability (F2, $0.600$) are the families that maximise
-leakage --- in a class of their own, the next family reaching only $0.200$}, while adversarial
+leakage, in a class of their own, with the next family reaching only $0.200$}, while adversarial
 manipulation (injection, obfuscation, social engineering) is largely refused and registers at
 zero under the strict threshold, jailbreak reaching only $0.200$. Leakage is driven by the retrieval pipeline working as
 designed, not by exotic prompts; it concentrates in the Internal and External profiles; and
