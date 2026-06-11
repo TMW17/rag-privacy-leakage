@@ -34,51 +34,48 @@
 \section{Context and motivation}
 \label{sec:intro-context}
 
-Organisations hold years of sensitive internal data --- human-resources files, medical reports,
-internal memoranda, system configurations --- and increasingly want it conversationally
-accessible. Retrieval-augmented generation (RAG) makes that possible: documents are embedded
-into a vector store, retrieved on demand, and used to ground a large language model's answers.
-The appeal is real, and so is a privacy problem that hides in plain sight. The retriever does
-not know who is allowed to see what, and neither does the model; both are engineered to be
-\emph{helpful}, not \emph{minimally informative}. When an employee asks for a colleague's salary,
-the pipeline retrieves the record and the model relays it; when an outside attacker hides an
-instruction inside a document the retriever later fetches, the same pipeline can be steered into
-disclosure \cite{greshake2023ipi}. Two separately documented phenomena --- language models
-memorising and reproducing training data \cite{carlini2021extracting}, and adversarial prompts
-steering model behaviour --- compound in RAG into a third, because the retriever itself becomes an
-attacker-influenceable channel into the model's context.
+Organisations hold years of sensitive internal data: human-resources files, medical reports,
+internal memoranda, and system configurations. Increasingly they want this data conversationally
+accessible, and retrieval-augmented generation (RAG) makes that possible. Documents are embedded
+into a vector store, retrieved on demand, and used to ground a large language model's answers. The
+capability is useful, but it carries a privacy problem that is easy to miss. Neither the retriever
+nor the model knows who is allowed to see what; both are built to be \emph{helpful} rather than
+\emph{minimally informative}. If an employee asks for a colleague's salary, the pipeline retrieves
+the record and the model relays it. If an outside attacker hides an instruction in a document that
+the retriever later fetches, the same pipeline can be steered into disclosure \cite{greshake2023ipi}.
+Two well-documented phenomena combine here into a third: language models can memorise and reproduce
+training data \cite{carlini2021extracting}, and adversarial prompts can steer model behaviour; in
+RAG, the retriever itself becomes a channel into the model's context that an attacker can influence.
 
-The consequences are governed by data-protection law (the GDPR in particular), under which
-unauthorised disclosure of personal data is a reportable harm, and they are made harder by the
-nature of the worst leak. The most damaging disclosure in this setting is not a single record
-read out verbatim but \emph{re-identification by linkage}: a person reconstructed from
-attributes that are individually innocuous and scattered across documents. Such a leak
-corresponds to no discrete field a filter can excise, which makes it both hard to prevent and,
-as this thesis argues, hard to measure.
+The consequences fall under data-protection law, the GDPR in particular, where unauthorised
+disclosure of personal data is a reportable harm. They are compounded by the nature of the worst
+leak. The most damaging disclosure here is not a single record read out verbatim, but
+\emph{re-identification by linkage}: a person reconstructed from attributes that are individually
+innocuous and scattered across documents. Such a leak corresponds to no discrete field that a
+filter can excise, which makes it both hard to prevent and, as this thesis argues, hard to measure.
 
 \section{Problem statement}
 \label{sec:intro-problem}
 
-The substantive question is therefore threefold. How much sensitive data does a baseline
-enterprise RAG deployment leak, under what attack conditions, and against which kinds of
-attacker? How much do existing defense mechanisms actually reduce that leakage when measured
-under matched conditions? And --- a question the others quietly depend on --- how do we know the
-measurement itself is trustworthy rather than an artifact of one instrument's blind spots? This
-last question turns out to be central: a defended RAG system can look almost perfectly protected
-or substantially leaky depending only on which instrument does the measuring, and resolving that
-ambiguity is as much a part of the contribution as the leakage numbers themselves.
+The substantive question is threefold. How much sensitive data does a baseline enterprise RAG
+deployment leak, under what attack conditions and against which kinds of attacker? How much do
+existing defense mechanisms actually reduce that leakage when measured under matched conditions?
+And, underlying both, how do we know the measurement itself is trustworthy rather than an artefact
+of one instrument's blind spots? The last question turns out to be central. A defended RAG system
+can look almost perfectly protected or substantially leaky depending only on which instrument does
+the measuring, and resolving that ambiguity is as much a part of the contribution as the leakage
+numbers themselves.
 
 \section{The research gap}
 \label{sec:intro-gap}
 
-The literature relevant to this problem divides into five active areas --- RAG-specific
-vulnerabilities, PII memorisation and leakage in language models, prompt-injection taxonomies,
-defense mechanisms and guardrail architectures, and LLM-as-judge evaluation. Each is mature
-within its own boundaries, but, as the review in Chapter~\ref{ch:sota} establishes across fifty
-primary sources, none addresses their intersection: where RAG-specific attacks meet
-PII-specific privacy metrics, a formal threat taxonomy, layered defense configurations, and
-automated leak adjudication. The five cross-cutting gaps that fall out of that synthesis map
-one-to-one onto the research questions below.
+The relevant literature divides into five active areas: RAG-specific vulnerabilities, PII
+memorisation and leakage in language models, prompt-injection taxonomies, defense mechanisms and
+guardrail architectures, and LLM-as-judge evaluation. Each is mature within its own boundaries.
+But none addresses their intersection, as the review in Chapter~\ref{ch:sota} establishes across
+fifty primary sources: the point where RAG-specific attacks meet PII-specific privacy metrics, a
+formal threat taxonomy, layered defense configurations, and automated leak adjudication. The five
+cross-cutting gaps that emerge from that synthesis map one-to-one onto the research questions below.
 
 \section{Research questions}
 \label{sec:intro-rqs}
@@ -103,46 +100,44 @@ because every leakage number is only as trustworthy as the instrument that produ
 \section{Contributions}
 \label{sec:intro-contrib}
 
-The contribution of this thesis is \textbf{convergence, not invention}. It does not propose a
-new attack technique or a new defense mechanism; the attacks are drawn from the published
-literature and the defense layers are existing, deployed tools. What is missing from the
-surveyed work, and what this thesis builds, is the integration of five capabilities into one
-framework applied to RAG: a mathematically formalised, LINDDUN-aligned leakage metric pair
-$(L,S)$ and a profile-dependent evaluation engine (Chapter~\ref{ch:formal}); a systematic
-adversarial campaign across eight attack families (Chapter~\ref{ch:baseline}); a layered defense
-whose effect is quantified with $\Delta S$ (Chapters~\ref{ch:defenses}, \ref{ch:tradeoff}); and a
-validated language-model judge as the leakage adjudicator (Chapter~\ref{ch:defenses}). No prior
-work in the survey couples these for RAG (Chapter~\ref{ch:sota}).
+The contribution of this thesis is convergence rather than invention. It does not propose a new
+attack technique or a new defense mechanism: the attacks are drawn from the published literature,
+and the defense layers are existing, deployed tools. What the surveyed work lacks, and what this
+thesis builds, is the integration of five capabilities into one framework applied to RAG: a
+mathematically formalised, LINDDUN-aligned leakage metric pair $(L,S)$ with a profile-dependent
+evaluation engine (Chapter~\ref{ch:formal}); a systematic adversarial campaign across eight attack
+families (Chapter~\ref{ch:baseline}); a layered defense whose effect is quantified with $\Delta S$
+(Chapters~\ref{ch:defenses} and~\ref{ch:tradeoff}); and a validated language-model judge as the
+leakage adjudicator (Chapter~\ref{ch:defenses}). No prior work in the survey couples these for RAG
+(Chapter~\ref{ch:sota}).
 
-Its sharpest contribution is methodological, and we state it as an \emph{argument} because that
-is what it is. We argue that \textbf{measuring a defended RAG system with a single instrument is
-wrong in a direction the analyst cannot see}: a deterministic detector, blind to the semantic
-and cross-document leakage that survives a defense, records its own blindness as protection.
-This thesis demonstrates the effect on a controlled corpus (Chapter~\ref{ch:defenses}) and
-argues, in the discussion (Chapter~\ref{ch:discussion}), that the \emph{direction} of the error
-generalises beyond it, even though the \emph{magnitude} does not. Three things this thesis is
-explicitly \emph{not}: it is not a new attack, not a new defense, and not a certified, deployable
-product --- a boundary the findings below make concrete.
+Its sharpest contribution is methodological. The claim is that measuring a defended RAG system with
+a single instrument is wrong in a direction the analyst cannot see: a deterministic detector, blind
+to the semantic and cross-document leakage that survives a defense, records its own blindness as
+protection. This thesis demonstrates the effect on a controlled corpus (Chapter~\ref{ch:defenses})
+and argues in the discussion (Chapter~\ref{ch:discussion}) that the \emph{direction} of the error
+generalises beyond that corpus, even though the \emph{magnitude} does not. The thesis is also
+explicit about what it is not: not a new attack, not a new defense, and not a certified, deployable
+product. The findings below make that boundary concrete.
 
 \section{Findings, honestly previewed}
 \label{sec:intro-findings}
 
-The headline result is a genuine but partial reduction. Through the validated judge --- the
-primary instrument --- the full defense stack reduces leakage from $28.8\%$ to $17.3\%$, a
-reduction of roughly forty percent, \textbf{not an elimination} (the deterministic engine, by
-contrast, reports near-zero, which is precisely the single-instrument error above). The residual
-is not uniform: re-identification by \emph{linkage} is the dominant unreduced component ---
-redaction defeats direct extraction but cannot remove a person assembled from scattered
-attributes (Chapters~\ref{ch:defenses}, \ref{ch:tradeoff}). And the instrument that delivers the
-headline is itself bounded: the judge agrees with human annotation at Cohen's $\kappa = 0.827$ on
-undefended output but degrades to $\kappa = 0.306$ on the defended distribution the numbers are
-built from, so the $17.3\%$ figure is reported with an honest uncertainty interval that contains
-it, and the tempting claim that the true rate is \emph{lower} is explicitly refused
-(Chapter~\ref{ch:defenses}). The right way to read the whole is as \textbf{a demonstration of a
-measurement methodology on a controlled, synthetic corpus, not a certification that any
-deployable system is safe}: the relative findings --- which layer matters, which adversary is
-hardest, how the residual is composed --- are what transfer; the absolute percentages are not
-predictions.
+The headline result is a genuine but partial reduction. Read through the validated judge, the
+primary instrument, the full defense stack reduces leakage from $28.8\%$ to $17.3\%$, a reduction
+of roughly forty percent, \textbf{not an elimination}. (The deterministic engine, by contrast,
+reports near-zero, which is exactly the single-instrument error described above.) The residual is
+not uniform. Re-identification by \emph{linkage} is its dominant unreduced component: redaction
+defeats direct extraction but cannot remove a person assembled from scattered attributes
+(Chapters~\ref{ch:defenses}, \ref{ch:tradeoff}). The instrument that delivers the headline is
+itself bounded. The judge agrees with human annotation at Cohen's $\kappa = 0.827$ on undefended
+output but falls to $\kappa = 0.306$ on the defended distribution the numbers are built from, so
+the $17.3\%$ figure is reported with an honest uncertainty interval, and the tempting claim that
+the true rate is \emph{lower} is refused (Chapter~\ref{ch:defenses}). The whole is best read as
+\textbf{a demonstration of a measurement methodology on a controlled, synthetic corpus, not a
+certification that any deployable system is safe}: the relative findings (which layer matters,
+which adversary is hardest, how the residual is composed) are what transfer; the absolute
+percentages are not predictions.
 
 \section{Thesis structure}
 \label{sec:intro-structure}
