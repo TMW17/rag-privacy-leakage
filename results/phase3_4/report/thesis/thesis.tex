@@ -23,7 +23,11 @@
 % (The title page is a separate XeLaTeX PDF, \includepdf'd below, so its
 %  Arabic/polyglossia stack never touches this master.)
 \usepackage{fontspec}
-\setmainfont{Times New Roman}               % CS-layout spec: 12pt serif body
+% TeX Gyre fonts loaded by FILE NAME (they live in the TeXLive tree, not fontconfig, so
+% name-based lookup fails on macOS; *-suffix patterns force the kpsewhich file lookup).
+\setmainfont{texgyrepagella}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]   % Palatino-class roman: body + default
+\setsansfont{texgyreheros}[Extension=.otf, Scale=0.95, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]   % Helvetica-class sans: headings
+\setmonofont{texgyrecursor}[Extension=.otf, Scale=0.95, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]   % monospace: code / \texttt
 \usepackage[a4paper,left=3.18cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}   % CS-layout spec: 3.18cm binding margin, 2.5cm elsewhere
 \usepackage{pdfpages}
 
@@ -153,17 +157,17 @@
 % CS-layout spec: main text JUSTIFIED (LaTeX default; previous \RaggedRight removed)
 % H1 chapter: 16pt bold ALL CAPS, centred, 0 before / 24 after, single-spaced
 \titleformat{\chapter}[display]
-  {\singlespacing\centering\bfseries\color{esiblue}\fontsize{16}{19}\selectfont}
+  {\sffamily\singlespacing\centering\bfseries\color{esiblue}\fontsize{16}{19}\selectfont}
   {\MakeUppercase{\chaptertitlename}\ \thechapter}{6pt}{\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{0pt}{24pt}
 % H2 section: 14pt bold, left, 15 before / 12 after
-\titleformat{\section}{\bfseries\color{esiblue}\fontsize{14}{17}\selectfont}{\thesection}{0.6em}{}
+\titleformat{\section}{\sffamily\bfseries\color{esiblue}\fontsize{14}{17}\selectfont}{\thesection}{0.6em}{}
 \titlespacing*{\section}{0pt}{15pt}{12pt}
 % H3 subsection: 12pt bold, left, 12 before / 9 after
-\titleformat{\subsection}{\bfseries\color{esidark}\fontsize{12}{15}\selectfont}{\thesubsection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\color{esidark}\fontsize{12}{15}\selectfont}{\thesubsection}{0.6em}{}
 \titlespacing*{\subsection}{0pt}{12pt}{9pt}
 % H4 subsubsection: 12pt bold italic, left, 9 before / 6 after
-\titleformat{\subsubsection}{\bfseries\itshape\color{esidark}\fontsize{12}{15}\selectfont}{\thesubsubsection}{0.6em}{}
+\titleformat{\subsubsection}{\sffamily\bfseries\itshape\color{esidark}\fontsize{12}{15}\selectfont}{\thesubsubsection}{0.6em}{}
 \titlespacing*{\subsubsection}{0pt}{9pt}{6pt}
 
 \begin{document}
