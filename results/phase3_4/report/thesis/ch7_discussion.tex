@@ -321,6 +321,20 @@ attacker this is a definitional solve; for the authorised user the within-cleara
 right that it cannot be eliminated cheaply. These controls are a reasoned, finding- and literature-grounded
 proposal, not a tested stack; turning them into measured defences is future work.
 
+\paragraph{A foreclosed extension: cross-query disclosure accounting.} One further mechanism deserves a
+line, as the session-level companion to Control~3, because it can be foreclosed without spending: a
+per-session \emph{disclosure accountant} that tracks, across a user's query sequence, the intersection of
+the candidate sets the session has narrowed to, and throttles once that running set falls below $k$. It is
+foreclosed as a standalone defense by a finding this thesis already recorded --- the linkage here is
+\emph{single-chunk}: the identifying combination is present the moment a record is retrieved, not
+accumulated across turns (Section~\ref{sec:ch6-probes}). An accountant therefore fires on the \emph{first}
+query, where the candidate set already collapses below $k$ --- single-query disclosure, out of scope for a
+mechanism whose only purpose is to bound \emph{cross-query} narrowing. Its one honest home is
+\emph{contingent}: cross-query accounting bounds linkage only when layered on top of single-query
+(combined-constraint) blocking --- catching an attacker who, denied the one-shot query, tries to reconstruct
+it incrementally. It is therefore a \emph{complement to, not a substitute for}, single-query control, not a
+standalone defense.
+
 \section{Future work}
 \label{sec:disc-future}
 
