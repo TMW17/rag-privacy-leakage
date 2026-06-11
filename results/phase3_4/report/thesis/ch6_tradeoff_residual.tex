@@ -46,7 +46,7 @@ $(L,S)$, a binary function and a severity score (Chapter~\ref{ch:formal}); the r
 have been reported through $L$ (attack-success rate), and this chapter restores $S$, computing
 the severity-weighted reduction $\Delta S$ and the residual $\bar{S}$ that RQ2 and RQ5 are
 formally defined in terms of. Every attack-success figure is read against the canonical
-undefended baseline, \texttt{final\_metrics.json} cell C00000, exactly as in
+undefended baseline (configuration C00000), exactly as in
 Chapters~\ref{ch:baseline} and~\ref{ch:defenses}; the two-instrument framing (engine a lower
 bound, the validated judge primary) carries over and is not restated.
 
@@ -70,11 +70,10 @@ robustness, not a measured improvement in leakage over the knee.
 \IfFileExists{../../../phase3/report/pareto.png}{%
   \includegraphics[width=0.78\textwidth]{pareto.png}%
 }{\fbox{\parbox{0.8\textwidth}{\centering\vspace{1.2cm}\textit{[Figure: security (judged ASR)
-  vs.\ utility across the six configurations; the knee at C01100. Source:
-  \texttt{pareto.png}.]}\vspace{1.2cm}}}}
-\caption{Security against utility across configurations. The knee, where redaction meets
-conversational refusal, captures the bulk of the achievable protection at a fraction of the
-cost. Source: \texttt{tradeoff\_meta.json}, judged ASR primary.}
+  vs.\ utility across the six configurations; the knee at C01100.]}\vspace{1.2cm}}}}
+\caption{Security against utility across configurations, judged ASR primary. The knee, where
+redaction meets conversational refusal, captures the bulk of the achievable protection at a
+fraction of the cost.}
 \label{fig:ch6-pareto}
 \end{figure}
 
@@ -97,8 +96,7 @@ and process, not free, and crucially that no query was over-refused (0 of 30).
 \caption{The cost in answer quality, undefended (C00000) versus fully defended (C11111), on
 thirty ordinary questions. Utility is measured at these two extremes, which bound the cost;
 per-configuration utility (including the knee) is left as future work. Three metrics only ---
-faithfulness, context precision, latency --- are instrumented. Source:
-\texttt{utility\_results.json}.}
+faithfulness, context precision, latency --- are instrumented.}
 \label{tab:ch6-utility}
 \begin{tabular}{lccc}
 \toprule
@@ -154,7 +152,7 @@ live attack and is assessed offline in Chapter~\ref{ch:threat}, so it carries no
 \begin{table}[h]
 \centering
 \caption{Judged attack-success rate by adversary, from no defense through the knee to the full
-stack. Source: \texttt{final\_metrics.json} (\texttt{RQ4\_per\_profile}).}
+stack.}
 \label{tab:ch6-profile}
 \begin{tabular}{lccc}
 \toprule
@@ -192,8 +190,7 @@ Privileged administrator     & 0.143 & 0.000 & 0.000\\
 cross-document linkability (family F2) across configurations: $0.60$ undefended, $0.70$ at the
 knee, $0.60$ at the full stack --- statistically unchanged. Redaction defeats direct extraction
 but not linkage, and the query-time gate (Section~\ref{sec:ch6-probes}) and ingestion-time gate
-(Section~\ref{sec:ch6-p7}) likewise leave it unmoved or are foreclosed by their information cost.
-Source: \texttt{final\_metrics.json} (\texttt{F2\_LINKABILITY} per cell).}
+(Section~\ref{sec:ch6-p7}) likewise leave it unmoved or are foreclosed by their information cost.}
 \label{fig:ch6-f2residual}
 \end{figure}
 
@@ -229,8 +226,7 @@ number, and they agree: the reduction is real, redaction-driven, and partial in 
 \centering
 \caption{Mean severity $\bar{S}$ by configuration, engine (lower bound) and judge (primary),
 over the matched 89-turn set. Baseline is the matched run-0 reused baseline (the severity
-analogue of the canonical C00000, which carries no severity). Source:
-\texttt{severity\_aggregates.json}.}
+analogue of the canonical C00000, which carries no severity).}
 \label{tab:ch6-severity}
 \begin{tabular}{lcc}
 \toprule
@@ -269,7 +265,7 @@ $\Delta S$ vs.\ baseline (full stack) & $1.502$ & $0.494$\\
 both instruments. The judge (primary) shows severity falling from $0.865$ undefended to $0.405$ at
 the knee and $0.371$ at the full stack ($\Delta S = 0.494$); the engine reads a larger absolute
 drop ($2.567\!\to\!1.065$) from its inflated baseline. Severity mirrors the leakage result:
-redaction (L2) does the work and the residual persists. Source: \texttt{severity\_aggregates.json}.}
+redaction (L2) does the work and the residual persists.}
 \label{fig:ch6-deltaS}
 \end{figure}
 
@@ -287,8 +283,7 @@ rate into a prioritized risk.
 \begin{table}[h]
 \centering
 \caption{Risk by attack family, scored on the judged leakage surviving the recommended
-configuration, weighted by severity, and sorted by residual risk. Source: committed
-Phase~3--4 report §6 (risk matrix).}
+configuration, weighted by severity, and sorted by residual risk.}
 \label{tab:ch6-riskfam}
 \begin{tabular}{llccc}
 \toprule
@@ -391,8 +386,7 @@ record is retrieved.
 generalization hierarchy used by the linkage probes (three of the seven QIs shown). Each attribute
 climbs its ladder --- specific value (L0, teal), generalized group (L1, amber), then suppression
 (coral) --- as $k$-anonymity demands. The same hierarchy drives both the query-time gate (L7) and
-the ingestion-time generalization (P7). Source: \texttt{l7\_consistency\_check.py}
-(\texttt{QI\_HIERARCHY}).}
+the ingestion-time generalization (P7).}
 \label{fig:ch6-qiladder}
 \end{figure}
 
@@ -433,7 +427,7 @@ Combinatorial $k$-anonymity does not reduce judged linkage even at near-blanket 
 random-same-rate control, and an in-session baseline, across the threshold sweep, on the ten live
 F2 scenarios. Per-scenario resolution is $0.1$ and the binomial $95\%$ interval is near $\pm0.30$,
 so the table fixes direction, not magnitude. ``Gen.\ rate'' is the fraction of attribute-turns the
-gate altered. Sources: \texttt{l7\_judge\_sweep.log}, \texttt{l7\_sweep\_responses.jsonl}.}
+gate altered.}
 \label{tab:ch6-l7}
 \begin{tabular}{ccccc}
 \toprule
@@ -471,7 +465,7 @@ combinatorial $k$-anonymity gate, a random-same-rate control, and an in-session 
 threshold sweep (ten F2 scenarios; per-scenario step $0.1$, interval $\approx\pm0.30$). At the
 non-blanket cell ($k{=}2$) gate, control, and baseline coincide at $0.7$; the gate's dip at $k{=}5$
 ($0.4$) lies within one interval, occurs only at near-blanket generalization ($0.73$), and is
-non-monotonic ($k{=}10$ leaks more). The result is a null. Source: \texttt{l7\_judge\_sweep.log}.}
+non-monotonic ($k{=}10$ leaks more). The result is a null.}
 \label{fig:ch6-l7sweep}
 \end{figure}
 
@@ -479,10 +473,10 @@ Two caveats bound the reading (\Cref{fig:ch6-l7sweep}), and neither softens it. 
 steps of $0.1$ with an interval near $\pm0.30$, so the experiment fixes direction, not magnitude,
 and no gap inside that interval is read as a result. The in-session baseline judged here at $0.7$
 sits within the $0.6$--$0.7$ band the residual already occupies (Section~\ref{sec:ch6-residual})
-but differs by about two scenarios from the committed augmented figure of $0.60$ used elsewhere:
+but differs by about two scenarios from the campaign figure of $0.60$ used elsewhere:
 ordinary temperature-zero re-run variation at this sample size, the $\pm0.30$ floor in another
 guise. The fresh baseline is the correct comparator because all three arms were re-run together,
-and the committed $0.60$ residual the thesis reports is untouched by this extension.
+and the $0.60$ residual the thesis reports is untouched by this extension.
 
 The finding is negative, and the negative is the contribution. The defense the field would reach
 for to close a linkage residual was implemented, controlled against bulk redaction, and evaluated
@@ -506,7 +500,7 @@ version is even feasible, and report a result established \emph{at corpus constr
 is run.
 
 Applying the same pre-registered, consistency-checked QI hierarchy (the one that reproduces the
-committed $84/100$ and $40/63$, Chapter~\ref{ch:formal}) to the hundred ground-truth employee records,
+$84/100$ and $40/63$ of Chapter~\ref{ch:formal}) to the hundred ground-truth employee records,
 we built a globally $k$-anonymous corpus for each $k\in\{2,5,10\}$: generalizing quasi-identifiers up their
 ladders until every record's combination is shared by at least $k$ records, and suppressing the residual
 records that remain unique even at maximum generalization. Table~\ref{tab:ch6-p7} and \Cref{fig:ch6-p7infoloss} report the information
@@ -526,8 +520,7 @@ unusable: a conclusion reached at construction, before evaluation.
 \caption{Information cost of reaching global $k$-anonymity at ingestion, over the hundred employee
 records. ``Info-loss'' is the fraction of total quasi-identifier information removed (full-domain
 generalization height); ``dropped'' is records suppressed because they remain unique at maximum
-generalization. All three reach their target $k$; no F2 attack was run (see text). Source:
-\texttt{p7\_build\_corpora.py} and \texttt{corpus\_k\{2,5,10\}.json} (commit \texttt{8f25d54}).}
+generalization. All three reach their target $k$; no F2 attack was run (see text).}
 \label{tab:ch6-p7}
 \begin{tabular}{cccc}
 \toprule
@@ -565,8 +558,7 @@ $10$ & $0.67$ & $0/100$ & $10$\\
 reaching global $k$-anonymity at ingestion. Even the weakest setting, $k{=}2$, removes $0.52$ of
 the quasi-identifier information and suppresses $9$ of $100$ records; $k{=}5$ and $k{=}10$ cost
 $0.60$ and $0.67$. The corpus is too degraded to serve its benign workload before any attack is
-run --- the approach is foreclosed at construction (Table~\ref{tab:ch6-p7}). Source:
-\texttt{p7\_build\_corpora.py}, \texttt{corpus\_k\{2,5,10\}.json}.}
+run --- the approach is foreclosed at construction (Table~\ref{tab:ch6-p7}).}
 \label{fig:ch6-p7infoloss}
 \end{figure}
 

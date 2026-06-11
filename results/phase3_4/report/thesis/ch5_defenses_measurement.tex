@@ -75,8 +75,7 @@ real attack rather than asserted in principle (Table~\ref{tab:ch5-layers}).
 \begin{table}[h]
 \centering
 \caption{The five defense mechanisms: where each acts, what it does, and the attack it was
-validated against. Layer-validation counts are consolidated from the committed Phase~3--4
-report (§4).}
+validated against.}
 \label{tab:ch5-layers}
 \begin{tabularx}{\textwidth}{lp{2.6cm}X}
 \toprule
@@ -191,7 +190,7 @@ a re-identification.
 \begin{table}[h]
 \centering
 \caption{Where high-severity detection fails. These categories are why a single filter cannot
-suffice. Source: detector evaluation, consolidated from the committed Phase~3--4 report (§3).}
+suffice.}
 \label{tab:ch5-ceiling}
 \begin{tabular}{lccp{6.2cm}}
 \toprule
@@ -228,8 +227,7 @@ detector could ever reach.
 maximum disclosed-entity severity for the three labeller signals. The engine fires on severity-2
 entities in $66\%$ of its $L=1$ turns ($63/95$); the judge fires on severity-2 in only $2\%$
 ($1/57$). The augmented severity-3 and severity-4 columns are driven entirely by the judge
-signal --- the empirical signature of the engine's severity-2 false-positive class. Source:
-per-turn logs and \texttt{judge\_verdicts\_full.jsonl}.}
+signal --- the empirical signature of the engine's severity-2 false-positive class.}
 \label{fig:ch5-severity}
 \end{figure}
 
@@ -281,7 +279,7 @@ falling from $28.8\%$ undefended to $19.2\%$ at the redaction-plus-refusal knee 
 $17.3\%$ at the full stack --- a partial reduction of about forty percent, not an elimination.
 The engine reads the same defenses as near-total ($19.2\%\!\to\!0.0\%$); the gap between the two
 readings is the methodological finding of Section~\ref{sec:ch5-disagreement}, not measurement
-error. Source: \texttt{final\_metrics.json} (per-cell strict ASR).}
+error.}
 \label{fig:ch5-reduction}
 \end{figure}
 
@@ -297,8 +295,7 @@ the stratification.
 \begin{table}[h]
 \centering
 \caption{Strict attack-success rate by configuration, read through each instrument. The
-judged figures are primary; the engine figures are a lower bound. Source:
-\texttt{final\_metrics.json}.}
+judged figures are primary; the engine figures are a lower bound.}
 \label{tab:ch5-headline}
 \begin{tabular}{lccl}
 \toprule
@@ -329,8 +326,7 @@ it is reported as within noise rather than as a layer that makes leakage worse.
 \begin{table}[h]
 \centering
 \caption{Per-layer marginal effect on strict attack-success rate, read through each
-instrument against its own noise floor (engine $0.04$, judged $0.08$). Source:
-\texttt{final\_metrics.json}.}
+instrument against its own noise floor (engine $0.04$, judged $0.08$).}
 \label{tab:ch5-marginal}
 \begin{tabular}{lclcl}
 \toprule
@@ -364,8 +360,7 @@ are taken up in Chapter~\ref{ch:tradeoff}.
 }{%
   \fbox{\parbox{0.9\textwidth}{\centering\vspace{1.5cm}\textit{[Figure: per-layer marginal
   effect against the judged noise floor (left); the staircase from no defense through
-  redaction, the recommended pair, and the full stack (right). Source:
-  \texttt{fig\_marginal\_and\_rq2.png}.]}\vspace{1.5cm}}}%
+  redaction, the recommended pair, and the full stack (right).]}\vspace{1.5cm}}}%
 }
 \caption{Per-layer marginal effect against the judged noise floor (left), and the staircase
 from no defense through redaction, the recommended pair, and the full stack (right). Only
@@ -430,9 +425,8 @@ been not just incomplete but misleading (\Cref{fig:ch5-kappa}).
 defended distribution]{The two-instrument finding. The deterministic engine's agreement with the
 human annotator on the linkage family is $\kappa=-0.10$ --- no better than chance --- so it is
 structurally blind to re-identification by linkage. The validated judge agrees at $\kappa=0.827$
-on undefended output but degrades to $\kappa=0.306$ on the defended distribution. Source:
-\texttt{kappa\_results.json} (judge, undefended), \texttt{kappa\_defended.json} (judge, defended),
-Chapter~\ref{ch:defenses} (engine, linkage family); no value is estimated.}
+on undefended output but degrades to $\kappa=0.306$ on the defended distribution. All three
+values are measured; none is estimated.}
 \label{fig:ch5-kappa}
 \end{figure}
 
@@ -446,8 +440,7 @@ Chapter~\ref{ch:defenses} (engine, linkage family); no value is estimated.}
 labeller pairs (Engine--Human, Judge--Human, Engine--Judge) and label dimensions (binary,
 categorical, severity) on the 46-record calibration sample. Judge--Human binary $\kappa=0.827$
 (almost perfect) passes the calibration threshold $\kappa\geq0.60$; Engine--Human binary
-$\kappa=0.164$ (poor) validates the engine's false-positive tendency on severity-2 refusal turns.
-Source: \texttt{kappa\_results.json} (46-record stratified sample).}
+$\kappa=0.164$ (poor) validates the engine's false-positive tendency on severity-2 refusal turns.}
 \label{fig:ch5-kappa-heatmap}
 \end{figure}
 
@@ -488,8 +481,7 @@ curve was estimated, and none is claimed.
 \begin{table}[h]
 \centering
 \caption{The inter-rater agreement chain on the undefended calibration set, with each
-figure's role. Source: \texttt{final\_metrics.json} (\texttt{RQ3\_judge\_validation\_CITED}),
-46-record sample.}
+figure's role.}
 \label{tab:ch5-kappa}
 \begin{tabularx}{\textwidth}{lcX}
 \toprule
@@ -543,8 +535,7 @@ often a refusal misread than a real leak.
 
 \begin{table}[h]
 \centering
-\caption{Judge-versus-human confusion matrix on the defended calibration sample ($n=46$).
-Source: \texttt{kappa\_defended.json}.}
+\caption{Judge-versus-human confusion matrix on the defended calibration sample ($n=46$).}
 \label{tab:ch5-confusion}
 \begin{tabular}{lccc}
 \toprule

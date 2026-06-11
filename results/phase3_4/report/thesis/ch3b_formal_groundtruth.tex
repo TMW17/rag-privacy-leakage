@@ -374,7 +374,7 @@ The corpus is split into four distinct document classes (\Cref{ch3:tab:doc-class
 
 Some documents in the corpus are intentionally built with links to other documents. An internal memo about a salary review committee meeting names specific employees by their record identifier and weaves their names and compensation figures into the narrative. Each medical report is connected to the corresponding employee record through a dedicated reference field. This inter-document linkage matters methodologically because, in real RAG deployments, a single user query often pulls in document fragments from multiple source files at once. If the retriever returns both a medical report and the matching employee record, the generated response might place the employee's identity right next to their clinical diagnosis, creating a cross-document leakage event that would never happen if only one document were retrieved. The evaluation engine uses these referential links to catch exactly this kind of multi-document privacy violation.
 
-\subsubsection{Generator Script: \texttt{generate\_dataset.py}}
+\subsubsection{The Generator Script}
 
 The generation pipeline is organized as four independent generator functions, one per document class, that feed into a single assembly pipeline. Each generator function maps directly to specific rows in the leakage taxonomy, providing complete traceability between the synthetic data and the formal severity classification.
 
@@ -487,7 +487,7 @@ A \textbf{false positive} happens when the evaluation engine wrongly flags a har
 \end{enumerate}
 \end{notebox}
 
-\subsubsection{Annotation Pipeline: \texttt{annotate\_dataset.py}}
+\subsubsection{The Annotation Pipeline}
 
 The annotation pipeline is built on a principled, table-driven architecture. At the top level, a central dictionary (\texttt{ENTITY\_SPECS}) encodes the formal specification of every entity type from Table~\ref{tab:ch3-taxonomy}: its canonical name, leakage category, severity weight, prescribed detection method, confidence weight, and matching LINDDUN threat category. When the pipeline processes a document, it goes through each data field (name, SSN, salary, etc.), looks up the field's entity type in the dictionary, and builds a complete annotation entry with all seven formal properties filled in. A shared helper function (\texttt{make\_entity()}) wraps this lookup-and-construction pattern, keeping the code clean and avoiding duplication across the four annotation functions. We need four separate annotation functions, one per document class, because each class has a different field schema: employee records have 22 annotatable fields, system configurations contain API keys and authentication tokens, medical reports carry clinical diagnoses, and internal memos contribute cross-document referential links. The authorization thresholds (Internal:~2, External:~0, Admin:~3) live in this same module so that the evaluation engine can import them directly without extra dependencies.
 
@@ -545,7 +545,7 @@ ANNOTATION GENERATION COMPLETE
 \end{lstlisting}
 \end{minipage}
 
-\noindent\footnotesize Annotation-pipeline output for the frozen Phase~2 corpus, broken down by document class in \Cref{ch3:tab:annotation-density}.\footnote{The corpus underwent schema refinement between the Phase~1 snapshot and the Phase~2 frozen baseline. Two entity types (\texttt{SSN} and \texttt{RELIGIOUS}) were removed as redundant or out of scope (see git commits \texttt{a541481}, \texttt{f974351}). The numbers above reflect the post-refinement frozen corpus; Phase~1's earlier documentation reported 2{,}315 entities under the pre-refinement schema.}\normalsize
+\noindent\footnotesize Annotation-pipeline output for the frozen Phase~2 corpus, broken down by document class in \Cref{ch3:tab:annotation-density}.\footnote{The corpus underwent schema refinement between the Phase~1 snapshot and the Phase~2 frozen baseline. Two entity types (\texttt{SSN} and \texttt{RELIGIOUS}) were removed as redundant or out of scope. The numbers above reflect the post-refinement frozen corpus; Phase~1's earlier documentation reported 2{,}315 entities under the pre-refinement schema.}\normalsize
 
 \begin{table}[H]
 \centering
@@ -584,7 +584,7 @@ The first two are \textbf{scope decisions tied to the Algerian enterprise contex
 
 The other two (\texttt{QUASI\_IDENTIFIER} and \texttt{PARTIAL\_ADDRESS}) are \textbf{computed attributes, not stored fields}. A quasi-identifier emerges when several individually low-severity attributes (department, salary band, age range) combine into a unique fingerprint. A partial address surfaces when a free-text response says ``the Finance employee in Algiers'' rather than reproducing a full street address. Neither is a value sitting in any document we generated. Annotating them per-instance would have required us to enumerate every possible combination across the 100 employee records, a Cartesian product running into the tens of thousands of pseudo-entities, most of which would never appear in any RAG response.
 
-These two threats are not unmeasured. They are evaluated at the \textbf{dataset level} in \Cref{sec:ch3-reid}, where the $k$-anonymity and $l$-diversity analysis quantifies exactly the risk that the per-entity annotations would have captured. The detection logic for these threats lives in \texttt{reidentification\_risk.py}, not in the per-response evaluation engine. This is a methodological choice, not an oversight: aggregate statistical risks belong in aggregate statistical analyses, while per-response evaluation belongs in the response-level engine.
+These two threats are not unmeasured. They are evaluated at the \textbf{dataset level} in \Cref{sec:ch3-reid}, where the $k$-anonymity and $l$-diversity analysis quantifies exactly the risk that the per-entity annotations would have captured. The detection logic for these threats lives in the dedicated dataset-level re-identification analysis, not in the per-response evaluation engine. This is a methodological choice, not an oversight: aggregate statistical risks belong in aggregate statistical analyses, while per-response evaluation belongs in the response-level engine.
 
 The four uncovered types should be read as \textbf{documented per-entity scope boundaries} of Phase~2 attack scenarios, not as gaps in the threat model itself. Phase~2 does not generate adversarial queries that target passport numbers or credit cards, but every quasi-identifier-style attack remains in scope through the linkability scenarios derived from \Cref{tab:ch3-families}.
 

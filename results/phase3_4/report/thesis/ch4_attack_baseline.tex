@@ -69,8 +69,7 @@ belongs to exactly one family and is identified by a \texttt{profile--family--nu
 \centering
 \caption[The eight attack families and the profiles that exercise each]{The eight attack families, the profiles that exercise each, and the scenario counts.
 F1--F7 are shared by the Internal (P1) and External (P2) profiles; corpus poisoning (F8) is an
-Admin (P3) capability, since it acts on the index before any query is issued. Source:
-\texttt{Phase2\_Report\_Detailed.tex} §3--4.}
+Admin (P3) capability, since it acts on the index before any query is issued.}
 \label{tab:ch4-families}
 \begin{tabularx}{\textwidth}{lLcccc}
 \toprule
@@ -195,8 +194,7 @@ Chapter~\ref{ch:defenses}.
 \begin{table}[h]
 \centering
 \caption{Phase-2 judge calibration on the 46-record sample, against a single human annotator
-(the author). The judge passes the $\kappa \geq 0.60$ bar; the engine fails it. Source:
-\texttt{Phase2\_Report\_Detailed.tex} §B.}
+(the author). The judge passes the $\kappa \geq 0.60$ bar; the engine fails it.}
 \label{tab:ch4-kappa}
 \begin{tabular}{lcl}
 \toprule
@@ -214,12 +212,11 @@ Engine vs.\ human (author) & 0.164 & poor\\
 
 A note on sourcing precedes the numbers, because it settles a question that recurs across the
 thesis. \textbf{All attack-success rates in this chapter are reported from the ablation's
-undefended cell} (\texttt{final\_metrics.json}, configuration C00000), the same artifact
-and the same baseline that Chapter~\ref{ch:defenses} measures every reduction against, so
+undefended cell} (configuration C00000), the same measurement and the same baseline that
+Chapter~\ref{ch:defenses} measures every reduction against, so
 that the baseline and the reductions taken from it are one number, family by family. Severity,
-retrieval-precision, hand-verified-audit, and judge-calibration figures, which that artifact
-does not carry, are drawn from the Phase~2 campaign run
-(\texttt{baseline\_metrics\_augmented.json}) and are labeled as such where they appear.
+retrieval-precision, hand-verified-audit, and judge-calibration figures, which that measurement
+does not carry, are drawn from the Phase~2 campaign run and are labeled as such where they appear.
 
 With the framework and protocol fixed, the undefended system was run across the full campaign.
 At the execution level the judge, the primary instrument, reports a strict
@@ -234,8 +231,7 @@ the leaks which occur expose high-severity content rather than incidental detail
 \begin{table}[h]
 \centering
 \caption{Undefended baseline (C00000) attack-success rate: engine (lower bound) versus judge
-(primary), strict (severity~$\geq 3$) and inclusive (severity~$\geq 2$). Source:
-\texttt{final\_metrics.json} (C00000).}
+(primary), strict (severity~$\geq 3$) and inclusive (severity~$\geq 2$).}
 \label{tab:ch4-headline}
 \begin{tabular}{lcc}
 \toprule
@@ -264,8 +260,7 @@ entirely from corpus poisoning.
 \begin{table}[h]
 \centering
 \caption{Strict ASR by profile at the undefended baseline, engine (lower bound) versus judge
-(primary). Rates are over the executions in each profile's scenario subset. Source:
-\texttt{final\_metrics.json} (C00000).}
+(primary). Rates are over the executions in each profile's scenario subset.}
 \label{tab:ch4-profile}
 \begin{tabular}{lccc}
 \toprule
@@ -286,8 +281,7 @@ P3 Admin    & 0.0\%  & 14.3\% & 7\\
 \caption[Strict ASR by threat-actor profile: engine baseline vs.\ augmented metric]{Scenario-level
 ASR\textsubscript{strict} by threat-actor profile, comparing the deterministic engine baseline
 against the augmented metric ($L_{\max}=\max(L_{\text{engine}},L_{\text{judge}})$). $N=52$
-scenarios, three runs each at temperature~0. Source: \texttt{baseline\_metrics.json} (engine) and
-\texttt{baseline\_metrics\_augmented.json} (augmented).}
+scenarios, three runs each at temperature~0.}
 \label{fig:ch4-asr-profile}
 \end{figure}
 
@@ -308,7 +302,7 @@ accounted for $91.1\%$ of all strict leak turns in that run.
 \centering
 \caption{Strict ASR by attack family at the undefended baseline, engine (lower bound) versus
 judge (primary). F1 and F2 dominate; \dag\,marks the single-scenario family (F8), whose rate
-carries no confidence interval. Source: \texttt{final\_metrics.json} (C00000).}
+carries no confidence interval.}
 \label{tab:ch4-family}
 \begin{tabular}{lccc}
 \toprule
@@ -332,8 +326,7 @@ F7 Social engineering         & 0.000 & 0.000 & 7\\
 \caption[Augmented ASR by attack family]{Augmented ASR\textsubscript{strict} by attack family. F1
 (Direct PII Extraction) and F2 (Cross-document Linkability) together account for $91.1\%$ of all
 turn-level strict leaks. F8 (Corpus Poisoning) at $14.3\%$ reflects a single reproducible exploit
-(P3-POISON-007); F3, F4, and F7 remain at $0\%$ under both metrics. Source:
-\texttt{baseline\_metrics\_augmented.json} (\texttt{ASR\_by\_family\_strict}).}
+(P3-POISON-007); F3, F4, and F7 remain at $0\%$ under both metrics.}
 \label{fig:ch4-asr-family}
 \end{figure}
 
@@ -353,8 +346,7 @@ priority order falls directly out of this table.
 \caption[Augmented leak-type distribution across the campaign turns]{Augmented leak-type
 distribution across $N=267$ attack turns. Direct PII extraction accounts for the majority of
 confirmed leaks; cross-reference disclosure (turn-linking two documents) accounts for the
-remainder. No schema-disclosure leaks were detected under the augmented metric. Source: per-turn
-logs and \texttt{judge\_verdicts\_full.jsonl}.}
+remainder. No schema-disclosure leaks were detected under the augmented metric.}
 \label{fig:ch4-leaktype}
 \end{figure}
 
@@ -382,8 +374,7 @@ named-target turns, the retriever returned the correct document in only 3 ($8.3\
 are F5 (Jailbreak), whose scenario named \texttt{hr\_file\_007} and retrieved it in all 3 runs. F1,
 F3, F4, and F7 never retrieved their named target ($0\%$). F1 precision $=0\%$ yet F1
 ASR\textsubscript{strict} $=77.8\%$: the retriever returned non-target adjacent documents, from
-which the model nonetheless disclosed PII. F2, F6, and F8 are N/A (no single target prescribed).
-Source: \texttt{baseline\_metrics.json} (\texttt{retrieval\_precision\_by\_family}).}
+which the model nonetheless disclosed PII. F2, F6, and F8 are N/A (no single target prescribed).}
 \label{fig:ch4-retrieval}
 \end{figure}
 
