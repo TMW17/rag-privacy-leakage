@@ -121,6 +121,7 @@ particular risks of the system we are studying.
 
   \caption{LINDDUN Privacy Threat Categories Applied to the Enterprise RAG System.}
   \label{ch3:tab:linddun} \\[-4pt]
+  \toprule
 
   
   \multicolumn{1}{c}{\small\textbf{\#}} &
@@ -129,6 +130,7 @@ particular risks of the system we are studying.
   \multicolumn{1}{c}{\small\textbf{Mechanism in RAG}} &
   \multicolumn{1}{c}{\small\textbf{Concrete Example}} &
   \multicolumn{1}{c}{\small\textbf{Severity}} \\
+  \midrule
   \endfirsthead
 
   
@@ -138,6 +140,7 @@ particular risks of the system we are studying.
   \multicolumn{1}{c}{\small\textbf{Mechanism in RAG}} &
   \multicolumn{1}{c}{\small\textbf{Concrete Example}} &
   \multicolumn{1}{c}{\small\textbf{Severity}} \\
+  \midrule
   \endhead
   \multicolumn{6}{r}{\small\itshape Continued\ldots} \\ \endfoot
   \endlastfoot
@@ -236,7 +239,7 @@ particular risks of the system we are studying.
   the baseline RAG system goes live, before any attacker even does anything. &
   \badgehigh \\[4pt]
 
-  \toprule
+  \bottomrule
 \end{longtable}
 
 \subsection{Discussion and Link to Attacker Profiles}
@@ -1545,12 +1548,14 @@ profile-to-profile comparison in a single view.
 
 \begin{center}
 \begin{tabular}{W{5.8cm}C{1.5cm}C{1.5cm}C{1.5cm}C{1.5cm}}
+  \toprule
   
   \small\textbf{Capability} &
   \small\textbf{P1} &
   \small\textbf{P2} &
   \small\textbf{P3} &
   \small\textbf{P4} \\
+  \midrule
 
   
   \small Authenticated system access       & \yes & \no  & \yes & \yes \\
@@ -1572,7 +1577,7 @@ profile-to-profile comparison in a single view.
   \small Cross-tenant data visibility      & \no  & \no  & \no  & \yes \\
   
   \small Automated detection risk          & \small Low & \small Medium & \small Low & \small Very Low \\
-  \toprule
+  \bottomrule
 \end{tabular}
 \captionof{table}{Consolidated capability matrix for all four attacker profiles.}
 \label{ch3:tab:capabilities}
@@ -1598,6 +1603,7 @@ Report,~\S4.5).
 \begin{longtable}{W{2.8cm}C{1.3cm}C{1.3cm}C{1.3cm}C{1.3cm}W{3.8cm}}
   \caption{LINDDUN Coverage Validation Across the Four Profiles.}
   \label{ch3:tab:coverage} \\[-4pt]
+  \toprule
 
   
   \small\textbf{LINDDUN Category} &
@@ -1606,6 +1612,7 @@ Report,~\S4.5).
   \small\textbf{P3} &
   \small\textbf{P4} &
   \small\textbf{Primary Attack Vector} \\
+  \midrule
   \endfirsthead
   
   \small\textbf{LINDDUN Category} &
@@ -1614,6 +1621,7 @@ Report,~\S4.5).
   \small\textbf{P3} &
   \small\textbf{P4} &
   \small\textbf{Primary Attack Vector} \\
+  \midrule
   \endhead \endfoot \endlastfoot
 
   
@@ -1637,7 +1645,7 @@ Report,~\S4.5).
   
   \small Non-compliance      & \no  & \no  & \yes & \yes &
   \small Deliberate GDPR violation (P3); processor overreach (P4) \\
-  \toprule
+  \bottomrule
 \end{longtable}
 
 \subsection{Scientific Adequacy of the Threat Model}
