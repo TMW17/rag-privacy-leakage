@@ -296,10 +296,10 @@ Zizzo et al.\ (2025) carried out what is probably the most rigorous empirical te
 \textit{Zizzo et al.\ is the methodological gold standard for the defense pillar}, and the paper should be read as a corrective to the tool-release culture. Its principal limit is scope. The datasets used are general-purpose jailbreak sets, not privacy-specific ground truth. The thesis extends Zizzo et al.'s discipline to the privacy case and introduces the continuous severity metric $S$ so that defenses can be compared not just on binary success but on how badly a leak fails when it fails.
 \end{critbox}
 
-Wang et al.\ (2025) introduced the \textbf{SEU} (Security, Effectiveness, Usability) evaluation framework along with the first comprehensive 6-axis guardrail taxonomy. Clement (2025) extended the defense perspective into the software development lifecycle, proposing a DevSecOps-integrated framework for continuous security assurance.
+Wang et al.\ (2025) introduced the \textbf{SEU} (Security, Effectiveness, Usability) evaluation framework along with the first comprehensive 6-axis guardrail taxonomy.
 
 \begin{critbox}
-\textit{SEU matters because it forces explicit multi-axis trade-offs}, which the Akheel taxonomy does not do. Its limitation is operational: the framework is evaluative rather than generative. It tells you how to score a defense without telling you how to design one. We adopt SEU's discipline for reporting our defense-configuration results. Clement's DevSecOps framework is organizational rather than technical. For a research thesis it is orthogonal to our concerns, though it is likely relevant to the industry deliverable, namely the Best Practices Guide.
+\textit{SEU matters because it forces explicit multi-axis trade-offs}, which the Akheel taxonomy does not do. Its limitation is operational: the framework is evaluative rather than generative. It tells you how to score a defense without telling you how to design one. We adopt SEU's discipline for reporting our defense-configuration results. Organizational, lifecycle-level security practices, by contrast, are orthogonal to the technical concerns of this thesis, though they remain relevant to the industry deliverable, namely the Best Practices Guide.
 \end{critbox}
 
 \subsection{Instruction Detection and Reactive Defenses}
@@ -555,7 +555,6 @@ Dong et al.\ (2024) & RQ2, 4 & Safeguarding taxonomy & General LLM safety, no RA
 Akheel (2025) & RQ2, 4, 5 & Multi-layer guardrail taxonomy & No autonomous GDPR Arbitrator & High \\
 
 Zizzo et al.\ (2025) & RQ1, 2, 4, 5 & Benchmarked 15 guardrails & Static tools, no dynamic agent loop & Very High \\
-Clement (2025) & RQ2, 4, 5 & DevSecOps-integrated LLM framework & SDLC focus, no user-facing RAG loop & High \\
 
 Chowdhury et al.\ (2024) & RQ1, 4 & Attack/defense comparative survey & No RAG privacy management & High \\
 Cui et al.\ (2024) & RQ1, 2, 4 & 4-module risk taxonomy & No Attacker-Defender-Arbitrator loop & Critical \\
