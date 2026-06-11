@@ -71,7 +71,7 @@ robustness, not a measured improvement in leakage over the knee.
   \includegraphics[width=0.78\textwidth]{pareto.png}%
 }{\fbox{\parbox{0.8\textwidth}{\centering\vspace{1.2cm}\textit{[Figure: security (judged ASR)
   vs.\ utility across the six configurations; the knee at C01100.]}\vspace{1.2cm}}}}
-\caption{Security against utility across configurations, judged ASR primary. The knee, where
+\caption[Security against utility across configurations]{Security against utility across configurations, judged ASR primary. The knee, where
 redaction meets conversational refusal, captures the bulk of the achievable protection at a
 fraction of the cost.}
 \label{fig:ch6-pareto}
@@ -93,7 +93,7 @@ and process, not free, and crucially that no query was over-refused (0 of 30).
 
 \begin{table}[h]
 \centering
-\caption{The cost in answer quality, undefended (C00000) versus fully defended (C11111), on
+\caption[The cost in answer quality at the two extremes]{The cost in answer quality, undefended (C00000) versus fully defended (C11111), on
 thirty ordinary questions. Utility is measured at these two extremes, which bound the cost;
 per-configuration utility (including the knee) is left as future work. Three metrics only ---
 faithfulness, context precision, latency --- are instrumented.}
@@ -224,7 +224,7 @@ number, and they agree: the reduction is real, redaction-driven, and partial in 
 
 \begin{table}[h]
 \centering
-\caption{Mean severity $\bar{S}$ by configuration, engine (lower bound) and judge (primary),
+\caption[Mean severity by configuration, both instruments]{Mean severity $\bar{S}$ by configuration, engine (lower bound) and judge (primary),
 over the matched 89-turn set. Baseline is the matched run-0 reused baseline (the severity
 analogue of the canonical C00000, which carries no severity).}
 \label{tab:ch6-severity}
@@ -282,7 +282,7 @@ rate into a prioritized risk.
 
 \begin{table}[h]
 \centering
-\caption{Risk by attack family, scored on the judged leakage surviving the recommended
+\caption[Risk by attack family under the recommended configuration]{Risk by attack family, scored on the judged leakage surviving the recommended
 configuration, weighted by severity, and sorted by residual risk.}
 \label{tab:ch6-riskfam}
 \begin{tabular}{llccc}
@@ -517,7 +517,7 @@ unusable: a conclusion reached at construction, before evaluation.
 
 \begin{table}[h]
 \centering
-\caption{Information cost of reaching global $k$-anonymity at ingestion, over the hundred employee
+\caption[The information cost of ingestion-time $k$-anonymity]{Information cost of reaching global $k$-anonymity at ingestion, over the hundred employee
 records. ``Info-loss'' is the fraction of total quasi-identifier information removed (full-domain
 generalization height); ``dropped'' is records suppressed because they remain unique at maximum
 generalization. All three reach their target $k$; no F2 attack was run (see text).}
