@@ -39,7 +39,7 @@
 
 This chapter assembles the privacy defenses into a single layered stack, measures how
 much of the baseline leakage they remove, and asks whether the instrument used to measure
-that removal can itself be trusted. These are the two empirical questions at the centre of
+that removal can itself be trusted. These are the two empirical questions at the center of
 the thesis. \textbf{RQ2} asks how much existing defense mechanisms actually reduce measured
 leakage; \textbf{RQ3} asks whether a language-model judge can detect and classify that
 leakage with calibrated confidence and a bounded false-positive rate. The two questions are
@@ -123,7 +123,7 @@ the variability of retrieval itself, we force the target document into the model
 and ask directly for its sensitive contents. Without redaction the model discloses that
 content almost every time; with it, disclosure collapses to nothing
 (Table~\ref{tab:ch5-oracle}). What remains in the redacted context is precisely the
-medical, surname, and immigration material that the detector cannot recognise: present in
+medical, surname, and immigration material that the detector cannot recognize: present in
 the context, but not volunteered in the response, and handed to the conversation-aware
 layer to refuse.
 
@@ -142,7 +142,7 @@ On & \textbf{0.000} & 0/15 & only medical, surname, and immigration data\\
 \end{tabular}
 \end{table}
 
-A preventive variant complements live redaction by sanitising the corpus \emph{before} it
+A preventive variant complements live redaction by sanitizing the corpus \emph{before} it
 is ever indexed, so that sensitive content cannot be retrieved under any query. Applied to
 the full corpus it removes 87.0\% of high-severity entities (1296 of 1490) and every hard
 identifier (national identifiers, IBANs, secrets, e-mail, phone, date of birth), leaving
@@ -170,17 +170,17 @@ Two of the layers above, retrieval-time redaction and the output filter, can onl
 what a PII detector first flags, so the effectiveness of the decisive layer is bounded by the
 detector's recall. That ceiling was measured before the layers were built, and it governs how
 the later results must be read. Of the thirty-one entity types present in the corpus, an
-off-the-shelf detector recognises only six out of the box (535 entities); four more are caught
-partially, three require a custom recogniser for the corpus's national-identifier formats, and
+off-the-shelf detector recognizes only six out of the box (535 entities); four more are caught
+partially, three require a custom recognizer for the corpus's national-identifier formats, and
 eighteen (salaries, ages, project names, embedded secrets) are not classical patterns at
-all. Equipping the detector with legitimate custom recognisers, for structured identifier
+all. Equipping the detector with legitimate custom recognizers, for structured identifier
 formats rather than gazetteers seeded with the corpus's own values (which would be circular),
 lifts its recall on high-severity entities from $0.666$ to $0.835$. That is a real
 improvement, but it falls short of the $0.90$ a single filter would have to clear before it
 could be trusted to stand alone, and thirteen entity types remain below that line.
 
 The shortfall is not spread evenly; it concentrates in a small set of categories that a
-pattern-and-name detector is structurally unable to recognise (Table~\ref{tab:ch5-ceiling}).
+pattern-and-name detector is structurally unable to recognize (Table~\ref{tab:ch5-ceiling}).
 Open-vocabulary medical conditions (93 entities, recall $0.00$) and immigration phrasing
 (36 entities, $0.00$) are missed entirely, because they are clinical and legal language rather
 than identifiers; half of the titled surnames slip past ($0.51$); and, most consequentially
@@ -198,7 +198,7 @@ suffice. Source: detector evaluation, consolidated from the committed Phase~3--4
 \textbf{Category} & \textbf{Entities} & \textbf{Recall} & \textbf{Why it is missed}\\
 \midrule
 Medical conditions & 93 & 0.00 & Open clinical vocabulary; needs a trained model, not a pattern\\
-Titled surnames & 100 & 0.51 & Name variants the recogniser does not generalise to\\
+Titled surnames & 100 & 0.51 & Name variants the recognizer does not generalize to\\
 Immigration status & 36 & 0.00 & Open-vocabulary phrasing\\
 Street addresses & 100 & 0.89 & Mostly caught; some formats slip through\\
 Embedded system text & 5 & 0.00 & Semantic content, not an identifier\\
@@ -505,7 +505,7 @@ Inter-human (annotator 2 vs.\ primary) & 0.692 & The human agreement ceiling the
 \end{table}
 
 These figures, however, were all measured on \emph{undefended} output: raw model
-disclosures, where a leak is explicit and easy to recognise. The defended numbers that carry
+disclosures, where a leak is explicit and easy to recognize. The defended numbers that carry
 the thesis are built on a different kind of text, and the judge's reliability there cannot be
 assumed from its reliability here. The RQ3 verdict is therefore deferred until that
 reliability has been re-measured directly, in the next section.
@@ -516,7 +516,7 @@ reliability has been re-measured directly, in the next section.
 The defenses change what the judge is asked to read. Where the undefended calibration set was
 a stream of explicit disclosures, the defended distribution is redactions, refusals, and
 degraded answers, and the judge was re-calibrated on a stratified 46-record sample of exactly
-that material, hand-labelled by the primary annotator. Agreement falls, and the honest way to
+that material, hand-labeled by the primary annotator. Agreement falls, and the honest way to
 report the fall is to lead with the prevalence-independent measure. Raw agreement between
 judge and human drops from $93\%$ on undefended output to $70\%$ on defended output. Cohen's
 $\kappa$ falls further, from $0.827$ to $0.306$, but $\kappa$ is chance-corrected and
@@ -578,7 +578,7 @@ actually built from, its agreement with the human falls to $\kappa = 0.306$ and 
 false-positive rate rises to roughly $31\%$, so RQ3's bounded-false-positive criterion holds
 only \emph{off} the defended distribution. The judge nonetheless remains the primary
 instrument on defended output, for two reasons that survive its degradation: the only
-alternative instrument is below chance there, and the judge's errors are characterised rather
+alternative instrument is below chance there, and the judge's errors are characterized rather
 than unknown: over-flagging refusals in a way that inflates the apparent residual, and
 under-detecting the linkage leaks that human judgment confirms are real.
 
@@ -622,7 +622,7 @@ over-flagging vivid while leaving the missed leaks among the unexamined negative
 under-count; the visible over-flagging tempts a ``really it is only $7\%$'' reading that
 silently discards the upward correction. Moreover, all three missed leaks fall in the single
 calibration stratum the sample under-drew, so reweighting the strata to their population sizes
-moves the centre \emph{toward} $17.3\%$, not away from it. The propagated calibration error
+moves the center \emph{toward} $17.3\%$, not away from it. The propagated calibration error
 widens the interval around the residual; it does not lower it. The $17.3\%$ figure stands as
 the residual of record, now bounded rather than overturned.
 
@@ -643,7 +643,7 @@ degrades on the defended distribution the headline rests on, where $\kappa$ fall
 and its false-positive rate rises to roughly $31\%$; the originally planned multi-agent panel
 was abandoned as circular, and that abandonment is itself a contribution to the LLM-as-judge
 literature. The judge remains primary because the only alternative is below chance and its
-errors are characterised.
+errors are characterized.
 
 The deeper result is that these two answers are entangled. The rule engine reports the
 defense as near-total; the validated judge reports a $17.3\%$ residual; the difference is the

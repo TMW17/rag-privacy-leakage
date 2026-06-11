@@ -14,7 +14,7 @@
 %  cell C00000 -- the SAME baseline Chapter 5 measures reductions against. Severity
 %  (mean_S), the engine-judge cross-tab, retrieval precision, the hand-verified-leak
 %  audit, and the Phase-2 judge calibration kappa are drawn from the Phase-2 run
-%  (baseline_metrics_augmented.json) and labelled as such (final_metrics carries none
+%  (baseline_metrics_augmented.json) and labeled as such (final_metrics carries none
 %  of them). The threat model, four profiles, (L,S) definitions and ground-truth
 %  corpus are OWNED by Chapter 3 (\ref{ch:threat}/\ref{ch:formal}) and are referenced
 %  here, not re-derived. The full two-instrument treatment and the extended kappa
@@ -145,7 +145,7 @@ underlying model and retriever do \emph{without} added safety scaffolding. Orche
 LangChain; the vector store is ChromaDB; embeddings are local \texttt{all-MiniLM-L6-v2}
 (384-dimensional); the generating model is Claude Sonnet~4.6 at temperature~$0$. The system
 prompt is generic and contains no privacy instruction, no role restriction, and no refusal
-policy, because a defensively crafted prompt would itself be an uncharacterised defense and
+policy, because a defensively crafted prompt would itself be an uncharacterized defense and
 would contaminate the reference. The corpus is the Phase~1 ground truth (155 synthetic
 documents, $2{,}190$ annotated entities, described in full in Chapter~\ref{ch:formal}), and
 no real personal data is used at any stage.
@@ -219,7 +219,7 @@ and the same baseline that Chapter~\ref{ch:defenses} measures every reduction ag
 that the baseline and the reductions taken from it are one number, family by family. Severity,
 retrieval-precision, hand-verified-audit, and judge-calibration figures, which that artifact
 does not carry, are drawn from the Phase~2 campaign run
-(\texttt{baseline\_metrics\_augmented.json}) and are labelled as such where they appear.
+(\texttt{baseline\_metrics\_augmented.json}) and are labeled as such where they appear.
 
 With the framework and protocol fixed, the undefended system was run across the full campaign.
 At the execution level the judge, the primary instrument, reports a strict
@@ -367,7 +367,7 @@ only to entities annotated on a document the retriever actually returned, and ev
 can only flag what appears in the response it reads; a leak assembled from a record the
 retriever did not fetch is uncounted. Two facts from the Phase~2 campaign make this concrete.
 Retrieval precision on the target document is low ($8.3\%$), so the retriever frequently
-returns neighbouring rather than targeted records, and a disclosure reconstructed from those is
+returns neighboring rather than targeted records, and a disclosure reconstructed from those is
 invisible to the engine. And a manual audit independently confirmed ten leak cases by hand,
 including the most severe (medical conditions co-occurring with a salary and a name) and
 two cross-reference disclosures in which the response enumerated retrieval-context document IDs
@@ -393,7 +393,7 @@ Source: \texttt{baseline\_metrics.json} (\texttt{retrieval\_precision\_by\_famil
 This chapter fixed the reference point for the thesis. On an undefended enterprise RAG system,
 measured over 52 scenarios and 156 executions with a dual-threshold, dual-instrument protocol,
 the strict attack-success rate is $28.8\%$. \textbf{RQ1 is answered: direct PII extraction
-(F1, $0.778$) and cross-document linkability (F2, $0.600$) are the families that maximise
+(F1, $0.778$) and cross-document linkability (F2, $0.600$) are the families that maximize
 leakage, in a class of their own, with the next family reaching only $0.200$}, while adversarial
 manipulation (injection, obfuscation, social engineering) is largely refused and registers at
 zero under the strict threshold, jailbreak reaching only $0.200$. Leakage is driven by the retrieval pipeline working as

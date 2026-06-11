@@ -32,7 +32,7 @@
 \label{sec:concl-summary}
 
 Enterprise retrieval-augmented generation makes a sensitive corpus conversationally accessible,
-and in doing so it can disclose personal data to users and attackers who are not authorised to
+and in doing so it can disclose personal data to users and attackers who are not authorized to
 see it. This thesis set out to measure that leakage rather than assert it: to establish how much
 an undefended baseline leaks and which attacks cause it (Chapter~\ref{ch:baseline}), how much a
 layered defense reduces it under matched conditions (Chapter~\ref{ch:defenses}), whether the
@@ -72,7 +72,7 @@ language-model judge) into one framework applied to RAG (Chapters~\ref{ch:sota}-
 Its sharpest result is methodological and is offered as an argument: that measuring a defended
 RAG system with a single instrument is wrong in a direction the analyst cannot see, the
 deterministic detector recording its own blindness to emergent leakage as protection. The
-demonstration is on this corpus; the claim that the \emph{direction} of the error generalises,
+demonstration is on this corpus; the claim that the \emph{direction} of the error generalizes,
 though not its magnitude, is argued in the discussion (Chapter~\ref{ch:discussion}). A
 secondary methodological lesson is that judge reliability is distribution-dependent and that a
 multi-agent arbitration panel sharing a model-family lineage is circular; a single validated,
@@ -97,7 +97,7 @@ Each direction below answers a limitation named in Chapter~\ref{ch:discussion}.
   \item \textbf{Per-configuration utility measurement}, to isolate the knee's marginal cost
     rather than bounding it between the two extremes.
   \item \textbf{Compositional, multi-actor threats}, since every attacker profile here is
-    analysed in isolation, the setting in which the linkage residual is likely to matter most.
+    analyzed in isolation, the setting in which the linkage residual is likely to matter most.
 \end{itemize}
 
 \section{Closing}
@@ -106,7 +106,7 @@ Each direction below answers a limitation named in Chapter~\ref{ch:discussion}.
 The contribution that outlasts the specific percentages is methodological. The relative findings
 of this work (which layer carries the reduction, which adversary is hardest to defend, how the
 residual is composed) are what transfer to a real deployment; the absolute numbers, measured on
-a synthetic corpus, are not predictions for any particular organisation. The durable lesson sits
+a synthetic corpus, are not predictions for any particular organization. The durable lesson sits
 underneath them: a defended retrieval system must be measured by an instrument that is itself
 validated and recalibrated on the output the defense produces, because the alternative, trusting
 a single detector, reports a protection it cannot see past. This thesis reduces measured leakage

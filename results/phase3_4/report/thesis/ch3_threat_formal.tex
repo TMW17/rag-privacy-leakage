@@ -69,15 +69,15 @@
 
 This chapter fixes \emph{who} the attacker is and \emph{how} the attack reaches the system. It
 defines four attacker profiles grounded in the LINDDUN privacy-threat framework and calibrated
-against CVSS; organises the adversarial campaign into eight attack families; maps the system's
+against CVSS; organizes the adversarial campaign into eight attack families; maps the system's
 attack surface and trust boundaries; and states the threat model's limits. The formal metrics
 that score what these attackers disclose, and the synthetic ground truth they disclose it from,
-are the subject of Chapter~\ref{ch:formal}. One note on scope: the foundations summarised here
+are the subject of Chapter~\ref{ch:formal}. One note on scope: the foundations summarized here
 were written before the experimental campaign and, in a few places, anticipated components the
 campaign then revised; where that happens this chapter states what was actually built and points
 forward, rather than repeating a superseded plan.
 
-\section{Privacy threat modelling with LINDDUN}
+\section{Privacy threat modeling with LINDDUN}
 \label{sec:ch3-linddun}
 
 \subsection{Rationale for the Choice of Framework}
@@ -229,7 +229,7 @@ particular risks of the system we are studying.
   \small The system processes personal data in ways that break applicable
   data protection law, specifically the GDPR. &
   \small The system indexes full HR records when only job titles are actually
-  needed (Art.~5.1.c --- data minimisation); applies no role-based access
+  needed (Art.~5.1.c --- data minimization); applies no role-based access
   control (Art.~32 --- security of processing); and was deployed without a Data
   Protection Impact Assessment (Art.~35). &
   \small All three of these violations are present from the moment
@@ -292,7 +292,7 @@ risk that calls for structural remediation.
   {{\bfseries\color{figorange!65!black}P4 \,$\cdot$\, Third-Party}\\[3pt] {\footnotesize CVSS \textbf{7.7} \,$\cdot$\, high}\\[5pt] \footnotesize auth.\ threshold: \textbf{3}\\[3pt] \footnotesize leaks: aggregate / cross-tenant severity $\geq 4$};
 \end{tikzpicture}}
 \caption[The four attacker profiles]{The four attacker profiles, calibrated against CVSS~v3.1 base
-scores and each mapped to an authorization threshold. Colour grades severity: P3 Admin (critical,
+scores and each mapped to an authorization threshold. Color grades severity: P3 Admin (critical,
 $9.1$) and P2 External (high, $8.2$) above P4 Third-Party (high, $7.7$) and P1 Internal (medium,
 $6.5$). The threshold sets the severity level above which a disclosure counts as leakage --- P2's
 is $0$, so \emph{any} corpus disclosure leaks. Source: Chapter~\ref{ch:threat} specifications.}
@@ -399,7 +399,7 @@ dive into the detailed profile specifications.
 
 Every severity score in this chapter is derived from a \textbf{formal CVSS
 v3.1 Base Score} as specified by FIRST.org (2019), rather than from qualitative
-judgement. Each profile carries an explicit \emph{metric vector} of the form
+judgment. Each profile carries an explicit \emph{metric vector} of the form
 
 \begin{center}
 {\ttfamily\scriptsize CVSS:3.1/AV:[N|L]/AC:[L|H]/PR:[N|L|H]/UI:[N|R]/S:[U|C]/C:[H|L|N]/I:[H|L|N]/A:[H|L|N]}
@@ -1664,7 +1664,7 @@ across to processor-tier dependencies (Profile~4, via offline proxies).
 \section{The attack taxonomy}
 \label{sec:ch3-families}
 
-The adversarial campaign is organised into eight attack families (F1--F8), each a distinct
+The adversarial campaign is organized into eight attack families (F1--F8), each a distinct
 mechanism with a distinct scoring profile, together spanning the operational threat space
 (Table~\ref{tab:ch3-families}). The families map to the profiles exactly as
 Chapter~\ref{ch:baseline} uses them: F1--F7 are shared by the Internal and External profiles;
@@ -1705,7 +1705,7 @@ port --- with the application-layer attacker paths (Profiles~1--3) overlaid and 
 boundary that separates the untrusted entry point from the trusted interior marked explicitly.
 The \emph{trust-boundary map} (Figure~\ref{fig:ch3-trust-boundary}) reorganises the same
 components into trusted and untrusted zones, answering the complementary question of \emph{where}
-data crosses from attacker-controllable to organisation-controlled territory. Both diagrams
+data crosses from attacker-controllable to organization-controlled territory. Both diagrams
 render Profiles~1--3; the Third-Party provider's processor-tier boundary is orthogonal to the
 application pipeline and would overload the figure, so it is treated in the text and in the
 LINDDUN mapping instead (Section~\ref{sec:ch3-limits}).
@@ -1722,9 +1722,9 @@ trust boundary between the untrusted entry point and the trusted interior.}
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=\textwidth]{fig_trust_boundary_map.png}
-\caption{RAG system --- trust-boundary map. The same components reorganised into trusted and
+\caption{RAG system --- trust-boundary map. The same components reorganized into trusted and
 untrusted zones, showing where data crosses from attacker-controllable to
-organisation-controlled territory.}
+organization-controlled territory.}
 \label{fig:ch3-trust-boundary}
 \end{figure}
 

@@ -31,25 +31,25 @@
 \usepackage[a4paper,left=3.18cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}   % CS-layout spec: 3.18cm binding margin, 2.5cm elsewhere
 \usepackage{pdfpages}
 
-% ---- colour FIRST: tcolorbox/pgf load xcolor internally; loading it later clashes ----
+% ---- color FIRST: tcolorbox/pgf load xcolor internally; loading it later clashes ----
 \usepackage[table,dvipsnames]{xcolor}
 % PALETTE: esiblue is reserved for TITLES (headings) and FIGURES only; everything else
 % (body text, boxes, badges, table headers) renders in esidark. Blue removed from the chrome.
 \definecolor{esiblue}{RGB}{0,51,102}
 \definecolor{esidark}{RGB}{26,26,26}
-% --- Navy & Steel academic palette (requested): 60-30-10, colour-blind-safe ---
+% --- Navy & Steel academic palette (requested): 60-30-10, color-blind-safe ---
 \definecolor{primarylink}{HTML}{1565C0}    % blue: links, key terms
 \definecolor{secondarycite}{HTML}{0D47A1}  % navy: citations
 \definecolor{accentcolor}{HTML}{E53935}    % crimson: alerts / highlights
 \definecolor{darkcharcoal}{HTML}{263238}   % charcoal: headers / structural
-% Every legacy palette name now maps to esidark, so boxes / badges / inline colour are dark:
+% Every legacy palette name now maps to esidark, so boxes / badges / inline color are dark:
 \colorlet{navy}{darkcharcoal}\colorlet{steel}{darkcharcoal}\colorlet{accent}{darkcharcoal}
 \colorlet{ink}{darkcharcoal}\colorlet{headerrow}{darkcharcoal}\colorlet{steelmid}{darkcharcoal}
 \colorlet{medgray}{darkcharcoal}\colorlet{codeframe}{darkcharcoal}\colorlet{danger}{accentcolor}
 \colorlet{warn}{accentcolor}\colorlet{safe}{darkcharcoal}\colorlet{capyes}{darkcharcoal}\colorlet{capno}{darkcharcoal}
 \colorlet{rowodd}{white}\colorlet{roweven}{white}\colorlet{linddunblue}{white}
 \colorlet{blockbg}{white}\colorlet{steellight}{white}\colorlet{lightgray}{white}\colorlet{codebg}{white}
-% ---- FIGURE data-viz palette (NOT remapped; figures may use colour even though body chrome is 2-colour) ----
+% ---- FIGURE data-viz palette (NOT remapped; figures may use color even though body chrome is 2-color) ----
 \definecolor{figblue}{RGB}{31,78,121}
 \definecolor{figteal}{RGB}{33,158,150}
 \definecolor{figgreen}{RGB}{82,170,110}
@@ -89,8 +89,8 @@
 
 % ---- rich callout boxes (ONE unified set shared by Ch2 and Ch3) ----
 \usepackage[most]{tcolorbox}
-% Simple, uncoloured callout boxes: white background, thin neutral-grey frame, plain bold
-% dark title (no coloured title bars, left rules, or tinted backgrounds).
+% Simple, uncolored callout boxes: white background, thin neutral-grey frame, plain bold
+% dark title (no colored title bars, left rules, or tinted backgrounds).
 \newtcolorbox{prosebox}{enhanced, breakable, colback=white, colframe=gray!45,
   boxrule=0.5pt, arc=2pt, left=8pt, right=8pt, top=6pt, bottom=6pt}
 \newtcolorbox{notebox}{enhanced, breakable, colback=white, colframe=gray!45,
@@ -129,7 +129,7 @@
 \newcommand{\cvssvec}[1]{\texttt{\small #1}}
 
 % ---- listing styles (terminal output + python) ----
-% Legible code: override the 2-colour remap (codebg was white, codeframe charcoal) with a
+% Legible code: override the 2-color remap (codebg was white, codeframe charcoal) with a
 % light panel + soft rule + muted line numbers so listings read clearly.
 \definecolor{codebg}{HTML}{F5F7FA}      % light blue-grey code panel
 \definecolor{codeframe}{HTML}{C3CDD9}   % soft rule
@@ -167,7 +167,7 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 2pt minus 1pt}   % 0 before / 12 after
 % CS-layout spec: main text JUSTIFIED (LaTeX default; previous \RaggedRight removed)
-% H1 chapter: 16pt bold ALL CAPS, centred, 0 before / 24 after, single-spaced
+% H1 chapter: 16pt bold ALL CAPS, centered, 0 before / 24 after, single-spaced
 \titleformat{\chapter}[display]
   {\sffamily\singlespacing\centering\bfseries\color{darkcharcoal}\fontsize{16}{19}\selectfont}
   {\MakeUppercase{\chaptertitlename}\ \thechapter}{6pt}{\MakeUppercase}
@@ -196,8 +196,8 @@
 \begin{abstract}
 \noindent Enterprise retrieval-augmented generation (RAG) makes a sensitive document
 corpus conversationally accessible, and in doing so can disclose personal data to users and
-attackers not authorised to see it. This thesis measures that leakage rather than asserting
-it. It formalises a LINDDUN-aligned metric pair (a binary leakage function $L$ and a
+attackers not authorized to see it. This thesis measures that leakage rather than asserting
+it. It formalizes a LINDDUN-aligned metric pair (a binary leakage function $L$ and a
 severity score $S$) evaluated through a profile-dependent engine across four CVSS-calibrated
 attacker profiles and a systematic adversarial campaign of eight attack families, over a
 deterministically generated corpus of 155 synthetic documents (2{,}190 entity-level PII
@@ -210,10 +210,10 @@ attributes scattered across documents, is the dominant unreduced residual, and i
 \emph{intractable at the model layer} across three independent mechanisms: redaction,
 query-time $k$-anonymity, and ingestion-time $k$-anonymity all fail or are foreclosed by their
 information cost. Linkage is therefore a \emph{data-governance} problem, not a model-layer one:
-access control \emph{solves} the external, unauthorised attacker, whereas the authorised user
-who brings outside knowledge leaves a residual that can be \emph{bounded}, minimised and
+access control \emph{solves} the external, unauthorized attacker, whereas the authorized user
+who brings outside knowledge leaves a residual that can be \emph{bounded}, minimized and
 audited, but not eliminated. A methodological contribution underwrites these results: the
-deterministic detection engine is blind to linkage ($\kappa = -0.10$ against human judgement),
+deterministic detection engine is blind to linkage ($\kappa = -0.10$ against human judgment),
 while the language-model judge, reliable on undefended output ($\kappa = 0.827$), degrades on
 the defended distribution ($\kappa = 0.306$), so leakage evaluation must be re-validated on
 the distribution it scores, not only on undefended text. The absolute percentages demonstrate
@@ -233,7 +233,7 @@ by linkage, LLM-as-judge evaluation, data governance, GDPR.
 \chapter*{Acknowledgments}
 \addcontentsline{toc}{chapter}{Acknowledgments}
 \markboth{Acknowledgments}{}
-% NOTE: personalise this wording before submission --- it names the real supervisors, but the
+% NOTE: personalize this wording before submission --- it names the real supervisors, but the
 % sentiment should be your own.
 I would like to express my sincere gratitude to my supervisors, Professor Esma Aïmeur and
 Professor Souleyman Chaib, for their guidance, insight, and patience throughout this work. I am
@@ -246,7 +246,7 @@ constant support and encouragement.
 \addcontentsline{toc}{chapter}{Problem Statement}
 \markboth{Problem Statement}{}
 
-Organisations hold years of sensitive internal data: human-resources files, medical reports,
+Organizations hold years of sensitive internal data: human-resources files, medical reports,
 internal memoranda, and system configurations. Increasingly they want this data conversationally
 accessible, and retrieval-augmented generation makes that possible. Documents are embedded into a
 vector store, retrieved on demand, and used to ground a large language model's answers. The
@@ -255,11 +255,11 @@ not know who is allowed to see what, and neither does the model; both are built 
 \emph{helpful} rather than \emph{minimally informative}. If an employee asks for a colleague's
 salary, the pipeline retrieves the record and the model relays it. If an outside attacker hides an
 instruction in a document that the retriever later fetches, the same pipeline can be steered into
-disclosure. Two well-documented phenomena combine here into a third: language models can memorise
-and reproduce training data, and adversarial prompts can steer model behaviour; in RAG, the
+disclosure. Two well-documented phenomena combine here into a third: language models can memorize
+and reproduce training data, and adversarial prompts can steer model behavior; in RAG, the
 retriever itself becomes a channel into the model's context that an attacker can influence.
 
-The consequences fall under data-protection law, the GDPR in particular, where unauthorised
+The consequences fall under data-protection law, the GDPR in particular, where unauthorized
 disclosure of personal data is a reportable harm. They are compounded by the nature of the most
 damaging leak. The worst disclosure in this setting is not a single record read out verbatim, but
 \emph{re-identification by linkage}: a person reconstructed from attributes that are individually
@@ -268,7 +268,7 @@ filter can excise, which makes it both hard to prevent and, as this thesis argue
 measure. The substantive question is therefore threefold. How much sensitive data does a baseline
 enterprise RAG deployment leak, under what attack conditions and against which attacker? How much
 do existing defenses actually reduce that leakage under matched conditions? And, underlying both,
-how do we know the measurement itself is trustworthy rather than an artefact of one instrument's
+how do we know the measurement itself is trustworthy rather than an artifact of one instrument's
 blind spots?
 
 % ====================== PROPOSED APPROACH (after abstract) ======================
@@ -280,7 +280,7 @@ This thesis addresses the problem by building one unified measurement framework 
 to a controlled enterprise-RAG testbed, rather than by proposing a new attack or a new defense in
 isolation. The framework has five parts, each closing a gap identified in the literature review.
 First, it gives privacy leakage a precise mathematical foundation through two complementary
-metrics: the binary leakage function $L$, which decides whether an unauthorised disclosure
+metrics: the binary leakage function $L$, which decides whether an unauthorized disclosure
 occurred, and the continuous severity score $S$, which measures how serious it was. Both are
 grounded in the LINDDUN privacy-threat taxonomy and made operational by a profile-dependent
 authorization threshold. Second, it fixes the threat surface in advance as four attacker profiles

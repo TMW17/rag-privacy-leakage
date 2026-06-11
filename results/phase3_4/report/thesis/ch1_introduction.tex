@@ -34,7 +34,7 @@
 \section{Context and motivation}
 \label{sec:intro-context}
 
-Organisations hold years of sensitive internal data: human-resources files, medical reports,
+Organizations hold years of sensitive internal data: human-resources files, medical reports,
 internal memoranda, and system configurations. Increasingly they want this data conversationally
 accessible, and retrieval-augmented generation (RAG) makes that possible. Documents are embedded
 into a vector store, retrieved on demand, and used to ground a large language model's answers. The
@@ -43,11 +43,11 @@ nor the model knows who is allowed to see what; both are built to be \emph{helpf
 \emph{minimally informative}. If an employee asks for a colleague's salary, the pipeline retrieves
 the record and the model relays it. If an outside attacker hides an instruction in a document that
 the retriever later fetches, the same pipeline can be steered into disclosure \cite{greshake2023ipi}.
-Two well-documented phenomena combine here into a third: language models can memorise and reproduce
-training data \cite{carlini2021extracting}, and adversarial prompts can steer model behaviour; in
+Two well-documented phenomena combine here into a third: language models can memorize and reproduce
+training data \cite{carlini2021extracting}, and adversarial prompts can steer model behavior; in
 RAG, the retriever itself becomes a channel into the model's context that an attacker can influence.
 
-The consequences fall under data-protection law, the GDPR in particular, where unauthorised
+The consequences fall under data-protection law, the GDPR in particular, where unauthorized
 disclosure of personal data is a reportable harm. They are compounded by the nature of the worst
 leak. The most damaging disclosure here is not a single record read out verbatim, but
 \emph{re-identification by linkage}: a person reconstructed from attributes that are individually
@@ -60,7 +60,7 @@ filter can excise, which makes it both hard to prevent and, as this thesis argue
 The substantive question is threefold. How much sensitive data does a baseline enterprise RAG
 deployment leak, under what attack conditions and against which kinds of attacker? How much do
 existing defense mechanisms actually reduce that leakage when measured under matched conditions?
-And, underlying both, how do we know the measurement itself is trustworthy rather than an artefact
+And, underlying both, how do we know the measurement itself is trustworthy rather than an artifact
 of one instrument's blind spots? The last question turns out to be central. A defended RAG system
 can look almost perfectly protected or substantially leaky depending only on which instrument does
 the measuring, and resolving that ambiguity is as much a part of the contribution as the leakage
@@ -70,7 +70,7 @@ numbers themselves.
 \label{sec:intro-gap}
 
 The relevant literature divides into five active areas: RAG-specific vulnerabilities, PII
-memorisation and leakage in language models, prompt-injection taxonomies, defense mechanisms and
+memorization and leakage in language models, prompt-injection taxonomies, defense mechanisms and
 guardrail architectures, and LLM-as-judge evaluation. Each is mature within its own boundaries.
 But none addresses their intersection, as the review in Chapter~\ref{ch:sota} establishes across
 fifty primary sources: the point where RAG-specific attacks meet PII-specific privacy metrics, a
@@ -104,7 +104,7 @@ The contribution of this thesis is convergence rather than invention. It does no
 attack technique or a new defense mechanism: the attacks are drawn from the published literature,
 and the defense layers are existing, deployed tools. What the surveyed work lacks, and what this
 thesis builds, is the integration of five capabilities into one framework applied to RAG: a
-mathematically formalised, LINDDUN-aligned leakage metric pair $(L,S)$ with a profile-dependent
+mathematically formalized, LINDDUN-aligned leakage metric pair $(L,S)$ with a profile-dependent
 evaluation engine (Chapter~\ref{ch:formal}); a systematic adversarial campaign across eight attack
 families (Chapter~\ref{ch:baseline}); a layered defense whose effect is quantified with $\Delta S$
 (Chapters~\ref{ch:defenses} and~\ref{ch:tradeoff}); and a validated language-model judge as the
@@ -116,7 +116,7 @@ a single instrument is wrong in a direction the analyst cannot see: a determinis
 to the semantic and cross-document leakage that survives a defense, records its own blindness as
 protection. This thesis demonstrates the effect on a controlled corpus (Chapter~\ref{ch:defenses})
 and argues in the discussion (Chapter~\ref{ch:discussion}) that the \emph{direction} of the error
-generalises beyond that corpus, even though the \emph{magnitude} does not. The thesis is also
+generalizes beyond that corpus, even though the \emph{magnitude} does not. The thesis is also
 explicit about what it is not: not a new attack, not a new defense, and not a certified, deployable
 product. The findings below make that boundary concrete.
 
@@ -149,7 +149,7 @@ formal $(L,S)$ foundations, the synthetic corpus, and its annotation. Chapter~\r
 undefended baseline (RQ1). Chapter~\ref{ch:defenses} assembles the layered defense, measures its
 effect through two instruments, and validates the judge (RQ2, RQ3). Chapter~\ref{ch:tradeoff}
 quantifies the security--utility trade-off and the residual risk (RQ4, RQ5).
-Chapter~\ref{ch:discussion} synthesises the five questions into a single argument and states the
+Chapter~\ref{ch:discussion} synthesizes the five questions into a single argument and states the
 limitations, and Chapter~\ref{ch:conclusion} concludes with the contribution and future work.
 
 \ifdefined\ThesisMaster\else

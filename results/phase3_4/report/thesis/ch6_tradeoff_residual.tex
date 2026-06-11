@@ -276,13 +276,13 @@ redaction (L2) does the work and the residual persists. Source: \texttt{severity
 \section{The risk matrix: where severity stratifies the residual}
 \label{sec:ch6-risk}
 
-Severity earns its place most clearly when the residual is organised by where the harm
+Severity earns its place most clearly when the residual is organized by where the harm
 concentrates. Scored family by family on the leakage that survives the recommended
 configuration, weighted by the family's severity, re-identification by linkage is the dominant
 residual risk, while direct disclosure, once the leading threat, is brought well down
 (Table~\ref{tab:ch6-riskfam}). This is the risk matrix in which the severity score does its real
 work: not as a second headline rate, but as the weight that turns a surviving attack-success
-rate into a prioritised risk.
+rate into a prioritized risk.
 
 \begin{table}[h]
 \centering
@@ -346,13 +346,13 @@ The scope is one mailbox and one run: a direction, not a generalization claim.
 The third probe tests the residual directly, and returns a null. Linkage is the component the
 redaction stack cannot reach: direct extraction collapses under redaction while family F2 holds
 near $0.6$--$0.7$ (Section~\ref{sec:ch6-residual}). The defense the privacy literature points to
-for linkage is not redaction but \emph{$k$-anonymity}: generalising or suppressing the
+for linkage is not redaction but \emph{$k$-anonymity}: generalizing or suppressing the
 quasi-identifiers that, in combination, single a person out, the same criterion used for the
 corpus's re-identification analysis in Chapter~\ref{ch:formal}. We implemented exactly that
 defense as a post-retrieval gate: it tracks the quasi-identifiers surfaced about each retrieved
-person, computes the candidate-set size $k$ against the corpus, and generalises or suppresses a
+person, computes the candidate-set size $k$ against the corpus, and generalizes or suppresses a
 quasi-identifier whenever disclosing it would push $k$ below a threshold: multi-attribute
-combinatorial generalisation, distinct from the single-attribute recall-closure and the
+combinatorial generalization, distinct from the single-attribute recall-closure and the
 conversational refusal already in the stack (Chapter~\ref{ch:defenses}). One design assumption was
 \emph{falsified} in testing and is worth recording: we expected linkage to accumulate across
 conversational turns, but each retrieved record exposes its full attribute set in a single chunk,
@@ -384,14 +384,14 @@ record is retrieved.
 \node[sup, right=5mm of d1] (ds) {$\ast$ suppress};
 \foreach \a/\b in {a0/a1,a1/as,s0/s1,s1/ss,d0/d1,d1/ds} \draw[ar] (\a)--(\b);
 \node[above=4mm of a0, font=\scriptsize\itshape, text=figteal!42!black] {L0: specific};
-\node[above=4mm of a1, font=\scriptsize\itshape, text=figorange!58!black] {L1: generalised};
+\node[above=4mm of a1, font=\scriptsize\itshape, text=figorange!58!black] {L1: generalized};
 \node[above=4mm of as, font=\scriptsize\itshape, text=figcoral!48!black] {terminal: suppress};
 \end{tikzpicture}}
-\caption[The quasi-identifier generalisation ladders]{The pre-registered quasi-identifier
-generalisation hierarchy used by the linkage probes (three of the seven QIs shown). Each attribute
-climbs its ladder --- specific value (L0, teal), generalised group (L1, amber), then suppression
+\caption[The quasi-identifier generalization ladders]{The pre-registered quasi-identifier
+generalization hierarchy used by the linkage probes (three of the seven QIs shown). Each attribute
+climbs its ladder --- specific value (L0, teal), generalized group (L1, amber), then suppression
 (coral) --- as $k$-anonymity demands. The same hierarchy drives both the query-time gate (L7) and
-the ingestion-time generalisation (P7). Source: \texttt{l7\_consistency\_check.py}
+the ingestion-time generalization (P7). Source: \texttt{l7\_consistency\_check.py}
 (\texttt{QI\_HIERARCHY}).}
 \label{fig:ch6-qiladder}
 \end{figure}
@@ -399,8 +399,8 @@ the ingestion-time generalisation (P7). Source: \texttt{l7\_consistency\_check.p
 The evaluation was disciplined deliberately, because a linkage defense is precisely where a loose
 protocol manufactures a win. Three guards were fixed before the run. The reading rules were
 \emph{pre-registered}: a threshold sweep $k\in\{2,5,10\}$, a monotonic-shape expectation (tighter
-$k$ should lower the leak and raise the share of attributes generalised), and the lowest cell
-$k=2$, the only one whose generalisation rate is non-blanket ($0.34$ of attribute-turns,
+$k$ should lower the leak and raise the share of attributes generalized), and the lowest cell
+$k=2$, the only one whose generalization rate is non-blanket ($0.34$ of attribute-turns,
 against $0.73$ and $0.77$ at $k=5,10$), named in advance as the clean discriminator. A
 \emph{random-same-rate control} was run beside the gate at every $k$: it removes the same volume of
 quasi-identifiers, chosen at random rather than by $k$, so that any reduction can be attributed to
@@ -411,7 +411,7 @@ used throughout.
 
 Those instruments re-stage this chapter's central argument. The deterministic engine \emph{cannot}
 evaluate the defense: it scores names and other discrete entities at severity $\ge 3$, whereas the
-gate generalises quasi-identifiers and never touches names, so the engine is structurally blind to
+gate generalizes quasi-identifiers and never touches names, so the engine is structurally blind to
 the gate's target, the same blindness that leaves its agreement with the human on linkage at
 $\kappa = -0.10$, no better than chance (RQ3, Chapter~\ref{ch:defenses}). Evaluating a linkage
 \emph{defense}, no less than measuring a linkage \emph{leak}, requires the semantic judge.
@@ -419,13 +419,13 @@ $\kappa = -0.10$, no better than chance (RQ3, Chapter~\ref{ch:defenses}). Evalua
 Table~\ref{tab:ch6-l7} reports the judged-strict linkage rate for the gate, the random control, and
 an in-session baseline across the sweep. The result is a null. At $k=2$, the non-blanket cell where
 targeting would have to appear, gate, control, and baseline coincide at $0.7$: combinatorial
-generalisation buys nothing over removing the same volume at random, and nothing over doing
+generalization buys nothing over removing the same volume at random, and nothing over doing
 nothing. The one cell that falls, the gate at $k=5$, $0.4$ against the baseline's $0.7$, is
 not a result, on three independent grounds: it lies within a single confidence interval ($\pm0.30$
-at ten scenarios), it occurs only at a near-blanket generalisation rate ($0.73$, bulk removal by
-the pre-registered rule rather than targeting), and it is non-monotonic: $k=10$ generalises
+at ten scenarios), it occurs only at a near-blanket generalization rate ($0.73$, bulk removal by
+the pre-registered rule rather than targeting), and it is non-monotonic: $k=10$ generalizes
 \emph{more} yet leaks \emph{more} ($0.6$), the inverted-curve signature pre-registered as noise.
-Combinatorial $k$-anonymity does not reduce judged linkage even at near-blanket generalisation.
+Combinatorial $k$-anonymity does not reduce judged linkage even at near-blanket generalization.
 
 \begin{table}[h]
 \centering
@@ -470,7 +470,7 @@ $10$ & $0.6$ & $0.7$ & $0.7$ & $0.774$\\
 combinatorial $k$-anonymity gate, a random-same-rate control, and an in-session baseline across the
 threshold sweep (ten F2 scenarios; per-scenario step $0.1$, interval $\approx\pm0.30$). At the
 non-blanket cell ($k{=}2$) gate, control, and baseline coincide at $0.7$; the gate's dip at $k{=}5$
-($0.4$) lies within one interval, occurs only at near-blanket generalisation ($0.73$), and is
+($0.4$) lies within one interval, occurs only at near-blanket generalization ($0.73$), and is
 non-monotonic ($k{=}10$ leaks more). The result is a null. Source: \texttt{l7\_judge\_sweep.log}.}
 \label{fig:ch6-l7sweep}
 \end{figure}
@@ -489,44 +489,44 @@ for to close a linkage residual was implemented, controlled against bulk redacti
 on the only instrument that can see linkage, and the leak persisted, as it persisted against the
 redaction stack. This is evidence for the intractability claim rather than an assertion of it:
 linkage resists not only the redaction that defeats extraction but also the quasi-identifier
-generalisation built to counter it. It also sharpens the open direction. A query-time gate fails
+generalization built to counter it. It also sharpens the open direction. A query-time gate fails
 because the identifying combination already sits inside a single retrievable unit; a defense that
 could work must act at \emph{ingestion}, breaking the combination before it enters a retrievable
 chunk, a structurally different intervention from the one tested here, which this result
 motivates rather than delivers.
 
-\section{Ingestion-time generalisation: foreclosed by its information cost}
+\section{Ingestion-time generalization: foreclosed by its information cost}
 \label{sec:ch6-p7}
 
-The probe above generalised at \emph{query time}: it altered the chunks a query retrieved while the
+The probe above generalized at \emph{query time}: it altered the chunks a query retrieved while the
 unredacted record remained in the index, one retrieval away, and it did not move the residual. The obvious
-stronger version acts at \emph{ingestion}: generalise the ground-truth records \emph{before} they are
-serialised and embedded, so the unredacted record never enters the index at all. We examined whether that
+stronger version acts at \emph{ingestion}: generalize the ground-truth records \emph{before} they are
+serialized and embedded, so the unredacted record never enters the index at all. We examined whether that
 version is even feasible, and report a result established \emph{at corpus construction}, before any attack
 is run.
 
 Applying the same pre-registered, consistency-checked QI hierarchy (the one that reproduces the
 committed $84/100$ and $40/63$, Chapter~\ref{ch:formal}) to the hundred ground-truth employee records,
-we built a globally $k$-anonymous corpus for each $k\in\{2,5,10\}$: generalising quasi-identifiers up their
+we built a globally $k$-anonymous corpus for each $k\in\{2,5,10\}$: generalizing quasi-identifiers up their
 ladders until every record's combination is shared by at least $k$ records, and suppressing the residual
-records that remain unique even at maximum generalisation. Table~\ref{tab:ch6-p7} reports the information
+records that remain unique even at maximum generalization. Table~\ref{tab:ch6-p7} reports the information
 cost of reaching each $k$.
 
 Anonymity is \emph{achievable}: all three corpora reach their target $k$. But the cost of reaching even
 the weakest, $k=2$, is to remove roughly half of the quasi-identifier information (an information loss of
-$0.52$, with four of the seven quasi-identifiers pushed to near-maximal generalisation) \emph{and} to
+$0.52$, with four of the seven quasi-identifiers pushed to near-maximal generalization) \emph{and} to
 delete nine of the hundred records outright; $k=5$ and $k=10$ cost more still ($0.60$ and $0.67$). The
 corpus that ingestion-time $k$-anonymity produces is, at every setting, too degraded to serve the benign
 workload it exists for. Ingestion-time $k$-anonymity is therefore foreclosed as a practical defense,
-not because it fails to reduce linkage, which we did not test, but because the anonymised corpus is
+not because it fails to reduce linkage, which we did not test, but because the anonymized corpus is
 unusable: a conclusion reached at construction, before evaluation.
 
 \begin{table}[h]
 \centering
 \caption{Information cost of reaching global $k$-anonymity at ingestion, over the hundred employee
 records. ``Info-loss'' is the fraction of total quasi-identifier information removed (full-domain
-generalisation height); ``dropped'' is records suppressed because they remain unique at maximum
-generalisation. All three reach their target $k$; no F2 attack was run (see text). Source:
+generalization height); ``dropped'' is records suppressed because they remain unique at maximum
+generalization. All three reach their target $k$; no F2 attack was run (see text). Source:
 \texttt{p7\_build\_corpora.py} and \texttt{corpus\_k\{2,5,10\}.json} (commit \texttt{8f25d54}).}
 \label{tab:ch6-p7}
 \begin{tabular}{cccc}
@@ -571,8 +571,8 @@ run --- the approach is foreclosed at construction (Table~\ref{tab:ch6-p7}). Sou
 \end{figure}
 
 We deliberately did not run the F2 attack against these corpora, for the same pre-registered reason that
-governed the L7 probe: a reduction in linkage that appears only under near-blanket generalisation reads as
-\emph{the corpus was gutted}, not \emph{the defense works}. At $k=2$ the generalisation is already
+governed the L7 probe: a reduction in linkage that appears only under near-blanket generalization reads as
+\emph{the corpus was gutted}, not \emph{the defense works}. At $k=2$ the generalization is already
 near-blanket (an information loss of $0.52$), so a measured drop would be uninterpretable as a defense at
 an operating point no deployment would accept. The feasibility gate has already foreclosed the approach;
 running the attack would add cost without changing the conclusion. The economy is deliberate, not
@@ -581,13 +581,13 @@ unfinished work.
 Three mechanisms have now been brought against the linkage residual: redaction, which defeats extraction
 but leaves linkage near $0.6$ (Section~\ref{sec:ch6-residual}); query-time $k$-anonymity (L7), with no
 measured effect; and ingestion-time $k$-anonymity, foreclosed here by its information cost. At both query
-and ingestion time, and by both targeted and bulk generalisation, linkage does not yield cheaply, and
+and ingestion time, and by both targeted and bulk generalization, linkage does not yield cheaply, and
 the reason was visible from the formal analysis: re-identification is a property of the \emph{information
 itself} (four quasi-identifiers already make $84$ of $100$ employees unique, Chapter~\ref{ch:formal}), so
 removing enough of it to stop linkage necessarily destroys the utility the corpus exists to provide. This
 is the privacy--utility tension made concrete, and it reframes the residual as a \emph{data-governance}
-problem rather than a model-layer one: the defensible response to linkage is to minimise what enters the
-corpus and to control who may retrieve it (the access-control direction of L5), not to generalise a
+problem rather than a model-layer one: the defensible response to linkage is to minimize what enters the
+corpus and to control who may retrieve it (the access-control direction of L5), not to generalize a
 corpus that must remain useful.
 
 \section{Summary}
@@ -607,7 +607,7 @@ stack is $17.3\%$ in leakage and $\bar{S}_{\text{residual}} = 0.371$ in judged s
 $\Delta S$ of $0.494$ from baseline), with re-identification by linkage the dominant unreduced
 component in both registers; restoring the severity score closes the $(L,S)$ framework's second
 half, and the risk matrix shows where that residual severity concentrates. The exploratory
-probes point toward a sharper redactor and toward generalisation beyond the synthetic corpus,
+probes point toward a sharper redactor and toward generalization beyond the synthetic corpus,
 but as directions, not measured results. The headline residual of $17.3\%$ stands, now described
 in both of the formal metrics the thesis set out to measure.
 

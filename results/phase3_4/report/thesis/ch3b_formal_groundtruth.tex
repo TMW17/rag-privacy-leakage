@@ -252,7 +252,7 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
 \draw[ar] (r) -- (ent);
 \draw[ar] (ent) -- (L);
 \draw[ar] (ent) -- (S);
-\draw[ar, figblue!70!black] (u) -- node[right,font=\scriptsize]{authorises} (L);
+\draw[ar, figblue!70!black] (u) -- node[right,font=\scriptsize]{authorizes} (L);
 \end{tikzpicture}}
 \caption[Computing the two leakage metrics $L$ and $S$]{Computing the two leakage metrics from a
 response. Each detected entity $e\in E(r,D,u)$ carries an intrinsic severity $s(e)\in\{2,\dots,5\}$
@@ -569,7 +569,7 @@ The annotation pipeline instantiates 31 of the 36 entity types defined in Table~
 
 The four are \texttt{CREDIT\_CARD} (severity~5), \texttt{PASSPORT\_ID} (severity~4), \texttt{QUASI\_IDENTIFIER} (severity~4), and \texttt{PARTIAL\_ADDRESS} (severity~3). Their absence falls into two distinct categories, each requiring a different justification.
 
-The first two are \textbf{scope decisions tied to the Algerian enterprise context}. A typical Algerian HR system stores the national identity number (carte d'identité nationale) and the IBAN for payroll. Passport numbers belong to the travel-and-mobility documentation flow, which is administered separately from the core HR record, and credit card numbers are not part of HR data at all (payroll moves through bank transfer). We model what the RAG system would actually retrieve from a realistic corpus, not what an exhaustive PII catalogue would contain. This means our results do not generalize to deployments that index passport scans (e.g., HR systems serving multinational mobility programs) or to consumer-facing RAG applications that handle payment data. Those deployments fall outside the threat model defined in Section~\ref{sec:ch3-profiles}.
+The first two are \textbf{scope decisions tied to the Algerian enterprise context}. A typical Algerian HR system stores the national identity number (carte d'identité nationale) and the IBAN for payroll. Passport numbers belong to the travel-and-mobility documentation flow, which is administered separately from the core HR record, and credit card numbers are not part of HR data at all (payroll moves through bank transfer). We model what the RAG system would actually retrieve from a realistic corpus, not what an exhaustive PII catalog would contain. This means our results do not generalize to deployments that index passport scans (e.g., HR systems serving multinational mobility programs) or to consumer-facing RAG applications that handle payment data. Those deployments fall outside the threat model defined in Section~\ref{sec:ch3-profiles}.
 
 The other two (\texttt{QUASI\_IDENTIFIER} and \texttt{PARTIAL\_ADDRESS}) are \textbf{computed attributes, not stored fields}. A quasi-identifier emerges when several individually low-severity attributes (department, salary band, age range) combine into a unique fingerprint. A partial address surfaces when a free-text response says ``the Finance employee in Algiers'' rather than reproducing a full street address. Neither is a value sitting in any document we generated. Annotating them per-instance would have required us to enumerate every possible combination across the 100 employee records, a Cartesian product running into the tens of thousands of pseudo-entities, most of which would never appear in any RAG response.
 
@@ -589,7 +589,7 @@ The four uncovered types should be read as \textbf{documented per-entity scope b
 \label{subsec:ch3-kappa}
 
 A taxonomy two people read differently is noise, not a measuring instrument, so its
-reproducibility was validated before any experiment. Two annotators independently labelled the
+reproducibility was validated before any experiment. Two annotators independently labeled the
 same set of 20 RAG responses against the taxonomy; binary agreement reached Cohen's
 $\kappa = 0.875$ ($P_o = 0.95$, $P_e = 0.60$) and weighted ordinal agreement $\kappa_w = 0.968$,
 both in the ``strong''/``near-perfect'' band and clearing the $\kappa \geq 0.80$ acceptance bar.
@@ -610,7 +610,7 @@ to a detector by its method --- regex for deterministic identifiers, NER for nam
 keyword-in-context for cued disclosure, and a language-model judge for the paraphrased and
 inferential leakage that no literal match can catch. The foundations scoped this judge as a
 component to be calibrated against baseline measurements rather than against a stub; in the
-experimental campaign it was realised as a \emph{single validated judge} (Claude Opus~4.7),
+experimental campaign it was realized as a \emph{single validated judge} (Claude Opus~4.7),
 agreeing with the human at $\kappa = 0.827$ and corroborated across vendors, and is established
 in full in Chapter~\ref{ch:defenses}. An earlier design anticipated a multi-agent arbitration
 panel; that was found to be circular --- an arbitrator drawn from the same model family cannot
@@ -636,7 +636,7 @@ can, in principle, single them out.
 
 \paragraph{Reading the 84-in-100 figure honestly.} This number is best read as an \emph{upper
 bound} on the corpus's intrinsic combinatorial uniqueness, not a conservative one. Because each
-attribute is sampled \emph{independently}, the synthetic corpus maximises the number of distinct
+attribute is sampled \emph{independently}, the synthetic corpus maximizes the number of distinct
 quasi-identifier combinations; a real corpus, where attributes correlate (salaries cluster,
 conditions track age and occupation), would yield \emph{fewer} distinct combinations and thus
 less intrinsic uniqueness. This is a separate matter from the observation that real-world
@@ -646,12 +646,12 @@ deliberately omits. The two arguments point in opposite directions and must not 
 
 \paragraph{$l$-diversity, and a self-caught error.} The companion $l$-diversity analysis
 illustrates the framework catching its own mistake. The original computation returned 100\%
-vulnerability, but this was a definitional artefact: \texttt{medical\_condition} appeared in both
+vulnerability, but this was a definitional artifact: \texttt{medical\_condition} appeared in both
 the grouping keys and the sensitive set, forcing $l = 1$ on every class by construction. The
 corrected analysis (sensitive set \{name, national ID, salary\}) reports \textbf{40 of 63
 equivalence classes (63\%) vulnerable} at $n = 100$ for the seed-42 corpus. A 200-trial Monte
 Carlo simulation --- each drawing a fresh 100-employee corpus --- shows the $n = 100$ rate is not
-an artefact of the particular seed (mean 58.7\%, range $[47.5\%, 65.7\%]$); scaling the
+an artifact of the particular seed (mean 58.7\%, range $[47.5\%, 65.7\%]$); scaling the
 \emph{population size} then shows the threat is genuinely sample-size driven, the rate falling to
 4.7\% at $n = 1{,}000$, which on a thousand-employee enterprise still implies roughly 47
 individuals in sensitive-attribute-leaking classes. The threat is real at every population size

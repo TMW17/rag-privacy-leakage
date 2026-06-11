@@ -203,7 +203,7 @@ undefended text may misscore post-defense responses.
 brought against the residual: retrieval redaction (linkage unmoved), query-time $k$-anonymity (no
 measured effect), and ingestion-time $k$-anonymity (foreclosed by its information cost). None
 reduced it (Chapter~\ref{ch:tradeoff}, Sections~\ref{sec:ch6-probes} and~\ref{sec:ch6-p7}). The defensible
-response is to minimise what enters the corpus and to control who may retrieve it, not a post-hoc model
+response is to minimize what enters the corpus and to control who may retrieve it, not a post-hoc model
 defense.
 \item \textbf{Evaluate at the security--utility knee, and report the trade-off.} The full stack's marginal
 security over the redaction-plus-refusal knee (C01100) lies within the noise floor, while protection
@@ -219,10 +219,10 @@ These findings bear on obligations under the instruments this work aligns with: 
 (Regulation (EU) 2016/679), the NIS2 Directive (Directive (EU) 2022/2555), and ISO/IEC 27001:2022.
 What follows, though, is a \emph{mapping of measured results to regulatory themes, not a legal compliance
 assessment}. The linkage residual and the re-identification finding (four quasi-identifiers already make
-$84$ of $100$ employees unique, Chapter~\ref{ch:formal}) bear on the GDPR's data-minimisation principle
-(Art.\ 5(1)(c)) and its standard for anonymisation: a corpus carrying these quasi-identifiers supports
+$84$ of $100$ employees unique, Chapter~\ref{ch:formal}) bear on the GDPR's data-minimization principle
+(Art.\ 5(1)(c)) and its standard for anonymization: a corpus carrying these quasi-identifiers supports
 re-identification and is, on this evidence, not anonymous in that sense, which grounds the
-corpus-minimisation recommendation. The access-control recommendation bears on the security-of-processing
+corpus-minimization recommendation. The access-control recommendation bears on the security-of-processing
 and access-control controls common to the GDPR (Art.\ 32), NIS2, and ISO/IEC 27001. The judge-calibration
 finding bears on the accountability principle (Art.\ 5(2)): automated privacy-evaluation evidence is only
 as valid as the instrument's calibration on the distribution it scores. We claim no more than relevance to
@@ -237,7 +237,7 @@ Each recommendation cites a committed result; the regulatory column is a mapping
 \toprule
 \textbf{Recommendation} & \textbf{Grounding finding (chapter)} & \textbf{Regulatory bearing}\\
 \midrule
-Redaction is necessary, not sufficient & Linkage unmoved at $0.60$ (\S\ref{sec:ch6-residual}) & GDPR data minimisation (Art.\ 5(1)(c))\\
+Redaction is necessary, not sufficient & Linkage unmoved at $0.60$ (\S\ref{sec:ch6-residual}) & GDPR data minimization (Art.\ 5(1)(c))\\
 \midrule
 Entity detection cannot certify linkage & Engine $\kappa=-0.10$, RQ3 (Ch.~\ref{ch:defenses}) & GDPR accountability (Art.\ 5(2))\\
 \midrule
@@ -261,7 +261,7 @@ mapping identifies which obligations the findings touch without asserting compli
 \label{sec:disc-governance}
 
 The three negatives of the preceding chapters (redaction, the query-time gate L7, and the
-ingestion-time generalisation P7) establish that linkage cannot be defended at the model layer
+ingestion-time generalization P7) establish that linkage cannot be defended at the model layer
 without destroying utility, because re-identification is a property of the information itself
 \cite{sweeney2002kanonymity}: four quasi-identifiers make $84$ of $100$ employees unique
 (Chapter~\ref{ch:formal}). What follows is therefore \emph{not} another model-layer defense, and
@@ -282,7 +282,7 @@ else the controls \emph{bound}, \emph{reduce}, or \emph{make accountable}.
   c3/.style={draw=figamber!85!black, fill=figamber!20, rounded corners=3pt, minimum height=14mm, minimum width=26mm, align=center, very thick, text=figorange!55!black},
   ar/.style={->, thick, figslate!70!black}]
 \node[stage] (corpus) {Corpus};
-\node[c1, right=5mm of corpus] (c1) {\textbf{C1}\\\footnotesize data\\minimisation};
+\node[c1, right=5mm of corpus] (c1) {\textbf{C1}\\\footnotesize data\\minimization};
 \node[stage, right=5mm of c1] (ret) {Retrieval};
 \node[c2, right=5mm of ret] (c2) {\textbf{C2}\\\footnotesize access\\control};
 \node[stage, right=5mm of c2] (gen) {Generation};
@@ -290,40 +290,40 @@ else the controls \emph{bound}, \emph{reduce}, or \emph{make accountable}.
 \node[stage, right=5mm of c3] (ans) {Answer};
 \draw[ar](corpus)--(c1);\draw[ar](c1)--(ret);\draw[ar](ret)--(c2);\draw[ar](c2)--(gen);\draw[ar](gen)--(c3);\draw[ar](c3)--(ans);
 \node[draw=figgreen!75!black, fill=figgreen!15, rounded corners=3pt, align=center, text width=48mm, font=\footnotesize, text=figgreen!32!black, below=11mm of ret] (ext) {\textbf{External attacker:} \emph{solved}\\(no sensitive tier served)};
-\node[draw=figcoral!75!black, fill=figcoral!12, rounded corners=3pt, align=center, text width=54mm, font=\footnotesize, text=figcoral!45!black, below=11mm of gen] (auth) {\textbf{Authorised user $+$ auxiliary knowledge:}\\\emph{bounded}, not eliminated};
+\node[draw=figcoral!75!black, fill=figcoral!12, rounded corners=3pt, align=center, text width=54mm, font=\footnotesize, text=figcoral!45!black, below=11mm of gen] (auth) {\textbf{Authorized user $+$ auxiliary knowledge:}\\\emph{bounded}, not eliminated};
 \end{tikzpicture}}
 \caption[The governance-of-access controls]{The three governance-of-access controls as a
-defence-in-depth: \textbf{C1} minimise what enters the corpus, \textbf{C2} gate retrieval by
-authorisation, \textbf{C3} control aggregation at the answer layer. Against the external,
-unauthorised attacker the approach \emph{solves} the problem (nothing sensitive is served); for
-the authorised user who brings outside knowledge the residual is \emph{bounded} --- minimised and
+defense-in-depth: \textbf{C1} minimize what enters the corpus, \textbf{C2} gate retrieval by
+authorization, \textbf{C3} control aggregation at the answer layer. Against the external,
+unauthorized attacker the approach \emph{solves} the problem (nothing sensitive is served); for
+the authorized user who brings outside knowledge the residual is \emph{bounded} --- minimized and
 made accountable --- but not eliminated.}
 \label{fig:ch7-governance}
 \end{figure}
 
-\paragraph{Control 1: purpose-bound data minimisation at ingestion.} Index only the fields the system's
+\paragraph{Control 1: purpose-bound data minimization at ingestion.} Index only the fields the system's
 defined purpose requires, and never ingest the quasi-identifiers it does not. This is confident because it
-is definitional: absent data cannot leak, and, unlike P7, which generalised \emph{all} fields and so
+is definitional: absent data cannot leak, and, unlike P7, which generalized \emph{all} fields and so
 gutted the corpus (Section~\ref{sec:ch6-p7}), it removes only \emph{un-needed} fields, costing no needed
 utility. Its boundary is equally clear: it eliminates linkage only if the fields the purpose \emph{does}
 require are themselves non-identifying, which for an HR corpus they are not. It therefore \emph{reduces} the
 linkage surface to the purpose-minimum; it does not clear the residual.
 
-\paragraph{Control 2: authorisation-gated retrieval.} Partition the corpus by sensitivity and enforce
+\paragraph{Control 2: authorization-gated retrieval.} Partition the corpus by sensitivity and enforce
 role- or attribute-based access control at the retrieval layer, so a request is served only the content its
-identity is authorised for \cite{ozgur2024rbacrag}. This case splits, and the split is the whole point.
-\emph{For the external, unauthorised attacker} (profile P2, whose authorisation threshold is zero, so any
+identity is authorized for \cite{ozgur2024rbacrag}. This case splits, and the split is the whole point.
+\emph{For the external, unauthorized attacker} (profile P2, whose authorization threshold is zero, so any
 disclosure is a leak), serving no sensitive content \emph{solves} the problem: with nothing sensitive
 retrieved, there is nothing to link. This is the one place the word is earned: it is definitional and
-tied directly to the threat model. \emph{For an authorised, internal user} (P1) it does \emph{not} stop
+tied directly to the threat model. \emph{For an authorized, internal user} (P1) it does \emph{not} stop
 linkage, and we do not claim it does: linkage rides on the low- and medium-severity quasi-identifiers
 (department, age, office, gender) that clearance-gating passes through, and the re-identification analysis
 shows roughly four such attributes (several of severity $\le 2$) make $84$ of $100$ employees unique
 (Chapter~\ref{ch:formal}), with the age--gender combination precisely the gap the detector misses
-(Chapter~\ref{ch:tradeoff}). An authorised user, particularly one who already
+(Chapter~\ref{ch:tradeoff}). An authorized user, particularly one who already
 knows a few attributes of a target from outside the system, clears the access check and still completes
 the re-identification from the quasi-identifiers the system legitimately returns. This within-clearance,
-auxiliary-knowledge linkage is bounded, narrowed by minimisation (Control~1) and made accountable by
+auxiliary-knowledge linkage is bounded, narrowed by minimization (Control~1) and made accountable by
 audit, but it is not eliminated. We note
 honestly, too, that the entity-level access control this control assumes is \textsc{untested}: the
 document-level access control the thesis did evaluate proved too coarse, because every legitimate document
@@ -342,13 +342,13 @@ and differential-privacy literature shows that small suppressed cells remain rec
 accurate queries eventually leak, which is why the per-session budget is required
 \cite{domingoferrer2021dplimits}. It is a strong mitigation for the pattern, not a guarantee.
 
-\paragraph{Synthesis.} The honest direction is therefore a defence-in-depth of \emph{governance} controls,
-not a model-layer fix: minimise what enters the corpus (Control~1), gate retrieval by authorisation
-(Control~2), and throttle or aggregate enumeration while auditing the rest (Control~3). For the unauthorised
-attacker this is a definitional solve; for the authorised user the within-clearance residual is
-\emph{bounded}, minimised, throttled, and made accountable, but not eliminated, and the thesis is
+\paragraph{Synthesis.} The honest direction is therefore a defense-in-depth of \emph{governance} controls,
+not a model-layer fix: minimize what enters the corpus (Control~1), gate retrieval by authorization
+(Control~2), and throttle or aggregate enumeration while auditing the rest (Control~3). For the unauthorized
+attacker this is a definitional solve; for the authorized user the within-clearance residual is
+\emph{bounded}, minimized, throttled, and made accountable, but not eliminated, and the thesis is
 right that it cannot be eliminated cheaply. These controls are a reasoned, finding- and literature-grounded
-proposal, not a tested stack; turning them into measured defences is future work.
+proposal, not a tested stack; turning them into measured defenses is future work.
 
 \paragraph{A foreclosed extension: cross-query disclosure accounting.} One further mechanism deserves a
 line, as the session-level companion to Control~3, because it can be foreclosed without spending: a
@@ -376,10 +376,10 @@ observed on real prose. The residual itself calls for the linkage-specific defen
 implications identify: entity-resolution controls for the genuine re-identification third, and
 per-attribute recognizers for the detector-recall two-thirds. A query-time $k$-anonymity gate over
 the quasi-identifiers was tested directly (Section~\ref{sec:ch6-probes}) and did not move the
-residual, which points this work toward \emph{ingestion-time} generalisation (breaking the
+residual, which points this work toward \emph{ingestion-time} generalization (breaking the
 identifying combination before it enters a retrievable unit) rather than a query-time filter. The utility cluster calls for
 per-configuration measurement that isolates the knee's marginal cost. And because every attacker
-profile here is analysed in isolation, compositional, multi-actor threats, where a
+profile here is analyzed in isolation, compositional, multi-actor threats, where a
 supply-chain compromise hands an external adversary privileged access, remain open, and we
 expect them to be the setting in which the linkage residual matters most.
 
