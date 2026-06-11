@@ -129,16 +129,29 @@
 \newcommand{\cvssvec}[1]{\texttt{\small #1}}
 
 % ---- listing styles (terminal output + python) ----
-\lstdefinestyle{pythonstyle}{language=Python, backgroundcolor=\color{codebg},
-  basicstyle=\ttfamily\footnotesize, keywordstyle=\color{primarylink}\bfseries,
-  stringstyle=\color{purple!75!black}, commentstyle=\color{green!55!black}\itshape,
-  frame=single, rulecolor=\color{codeframe}, framesep=5pt, xleftmargin=5pt,
-  xrightmargin=5pt, breaklines=true, showstringspaces=false, tabsize=4,
-  captionpos=b, aboveskip=8pt, belowskip=8pt}
-\lstdefinestyle{termstyle}{basicstyle=\ttfamily\footnotesize,
-  backgroundcolor=\color{codebg}, frame=single, rulecolor=\color{codeframe},
-  framesep=5pt, xleftmargin=5pt, xrightmargin=5pt, breaklines=true,
-  showstringspaces=false, aboveskip=8pt, belowskip=8pt}
+% Legible code: override the 2-colour remap (codebg was white, codeframe charcoal) with a
+% light panel + soft rule + muted line numbers so listings read clearly.
+\definecolor{codebg}{HTML}{F5F7FA}      % light blue-grey code panel
+\definecolor{codeframe}{HTML}{C3CDD9}   % soft rule
+\definecolor{codenum}{HTML}{93A1B0}     % muted line numbers
+\lstdefinestyle{pythonstyle}{language=Python,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{primarylink}\bfseries,
+  stringstyle=\color{purple!75!black},
+  commentstyle=\color{green!55!black}\itshape,
+  numbers=left, numberstyle=\ttfamily\tiny\color{codenum}, numbersep=10pt, stepnumber=1,
+  frame=single, framerule=0.7pt, rulecolor=\color{codeframe},
+  framesep=8pt, xleftmargin=22pt, framexleftmargin=16pt, xrightmargin=6pt,
+  breaklines=true, breakatwhitespace=false, showstringspaces=false,
+  tabsize=2, columns=fullflexible, keepspaces=true,
+  captionpos=b, aboveskip=10pt, belowskip=6pt}
+\lstdefinestyle{termstyle}{language={},
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small\color{darkcharcoal},
+  frame=single, framerule=0.7pt, rulecolor=\color{codeframe},
+  framesep=8pt, xleftmargin=8pt, xrightmargin=6pt, breaklines=true,
+  showstringspaces=false, aboveskip=8pt, belowskip=6pt}
 \lstset{style=pythonstyle}
 
 \usepackage{microtype}

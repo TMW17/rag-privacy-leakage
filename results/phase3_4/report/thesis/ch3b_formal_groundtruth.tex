@@ -367,7 +367,9 @@ Some documents in the corpus are intentionally built with links to other documen
 
 The generation pipeline is organized as four independent generator functions, one per document class, that feed into a single assembly pipeline. Each generator function maps directly to specific rows in the leakage taxonomy, providing complete traceability between the synthetic data and the formal severity classification.
 
-\begin{lstlisting}[caption={Simplified structure of the corpus generator.}]
+\noindent\begin{minipage}{\linewidth}
+\textbf{\small Corpus generator (simplified)}\par\smallskip
+\begin{lstlisting}
 from faker import Faker
 import random, json
 
@@ -375,7 +377,7 @@ fake = Faker()
 random.seed(42)     # Python random generator
 Faker.seed(42)      # Faker internal generator
 
-# PII generators (one per Table~\ref{tab:ch3-taxonomy} entity type)
+# PII generators (one per taxonomy entity type)
 def generate_ssn():       ...  # severity 5, Regex, w=1.00
 def generate_api_key():   ...  # severity 5, Regex, w=1.00
 def generate_jwt():       ...  # severity 5, Regex, w=1.00
@@ -393,8 +395,11 @@ configs   = [generate_system_config(i)   for i in range(5)]
 memos     = [generate_internal_memo(i, employees) for i in range(20)]
 medicals  = [generate_medical_report(i, employees) for i in range(30)]
 \end{lstlisting}
+\end{minipage}
 
-\begin{resultbox}[Terminal Output --- Corpus Generation]
+\smallskip
+\noindent\begin{minipage}{\linewidth}
+\textbf{\small Terminal output: corpus generation}\par\smallskip
 \begin{lstlisting}[style=termstyle]
 GROUND TRUTH DATASET GENERATION COMPLETE
   Employee Records:  100
@@ -403,7 +408,7 @@ GROUND TRUTH DATASET GENERATION COMPLETE
   Medical Reports:   30
   TOTAL DOCUMENTS:   155
 \end{lstlisting}
-\end{resultbox}
+\end{minipage}
 
 % ─── FIX #1: Synthetic data limitations ─────────────────────────
 \subsubsection{What Synthetic Data Cannot Capture}
@@ -475,8 +480,10 @@ A \textbf{false positive} happens when the evaluation engine wrongly flags a har
 
 The annotation pipeline is built on a principled, table-driven architecture. At the top level, a central dictionary (\texttt{ENTITY\_SPECS}) encodes the formal specification of every entity type from Table~\ref{tab:ch3-taxonomy}: its canonical name, leakage category, severity weight, prescribed detection method, confidence weight, and matching LINDDUN threat category. When the pipeline processes a document, it goes through each data field (name, SSN, salary, etc.), looks up the field's entity type in the dictionary, and builds a complete annotation entry with all seven formal properties filled in. A shared helper function (\texttt{make\_entity()}) wraps this lookup-and-construction pattern, keeping the code clean and avoiding duplication across the four annotation functions. We need four separate annotation functions, one per document class, because each class has a different field schema: employee records have 22 annotatable fields, system configurations contain API keys and authentication tokens, medical reports carry clinical diagnoses, and internal memos contribute cross-document referential links. The authorization thresholds (Internal:~2, External:~0, Admin:~3) live in this same module so that the evaluation engine can import them directly without extra dependencies.
 
-\begin{lstlisting}[caption={Core structure of the annotation pipeline (simplified).}]
-# Table~\ref{tab:ch3-taxonomy} encoded as a lookup dictionary
+\noindent\begin{minipage}{\linewidth}
+\textbf{\small Annotation pipeline (simplified)}\par\smallskip
+\begin{lstlisting}
+# Leakage taxonomy encoded as a lookup dictionary
 ENTITY_SPECS = {
     "SSN":   ("SSN","Direct PII", 5,"Regex", 1.00,"Identifiability"),
     "PERSON":("PERSON","Direct PII",4,"NER",  0.90,"Identifiability"),
@@ -487,7 +494,7 @@ ENTITY_SPECS = {
 # Authorization levels (Definition 1 thresholds)
 AUTHORIZATION_LEVELS = {"Internal": 2, "External": 0, "Admin": 3}
 
-# Helper: maps a field value to its full Table~\ref{tab:ch3-taxonomy} specification
+# Helper: maps a field value to its full taxonomy specification
 def make_entity(text, spec_key, source_field):
     spec = ENTITY_SPECS[spec_key]
     return {"text": text, "type": spec[0], "severity": spec[2],
@@ -500,16 +507,18 @@ def annotate_system_config(config):   ...  # 12 entities each
 def annotate_medical_report(report):  ...  # 3 entities each
 def annotate_internal_memo(memo):     ...  # cross-references
 \end{lstlisting}
+\end{minipage}
 
 \subsubsection{Annotation Results}
 
-\begin{resultbox}[Terminal Output --- Annotation]
+\noindent\begin{minipage}{\linewidth}
+\textbf{\small Terminal output: annotation}\par\smallskip
 \begin{lstlisting}[style=termstyle]
 ANNOTATION GENERATION COMPLETE
   Total documents annotated: 155
   Total entities tagged:     2,190
 
-  Coverage against Table~\ref{tab:ch3-taxonomy}:
+  Coverage against the leakage taxonomy:
     Entity types used: 31 / 36
     Severity 5 (Critical): 135 entities
     Severity 4 (High):     865 entities
@@ -523,7 +532,7 @@ ANNOTATION GENERATION COMPLETE
     Detectability:     225
     Linkability:       141
 \end{lstlisting}
-\end{resultbox}
+\end{minipage}
 
 \noindent\footnotesize Annotation-pipeline output for the frozen Phase~2 corpus.\footnote{The corpus underwent schema refinement between the Phase~1 snapshot and the Phase~2 frozen baseline. Two entity types (\texttt{SSN} and \texttt{RELIGIOUS}) were removed as redundant or out of scope (see git commits \texttt{a541481}, \texttt{f974351}). The numbers above reflect the post-refinement frozen corpus; Phase~1's earlier documentation reported 2{,}315 entities under the pre-refinement schema.}\normalsize
 
