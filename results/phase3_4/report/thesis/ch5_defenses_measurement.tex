@@ -62,7 +62,7 @@ findings they establish, not an absolute guarantee.
 The defense composes five mechanisms, each closing a distinct path by which personal data
 escapes a retrieval-augmented pipeline. An \emph{input filter} blocks injection and
 jailbreak attempts before they reach retrieval, so an adversarial instruction never enters
-the system. \emph{Retrieval-time redaction}---the centrepiece---removes high-severity
+the system. \emph{Retrieval-time redaction}, the centrepiece, removes high-severity
 entities from each retrieved chunk before the model ever sees them, on the principle that a
 model cannot disclose what is not placed in front of it. A \emph{conversation-aware} layer
 refuses when the facts accumulated about a single individual across a dialogue cross a
@@ -123,7 +123,7 @@ the variability of retrieval itself, we force the target document into the model
 and ask directly for its sensitive contents. Without redaction the model discloses that
 content almost every time; with it, disclosure collapses to nothing
 (Table~\ref{tab:ch5-oracle}). What remains in the redacted context is precisely the
-medical, surname, and immigration material that the detector cannot recognise---present in
+medical, surname, and immigration material that the detector cannot recognise: present in
 the context, but not volunteered in the response, and handed to the conversation-aware
 layer to refuse.
 
@@ -145,7 +145,7 @@ On & \textbf{0.000} & 0/15 & only medical, surname, and immigration data\\
 A preventive variant complements live redaction by sanitising the corpus \emph{before} it
 is ever indexed, so that sensitive content cannot be retrieved under any query. Applied to
 the full corpus it removes 87.0\% of high-severity entities (1296 of 1490) and every hard
-identifier---national identifiers, IBANs, secrets, e-mail, phone, date of birth---leaving
+identifier (national identifiers, IBANs, secrets, e-mail, phone, date of birth), leaving
 exactly the open-vocabulary residue the detector cannot reach: 194 entities, comprising 93
 medical conditions, 49 titled surnames, 36 immigration phrases, five fragments of embedded
 system text, and eleven atypically formatted addresses.
@@ -157,7 +157,7 @@ and salary that live on a record the retriever did not fetch, the engine scores 
 baseline figure is, for this reason, a conservative floor rather than a ceiling. Second,
 output filtering is strictly weaker than input redaction for the same entity: a salary
 figure the detector catches in the stored document slips past once the model has reformatted
-it into prose. Third, document-level access control is too coarse for this corpus---every
+it into prose. Third, document-level access control is too coarse for this corpus: every
 legitimate document carries some high-severity content, so filtering by clearance blocks all
 retrieval for lower-privilege users rather than discriminating usefully. This is why
 entity-level redaction, not access control, is the right instrument here, and why the access
@@ -166,13 +166,13 @@ layer is retained for provenance alone.
 \section{What redaction cannot reach: the detection ceiling}
 \label{sec:ch5-ceiling}
 
-Two of the layers above---retrieval-time redaction and the output filter---can only remove
+Two of the layers above, retrieval-time redaction and the output filter, can only remove
 what a PII detector first flags, so the effectiveness of the decisive layer is bounded by the
 detector's recall. That ceiling was measured before the layers were built, and it governs how
 the later results must be read. Of the thirty-one entity types present in the corpus, an
 off-the-shelf detector recognises only six out of the box (535 entities); four more are caught
 partially, three require a custom recogniser for the corpus's national-identifier formats, and
-eighteen---salaries, ages, project names, embedded secrets---are not classical patterns at
+eighteen (salaries, ages, project names, embedded secrets) are not classical patterns at
 all. Equipping the detector with legitimate custom recognisers, for structured identifier
 formats rather than gazetteers seeded with the corpus's own values (which would be circular),
 lifts its recall on high-severity entities from $0.666$ to $0.835$. That is a real
@@ -183,8 +183,8 @@ The shortfall is not spread evenly; it concentrates in a small set of categories
 pattern-and-name detector is structurally unable to recognise (Table~\ref{tab:ch5-ceiling}).
 Open-vocabulary medical conditions (93 entities, recall $0.00$) and immigration phrasing
 (36 entities, $0.00$) are missed entirely, because they are clinical and legal language rather
-than identifiers; half of the titled surnames slip past ($0.51$); and---most consequentially
-for what follows---the combination of age and gender is missed completely (100 entities,
+than identifiers; half of the titled surnames slip past ($0.51$); and, most consequentially
+for what follows, the combination of age and gender is missed completely (100 entities,
 $0.00$): individually a low-severity attribute, but the bridge that turns scattered facts into
 a re-identification.
 
@@ -207,7 +207,7 @@ Age and gender & 100 & 0.00 & Stored form differs from the answer-key text; the 
 \end{tabular}
 \end{table}
 
-This is the empirical case for layering, and---read forward---it is also the mechanism behind
+This is the empirical case for layering, and it is also the mechanism behind
 the chapter's central residual. A defense resting on a single detector inherits that
 detector's ceiling. The entities left exposed are precisely the medical, surname, immigration,
 and age--gender attributes from which an individual can be reconstructed across documents;
@@ -285,9 +285,9 @@ error. Source: \texttt{final\_metrics.json} (per-cell strict ASR).}
 \label{fig:ch5-reduction}
 \end{figure}
 
-With the stack assembled, six configurations were measured across the full campaign---the
+With the stack assembled, six configurations were measured across the full campaign: the
 undefended baseline, each of the three most informative layers in isolation, the pairing of
-redaction with conversational refusal, and the complete stack---and each was scored through
+redaction with conversational refusal, and the complete stack, each scored through
 both instruments (Table~\ref{tab:ch5-headline}). RQ2 is answered here through the binary
 leakage function $L$, reported as attack-success rate; the severity-weighted reduction
 $\Delta S$, which the formal framework of Chapter~\ref{ch:formal} also defines, is developed
@@ -314,7 +314,7 @@ Full stack & 0.000 & \textbf{0.173} & reduces leakage\\
 \end{tabular}
 \end{table}
 
-Read through the judge---the primary instrument---the full stack reduces leakage from
+Read through the judge, the primary instrument, the full stack reduces leakage from
 $28.8\%$ to $17.3\%$, a reduction of roughly forty percent. This is a real and worthwhile
 effect, but it is a reduction, not an elimination, and the distance between ``roughly forty
 percent'' and ``near-total'' is the entire subject of the next section. The reduction is not
@@ -323,7 +323,7 @@ of $0.08$ on the judged metric, only retrieval-time redaction moves the figure b
 noise; the apparent movements of the input filter ($+0.077$) and the conversational layer
 ($+0.058$) sit within the floor (Table~\ref{tab:ch5-marginal}). In both of those cases the
 relevant defense did not even fire on the scenarios whose scores shifted, so the movement is
-the model's own run-to-run non-determinism rather than anything the layer did---which is why
+the model's own run-to-run non-determinism rather than anything the layer did, which is why
 it is reported as within noise rather than as a layer that makes leakage worse.
 
 \begin{table}[h]
@@ -343,9 +343,9 @@ Conversational refusal & $+0.058$ & within noise & $+0.000$ & within noise\\
 \end{tabular}
 \end{table}
 
-This is emphatically not the claim that only one layer works. The input filter blocks attacks
+This is not the claim that only one layer works. The input filter blocks attacks
 that carry no high-severity payload and therefore cannot register on a leakage metric at all;
-the conversational layer defends an axis---disclosure accumulated across dialogue turns---that
+the conversational layer defends an axis (disclosure accumulated across dialogue turns) that
 this single-pass metric barely exercises; the provenance layer defeats poisoning outright.
 Each protects against something this particular measurement does not score. What the
 measurement \emph{does} establish is that retrieval-time redaction is the layer that reduces
@@ -353,7 +353,7 @@ personal-data leakage, and that adding the remaining layers on top of redaction-
 buys no further reduction the instrument can distinguish from noise. The practical
 consequence is a deployment ``knee'': the redaction-plus-refusal pair (configuration C01100)
 reaches a judged rate of $0.192$, and the full stack's additional descent to $0.173$ is a gap
-of $0.019$---comfortably within the $0.08$ judged floor. Essentially all of the full stack's
+of $0.019$, comfortably within the $0.08$ judged floor. Essentially all of the full stack's
 measurable benefit is already captured by two layers, a finding whose deployment implications
 are taken up in Chapter~\ref{ch:tradeoff}.
 
@@ -375,8 +375,8 @@ retrieval-time redaction clears the floor.}
 
 A final feature of Table~\ref{tab:ch5-headline} previews the chapter's deeper result. The
 defense does not reduce every kind of leakage equally. Read by attack family, direct-PII
-extraction collapses under redaction---its judged rate falls from $0.778$ at baseline to
-$0.222$---while cross-document linkability does not: its judged rate moves from $0.6$ at
+extraction collapses under redaction, its judged rate falling from $0.778$ at baseline to
+$0.222$, while cross-document linkability does not: its judged rate moves from $0.6$ at
 baseline to $0.6$ under the full stack, a change of zero. Redaction removes the entities a
 detector can name; it cannot stop a model from re-associating a person out of facts that are
 individually innocuous. That asymmetry is where the two instruments part company.
@@ -458,7 +458,7 @@ adjudicate disagreements between judges drawn from different model families. Tha
 abandoned during implementation, and the reason is itself a finding worth stating plainly.
 The arbitrator, to break a tie between the primary judge and a second opinion, must be at
 least as reliable as the judges it arbitrates; but drawing it from the same model family as
-the primary judge makes the escalation circular---the tie-breaker shares the very biases
+the primary judge makes the escalation circular: the tie-breaker shares the very biases
 whose disagreement triggered the escalation, so it cannot, even in principle, improve on the
 primary judge alone. Multi-agent judging panels promise independence and, when their members
 share a lineage, deliver only the appearance of it. The honest resolution is a single
@@ -468,7 +468,7 @@ consensus without its substance.
 
 Establishing that reliability rests on a chain of inter-rater agreement statistics, measured
 on the calibration set and reported with their roles kept rigorously distinct
-(Table~\ref{tab:ch5-kappa}). The figure that matters---the \emph{validation}---is the
+(Table~\ref{tab:ch5-kappa}). The figure that matters, the \emph{validation}, is the
 agreement between the judge and the primary human annotator, Cohen's $\kappa = 0.827$. That
 this exceeds the inter-human agreement of $\kappa = 0.692$ (the agreement between the two human
 annotators with each other) shows the judge to track the primary human reference at least as
@@ -504,7 +504,7 @@ Inter-human (annotator 2 vs.\ primary) & 0.692 & The human agreement ceiling the
 \end{tabularx}
 \end{table}
 
-These figures, however, were all measured on \emph{undefended} output---raw model
+These figures, however, were all measured on \emph{undefended} output: raw model
 disclosures, where a leak is explicit and easy to recognise. The defended numbers that carry
 the thesis are built on a different kind of text, and the judge's reliability there cannot be
 assumed from its reliability here. The RQ3 verdict is therefore deferred until that
@@ -519,7 +519,7 @@ degraded answers, and the judge was re-calibrated on a stratified 46-record samp
 that material, hand-labelled by the primary annotator. Agreement falls, and the honest way to
 report the fall is to lead with the prevalence-independent measure. Raw agreement between
 judge and human drops from $93\%$ on undefended output to $70\%$ on defended output. Cohen's
-$\kappa$ falls further, from $0.827$ to $0.306$---but $\kappa$ is chance-corrected and
+$\kappa$ falls further, from $0.827$ to $0.306$, but $\kappa$ is chance-corrected and
 sensitive to how often a leak actually occurs, and the judge-positive rate differs between the
 two samples (13 of 46 undefended against 18 of 46 defended), so part of the $\kappa$ collapse
 reflects that shift in prevalence rather than a pure loss of accuracy. Raw agreement, immune
@@ -528,12 +528,12 @@ chance-corrected companion, and both are given because neither alone is honest.
 
 The errors run in both directions (Table~\ref{tab:ch5-confusion}). Of the eighteen responses
 the judge flagged as leaks, the human confirmed only seven; the other eleven were false
-alarms---almost all of them polite refusals or redacted non-answers that the judge read as
+alarms, almost all of them polite refusals or redacted non-answers that the judge read as
 disclosures. In the opposite direction, of the ten leaks the human identified, the judge
 missed three, each an age-bracket re-identification assembled across several dialogue turns.
 Two consequences follow, and they must be read against the right denominators. For RQ3's
 \emph{bounded false-positive rate}, the relevant quantity is the false-positive rate itself:
-$11/36 = 0.306$---numerically identical to the defended $\kappa$ reported above, though the
+$11/36 = 0.306$, numerically identical to the defended $\kappa$ reported above, though the
 two are wholly distinct measures and the coincidence is accidental. It rises from $0.083$ on
 undefended output to $0.306$, more than threefold, so the judge's false-positive rate is
 \emph{not} bounded on the defended distribution. Separately, for the question of how much weight a single
@@ -560,13 +560,13 @@ Total          & 10 & 36 & 46\\
 
 The three missed leaks deserve particular attention, because they cut the opposite way from
 how a missed leak usually reads. All three are cross-document re-identification by
-linkage---the very family that Section~\ref{sec:ch5-disagreement} identified as the principal
+linkage: the very family that Section~\ref{sec:ch5-disagreement} identified as the principal
 unreduced residual, and that the human annotator caught. This has two implications. The
 residual the thesis treats as its central finding is therefore corroborated by human
 judgment, not an artifact of the judge inventing leaks where none exist. And because the
 judge \emph{under-}counts that family rather than over-counting it, the $17.3\%$ residual is a
 lower bound on what the instruments can see, not an upper one. The leaks that survive the
-defense are, if anything, slightly more numerous than the judge reports---the missed leaks
+defense are, if anything, slightly more numerous than the judge reports; the missed leaks
 reinforce the linkability finding rather than undermining it. On the same defended sample the
 rule engine agrees with the human at $\kappa = -0.10$, no better than chance, which is why,
 for all its degradation, the judge remains the instrument read as primary.
@@ -579,8 +579,8 @@ false-positive rate rises to roughly $31\%$, so RQ3's bounded-false-positive cri
 only \emph{off} the defended distribution. The judge nonetheless remains the primary
 instrument on defended output, for two reasons that survive its degradation: the only
 alternative instrument is below chance there, and the judge's errors are characterised rather
-than unknown---over-flagging refusals in a way that inflates the apparent residual, and
-under-detecting precisely the linkage leaks that human judgment confirms are real.
+than unknown: over-flagging refusals in a way that inflates the apparent residual, and
+under-detecting the linkage leaks that human judgment confirms are real.
 
 \section{Honest uncertainty bounds on the residual}
 \label{sec:ch5-bounds}
@@ -588,7 +588,7 @@ under-detecting precisely the linkage leaks that human judgment confirms are rea
 Because the judge's two error rates are now measured, it is tempting to use them to correct
 the $17.3\%$ residual, and the textbook tool for the job is the Rogan--Gladen estimator,
 which adjusts an observed rate by the instrument's sensitivity and specificity. Applied here
-it returns $-34\%$---a negative leakage rate, which is impossible. The degeneracy is
+it returns $-34\%$, a negative leakage rate, which is impossible. The degeneracy is
 diagnostic rather than fatal. The calibration sample was deliberately enriched for
 judge-positives: it took \emph{all} eighteen of the judge's flagged responses but only a
 fraction of its negatives, so the sample's specificity is biased low, the implied
@@ -614,7 +614,7 @@ $[5.3\%,\,25.8\%]$, which comfortably contains $17.3\%$; the recentring is $1.7$
 points, about a third of one standard error, and so unresolvable in direction.
 
 The interval is wide on purpose. It rests on eighteen flagged and ten human-confirmed
-responses, with only three misses among them---three data points---so the per-rate estimates
+responses, with only three misses among them (three data points), so the per-rate estimates
 are imprecise by construction, and the bound should be read as honest bracketing rather than a
 new precise estimate. One claim must never be made from it: that the true leakage rate lies
 \emph{below} $17.3\%$. The sample was enriched for the judge's positives, which makes the
@@ -631,14 +631,14 @@ the residual of record, now bounded rather than overturned.
 
 This chapter answered the two empirical questions at the heart of the thesis and, in doing
 so, established the methodological result that frames everything after it. On \textbf{RQ2},
-the full defense stack reduces judged leakage from $28.8\%$ to $17.3\%$---a genuine reduction
+the full defense stack reduces judged leakage from $28.8\%$ to $17.3\%$, a genuine reduction
 of roughly forty percent, carried almost entirely by retrieval-time redaction, with the
 redaction-plus-refusal pair already capturing essentially all of the measurable benefit and
 the further layers adding nothing the instrument can distinguish from noise. The reduction is
 real but partial: direct-PII extraction collapses, while cross-document linkability survives
-unreduced. On \textbf{RQ3}, a single language-model judge---validated against human annotation
+unreduced. On \textbf{RQ3}, a single language-model judge, validated against human annotation
 at $\kappa = 0.827$, above the inter-human ceiling, and corroborated across vendors at
-$\kappa = 0.843$---is a trustworthy instrument on undefended output, but its reliability
+$\kappa = 0.843$, is a trustworthy instrument on undefended output, but its reliability
 degrades on the defended distribution the headline rests on, where $\kappa$ falls to $0.306$
 and its false-positive rate rises to roughly $31\%$; the originally planned multi-agent panel
 was abandoned as circular, and that abandonment is itself a contribution to the LLM-as-judge
@@ -648,7 +648,7 @@ errors are characterised.
 The deeper result is that these two answers are entangled. The rule engine reports the
 defense as near-total; the validated judge reports a $17.3\%$ residual; the difference is the
 engine's blindness to semantic and cross-document leakage reported as protection. Measuring a
-defended retrieval-augmented system with a single instrument is not conservative---it is
+defended retrieval-augmented system with a single instrument is not conservative; it is
 wrong in a direction the analyst cannot see. The honest residual is $17.3\%$, bounded by a
 wide but informative interval of $[5.3\%,\,25.8\%]$ that contains it, corroborated rather than
 inflated by the judge's measured errors. What this chapter demonstrates is a method for
