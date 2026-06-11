@@ -241,7 +241,7 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
 \begin{tikzpicture}[font=\small, >={Latex[length=2.8mm]},
   inp/.style={draw=figslate!80!black, fill=figslate!14, rounded corners=3pt, minimum height=12mm, minimum width=33mm, align=center, thick},
   det/.style={draw=figamber!85!black, fill=figamber!16, rounded corners=5pt, minimum height=36mm, minimum width=64mm, align=center, very thick},
-  out/.style={rounded corners=5pt, minimum height=20mm, minimum width=76mm, align=center, very thick},
+  metric/.style={rounded corners=5pt, minimum height=20mm, minimum width=76mm, align=center, very thick},
   glo/.style={font=\footnotesize\itshape, text=figslate!35!black, align=center},
   ar/.style={-{Latex[length=2.8mm]}, very thick, figslate!60!black}]
 % inputs (left, stacked)
@@ -251,8 +251,8 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
 % detection (centre)
 \node[det] (E) at (6.3,0) {\textbf{\large Leaked entities}\\[3pt]$E(r,D,u)$\\[7pt]\footnotesize entities disclosed in $r$ (drawn from $D$)\\whose severity exceeds what $u$ may see\\[7pt]\footnotesize each $e$ carries\\[1pt]severity $s(e)\in\{2,3,4,5\}$,\ \ weight $w(e)\in[0,1]$};
 % outputs (right, stacked)
-\node[out, draw=figblue!75!black, fill=figblue!10] (L) at (14.2,2.7){\textbf{\large Binary leakage}\quad $L\in\{0,1\}$\\[6pt]$L = 1 \ \Longleftrightarrow\ \exists\, e\in E:\ s(e) > u$};
-\node[out, draw=figteal!72!black, fill=figteal!14] (S) at (14.2,-2.7){\textbf{\large Severity score}\quad $S\ge 0$\\[4pt]$\displaystyle S \;=\; \sum_{e\in E} s(e)\cdot w(e)$};
+\node[metric, draw=figblue!75!black, fill=figblue!10] (L) at (14.2,2.7){\textbf{\large Binary leakage}\quad $L\in\{0,1\}$\\[6pt]$L = 1 \ \Longleftrightarrow\ \exists\, e\in E:\ s(e) > u$};
+\node[metric, draw=figteal!72!black, fill=figteal!14] (S) at (14.2,-2.7){\textbf{\large Severity score}\quad $S\ge 0$\\[4pt]$\displaystyle S \;=\; \sum_{e\in E} s(e)\cdot w(e)$};
 \node[glo, below=2mm of L] {did anything \emph{unauthorized} leak?};
 \node[glo, below=2mm of S] {\emph{how severe} is the leak?};
 % arrows
