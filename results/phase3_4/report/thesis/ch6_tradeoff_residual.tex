@@ -38,8 +38,8 @@
 Chapter~\ref{ch:defenses} established that the full defense stack reduces judged leakage from
 $28.8\%$ to $17.3\%$. This chapter asks what that reduction costs, where on the
 security--utility frontier a deployment should actually sit, and what risk remains once the
-defense is in place. It answers \textbf{RQ5} --- the residual privacy risk after the full
-stack, expressed as a quantified leakage score, and its trade-off against utility --- and the
+defense is in place. It answers \textbf{RQ5}, the residual privacy risk after the full
+stack, expressed as a quantified leakage score and its trade-off against utility, and the
 per-profile half of \textbf{RQ4}: which adversary the defense protects against, and which it
 does not. It also closes a gap in the formal apparatus. The thesis defines leakage as the pair
 $(L,S)$, a binary function and a severity score (Chapter~\ref{ch:formal}); the results so far
@@ -56,13 +56,13 @@ bound, the validated judge primary) carries over and is not restated.
 Plotting security against utility across the six configurations gives a frontier with a clear
 knee at the pairing of retrieval-time redaction with conversational refusal (configuration
 C01100, Figure~\ref{fig:ch6-pareto}). That pairing captures essentially all of the full stack's
-measured security --- a judged attack-success rate of $0.192$ against the full stack's $0.173$,
-a difference of $0.019$ that sits well inside the $0.08$ judged noise floor --- at two layers
+measured security (a judged attack-success rate of $0.192$ against the full stack's $0.173$,
+a difference of $0.019$ that sits well inside the $0.08$ judged noise floor) at two layers
 rather than five. In relative terms the knee reduces leakage by about a third and the full
 stack by about forty percent, so the three further layers buy a margin the measurement cannot
 distinguish from noise. The operational recommendation is therefore the knee, not the full
-stack. The full stack remains worth deploying where defense in depth matters --- its outer
-layers guard attack surfaces that benign queries never exercise --- but that is a choice about
+stack. The full stack remains worth deploying where defense in depth matters, since its outer
+layers guard attack surfaces that benign queries never exercise, but that is a choice about
 robustness, not a measured improvement in leakage over the knee.
 
 \begin{figure}[h]
@@ -85,7 +85,7 @@ A defense that degrades the system into uselessness is no bargain, so the cost w
 answer quality on thirty ordinary, non-adversarial questions (Table~\ref{tab:ch6-utility}). On
 the surface the defense looks almost free: every question is still answered, faithfulness barely
 moves, and relevance is unchanged. That surface is misleading, and instructively so. When
-redaction strips the content an answer needed, the model returns a fluent non-answer --- faithful
+redaction strips the content an answer needed, the model returns a fluent non-answer: faithful
 to its now-empty context, and counted as a successful response, yet carrying none of the
 requested information. The one metric that exposes this is the precision of the retrieved
 context, which falls appreciably, from $0.755$ to $0.658$; answers also take roughly twice as
@@ -117,7 +117,7 @@ Two scope notes keep this honest. The cost is measured at the two extremes, no d
 the full stack; these bound the trade-off but do not isolate the knee's cost, and since the
 decisive layer (redaction) is shared by the knee, the dominant context-precision cost is
 present there too, while the remaining layers' marginal cost is not separately measured.
-And only three utility dimensions were instrumented --- faithfulness, context precision, and
+And only three utility dimensions were instrumented: faithfulness, context precision, and
 latency; the linguistic-quality and completeness measures sometimes reported in this setting
 were not computed and are not claimed.
 
@@ -129,8 +129,8 @@ conversation-aware refusal layer (L3) contributes \emph{none} of the knee's meas
 redaction alone (C01000) and redaction-with-refusal (C01100) record the identical judged
 $0.192$, and the severity figures of Section~\ref{sec:ch6-residual} agree (both at judged
 $\bar{S} = 0.405$). A turn-level accounting shows why. The refusal constant fires on just three
-turns in the refusal-only configuration --- all of them redaction-free multi-turn linkability
-chains (P1-LINK-002, P1-LINK-007, P2-LINK-001) --- and on \emph{none} once redaction sits
+turns in the refusal-only configuration, all of them redaction-free multi-turn linkability
+chains (P1-LINK-002, P1-LINK-007, P2-LINK-001), and on \emph{none} once redaction sits
 upstream, because redaction has already stripped the content before disclosure can accumulate
 to the layer's threshold. The layer is retained in the recommended configuration as multi-turn
 defense in depth, validated on a constructed name-plus-condition handoff rather than on anything
@@ -142,11 +142,11 @@ measure its marginal latency separately rather than assume it is free.
 
 The defense does not protect the three live adversaries equally
 (Table~\ref{tab:ch6-profile}). The external attacker and the privileged administrator are well
-defended: their attacks are extraction, and extraction is what redaction stops --- the
+defended: their attacks are extraction, and extraction is what redaction stops: the
 administrator's corpus-poisoning success falls to zero, and the external attacker's judged rate
 roughly halves. The curious insider barely moves, from $0.333$ to $0.278$. The insider already
 holds legitimate access and attacks by \emph{re-identification} rather than extraction, asking
-innocent questions whose answers, assembled, expose a person --- and that is the one thing the
+innocent questions whose answers, assembled, expose a person, and that is the one thing the
 stack leaves open. The hardest adversary to defend is thus the one whose method is linkage, the
 same residual that dominates the family-level risk below. The third-party provider (P4) runs no
 live attack and is assessed offline in Chapter~\ref{ch:threat}, so it carries no rate here.
@@ -203,10 +203,10 @@ framework answers it in two registers, $L$ and $S$, and both are reported here.
 \paragraph{In leakage ($L$).} The residual judged attack-success rate at the full stack is
 $\mathbf{17.3\%}$ (the knee, $19.2\%$). It is not distributed evenly: re-identification by
 linkage (family F2) is the principal unreduced component, holding a judged rate near $0.6$--$0.7$
-across every configuration, while direct PII extraction --- once the leading threat at $0.778$
---- is brought down to $0.222$ by redaction. Reading the judge's reasoning on the cases that
+across every configuration, while direct PII extraction, once the leading threat at $0.778$,
+is brought down to $0.222$ by redaction. Reading the judge's reasoning on the cases that
 survive the full stack, about two in three are the detector's recall gap resurfacing (a salary
-written out in prose, a medical condition in open language --- the detection ceiling of
+written out in prose, a medical condition in open language, the detection ceiling of
 Section~\ref{sec:ch5-ceiling}), and the remaining third are genuine linkage, an attribute tied
 to a narrowed group. The first is a question of detector capability, the second of resolving
 entities against a directory; neither is a matter of tuning a threshold, and both are left as
@@ -214,9 +214,9 @@ future work.
 
 \paragraph{In severity ($S$).} Restoring the severity score closes the gap between the formal
 definition and the reported results. Aggregating the per-record severities already in the
-ablation logs --- engine severity directly, judged severity via the established cell-to-verdict
-join, with every one of the 445 defended-cell records resolving to a severity (no back-fill, no
-new model calls) --- gives the severity-weighted picture in
+ablation logs (engine severity directly, judged severity via the established cell-to-verdict
+join, with every one of the 445 defended-cell records resolving to a severity, no back-fill, no
+new model calls) gives the severity-weighted picture in
 Table~\ref{tab:ch6-severity}. It mirrors the leakage result exactly. Redaction (L2) is the
 decisive layer, cutting judged mean severity from $0.865$ at baseline to $0.405$; the refusal
 layer adds nothing ($\bar{S}$ unchanged at the knee); and the full stack reaches a residual
@@ -279,7 +279,7 @@ redaction (L2) does the work and the residual persists. Source: \texttt{severity
 Severity earns its place most clearly when the residual is organised by where the harm
 concentrates. Scored family by family on the leakage that survives the recommended
 configuration, weighted by the family's severity, re-identification by linkage is the dominant
-residual risk, while direct disclosure --- once the leading threat --- is brought well down
+residual risk, while direct disclosure, once the leading threat, is brought well down
 (Table~\ref{tab:ch6-riskfam}). This is the risk matrix in which the severity score does its real
 work: not as a second headline rate, but as the weight that turns a surviving attack-success
 rate into a prioritised risk.
@@ -304,11 +304,11 @@ Injection and others & Disclosure & 4--5 & 0.000 & 0.00\\
 \end{tabular}
 \end{table}
 
-Scored instead by entity type --- each type's residual read as one minus the detector's recall,
-the share of its instances redaction fails to remove --- the same gap surfaces. The types that
+Scored instead by entity type (each type's residual read as one minus the detector's recall,
+the share of its instances redaction fails to remove), the same gap surfaces. The types that
 remain exposed are exactly those the detector cannot see (Section~\ref{sec:ch5-ceiling}):
 medical conditions and titled surnames, and, as the bridge between disclosure and linkage, the
-combination of age and gender --- a medium-severity attribute the detector misses entirely and
+combination of age and gender, a medium-severity attribute the detector misses entirely and
 that does much of the work of turning a disclosure into a re-identification. The two views
 agree: whether risk is read by family or by entity, the residual concentrates in linkage and in
 the open-vocabulary attributes the detector cannot reach.
@@ -323,7 +323,7 @@ two are suggestive; the third is a deliberate negative test of whether the linka
 to the defense the literature would apply to it, and it returns a null.
 
 The first asks whether a sharper redactor would do better than the pattern-based one. Replacing
-it with a language-model redactor improves answer quality appreciably --- on the same thirty
+it with a language-model redactor improves answer quality appreciably: on the same thirty
 benign questions, context precision rises from $0.658$ to $0.755$, because the model removes
 sensitive spans more surgically. Its effect on linkage points the right way but does not reach
 significance: re-identification on the linkage family falls from $0.70$ to $0.40$, but with only
@@ -333,12 +333,12 @@ shared blind spot cannot be ruled out. The utility gain is the solid finding; th
 is a direction, not a result.
 
 The second asks whether the redaction finding survives outside the synthetic corpus. Run against
-a single Enron mailbox --- real prose never written with annotation in mind --- retrieval-time
+a single Enron mailbox, real prose never written with annotation in mind, retrieval-time
 redaction reduces direct disclosure in the same direction as on the synthetic data, from four
 cases in four to two in four, and the residual is the same address-recall gap seen
 synthetically, which suggests the redaction effect is not a synthetic artifact. The linkability
 half was inconclusive, and instructively so: the judge, validated on synthetic data,
-over-flags already-redacted output when taken onto real prose --- a cross-corpus transfer
+over-flags already-redacted output when taken onto real prose, a cross-corpus transfer
 limitation that is itself the finding. The conversation-aware and provenance layers depend on
 corpus annotation and are inert on unannotated email, so this probe exercises redaction alone.
 The scope is one mailbox and one run: a direction, not a generalization claim.
@@ -346,19 +346,19 @@ The scope is one mailbox and one run: a direction, not a generalization claim.
 The third probe tests the residual directly, and returns a null. Linkage is the component the
 redaction stack cannot reach: direct extraction collapses under redaction while family F2 holds
 near $0.6$--$0.7$ (Section~\ref{sec:ch6-residual}). The defense the privacy literature points to
-for linkage is not redaction but \emph{$k$-anonymity} --- generalising or suppressing the
+for linkage is not redaction but \emph{$k$-anonymity}: generalising or suppressing the
 quasi-identifiers that, in combination, single a person out, the same criterion used for the
 corpus's re-identification analysis in Chapter~\ref{ch:formal}. We implemented exactly that
 defense as a post-retrieval gate: it tracks the quasi-identifiers surfaced about each retrieved
 person, computes the candidate-set size $k$ against the corpus, and generalises or suppresses a
-quasi-identifier whenever disclosing it would push $k$ below a threshold --- multi-attribute
+quasi-identifier whenever disclosing it would push $k$ below a threshold: multi-attribute
 combinatorial generalisation, distinct from the single-attribute recall-closure and the
 conversational refusal already in the stack (Chapter~\ref{ch:defenses}). One design assumption was
 \emph{falsified} in testing and is worth recording: we expected linkage to accumulate across
 conversational turns, but each retrieved record exposes its full attribute set in a single chunk,
 so the leak is single-chunk combinatorial uniqueness, not multi-turn accumulation. The gate is
-therefore per-turn combinatorial $k$-anonymity, not the cross-turn mechanism first envisaged ---
-itself a threat-model observation, that the identifying combination is already present the moment a
+therefore per-turn combinatorial $k$-anonymity, not the cross-turn mechanism first envisaged; that
+is itself a threat-model observation, that the identifying combination is already present the moment a
 record is retrieved.
 
 \begin{figure}[h]
@@ -400,11 +400,11 @@ The evaluation was disciplined deliberately, because a linkage defense is precis
 protocol manufactures a win. Three guards were fixed before the run. The reading rules were
 \emph{pre-registered}: a threshold sweep $k\in\{2,5,10\}$, a monotonic-shape expectation (tighter
 $k$ should lower the leak and raise the share of attributes generalised), and the lowest cell
-$k=2$ --- the only one whose generalisation rate is non-blanket ($0.34$ of attribute-turns,
-against $0.73$ and $0.77$ at $k=5,10$) --- named in advance as the clean discriminator. A
+$k=2$, the only one whose generalisation rate is non-blanket ($0.34$ of attribute-turns,
+against $0.73$ and $0.77$ at $k=5,10$), named in advance as the clean discriminator. A
 \emph{random-same-rate control} was run beside the gate at every $k$: it removes the same volume of
 quasi-identifiers, chosen at random rather than by $k$, so that any reduction can be attributed to
-\emph{targeting} rather than to the amount of content removed --- without it a drop is
+\emph{targeting} rather than to the amount of content removed; without it a drop is
 uninterpretable. And the re-identification $k$ that drives the gate is never the success metric,
 which would be circular; success is the leakage the gate produces, scored by the two instruments
 used throughout.
@@ -412,7 +412,7 @@ used throughout.
 Those instruments re-stage this chapter's central argument. The deterministic engine \emph{cannot}
 evaluate the defense: it scores names and other discrete entities at severity $\ge 3$, whereas the
 gate generalises quasi-identifiers and never touches names, so the engine is structurally blind to
-the gate's target --- the same blindness that leaves its agreement with the human on linkage at
+the gate's target, the same blindness that leaves its agreement with the human on linkage at
 $\kappa = -0.10$, no better than chance (RQ3, Chapter~\ref{ch:defenses}). Evaluating a linkage
 \emph{defense}, no less than measuring a linkage \emph{leak}, requires the semantic judge.
 
@@ -420,10 +420,10 @@ Table~\ref{tab:ch6-l7} reports the judged-strict linkage rate for the gate, the 
 an in-session baseline across the sweep. The result is a null. At $k=2$, the non-blanket cell where
 targeting would have to appear, gate, control, and baseline coincide at $0.7$: combinatorial
 generalisation buys nothing over removing the same volume at random, and nothing over doing
-nothing. The one cell that falls --- the gate at $k=5$, $0.4$ against the baseline's $0.7$ --- is
+nothing. The one cell that falls, the gate at $k=5$, $0.4$ against the baseline's $0.7$, is
 not a result, on three independent grounds: it lies within a single confidence interval ($\pm0.30$
 at ten scenarios), it occurs only at a near-blanket generalisation rate ($0.73$, bulk removal by
-the pre-registered rule rather than targeting), and it is non-monotonic --- $k=10$ generalises
+the pre-registered rule rather than targeting), and it is non-monotonic: $k=10$ generalises
 \emph{more} yet leaks \emph{more} ($0.6$), the inverted-curve signature pre-registered as noise.
 Combinatorial $k$-anonymity does not reduce judged linkage even at near-blanket generalisation.
 
@@ -479,20 +479,20 @@ Two caveats bound the reading, and neither softens it. The sweep is ten scenario
 steps of $0.1$ with an interval near $\pm0.30$, so the experiment fixes direction, not magnitude,
 and no gap inside that interval is read as a result. The in-session baseline judged here at $0.7$
 sits within the $0.6$--$0.7$ band the residual already occupies (Section~\ref{sec:ch6-residual})
-but differs by about two scenarios from the committed augmented figure of $0.60$ used elsewhere ---
+but differs by about two scenarios from the committed augmented figure of $0.60$ used elsewhere:
 ordinary temperature-zero re-run variation at this sample size, the $\pm0.30$ floor in another
 guise. The fresh baseline is the correct comparator because all three arms were re-run together,
 and the committed $0.60$ residual the thesis reports is untouched by this extension.
 
 The finding is negative, and the negative is the contribution. The defense the field would reach
 for to close a linkage residual was implemented, controlled against bulk redaction, and evaluated
-on the only instrument that can see linkage --- and the leak persisted, as it persisted against the
+on the only instrument that can see linkage, and the leak persisted, as it persisted against the
 redaction stack. This is evidence for the intractability claim rather than an assertion of it:
 linkage resists not only the redaction that defeats extraction but also the quasi-identifier
 generalisation built to counter it. It also sharpens the open direction. A query-time gate fails
 because the identifying combination already sits inside a single retrievable unit; a defense that
-could work must act at \emph{ingestion} --- breaking the combination before it enters a retrievable
-chunk --- a structurally different intervention from the one tested here, which this result
+could work must act at \emph{ingestion}, breaking the combination before it enters a retrievable
+chunk, a structurally different intervention from the one tested here, which this result
 motivates rather than delivers.
 
 \section{Ingestion-time generalisation: foreclosed by its information cost}
@@ -500,24 +500,24 @@ motivates rather than delivers.
 
 The probe above generalised at \emph{query time}: it altered the chunks a query retrieved while the
 unredacted record remained in the index, one retrieval away, and it did not move the residual. The obvious
-stronger version acts at \emph{ingestion} --- generalise the ground-truth records \emph{before} they are
+stronger version acts at \emph{ingestion}: generalise the ground-truth records \emph{before} they are
 serialised and embedded, so the unredacted record never enters the index at all. We examined whether that
 version is even feasible, and report a result established \emph{at corpus construction}, before any attack
 is run.
 
-Applying the same pre-registered, consistency-checked QI hierarchy --- the one that reproduces the
-committed $84/100$ and $40/63$ (Chapter~\ref{ch:formal}) --- to the hundred ground-truth employee records,
+Applying the same pre-registered, consistency-checked QI hierarchy (the one that reproduces the
+committed $84/100$ and $40/63$, Chapter~\ref{ch:formal}) to the hundred ground-truth employee records,
 we built a globally $k$-anonymous corpus for each $k\in\{2,5,10\}$: generalising quasi-identifiers up their
 ladders until every record's combination is shared by at least $k$ records, and suppressing the residual
 records that remain unique even at maximum generalisation. Table~\ref{tab:ch6-p7} reports the information
 cost of reaching each $k$.
 
-Anonymity is \emph{achievable} --- all three corpora reach their target $k$. But the cost of reaching even
+Anonymity is \emph{achievable}: all three corpora reach their target $k$. But the cost of reaching even
 the weakest, $k=2$, is to remove roughly half of the quasi-identifier information (an information loss of
 $0.52$, with four of the seven quasi-identifiers pushed to near-maximal generalisation) \emph{and} to
 delete nine of the hundred records outright; $k=5$ and $k=10$ cost more still ($0.60$ and $0.67$). The
 corpus that ingestion-time $k$-anonymity produces is, at every setting, too degraded to serve the benign
-workload it exists for. Ingestion-time $k$-anonymity is therefore foreclosed as a practical defense ---
+workload it exists for. Ingestion-time $k$-anonymity is therefore foreclosed as a practical defense,
 not because it fails to reduce linkage, which we did not test, but because the anonymised corpus is
 unusable: a conclusion reached at construction, before evaluation.
 
@@ -581,13 +581,13 @@ unfinished work.
 Three mechanisms have now been brought against the linkage residual: redaction, which defeats extraction
 but leaves linkage near $0.6$ (Section~\ref{sec:ch6-residual}); query-time $k$-anonymity (L7), with no
 measured effect; and ingestion-time $k$-anonymity, foreclosed here by its information cost. At both query
-and ingestion time, and by both targeted and bulk generalisation, linkage does not yield cheaply --- and
+and ingestion time, and by both targeted and bulk generalisation, linkage does not yield cheaply, and
 the reason was visible from the formal analysis: re-identification is a property of the \emph{information
 itself} (four quasi-identifiers already make $84$ of $100$ employees unique, Chapter~\ref{ch:formal}), so
 removing enough of it to stop linkage necessarily destroys the utility the corpus exists to provide. This
 is the privacy--utility tension made concrete, and it reframes the residual as a \emph{data-governance}
 problem rather than a model-layer one: the defensible response to linkage is to minimise what enters the
-corpus and to control who may retrieve it --- the access-control direction of L5 --- not to generalise a
+corpus and to control who may retrieve it (the access-control direction of L5), not to generalise a
 corpus that must remain useful.
 
 \section{Summary}
@@ -597,8 +597,8 @@ This chapter priced the defense and quantified what it leaves behind. The securi
 frontier has a knee at redaction-plus-refusal (C01100): it captures essentially all of the full
 stack's measured security (judged $0.192$ against $0.173$, within the noise floor) at two layers
 rather than five, making the knee the operational recommendation and the full stack a
-defense-in-depth choice. The cost is real but contained --- context precision $-0.097$ and
-roughly $1.9\times$ latency at the full stack, with no query over-refused --- and concentrated
+defense-in-depth choice. The cost is real but contained (context precision $-0.097$ and
+roughly $1.9\times$ latency at the full stack, with no query over-refused) and concentrated
 in the redaction layer; the refusal layer adds no measured reduction and is kept as multi-turn
 insurance. \textbf{RQ4}: the curious insider is the hardest adversary to defend, because the
 insider attacks by linkage, which redaction cannot stop, while extraction-based external and
