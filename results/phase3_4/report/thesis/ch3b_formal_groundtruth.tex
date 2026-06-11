@@ -237,28 +237,37 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
 
 \begin{figure}[h]
 \centering
-\resizebox{0.96\textwidth}{!}{%
-\begin{tikzpicture}[font=\small, >={Latex[length=2.4mm]},
-  io/.style={draw=figslate!85!black, fill=figslate!18, rounded corners=3pt, minimum height=13mm, minimum width=24mm, align=center, thick},
-  ent/.style={draw=figamber!80!black, fill=figamber!16, rounded corners=3pt, minimum height=15mm, minimum width=42mm, align=center, thick},
-  Lb/.style={draw=figblue!75!black, fill=figblue!12, rounded corners=3pt, minimum height=15mm, minimum width=46mm, align=center, thick},
-  Sb/.style={draw=figteal!75!black, fill=figteal!16, rounded corners=3pt, minimum height=15mm, minimum width=46mm, align=center, thick},
-  ar/.style={->, thick, figslate!70!black}]
-\node[io]  (r)   at (0,0)     {Response $r$};
-\node[ent] (ent) at (4.2,0)   {Detected entities $E$\\\footnotesize each $e$:\ $s(e)\!\in\!\{2,3,4,5\}$,\ $w(e)\!\in\![0,1]$};
-\node[Lb]  (L)   at (10.4,1.7){\textbf{Binary leakage} $L$\\$=1$ iff $\exists\,e:\ s(e) > u$};
-\node[Sb]  (S)   at (10.4,-1.7){\textbf{Severity score} $S$\\$=\sum_{e} s(e)\cdot w(e)$};
-\node[io]  (u)   at (10.4,3.8){Profile $u$\\\footnotesize threshold};
-\draw[ar] (r) -- (ent);
-\draw[ar] (ent) -- (L);
-\draw[ar] (ent) -- (S);
-\draw[ar, figblue!70!black] (u) -- node[right,font=\scriptsize]{authorizes} (L);
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\small, >={Latex[length=2.8mm]},
+  inp/.style={draw=figslate!80!black, fill=figslate!14, rounded corners=3pt, minimum height=12mm, minimum width=33mm, align=center, thick},
+  det/.style={draw=figamber!85!black, fill=figamber!16, rounded corners=5pt, minimum height=36mm, minimum width=64mm, align=center, very thick},
+  out/.style={rounded corners=5pt, minimum height=20mm, minimum width=76mm, align=center, very thick},
+  glo/.style={font=\footnotesize\itshape, text=figslate!35!black, align=center},
+  ar/.style={-{Latex[length=2.8mm]}, very thick, figslate!60!black}]
+% inputs (left, stacked)
+\node[inp] (r) at (0,2.6)  {\textbf{Response} $r$};
+\node[inp] (d) at (0,0)    {\textbf{Corpus} $D$};
+\node[inp] (u) at (0,-2.6) {\textbf{Profile} $u$\\[1pt]\footnotesize authorization threshold};
+% detection (centre)
+\node[det] (E) at (6.3,0) {\textbf{\large Leaked entities}\\[3pt]$E(r,D,u)$\\[7pt]\footnotesize entities disclosed in $r$ (drawn from $D$)\\whose severity exceeds what $u$ may see\\[7pt]\footnotesize each $e$ carries\\[1pt]severity $s(e)\in\{2,3,4,5\}$,\ \ weight $w(e)\in[0,1]$};
+% outputs (right, stacked)
+\node[out, draw=figblue!75!black, fill=figblue!10] (L) at (14.2,2.7){\textbf{\large Binary leakage}\quad $L\in\{0,1\}$\\[6pt]$L = 1 \ \Longleftrightarrow\ \exists\, e\in E:\ s(e) > u$};
+\node[out, draw=figteal!72!black, fill=figteal!14] (S) at (14.2,-2.7){\textbf{\large Severity score}\quad $S\ge 0$\\[4pt]$\displaystyle S \;=\; \sum_{e\in E} s(e)\cdot w(e)$};
+\node[glo, below=2mm of L] {did anything \emph{unauthorized} leak?};
+\node[glo, below=2mm of S] {\emph{how severe} is the leak?};
+% arrows
+\draw[ar] (r) -- (E);
+\draw[ar] (d) -- (E);
+\draw[ar] (u) -- (E);
+\draw[ar] (E) -- (L);
+\draw[ar] (E) -- (S);
 \end{tikzpicture}}
 \caption[Computing the two leakage metrics $L$ and $S$]{Computing the two leakage metrics from a
-response. Each detected entity $e\in E(r,D,u)$ carries an intrinsic severity $s(e)\in\{2,\dots,5\}$
-and a detection-confidence weight $w(e)$. The \textbf{binary} function $L$ fires when any entity
-exceeds the profile's authorization threshold $u$; the \textbf{continuous} score $S$ sums
-$s(e)\cdot w(e)$ over the leaked entities. Defined in Chapter~\ref{ch:formal}.}
+response. The leaked set $E(r,D,u)$ collects the entities disclosed in response $r$ (drawn from
+corpus $D$) whose severity exceeds what profile $u$ is authorized to see; each carries an intrinsic
+severity $s(e)\in\{2,\dots,5\}$ and a detection-confidence weight $w(e)\in[0,1]$. The \textbf{binary}
+function $L$ fires when any such entity exists; the \textbf{continuous} score $S$ sums
+$s(e)\cdot w(e)$ over the leaked entities.}
 \label{fig:ch4-metricflow}
 \end{figure}
 
