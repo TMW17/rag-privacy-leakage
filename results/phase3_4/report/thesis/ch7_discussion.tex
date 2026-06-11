@@ -122,14 +122,14 @@ multi-agent panel: an arbitration panel whose members share a model-family linea
 manufactures the appearance of independence without its substance, since an arbitrator from the
 same family cannot, even in principle, improve on the judge it arbitrates. This is a concrete
 instance of the echo-chamber effect that the surveyed literature anticipated
-(\cite{ma2025debate}), and the honest resolution, a single validated judge corroborated across
+(Ma et al., 2025), and the honest resolution, a single validated judge corroborated across
 vendors, is a finding rather than a retreat. Second, this suggests that judge
 reliability is \emph{distribution-dependent}: a judge validated on raw output cannot be assumed
 reliable on the redacted and refused output a defense produces, and
 defended-distribution recalibration should be treated as standard practice rather than an
-afterthought. Both lessons answer, in part, the open frontier that \cite{yehudai2025ecosystem}
-names, organizational-policy-compliance evaluation, and both are consistent with the poor
-metacognitive calibration that \cite{kim2025objexmt} reports for LLM judges generally.
+afterthought. Both lessons answer, in part, the open frontier that Yehudai et al.\ (2025)
+name, organizational-policy-compliance evaluation, and both are consistent with the poor
+metacognitive calibration that Kim et al.\ (2025) report for LLM judges generally.
 
 \section{Limitations, and why naming them is the point}
 \label{sec:disc-limits}
@@ -264,7 +264,7 @@ mapping identifies which obligations the findings touch without asserting compli
 The three negatives of the preceding chapters (redaction, the query-time gate L7, and the
 ingestion-time generalization P7) establish that linkage cannot be defended at the model layer
 without destroying utility, because re-identification is a property of the information itself
-\cite{sweeney2002kanonymity}: four quasi-identifiers make $84$ of $100$ employees unique
+(Sweeney, 2002): four quasi-identifiers make $84$ of $100$ employees unique
 (Chapter~\ref{ch:formal}). What follows is therefore \emph{not} another model-layer defense, and
 \emph{not} a tested defense stack with a measured F2; none of these controls was run as an experiment.
 It is a reasoned proposal, grounded in the thesis's own findings and in the established literature, for the
@@ -312,7 +312,7 @@ linkage surface to the purpose-minimum; it does not clear the residual.
 
 \paragraph{Control 2: authorization-gated retrieval.} Partition the corpus by sensitivity and enforce
 role- or attribute-based access control at the retrieval layer, so a request is served only the content its
-identity is authorized for \cite{ozgur2024rbacrag}. This case splits, and the split is the whole point.
+identity is authorized for (Özgür and Uygun, 2024). This case splits, and the split is the whole point.
 \emph{For the external, unauthorized attacker} (profile P2, whose authorization threshold is zero, so any
 disclosure is a leak), serving no sensitive content \emph{solves} the problem: with nothing sensitive
 retrieved, there is nothing to link. This is the one place the word is earned: it is definitional and
@@ -335,13 +335,13 @@ carries some high-severity content, so filtering by clearance blocked all retrie
 narrow a candidate set; the classical statistical-disclosure-control response is to answer such queries with
 suppressed aggregates (counts rather than individuals, with sets smaller than a threshold withheld),
 backed by a per-session query budget. The suppression \emph{mechanism} is well established
-\cite{adam1989sdc}. Two boundaries are honest, however. First, it depends on \emph{detecting} that a query is a set-narrowing one, and
+(Adam and Wortmann, 1989). Two boundaries are honest, however. First, it depends on \emph{detecting} that a query is a set-narrowing one, and
 detection is exactly what this thesis found hard: the deterministic engine's agreement with the human on
 linkage is $\kappa = -0.10$ (Chapter~\ref{ch:defenses}), no better than chance, so the confidence lives
 in the suppression, not in the detection. Second, suppression is not unconditional: the disclosure-control
 and differential-privacy literature shows that small suppressed cells remain recoverable and that unlimited
 accurate queries eventually leak, which is why the per-session budget is required
-\cite{domingoferrer2021dplimits}. It is a strong mitigation for the pattern, not a guarantee.
+(Domingo-Ferrer et al., 2021). It is a strong mitigation for the pattern, not a guarantee.
 
 \paragraph{Synthesis.} The honest direction is therefore a defense-in-depth of \emph{governance} controls,
 not a model-layer fix: minimize what enters the corpus (Control~1), gate retrieval by authorization

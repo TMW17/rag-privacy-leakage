@@ -42,9 +42,9 @@ capability is useful, but it carries a privacy problem that is easy to miss. Nei
 nor the model knows who is allowed to see what; both are built to be \emph{helpful} rather than
 \emph{minimally informative}. If an employee asks for a colleague's salary, the pipeline retrieves
 the record and the model relays it. If an outside attacker hides an instruction in a document that
-the retriever later fetches, the same pipeline can be steered into disclosure \cite{greshake2023ipi}.
+the retriever later fetches, the same pipeline can be steered into disclosure (Greshake et al., 2023).
 Two well-documented phenomena combine here into a third: language models can memorize and reproduce
-training data \cite{carlini2021extracting}, and adversarial prompts can steer model behavior; in
+training data (Carlini et al., 2021), and adversarial prompts can steer model behavior; in
 RAG, the retriever itself becomes a channel into the model's context that an attacker can influence.
 
 The consequences fall under data-protection law, the General Data Protection Regulation (GDPR) in particular, where unauthorized
