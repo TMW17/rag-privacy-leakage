@@ -140,7 +140,7 @@ measurement reflects what the model and retriever do unaided.}
 \label{fig:ch4-architecture}
 \end{figure}
 
-The system under test is deliberately minimal, so that the baseline measures what an
+The system under test (\Cref{fig:ch4-architecture}) is deliberately minimal, so that the baseline measures what an
 underlying model and retriever do \emph{without} added safety scaffolding. Orchestration is
 LangChain; the vector store is ChromaDB; embeddings are local \texttt{all-MiniLM-L6-v2}
 (384-dimensional); the generating model is Claude Sonnet~4.6 at temperature~$0$. The system
@@ -256,7 +256,7 @@ justification for both the strict threshold and the second instrument, treated i
 Chapter~\ref{ch:defenses}.
 
 \paragraph{By profile.} Leakage concentrates in the human-driven profiles
-(Table~\ref{tab:ch4-profile}). The Internal attacker is the most successful ($33.3\%$ judged),
+(Table~\ref{tab:ch4-profile}, \Cref{fig:ch4-asr-profile}). The Internal attacker is the most successful ($33.3\%$ judged),
 because legitimate authenticated access combined with linkability needs no manipulation at all;
 the External attacker follows closely ($29.6\%$); the Admin profile registers $14.3\%$,
 entirely from corpus poisoning.
@@ -292,7 +292,7 @@ scenarios, three runs each at temperature~0. Source: \texttt{baseline\_metrics.j
 \end{figure}
 
 \paragraph{By family: the RQ1 answer.} The decomposition by attack family answers RQ1
-directly and unambiguously (Table~\ref{tab:ch4-family}). \textbf{Direct PII extraction (F1) is
+directly and unambiguously (Table~\ref{tab:ch4-family}, \Cref{fig:ch4-asr-family}). \textbf{Direct PII extraction (F1) is
 the strongest attack family, at a strict judged ASR of $0.778$}, followed by cross-document
 linkability (F2) at $0.600$. The two are in a class of their own: the next-highest family sits at $0.200$ and the rest at
 $0.143$ or below. The manipulation families (direct injection F3, obfuscation F4, reconnaissance
@@ -341,7 +341,7 @@ The shape of this result, not merely its magnitude, sets the agenda for the rest
 Leakage on an undefended enterprise RAG system is overwhelmingly a problem of the system
 \emph{doing what it was built to do}: retrieving a record and relaying its contents (F1), or
 retrieving several and letting the model correlate them (F2), rather than of exotic adversarial
-manipulation, which the underlying model largely refuses. The severity profile of the Phase~2 run
+manipulation, which the underlying model largely refuses (\Cref{fig:ch4-leaktype}). The severity profile of the Phase~2 run
 confirms the same point: the judge's leak turns concentrate at severity~3 and~4 (56 of 57),
 whereas two-thirds of the engine's sit at severity~2, the refusal-noise band. The defenses of
 Chapter~\ref{ch:defenses} are therefore aimed where the leakage actually is, at F1 and F2, and the
@@ -366,7 +366,7 @@ should be read: it is a \emph{floor}, not a ceiling. The deterministic engine cr
 only to entities annotated on a document the retriever actually returned, and even the judge
 can only flag what appears in the response it reads; a leak assembled from a record the
 retriever did not fetch is uncounted. Two facts from the Phase~2 campaign make this concrete.
-Retrieval precision on the target document is low ($8.3\%$), so the retriever frequently
+Retrieval precision on the target document is low ($8.3\%$; \Cref{fig:ch4-retrieval}), so the retriever frequently
 returns neighboring rather than targeted records, and a disclosure reconstructed from those is
 invisible to the engine. And a manual audit independently confirmed ten leak cases by hand,
 including the most severe (medical conditions co-occurring with a salary and a name) and

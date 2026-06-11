@@ -59,7 +59,7 @@ findings they establish, not an absolute guarantee.
 \section{The layered defense}
 \label{sec:ch5-defense}
 
-The defense composes five mechanisms, each closing a distinct path by which personal data
+The defense composes five mechanisms (\Cref{fig:ch5-pipeline}), each closing a distinct path by which personal data
 escapes a retrieval-augmented pipeline. An \emph{input filter} blocks injection and
 jailbreak attempts before they reach retrieval, so an adversarial instruction never enters
 the system. \emph{Retrieval-time redaction}, the centrepiece, removes high-severity
@@ -243,7 +243,7 @@ inference, and the cross-document re-association that no annotation match can re
 two instruments operate \emph{post hoc} and never interfere with the system under test,
 which keeps the measurement independent of the thing being measured.
 
-The instruments answer the same question with different sensory organs, and the difference
+The instruments answer the same question with different sensory organs (\Cref{fig:ch5-severity}), and the difference
 is visible from the very first row of results: at the undefended baseline, the engine reports
 an attack-success rate of $0.192$ while the judge reports $0.288$. The judge reads
 \emph{higher}, not because it is miscalibrated, but because it perceives semantic and
@@ -315,13 +315,13 @@ Full stack & 0.000 & \textbf{0.173} & reduces leakage\\
 \end{table}
 
 Read through the judge, the primary instrument, the full stack reduces leakage from
-$28.8\%$ to $17.3\%$, a reduction of roughly forty percent. This is a real and worthwhile
+$28.8\%$ to $17.3\%$, a reduction of roughly forty percent (\Cref{fig:ch5-reduction}). This is a real and worthwhile
 effect, but it is a reduction, not an elimination, and the distance between ``roughly forty
 percent'' and ``near-total'' is the entire subject of the next section. The reduction is not
 distributed evenly across the layers. Measured against an empirically calibrated noise floor
 of $0.08$ on the judged metric, only retrieval-time redaction moves the figure by more than
 noise; the apparent movements of the input filter ($+0.077$) and the conversational layer
-($+0.058$) sit within the floor (Table~\ref{tab:ch5-marginal}). In both of those cases the
+($+0.058$) sit within the floor (Table~\ref{tab:ch5-marginal}, \Cref{fig:ch5-marginal}). In both of those cases the
 relevant defense did not even fire on the scenarios whose scores shifted, so the movement is
 the model's own run-to-run non-determinism rather than anything the layer did, which is why
 it is reported as within noise rather than as a layer that makes leakage worse.
@@ -401,7 +401,7 @@ the detector cannot flag (Section~\ref{sec:ch5-ceiling}), so they are never reda
 place, and the rule engine cannot even detect that the re-association has occurred, because the
 leaked attribute appears on no single retrieved document as an annotated entity. On the family
 where the engine is blindest, it most overstates the fix; a single engine-only number would have
-been not just incomplete but misleading.
+been not just incomplete but misleading (\Cref{fig:ch5-kappa}).
 
 \begin{figure}[h]
 \centering
@@ -452,7 +452,7 @@ Source: \texttt{kappa\_results.json} (46-record stratified sample).}
 \end{figure}
 
 If the judge is to be the primary instrument, its trustworthiness has to be established
-rather than assumed, which is the substance of RQ3. The original design called for a
+rather than assumed (\Cref{fig:ch5-kappa-heatmap}), which is the substance of RQ3. The original design called for a
 multi-agent panel: an Attacker agent, a Defender agent, and an Arbitrator that would
 adjudicate disagreements between judges drawn from different model families. That design was
 abandoned during implementation, and the reason is itself a finding worth stating plainly.

@@ -203,7 +203,7 @@ framework answers it in two registers, $L$ and $S$, and both are reported here.
 \paragraph{In leakage ($L$).} The residual judged attack-success rate at the full stack is
 $\mathbf{17.3\%}$ (the knee, $19.2\%$). It is not distributed evenly: re-identification by
 linkage (family F2) is the principal unreduced component, holding a judged rate near $0.6$--$0.7$
-across every configuration, while direct PII extraction, once the leading threat at $0.778$,
+across every configuration (\Cref{fig:ch6-f2residual}), while direct PII extraction, once the leading threat at $0.778$,
 is brought down to $0.222$ by redaction. Reading the judge's reasoning on the cases that
 survive the full stack, about two in three are the detector's recall gap resurfacing (a salary
 written out in prose, a medical condition in open language, the detection ceiling of
@@ -217,7 +217,7 @@ definition and the reported results. Aggregating the per-record severities alrea
 ablation logs (engine severity directly, judged severity via the established cell-to-verdict
 join, with every one of the 445 defended-cell records resolving to a severity, no back-fill, no
 new model calls) gives the severity-weighted picture in
-Table~\ref{tab:ch6-severity}. It mirrors the leakage result exactly. Redaction (L2) is the
+Table~\ref{tab:ch6-severity} and \Cref{fig:ch6-deltaS}. It mirrors the leakage result exactly. Redaction (L2) is the
 decisive layer, cutting judged mean severity from $0.865$ at baseline to $0.405$; the refusal
 layer adds nothing ($\bar{S}$ unchanged at the knee); and the full stack reaches a residual
 $\bar{S}_{\text{residual}} = 0.371$ (judged), a severity reduction of $\Delta S = 0.494$ from
@@ -347,12 +347,12 @@ The third probe tests the residual directly, and returns a null. Linkage is the 
 redaction stack cannot reach: direct extraction collapses under redaction while family F2 holds
 near $0.6$--$0.7$ (Section~\ref{sec:ch6-residual}). The defense the privacy literature points to
 for linkage is not redaction but \emph{$k$-anonymity}: generalizing or suppressing the
-quasi-identifiers that, in combination, single a person out, the same criterion used for the
+quasi-identifiers (QIs) that, in combination, single a person out, the same criterion used for the
 corpus's re-identification analysis in Chapter~\ref{ch:formal}. We implemented exactly that
 defense as a post-retrieval gate: it tracks the quasi-identifiers surfaced about each retrieved
 person, computes the candidate-set size $k$ against the corpus, and generalizes or suppresses a
 quasi-identifier whenever disclosing it would push $k$ below a threshold: multi-attribute
-combinatorial generalization, distinct from the single-attribute recall-closure and the
+combinatorial generalization (\Cref{fig:ch6-qiladder}), distinct from the single-attribute recall-closure and the
 conversational refusal already in the stack (Chapter~\ref{ch:defenses}). One design assumption was
 \emph{falsified} in testing and is worth recording: we expected linkage to accumulate across
 conversational turns, but each retrieved record exposes its full attribute set in a single chunk,
@@ -475,7 +475,7 @@ non-monotonic ($k{=}10$ leaks more). The result is a null. Source: \texttt{l7\_j
 \label{fig:ch6-l7sweep}
 \end{figure}
 
-Two caveats bound the reading, and neither softens it. The sweep is ten scenarios: rates move in
+Two caveats bound the reading (\Cref{fig:ch6-l7sweep}), and neither softens it. The sweep is ten scenarios: rates move in
 steps of $0.1$ with an interval near $\pm0.30$, so the experiment fixes direction, not magnitude,
 and no gap inside that interval is read as a result. The in-session baseline judged here at $0.7$
 sits within the $0.6$--$0.7$ band the residual already occupies (Section~\ref{sec:ch6-residual})
@@ -509,7 +509,7 @@ Applying the same pre-registered, consistency-checked QI hierarchy (the one that
 committed $84/100$ and $40/63$, Chapter~\ref{ch:formal}) to the hundred ground-truth employee records,
 we built a globally $k$-anonymous corpus for each $k\in\{2,5,10\}$: generalizing quasi-identifiers up their
 ladders until every record's combination is shared by at least $k$ records, and suppressing the residual
-records that remain unique even at maximum generalization. Table~\ref{tab:ch6-p7} reports the information
+records that remain unique even at maximum generalization. Table~\ref{tab:ch6-p7} and \Cref{fig:ch6-p7infoloss} report the information
 cost of reaching each $k$.
 
 Anonymity is \emph{achievable}: all three corpora reach their target $k$. But the cost of reaching even

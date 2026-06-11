@@ -200,7 +200,7 @@ For each $e \in E(r, D, u)$, let $s(e) \in \{2, 3, 4, 5\}$ be the \textbf{severi
 \textbf{Detection Method} & $\boldsymbol{w(e)}$ \\
 \midrule
  Regex (deterministic pattern match) & $1.00$ \\
-NER via spaCy (high-reliability model) & $0.90$ \\
+Named Entity Recognition (NER) via spaCy (high-reliability model) & $0.90$ \\
  Keyword + Context (rule-based heuristic) & $0.75$ \\
 LLM-as-Judge (probabilistic evaluation) & $0.60$ \\
 \bottomrule
@@ -234,6 +234,8 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
 % ── COMPARISON TABLE ──
 
 \subsubsection{Comparison of the Two Metrics}
+
+\Cref{fig:ch4-metricflow} traces how the two leakage metrics are computed from a single response, and \Cref{ch3:tab:metric-comparison} contrasts their definitions side by side.
 
 \begin{figure}[h]
 \centering
@@ -339,7 +341,7 @@ The ground truth corpus is the synthetic document collection that all experiment
 
 \subsubsection{Document Classes}
 
-The corpus is split into four distinct document classes, each deliberately matched to a specific part of the formal threat model from the preceding chapters.
+The corpus is split into four distinct document classes (\Cref{ch3:tab:doc-classes}), each deliberately matched to a specific part of the formal threat model from the preceding chapters.
 
 \begin{table}[H]
 \centering
@@ -444,7 +446,7 @@ Two follow-up directions partially close this gap. First, a future replication o
 
 \label{ch3:sec:annotation}
 
-The annotation file is the authoritative reference standard that the evaluation engine checks every RAG response against. It labels every PII entity across all 155 documents with seven formally defined properties, which together make it possible to compute both $L$ and $S$ as defined in \Cref{ch3:sec:definitions}.
+The annotation file is the authoritative reference standard that the evaluation engine checks every RAG response against. It labels every PII entity across all 155 documents with seven formally defined properties (\Cref{ch3:tab:schema}), which together make it possible to compute both $L$ and $S$ as defined in \Cref{ch3:sec:definitions}.
 
 \subsubsection{Annotation Schema}
 
@@ -543,7 +545,7 @@ ANNOTATION GENERATION COMPLETE
 \end{lstlisting}
 \end{minipage}
 
-\noindent\footnotesize Annotation-pipeline output for the frozen Phase~2 corpus.\footnote{The corpus underwent schema refinement between the Phase~1 snapshot and the Phase~2 frozen baseline. Two entity types (\texttt{SSN} and \texttt{RELIGIOUS}) were removed as redundant or out of scope (see git commits \texttt{a541481}, \texttt{f974351}). The numbers above reflect the post-refinement frozen corpus; Phase~1's earlier documentation reported 2{,}315 entities under the pre-refinement schema.}\normalsize
+\noindent\footnotesize Annotation-pipeline output for the frozen Phase~2 corpus, broken down by document class in \Cref{ch3:tab:annotation-density}.\footnote{The corpus underwent schema refinement between the Phase~1 snapshot and the Phase~2 frozen baseline. Two entity types (\texttt{SSN} and \texttt{RELIGIOUS}) were removed as redundant or out of scope (see git commits \texttt{a541481}, \texttt{f974351}). The numbers above reflect the post-refinement frozen corpus; Phase~1's earlier documentation reported 2{,}315 entities under the pre-refinement schema.}\normalsize
 
 \begin{table}[H]
 \centering
