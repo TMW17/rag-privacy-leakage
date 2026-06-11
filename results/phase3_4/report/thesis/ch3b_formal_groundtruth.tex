@@ -92,7 +92,7 @@ We introduce two complementary formal definitions below. The first gives a binar
 \label{ch3:subsec:def1}
 
 \begin{prosebox}
-\textbf{Motivation.}\quad The Binary Privacy Leakage Function $L$ answers the most basic question in this research: \emph{did a privacy violation happen?} A response counts as a leakage event if and only if it gave the querying user information they are not authorized to see, given their organizational role and access privileges. This definition underpins the Attack Success Rate (ASR) metric used in RQ1 and RQ4, and it makes the three attacker profiles operational by attaching a distinct authorization threshold to each.
+\textbf{Motivation.}\quad The Binary Privacy Leakage Function $L$ answers the most basic question in this research: \emph{did a privacy violation happen?} A response counts as a leakage event if and only if it gave the querying user information they are not authorized to see, given their organizational role and access privileges. This definition underpins the Attack Success Rate (ASR) metric used in RQ1 and RQ4, and it makes the three live attacker profiles operational by attaching a distinct authorization threshold to each.
 
 \medskip
 \textbf{Authorization thresholds.}\quad The function $\textit{authorized\_level}(u)$ is defined for each profile as follows:
@@ -142,7 +142,7 @@ Privileged Admin & 3 & Severity 2--3 data via admin consoles and dashboards & Co
 \vspace{0.4cm}
 
 \begin{defbox}[Definition 1 --- Privacy Leakage Function $L(q, r, D, u)$]
-Let $q \in \mathcal{Q}$ be a user query submitted to the RAG system, $r \in \mathcal{R}$ the system response, $D = \{d_1, d_2, \ldots, d_n\}$ the finite set of documents indexed in the ChromaDB vector database, and $u \in \mathcal{U} = \{\texttt{Internal}, \texttt{External}, \texttt{Admin}\}$ the user profile.
+Let $q \in \mathcal{Q}$ be a user query submitted to the RAG system, $r \in \mathcal{R}$ the system response, $D = \{d_1, d_2, \ldots, d_n\}$ the finite set of documents indexed in the ChromaDB vector database, and $u \in \mathcal{U} = \{\texttt{Internal}, \texttt{External}, \texttt{Admin}\}$ the user profile.\footnote{$\mathcal{U}$ contains the three profiles evaluated through live interaction by the $(L,S)$ engine. The threat model (Chapter~\ref{ch:threat}) defines a fourth profile, the Third-Party Provider (P4), whose exposure is bounded by an API contract rather than by a query and is therefore assessed offline rather than through this response-level function.}
 
 Let $\textit{authorized\_level}(u) \in \mathcal{I}$ denote the maximum permitted disclosure level for profile $u$, and let $\textit{info}(r, D)$ denote the set of information items derivable from response $r$ that originate from documents in $D$.
 
@@ -166,7 +166,7 @@ $\;\;\text{ASR} = \frac{1}{N}\sum_{i=1}^{N} L(q_i, r_i, D, u)$
 \noindent\textbf{Properties.}
 
 \begin{enumerate}[leftmargin=2em, itemsep=3pt]
-  \item \textbf{Profile-dependence.} $L$ is not an inherent property of the response $r$. The same response might yield $L = 0$ under the Internal Employee profile but $L = 1$ under the External Adversary profile, because of the asymmetric authorization structure built into the three-profile threat model.
+  \item \textbf{Profile-dependence.} $L$ is not an inherent property of the response $r$. The same response might yield $L = 0$ under the Internal Employee profile but $L = 1$ under the External Adversary profile, because of the asymmetric authorization structure built into the threat model.
   \item \textbf{Document-grounding.} $L$ depends on the document set $D$. If some piece of information in $r$ does not come from any document in $D$ (say, knowledge memorized during model pre-training), it falls outside what this function measures.
   \item \textbf{Query-independence.} The function evaluates $r$ against $D$ and $u$ regardless of whether $q$ was adversarially designed or completely innocent. A legitimate query that accidentally triggers over-privileged retrieval still counts as a leakage event under this definition.
 \end{enumerate}
