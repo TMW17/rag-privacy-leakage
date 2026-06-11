@@ -82,10 +82,10 @@
 \usepackage{listings}
 
 % ---- column types: no-arg L (tabularx, thesis-wide) + parametrized C/R/W (imported tables) ----
-\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
-\newcolumntype{W}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{W}[1]{>{\RaggedRight\arraybackslash}p{#1}}
 
 % ---- rich callout boxes (ONE unified set shared by Ch2 and Ch3) ----
 \usepackage[most]{tcolorbox}
@@ -121,9 +121,9 @@
   left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
 
 % ---- badge / capability commands used by the imported threat-model content ----
-\newcommand{\badgecritical}{\colorbox{gray!15}{\small\textbf{~Critical~}}}
-\newcommand{\badgehigh}{\colorbox{gray!15}{\small\textbf{~High~}}}
-\newcommand{\badgemedium}{\colorbox{gray!15}{\small\textbf{~Medium~}}}
+\newcommand{\badgecritical}{\colorbox{gray!15}{\footnotesize\textbf{Critical}}}
+\newcommand{\badgehigh}{\colorbox{gray!15}{\footnotesize\textbf{High}}}
+\newcommand{\badgemedium}{\colorbox{gray!15}{\footnotesize\textbf{Medium}}}
 \newcommand{\yes}{\textcolor{capyes}{\ding{51}}}
 \newcommand{\no}{\textcolor{capno}{\ding{55}}}
 \newcommand{\cvssvec}[1]{\texttt{\small #1}}
@@ -160,6 +160,11 @@
 \hypersetup{colorlinks=true, linkcolor=primarylink, urlcolor=primarylink,
   filecolor=primarylink, citecolor=secondarycite}
 \usepackage{cleveref}                   % MUST load after hyperref
+% Long \texttt identifiers (QUASI\_IDENTIFIER, file\_names) must break at underscores so they
+% never cross a line / box / table-cell edge; emergencystretch absorbs residual loose lines.
+\AtBeginDocument{\renewcommand{\_}{\textunderscore\allowbreak}}
+\emergencystretch=3em
+\setlength{\tabcolsep}{4pt}   % tighter inter-column padding so wide multi-column tables fit the text width
 
 % ---- thesis style spec: alignment, paragraph spacing, heading styles ----
 \usepackage{titlesec}
