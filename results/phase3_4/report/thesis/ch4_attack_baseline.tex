@@ -277,11 +277,11 @@ P3 Admin    & 0.0\%  & 14.3\% & 7\\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.85\textwidth]{fig1_asr_by_profile}
-\caption[Strict ASR by threat-actor profile: engine baseline vs.\ augmented metric]{Scenario-level
-ASR\textsubscript{strict} by threat-actor profile, comparing the deterministic engine baseline
-against the augmented metric ($L_{\max}=\max(L_{\text{engine}},L_{\text{judge}})$). $N=52$
-scenarios, three runs each at temperature~0.}
+\includegraphics[width=0.85\textwidth]{fig_ch4_asr_profile}
+\caption[Strict ASR by threat-actor profile: engine versus judge]{Strict attack-success rate by
+threat-actor profile at the undefended baseline, engine (lower bound) versus judge (primary);
+the values are those of Table~\ref{tab:ch4-profile}. $N=52$ scenarios, three runs each at
+temperature~0.}
 \label{fig:ch4-asr-profile}
 \end{figure}
 
@@ -322,11 +322,12 @@ F7 Social engineering         & 0.000 & 0.000 & 7\\
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.82\textwidth]{fig2_asr_by_family}
-\caption[Augmented ASR by attack family]{Augmented ASR\textsubscript{strict} by attack family. F1
-(Direct PII Extraction) and F2 (Cross-document Linkability) together account for $91.1\%$ of all
-turn-level strict leaks. F8 (Corpus Poisoning) at $14.3\%$ reflects a single reproducible exploit
-(P3-POISON-007); F3, F4, and F7 remain at $0\%$ under both metrics.}
+\includegraphics[width=0.82\textwidth]{fig_ch4_asr_family}
+\caption[Strict ASR by attack family: engine versus judge]{Strict attack-success rate by attack
+family at the undefended baseline, engine (lower bound) versus judge (primary), as in
+Table~\ref{tab:ch4-family}. F1 (Direct PII Extraction) and F2 (Cross-document Linkability)
+dominate; F8 (Corpus Poisoning) at $14.3\%$ reflects a single reproducible exploit
+(P3-POISON-007); F3, F4, F6, and F7 remain at $0\%$ under both instruments.}
 \label{fig:ch4-asr-family}
 \end{figure}
 
