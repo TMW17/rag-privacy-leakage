@@ -208,8 +208,8 @@ attackers not authorized to see it. This thesis measures that leakage rather tha
 it. It formalizes a LINDDUN-aligned metric pair (a binary leakage function $L$ and a
 severity score $S$) evaluated through a profile-dependent engine across four CVSS-calibrated
 attacker profiles and a systematic adversarial campaign of eight attack families, over a
-deterministically generated corpus of 155 synthetic documents (2{,}190 entity-level PII
-annotations; inter-annotator $\kappa = 0.875$), and quantifies a layered defense by ablation.
+deterministically generated corpus of 155 synthetic documents (2{,}190 entity-level
+annotations of personally identifiable information, PII; inter-annotator $\kappa = 0.875$), and quantifies a layered defense by ablation.
 The central finding is a genuine but \emph{partial} reduction: through a validated
 language-model judge, the full stack lowers measured leakage from $28.8\%$ to $17.3\%$,
 about forty percent, \textbf{not} an elimination. Redaction defeats direct PII extraction, but
@@ -266,7 +266,8 @@ disclosure. Two well-documented phenomena combine here into a third: language mo
 and reproduce training data, and adversarial prompts can steer model behavior; in RAG, the
 retriever itself becomes a channel into the model's context that an attacker can influence.
 
-The consequences fall under data-protection law, the GDPR in particular, where unauthorized
+The consequences fall under data-protection law, the General Data Protection Regulation (GDPR)
+in particular, where unauthorized
 disclosure of personal data is a reportable harm. They are compounded by the nature of the most
 damaging leak. The worst disclosure in this setting is not a single record read out verbatim, but
 \emph{re-identification by linkage}: a person reconstructed from attributes that are individually
@@ -292,7 +293,7 @@ occurred, and the continuous severity score $S$, which measures how serious it w
 grounded in the LINDDUN privacy-threat taxonomy and made operational by a profile-dependent
 authorization threshold. Second, it fixes the threat surface in advance as four attacker profiles
 (a curious insider, an external adversary, a malicious administrator, and an offline third-party
-provider), each calibrated against a CVSS~v3.1 base score and mapped to the LINDDUN categories it
+provider), each calibrated against a Common Vulnerability Scoring System (CVSS) v3.1 base score and mapped to the LINDDUN categories it
 activates. Third, an adversarial campaign of eight attack families exercises the baseline and the
 defended configurations systematically. Fourth, a layered defense (input filtering, retrieval-time
 redaction, conversation-aware refusal, output filtering, and access control) is ablated
