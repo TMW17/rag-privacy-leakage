@@ -409,8 +409,8 @@ Looking across the five pillars reviewed above, a clear pattern emerges. Each su
 \midrule
 G1 & No formal privacy framework (LINDDUN) applied to RAG leakage classification & RQ1 & Formal leakage definitions ($L$, $S$) with LINDDUN-mapped severity taxonomy \\
 G2 & No empirical comparison of defense combinations against PII-specific attacks in RAG & RQ2 & Controlled experiments with layered defense configurations and $\Delta S$ measurement \\
-G3 & No multi-agent Arbitrator for automated, real-time PII leak adjudication & RQ3 & Three-agent framework (Attacker, Defender, Arbitrator) with consensus-based judgment \\
-G4 & No controlled comparison of attack effectiveness across differentiated attacker profiles & RQ4 & Three-profile threat model with profile-dependent evaluation engine \\
+G3 & No calibrated automated judge for real-time PII leak adjudication & RQ3 & Validated language-model judge, calibrated against human annotation \\
+G4 & No controlled comparison of attack effectiveness across differentiated attacker profiles & RQ4 & Four-profile threat model with profile-dependent evaluation engine \\
 G5 & No quantification of the security-utility trade-off using continuous privacy metrics in RAG & RQ5 & Residual risk measurement ($\bar{S}_{\text{full-stack}}$) under full defense deployment \\
 \bottomrule
 \end{tabular}
@@ -423,20 +423,24 @@ This thesis sits at the intersection of five active research areas (RAG security
 
 \begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
   \item Privacy leakage in RAG systems is formalized using the mathematically precise definitions $L$ and $S$, both rooted in the LINDDUN threat taxonomy.
-  \item A profile-dependent evaluation engine measures leakage while distinguishing between three attacker archetypes, each with different access levels and motivations.
-  \item Multiple adversarial families (prompt injection, jailbreaking, corpus poisoning) are exercised systematically through an autonomous Attacker Agent.
+  \item A profile-dependent evaluation engine measures leakage while distinguishing between four attacker profiles, each with different access levels and motivations.
+  \item Multiple adversarial families (prompt injection, jailbreaking, corpus poisoning) are exercised systematically through a structured adversarial campaign.
   \item Defense is provided through layered configurations (Presidio PII detection, NeMo Guardrails, output filtering), whose combined effectiveness is quantified with the $\Delta S$ metric.
-  \item Final adjudication is carried out by a multi-agent judge system designed to reduce false positives and produce a GDPR-aligned severity assessment.
+  \item Final adjudication is carried out by a validated language-model judge designed to reduce false positives and produce a GDPR-aligned severity assessment.
 \end{enumerate}
 
 No existing work in the surveyed literature brings all five of these capabilities together within a single experimental framework applied to RAG systems.
 \end{notebox}
 
 \begin{transitionbox}[Original Contribution, the One-Sentence Statement]
-Of the 50 primary sources surveyed, none simultaneously couples (i) a mathematically formalized, LINDDUN-aligned privacy-leakage metric pair $(L, S)$ with (ii) a profile-dependent evaluation engine that distinguishes three attacker archetypes with different authorization levels and (iii) an autonomous Attacker-Defender-Arbitrator loop grounded in a controlled PII ground-truth corpus, and this three-way integration (formal privacy metric $\times$ profile-dependence $\times$ autonomous multi-agent evaluation, applied to RAG) is the original contribution of this thesis.
+Of the 50 primary sources surveyed, none simultaneously couples (i) a mathematically formalized, LINDDUN-aligned privacy-leakage metric pair $(L, S)$ with (ii) a profile-dependent evaluation engine that distinguishes four attacker profiles with different authorization levels and (iii) a validated language-model judge grounded in a controlled PII ground-truth corpus, and this three-way integration (formal privacy metric $\times$ profile-dependence $\times$ validated automated adjudication, applied to RAG) is the original contribution of this thesis.
 \end{transitionbox}
 
-The value proposition is convergence rather than invention. Every individual component exists somewhere in the literature. None of the 50 surveyed works combines them in the configuration above, and several components, particularly the profile-dependent evaluation engine and the GDPR-grounded Arbitrator, are independently flagged as open frontiers by the surveyed community itself (Yehudai et al.\ 2025; Correia et al.\ 2026).
+\begin{notebox}
+\textbf{Plan versus realization.}\quad This positioning states the architecture as conceived during the literature review. The experimental work, reported in the chapters that follow, realized the adjudication layer as a \emph{single validated language-model judge} rather than the multi-agent arbitration panel described above: a panel whose members share a model family is circular, since an arbitrator cannot improve on the judge it arbitrates (Chapter~\ref{ch:discussion}). Likewise, the four attacker profiles comprise three evaluated through live interaction and a fourth, the Third-Party Provider, assessed offline because its exposure is bounded by an API contract rather than a query (Chapter~\ref{ch:threat}).
+\end{notebox}
+
+The value proposition is convergence rather than invention. Every individual component exists somewhere in the literature. None of the 50 surveyed works combines them in the configuration above, and several components, particularly the profile-dependent evaluation engine and the GDPR-grounded judge, are independently flagged as open frontiers by the surveyed community itself (Yehudai et al.\ 2025; Correia et al.\ 2026).
 
 
 % ══════════════════════════════════════════════════════════
