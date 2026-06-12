@@ -1,0 +1,61 @@
+%!TEX program = xelatex
+% ============================================================================
+%  acknowledgements_ar.tex — Arabic acknowledgments page (separate XeLaTeX doc)
+%  Like titlepage.tex, this isolates the Arabic/polyglossia/bidi stack from the
+%  thesis master. Rebuild with:  latexmk -xelatex acknowledgements_ar.tex
+%  Source text: Acknowledgements.txt (author-provided, reproduced verbatim).
+%  The master \includepdf's acknowledgements_ar.pdf right after the Abstract.
+% ============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% Same text block as the thesis master so the page aligns with the front matter
+\usepackage[a4paper,left=3.18cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{xcolor}
+\definecolor{darkcharcoal}{HTML}{263238}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage[calendar=gregorian]{arabic}
+\newfontfamily\arabicfont[Script=Arabic, Scale=1.15]{Al Nile}
+% Al Nile lacks U+FDFA (the salla-llahu-alayhi-wa-sallam ligature); Geeza Pro has it
+\newfontfamily\salatfont[Script=Arabic, Scale=1.15]{Geeza Pro}
+\pagestyle{empty}   % the thesis master overlays its own roman folio via pagecommand
+
+\begin{document}
+
+% Heading mirrors the thesis front-matter chapter heads (bold, centered, charcoal)
+\begin{center}
+{\color{darkcharcoal}\fontsize{16}{19}\selectfont\bfseries
+\textarabic{رسالة شكر وتقدير}}
+\end{center}
+
+\vspace{1.2em}
+
+\begin{Arabic}
+\fontsize{13}{24}\selectfont
+
+الحمد لله الذي بنعمته تتمّ الصالحات، الحمد لله حمدًا كثيرًا طيبًا مباركًا فيه. الحمد لله الذي وفقني وأعانني على إتمام هذا العمل، والذي لولا فضله وتوفيقه سبحانه وتعالى ما رأى النور، وأسأل الله العلي القدير أن يجعله نافعًا للبلاد والعباد، وذخرًا للمسلمين أينما كانوا.
+
+\medskip
+
+وعملًا بقول النبي {\salatfont ﷺ}: «مَنْ لَا يَشْكُرُ النَّاسَ لَا يَشْكُرُ اللهَ»، يطيب لي أن أتقدم بجزيل الشكر ووافر الامتنان إلى مؤطريَّ الفاضلين: البروفيسور أسماء عيمر، والدكتور شايب سليمان، على ما بذلاه من جهود قيّمة، وما قدماه لي من مساندة ودعم تُوِّجت بإنجاز هذا المشروع وإتمامه، فلهما مني كل الثناء والتقدير.
+
+\medskip
+
+كما يمتد شكري إلى مخبر تجارب المدرسة العليا للإعلام الآلي، وإلى السيد المدير، والأساتذة الأفاضل، ورؤساء الأقسام، وكافة أفراد الطاقم الإداري، تقديرًا لجهودهم المبذولة، ونصائحهم وإرشاداتهم القيّمة، ودعمهم المادي والمعنوي طيلة مشواري الدراسي وأثناء إنجاز هذا البحث.
+
+\medskip
+
+ولا يفوتني أن أتقدم بأسمى عبارات الشكر والعرفان إلى عائلتي الكريمة؛ والدتي الغالية، وإلى روح والدي رحمه الله وغفر له، وأخي، وأختي، على دعمهم النفسي والمعنوي، وعلى كل ما بذلوه من جهود للتيسير عليّ أثناء دراستي وفي هذا المشروع، فأسأل الله العظيم رب العرش العظيم أن يجزيهم عني خير الجزاء، وأن يبارك فيهم.
+
+\medskip
+
+وفي الختام، أتوجه بشكري وتقديري إلى زملائي وأصدقائي، وإلى الأقارب والأحباب، وكل من ساندني وساعدني ومدّ لي يد العون، سائلًا الله عز وجل أن يحفظهم جميعًا ويبارك فيهم ويجزيهم خير الجزاء.
+
+\medskip
+
+والحمد لله رب العالمين.
+
+\end{Arabic}
+
+\end{document}
