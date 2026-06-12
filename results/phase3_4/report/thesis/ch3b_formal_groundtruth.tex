@@ -149,12 +149,12 @@ Let $\textit{authorized\_level}(u) \in \mathcal{I}$ denote the maximum permitted
 \vspace{0.3cm}
 $$\boxed{\;L(q,\, r,\, D,\, u) \;=\;
 \begin{cases}
-  1 & \text{if } \exists\; x \in \textit{info}(r, D) \text{ s.t.\ } \textit{sensitivity}(x) > \textit{authorized\_level}(u) \\[6pt]
+  1 & \text{if } \exists\; x \in \textit{info}(r, D) \text{ s.t.\ } \textit{severity}(x) > \textit{authorized\_level}(u) \\[6pt]
   0 & \text{otherwise}
 \end{cases}\;}$$
 
 \vspace{0.2cm}
-\noindent where $\textit{sensitivity}(x) \in \{2, 3, 4, 5\}$ is the severity weight of information item $x$ as defined in the Complete Leakage Taxonomy (Table~\ref{tab:ch3-taxonomy} of the Threat Model).
+\noindent where $\textit{severity}(x) \in \{2, 3, 4, 5\}$ is the severity weight of information item $x$ as defined in the Complete Leakage Taxonomy (Table~\ref{tab:ch3-taxonomy} of the Threat Model).
 
 \medskip
 \textbf{Attack Success Rate:}
@@ -179,7 +179,7 @@ $\;\;\text{ASR} = \frac{1}{N}\sum_{i=1}^{N} L(q_i, r_i, D, u)$
 \begin{prosebox}
 \textbf{Motivation.}\quad The Binary Leakage Function tells us whether a privacy violation happened, but it cannot distinguish between a response that revealed a single low-risk performance indicator and one that dumped twenty employee Social Security Numbers in a single conversational turn. Both produce $L = 1$. Their legal consequences and real-world impact are not the same.
 
-The Leakage Severity Score $S$ closes this gap. It produces a continuous, non-negative value that captures both the \emph{number} and the \emph{criticality} of disclosed items, by combining two independent weighting factors: the intrinsic sensitivity $s(e)$ of each leaked entity, drawn from the taxonomy in Table~\ref{tab:ch3-taxonomy}, and a detection confidence weight $w(e)$ that scales down the contribution of entities found by probabilistic methods relative to those caught deterministically.
+The Leakage Severity Score $S$ closes this gap. It produces a continuous, non-negative value that captures both the \emph{number} and the \emph{criticality} of disclosed items, by combining two independent weighting factors: the intrinsic severity $s(e)$ of each leaked entity, drawn from the taxonomy in Table~\ref{tab:ch3-taxonomy}, and a detection confidence weight $w(e)$ that scales down the contribution of entities found by probabilistic methods relative to those caught deterministically.
 \end{prosebox}
 
 \vspace{0.4cm}
@@ -187,7 +187,7 @@ The Leakage Severity Score $S$ closes this gap. It produces a continuous, non-ne
 \begin{defbox}[Definition 2 --- Leakage Severity Score $S(q, r, D, u)$]
 Let $E(r, D, u)$ denote the set of PII entities in response $r$ that originate from $D$ and exceed $\textit{authorized\_level}(u)$:
 
-$$E(r, D, u) = \bigl\{\, e \mid e \in \textit{entities}(r, D),\;\; \textit{sensitivity}(e) > \textit{authorized\_level}(u) \,\bigr\}$$
+$$E(r, D, u) = \bigl\{\, e \mid e \in \textit{entities}(r, D),\;\; \textit{severity}(e) > \textit{authorized\_level}(u) \,\bigr\}$$
 
 For each $e \in E(r, D, u)$, let $s(e) \in \{2, 3, 4, 5\}$ be the \textbf{severity weight} and let $w(e) \in [0,1]$ be the \textbf{detection confidence weight}:
 
