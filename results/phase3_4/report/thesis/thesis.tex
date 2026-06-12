@@ -201,6 +201,16 @@
 % To change it: edit titlepage.tex and rebuild with  latexmk -xelatex titlepage.tex
 \includepdf[pages=1,fitpaper=true]{titlepage.pdf}
 
+% ===================== ACKNOWLEDGMENTS (ARABIC) =====================
+% Separate XeLaTeX document (acknowledgements_ar.tex -> acknowledgements_ar.pdf), like the
+% title page, so the Arabic/polyglossia/bidi stack stays OUT of this master. The roman folio
+% and TOC entry are overlaid via pagecommand. To change the text: edit acknowledgements_ar.tex
+% and rebuild with  latexmk -xelatex acknowledgements_ar.tex
+\clearpage
+\includepdf[pages=1, pagecommand={\thispagestyle{plain}\phantomsection%
+  \addcontentsline{toc}{chapter}{Acknowledgments}%
+  \markboth{Acknowledgments}{}}]{acknowledgements_ar.pdf}
+
 % ================================ ABSTRACT ================================
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
@@ -239,16 +249,6 @@ re-identification; quasi-identifiers; LLM-as-judge; privacy-utility trade-off; d
 % French résumé / Arabic ملخص (if the school requires them) are added here later as sibling
 % blocks --- a parallel \begin{abstract}...\end{abstract} (or \chapter*{Résumé}) below;
 % translations only, not part of the English-abstract task.
-
-% ===================== ACKNOWLEDGMENTS (ARABIC) =====================
-% Separate XeLaTeX document (acknowledgements_ar.tex -> acknowledgements_ar.pdf), like the
-% title page, so the Arabic/polyglossia/bidi stack stays OUT of this master. The roman folio
-% and TOC entry are overlaid via pagecommand. To change the text: edit acknowledgements_ar.tex
-% and rebuild with  latexmk -xelatex acknowledgements_ar.tex
-\clearpage
-\includepdf[pages=1, pagecommand={\thispagestyle{plain}\phantomsection%
-  \addcontentsline{toc}{chapter}{Acknowledgments}%
-  \markboth{Acknowledgments}{}}]{acknowledgements_ar.pdf}
 
 % ====================== PROBLEM STATEMENT (after abstract) ======================
 \chapter*{Problem Statement}
