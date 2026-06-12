@@ -121,7 +121,7 @@ F8 scenarios.
 \draw[ar] (chunk) -- (embed);
 \draw[ar, figteal!70!black] (embed) -- node[right,font=\scriptsize]{index} (db);
 \draw[ar] (q) -- node[above,font=\scriptsize]{retrieve} (db);
-\draw[ar, figteal!70!black] (db) -- node[above,font=\scriptsize]{top-5 context} (llm);
+\draw[ar, figteal!70!black] (db) -- node[above,font=\scriptsize,align=center,pos=0.47]{top-5\\context} (llm);
 \draw[ar] (llm) -- (resp);
 \begin{scope}[on background layer]
   \node[fill=figteal!8, rounded corners=5pt, fit=(corpus)(embed), inner sep=7pt,
