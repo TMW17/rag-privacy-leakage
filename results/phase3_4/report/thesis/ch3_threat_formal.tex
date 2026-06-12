@@ -270,7 +270,7 @@ from partial retrieval outputs. \emph{Disclosure} is backed by
 Carlini et al.\ (2021, 2023), who showed that targeted prompting reliably
 pulls verbatim PII out of language model outputs.
 \emph{Non-compliance} is framed by the OWASP LLM Top~10 (2025), which
-lists Sensitive Information Disclosure (LLM06) as a major enterprise
+lists Sensitive Information Disclosure (LLM02) as a major enterprise
 risk that calls for structural remediation.
 
 % ══════════════════════════════════════════════════════════════════════════════
@@ -489,7 +489,7 @@ adaptations deserve up-front justification:
         \emph{C:H} whenever an attack produces direct disclosure of at
         least one special-category PII field (SSN, medical record, credit
         card, authentication credential). This matches OWASP LLM Top~10
-        (2025) Rule~LLM06, which treats any such disclosure as
+        (2025) Rule~LLM02, which treats any such disclosure as
         high-impact regardless of record count.
   \item \textbf{Scope for cross-principal data flows.} We set
         \emph{S:Changed} whenever the attacker's actions affect
