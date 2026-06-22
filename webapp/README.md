@@ -33,6 +33,14 @@ calls) vs **STATIC** (slate — committed artifact reads).
 Prereqs: `ANTHROPIC_API_KEY` set (for the live chatbot only); the `.venv-presidio` worker (used by L2);
 `fastapi uvicorn jinja2 markdown` (all already present here).
 
+A header toggle (🌙 / ☀️) switches the dark-navy ⇄ light theme (defaults to dark, persisted per browser).
+
+## Demonstrating to supervisors
+
+For a guided, copy-paste walkthrough — launch commands, five demo prompts with expected results and how
+to interpret them, the engine-vs-judge reading, and honest talking points — see
+[`../SUPERVISOR_DEMO.md`](../SUPERVISOR_DEMO.md).
+
 ## Verify
 
 ```bash

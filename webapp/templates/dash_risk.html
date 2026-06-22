@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import table %}
+{% from "_macros.html" import table, figure %}
 {% block title %}Risk matrix{% endblock %}
 {% block ribbon %}
 <div class="ribbon static"><b>STATIC</b> — loaded from committed <code>results/phase3/risk_matrix/</code> · no recomputation</div>
@@ -12,9 +12,11 @@ The judged residual is a lower bound on true risk.</p>
 
 <h2>Family risk (judged)</h2>
 {{ table(fam, fam_err) }}
+{{ figure(bubble, bubble_err, "NEW — per-family risk as likelihood (residual judged ASR @ knee C01100) × impact (max severity); bubble area = risk score. F2 dominates at 2.80 (residual 0.70, unreduced NOT config-worse). Note: the RQ5 headline quotes F2=0.60 @ full stack — always stamp the config. Generated from risk_matrix.json.") }}
 
 <h2>Entity-type risk (31 types; detector-miss under L2)</h2>
 {{ table(ent, ent_err, height=440) }}
+{{ figure(ent_fig, ent_fig_err, "NEW — per-entity residual risk = severity × (1 − detector recall), colored by class. DETECTOR-GAP entities (crimson) are the exposed ones; AGE_GENDER (recall 0.00) is the linkage bridge. 18 structured types are fully redacted (risk 0, not shown). SYSTEM_PROMPT sorts high by raw product but Presidio is not its control (F3 handles it, scenario residual 0). Generated from risk_matrix.json.") }}
 
 <div class="callout info"><strong>F2 is the dominant elevated residual.</strong> MEDICAL / SURNAME_TITLE / AGE_GENDER surface via the
 DETECTOR-GAP class (a flat sort would bury SURNAME). <strong>AGE_GENDER is the linkage bridge</strong> (sev3,

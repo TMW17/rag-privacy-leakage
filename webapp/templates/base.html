@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Privacy leakage in enterprise RAG — defense demonstration &amp; results{% endblock %}</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=6">
+  <script>/* set theme before paint (no flash); default = dark navy */
+    (function(){try{var t=localStorage.getItem('theme')||'dark';}catch(e){t='dark';}
+     document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
 <header class="site">
@@ -22,6 +25,8 @@
       <a href="/dashboard/risk" class="pill {{ 'on' if nav=='risk' else '' }}">Risk matrix</a>
       <a href="/dashboard/rq3" class="pill {{ 'on' if nav=='rq3' else '' }}">Judge validation</a>
       <a href="/dashboard/probes" class="pill {{ 'on' if nav=='probes' else '' }}">Probes</a>
+      <span class="sep"></span>
+      <button id="themeToggle" class="themebtn" type="button" onclick="toggleTheme()" title="Switch dark / light">🌙</button>
     </nav>
   </div>
 </header>
@@ -39,5 +44,14 @@
   <b>Judged augmented ASR is the primary metric; engine ASR is a lower-bound annotation.</b>
   This is a demonstration &amp; read-only results viewer — <b>not a certified system</b>; cross-document linkability (F2) is unreduced.
 </footer>
+<script>
+function updateThemeBtn(){var b=document.getElementById('themeToggle');if(!b)return;
+  var dark=document.documentElement.getAttribute('data-theme')==='dark';
+  b.textContent=dark?'☀️':'🌙';b.title=dark?'Switch to light':'Switch to dark navy';}
+function toggleTheme(){var d=document.documentElement;
+  var t=d.getAttribute('data-theme')==='dark'?'light':'dark';
+  d.setAttribute('data-theme',t);try{localStorage.setItem('theme',t);}catch(e){}updateThemeBtn();}
+updateThemeBtn();
+</script>
 </body>
 </html>

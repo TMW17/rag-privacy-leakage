@@ -42,6 +42,9 @@ CONFIG_LABEL = "C01100 (L2 retrieval-redaction + L3 refusal · audit_log + confi
 
 # ── chatbot endpoints: the EXACT committed handler objects, re-registered (behaviour unchanged) ──
 app.add_api_route("/chatbot/chat", chatbot.chat, methods=["POST"])
+app.add_api_route("/chatbot/judge", chatbot.judge, methods=["POST"])   # second-pass Opus judge verdict
+app.add_api_route("/chatbot/history", chatbot.history, methods=["GET"])         # all prompts + results
+app.add_api_route("/chatbot/history/clear", chatbot.history_clear, methods=["POST"])
 app.add_api_route("/chatbot/reset", chatbot.reset, methods=["POST"])
 app.add_api_route("/health", chatbot.health, methods=["GET"])
 

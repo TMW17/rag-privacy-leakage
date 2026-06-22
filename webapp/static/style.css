@@ -9,7 +9,7 @@
 
 :root{
   --ink:#1c2330; --muted:#5a6573; --faint:#8a93a0;
-  --paper:#ffffff; --canvas:#f5f6f8; --line:#e3e6ea;
+  --paper:#ffffff; --canvas:#f5f6f8; --line:#e3e6ea;   /* light default; dark navy via [data-theme=dark] */
   --brand:#2540c0;                 /* navigation / structural accent only (not a safety signal) */
   --warn-tx:#92400e; --warn-bg:#fffbeb; --warn-bd:#f59e0b;   /* amber: LIVE + caveats + engine verdict */
   --static-tx:#334155; --static-bg:#f1f5f9; --static-bd:#cbd5e1; /* slate: STATIC artifact reads */
@@ -75,12 +75,15 @@ table.tbl td{padding:7px 10px;border-bottom:1px solid #eef1f4;vertical-align:top
 table.tbl tr:nth-child(even) td{background:#fafbfc}
 
 /* ── live chatbot ── */
-.chat-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:14px}
+.chat-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:14px;align-items:start}
 .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden}
+.panel.audit{max-height:78vh;overflow:auto}          /* sidebar scrolls instead of clipping when tall */
 .log{padding:14px;height:56vh;overflow:auto}
-.msg{margin:8px 0;padding:9px 12px;border-radius:10px;max-width:88%;white-space:pre-wrap;line-height:1.45}
-.msg.u{background:var(--brand);color:#fff;margin-left:auto}
-.msg.a{background:#eef1f5}
+/* message bubbles hug their text (fit-content), never stretch to the panel width */
+.msg{margin:7px 0;padding:9px 13px;border-radius:13px;max-width:82%;width:fit-content;white-space:pre-wrap;
+  line-height:1.46;word-break:break-word;box-shadow:0 1px 2px rgba(0,0,0,.16)}
+.msg.u{background:var(--brand);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+.msg.a{background:#eef1f5;border-bottom-left-radius:4px}
 .bar{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
 .sel{padding:8px;border:1px solid #cdd3da;border-radius:8px}
 .inp{flex:1;padding:9px;border:1px solid #cdd3da;border-radius:8px;font-size:14px}
@@ -94,18 +97,31 @@ table.tbl tr:nth-child(even) td{background:#fafbfc}
 .audit-warn{background:var(--warn-bg);border-bottom:3px solid var(--warn-bd);color:var(--warn-tx);padding:13px 15px}
 .audit-warn .hd{font-weight:800;font-size:14px;margin-bottom:4px}
 .audit-warn p{margin:0;font-size:13px;line-height:1.5}
-.audit h3{padding:0 15px} .audit .muted{padding:0 15px}
-.audit-body{padding:0 15px 15px;font-size:13px}
+.audit h3{padding:14px 15px 0;font-size:13px;display:flex;align-items:center;gap:7px}
+.audit .muted{padding:2px 15px 0}
+.audit-body{padding:6px 15px 15px;font-size:13px}
 .chip{background:#e8edf5;color:var(--muted);border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600}
 
 /* engine verdict — AMBER (lower bound), never green. Real leak = red. */
-.verdict{border-radius:8px;padding:9px 12px;margin:6px 0;font-size:14px}
+.verdict{border-radius:9px;padding:10px 13px;margin:6px 0 10px;font-size:14px;font-weight:600;
+  display:flex;flex-direction:column;gap:2px}
 .verdict.v-engineblind{background:var(--warn-bg);border:1px solid var(--warn-bd);color:var(--warn-tx)}
 .verdict.v-leak{background:var(--err-bg);border:1px solid var(--err-bd);color:var(--err-tx)}
-.verdict .vtag{display:block;font-size:11px;font-weight:600;opacity:.85;margin-top:3px}
-table.kv{border-collapse:collapse;width:100%;font-size:12px;margin:8px 0}
-table.kv td{padding:4px 8px;border-bottom:1px solid #eef1f4;vertical-align:top}
-table.kv td:first-child{color:var(--muted);white-space:nowrap;width:34%}
+.verdict .vtag{font-size:11px;font-weight:500;opacity:.88;line-height:1.4}
+
+/* second-pass judge — the HUMAN-validated detector (κ=0.827). Still NO green: a judge leak is RED
+   (v-leak, reused); a judge no_leak is neutral SLATE (validated, but a demonstration not a certification);
+   an engine–judge disagreement (engine no_leak, judge leak) is amber — the κ gap made visible. */
+.judge-head{border-top:2px solid var(--line);margin-top:12px;padding-top:2px}
+.verdict.v-judgeclear{background:var(--static-bg);border:1px solid var(--static-bd);color:var(--static-tx)}
+.disagree{background:var(--warn-bg);border:1px solid var(--warn-bd);color:var(--warn-tx);
+  border-radius:8px;padding:9px 12px;margin:7px 0;font-size:13px;font-weight:600;line-height:1.45}
+table.kv{border-collapse:collapse;width:100%;font-size:12px;margin:8px 0;
+  border:1px solid var(--line);border-radius:8px;overflow:hidden}
+table.kv td{padding:6px 10px;border-bottom:1px solid #eef1f4;vertical-align:top}
+table.kv tr:last-child td{border-bottom:0}
+table.kv td:first-child{color:var(--muted);white-space:nowrap;width:38%;font-weight:600}
+table.kv td:last-child{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px}
 .audit-body pre{background:#0f1626;color:#cfe3ff;padding:10px;border-radius:8px;overflow:auto;font-size:11px}
 .audit-body details summary{cursor:pointer;color:var(--brand);font-size:12px;margin-top:6px}
 
@@ -122,4 +138,80 @@ img.fig{max-width:100%;height:auto;border:1px solid var(--line);border-radius:va
 
 footer.site-foot{max-width:1180px;margin:0 auto;padding:18px;color:var(--faint);font-size:12px;border-top:1px solid var(--line)}
 
-@media (max-width:880px){.cards{grid-template-columns:1fr}.chat-grid{grid-template-columns:1fr}}
+/* ── FULL DARK-BLUE THEME (toggle in header; persisted in localStorage). Scoped to
+   html[data-theme="dark"] so the light theme stays untouched. Redefining the core tokens flips every
+   card / panel / table / text that uses them; the rules after override the few elements that hard-code
+   a light background in the base sheet. Accents kept: steel-blue (structural), amber (caveats/LIVE),
+   red (leak/error), slate (STATIC). NO success-green is introduced (the honesty colour rule holds). ── */
+html[data-theme="dark"]{
+  --canvas:#060b1a;        /* page background (darkest) */
+  --paper:#0f1a33;         /* cards / panels / tables — dark blue, elevated */
+  --ink:#e7edf8;           /* primary text (light) */
+  --muted:#9fb0d0;         /* secondary text */
+  --faint:#7589ad;         /* tertiary text */
+  --line:#26314f;          /* borders / rules */
+  --brand:#6f8ce8;         /* links + structural accent (brighter steel for dark) */
+  --warn-tx:#fcd9a0; --warn-bg:#3a2a0e; --warn-bd:#7a5816;       /* amber on dark */
+  --info-tx:#bcd2ff; --info-bg:#10204a; --info-bd:#2a4a8c;       /* blue on dark */
+  --err-tx:#fda4a4;  --err-bg:#3a1414;  --err-bd:#7a2222;        /* red on dark */
+  --static-tx:#c4d2e8; --static-bg:#141f3a; --static-bd:#2c3c60; /* slate on dark */
+}
+html[data-theme="dark"] header.site{background:#040814}
+html[data-theme="dark"] footer.site-foot{border-top-color:#1c2a4a}
+/* elements that hard-code a light background in the base sheet → dark-blue equivalents */
+html[data-theme="dark"] code{background:#16223f;color:#cdd9f5}
+html[data-theme="dark"] table.tbl th{background:#16223f}
+html[data-theme="dark"] table.tbl tr:nth-child(even) td{background:#0c1530}
+html[data-theme="dark"] table.tbl td{border-bottom-color:var(--line)}
+html[data-theme="dark"] table.kv td{border-bottom-color:var(--line)}
+html[data-theme="dark"] .chip{background:#1c2a4a}
+html[data-theme="dark"] .metric .v .tag{background:#16223f}
+html[data-theme="dark"] .nav .pill.on{background:#27365e;color:#fff}
+html[data-theme="dark"] .nav .pill.live.on{background:#b9831f;color:#1a1206}
+html[data-theme="dark"] .reading .md th{background:#16223f}
+html[data-theme="dark"] .reading .md code{background:#16223f}
+html[data-theme="dark"] img.fig{background:#0f1a33}
+/* live-chatbot surfaces */
+html[data-theme="dark"] .msg.a{background:#16223f;color:var(--ink)}
+html[data-theme="dark"] .sel,
+html[data-theme="dark"] .inp{background:#0c1530;color:var(--ink);border-color:var(--line)}
+html[data-theme="dark"] .hist-chip{background:#111d38}
+html[data-theme="dark"] .hist-table-wrap{background:#0c1530}
+html[data-theme="dark"] table.hist th{background:#16223f}
+html[data-theme="dark"] table.hist td{border-bottom-color:var(--line)}
+/* header theme-toggle button */
+.nav .themebtn{cursor:pointer;background:transparent;border:1px solid #3a4456;color:#cdd3da;border-radius:8px;padding:5px 10px;font-size:14px;line-height:1.1}
+.nav .themebtn:hover{background:#2a3344;color:#fff}
+
+/* ── session-history panel (live chatbot): all prompts + their engine/judge results, with charts ── */
+.history{margin-top:14px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.history .row{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-bottom:4px}
+/* stat chips — a row of equal stat cards, value coloured + left-accent per type */
+.hist-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.hist-chip{background:#f7f9fc;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:10px;padding:11px 14px}
+.hist-chip.leak{border-left-color:var(--err-bd)} .hist-chip.dis{border-left-color:var(--warn-bd)}
+.hist-chip .k{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+.hist-chip .v{font-size:27px;font-weight:800;line-height:1.1;margin-top:3px}
+.hist-chip.leak .v{color:var(--err-tx)} .hist-chip.dis .v{color:var(--warn-tx)}
+/* the two charts side by side, each a self-contained DARK sub-card (matches the dark figures); its
+   caption + legend + SVG text are light in BOTH themes since the card is always dark. */
+.hist-charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.hist-chart{background:#0c1530;border:1px solid #26314f;border-radius:10px;padding:12px 14px;overflow-x:auto;margin:0}
+.hist-chart .cap{font-size:12px;color:#9fb0d0;margin:0 0 8px;font-weight:600;line-height:1.4}
+.hist-legend{font-size:11px;color:#9fb0d0;display:flex;gap:14px;flex-wrap:wrap;margin:8px 0 0}
+.hist-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+/* the table follows the theme (light text on light, light text on dark) */
+.hist-table-wrap{background:#f9fafd;border:1px solid var(--line);border-radius:10px;overflow:auto;margin-top:6px;max-height:46vh}
+table.hist{border-collapse:collapse;width:100%;font-size:12px}
+table.hist th{position:sticky;top:0;background:#f3f5f8;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap;font-size:11px;text-transform:uppercase;letter-spacing:.3px;z-index:1}
+table.hist td{padding:7px 10px;border-bottom:1px solid #eef1f4;vertical-align:top}
+table.hist tbody tr:hover td{background:rgba(127,156,245,.07)}
+table.hist td.prompt{max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+table.hist td.num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.tag-leak{color:var(--err-tx);font-weight:700}
+.tag-clean{color:var(--static-tx)}
+.tag-dis{background:var(--warn-bg);color:var(--warn-tx);border:1px solid var(--warn-bd);border-radius:6px;padding:1px 7px;font-weight:700;white-space:nowrap;font-size:11px}
+.btn.sm{padding:6px 12px;font-size:12px;white-space:nowrap}
+
+@media (max-width:880px){.cards{grid-template-columns:1fr}.chat-grid{grid-template-columns:1fr}
+  .hist-chips{grid-template-columns:repeat(2,1fr)}.hist-charts{grid-template-columns:1fr}.panel.audit{max-height:none}}

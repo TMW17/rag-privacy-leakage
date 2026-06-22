@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import table %}
+{% from "_macros.html" import table, figure %}
 {% block title %}Judge validation (RQ3){% endblock %}
 {% block ribbon %}
 <div class="ribbon static"><b>STATIC</b> — loaded from committed <code>final_metrics.json</code> (RQ3, cited from Sprint 0)</div>
@@ -19,5 +19,13 @@
   <p class="src">Single-Claude calibration FPR {{ k.single_claude_FPR }} vs majority-vote {{ k.majority_FPR }}
   (46-record sample). Claude-only operation is the declared constraint; no 3-judge full-ablation numbers are fabricated.</p>
 {% endif %}
-<p class="src">Source: <code>final_metrics.json</code> (RQ3_judge_validation_CITED; cited from Sprint 0).</p>
+
+<h2>The κ chain, ranked</h2>
+{{ figure(chain, chain_err, "NEW — every κ ranked: judge–human 0.827 (VALIDATION, navy) clears the κ≥0.60 bar and the 0.692 inter-human ceiling; engine–human 0.164 (crimson) fails it; cross-vendor 0.843 (amber) is CORROBORATION, never the validation figure. Generated from final_metrics.json (engine–human parsed from metric_ordering).") }}
+
+<h2>Judge on the defended distribution</h2>
+{{ figure(degrade, degrade_err, "NEW — the judge degrades when scoring DEFENDED output: judge–human κ 0.827 → 0.306, raw agreement 0.935 → 0.696. The defended confusion matrix shows over-flagging (FP=11), but all 3 missed leaks are linkage → 17.3% is a LOWER bound, not an over-estimate. Generated from judge_defended_calibration/kappa_defended.json.") }}
+
+<p class="src">Sources: <code>final_metrics.json</code> (RQ3_judge_validation_CITED; cited from Sprint 0),
+<code>judge_defended_calibration/kappa_defended.json</code>.</p>
 {% endblock %}

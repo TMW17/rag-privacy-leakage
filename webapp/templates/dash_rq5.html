@@ -10,6 +10,12 @@
 
 {{ table(pt, pt_err) }}
 
+<h2>Security across configs (noise-aware)</h2>
+{{ figure(sec, sec_err, "NEW — judged ASR per config with the ±0.08 judged floor band around the baseline. Only L2-bearing configs (C01000/C01100/C11111) clear the floor; L1 and L3 alone sit within noise. Engine ASR overlaid as the lower bound. Generated from final_metrics.json.") }}
+
+<h2>Utility cost (undefended → full stack)</h2>
+{{ figure(util, util_err, "NEW — the 5 utility metrics, C00000 → C11111 (30 benign queries, 2 configs only). 4 metrics barely move; the real cost is context-precision −0.097 and latency ~1.9×. Per-config utility (incl. the knee) is future work. Generated from utility_results.json.") }}
+
 <div class="callout info"><strong>Knee = C01100 (L2+L3)</strong> — it captures essentially all of the full stack&rsquo;s measured security
 (judged 0.192 vs 0.173; gap +0.019, within the 0.08 floor) at two layers. A <em>naive</em> Pareto wrongly
 picks the full stack on a within-noise edge; the full stack is a defense-in-depth choice, not a measured win over the knee.</div>

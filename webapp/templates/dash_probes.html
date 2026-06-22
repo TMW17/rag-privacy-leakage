@@ -9,6 +9,9 @@
 <div class="callout warn"><strong>Exploratory probes — single-run, direction-only.</strong> These are NOT primary results and do NOT
 change the 17.3&nbsp;% headline. Their numbers are directions, never rates.</div>
 
+<h2>0 · Residual context — the (L, S) the probes circle</h2>
+{{ figure(ls, ls_err, "NEW — both halves of the residual move together: judged ASR (L) 0.288 → 0.173 and judged mean severity (S̄) 0.865 → 0.371 across baseline → knee → full stack. Different denominators (L over scenarios, S̄ over the 89-turn matched set). Generated from final_metrics.json + severity_aggregates.json.") }}
+
 <h2>1 · LLM redactor (L2-LLM) — enhancement probe</h2>
 {% if l2_err %}
   <div class="callout error">⚠ {{ l2_err }}</div>
@@ -20,7 +23,7 @@ change the 17.3&nbsp;% headline. Their numbers are directions, never rates.</div
       the pre-registered per-scenario prediction was <em>falsified</em>; two &lsquo;rises&rsquo; are a fresh-vs-reused judge confound.</li>
     <li><em>Caveat:</em> same-vendor Sonnet-redactor / Opus-judge coupling.</li>
   </ul>
-  {{ figure(img, img_err, "L2-LLM vs Presidio-L2: fully-measured F2-vs-context-precision trade-off (security edge non-significant). Source: committed l2_llm/l2_llm_tradeoff.png.") }}
+  {{ figure(l2vp, l2vp_err, "Paired view: F2 judged ASR (Presidio 0.70 → LLM 0.40, vs pre-reg bar 0.52 and baseline 0.60) beside context-precision (Presidio 0.658 → LLM 0.755 = no-redaction level). Utility win solid; security direction only. Generated from l2_llm_results.json.") }}
 {% endif %}
 
 <h2>2 · Enron generalization (Task 3.6)</h2>
@@ -36,6 +39,7 @@ change the 17.3&nbsp;% headline. Their numbers are directions, never rates.</div
       defended-cell survivors; the baseline leaks are all real PII).</li>
     <li><em>Caveats:</em> single mailbox; n=4/3; one run; L3/L5 inert on un-annotated data (so C01100 = L2-driven here).</li>
   </ul>
+  {{ figure(enron_fig, enron_fig_err, "NEW — per-scenario leak grid on Enron (1 mailbox, 1 run): F1 generalizes DOWN (4→2, phones redacted on real prose); F2 cells INCONCLUSIVE (judge over-flags redacted output — not 'no effect'). Generated from enron_results.json.") }}
 {% endif %}
 
 <p class="src">Sources: <code>l2_llm/l2_llm_results.json</code>, <code>l2_llm/l2_llm_tradeoff.png</code>, <code>enron/enron_results.json</code>.

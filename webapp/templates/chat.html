@@ -37,8 +37,44 @@ together. This demonstrates the configuration&rsquo;s behaviour; it is <b>not a 
     <h3>Per-turn audit log <span class="chip">last turn</span></h3>
     <p class="muted">timestamp · profile · layers fired · retrieved doc_ids · <b>engine verdict</b> · severity S · confidence gate</p>
     <div id="audit" class="audit-body">— send a message to see the audit entry —</div>
+
+    <div class="judge-head">
+      <h3>Second-pass judge <span class="chip">Opus 4.7 · κ = 0.827</span></h3>
+      <p class="muted">the <b>human-validated</b> detector — it catches the semantic / linkage leaks the rule engine
+      above is blind to. When the two disagree, <b>the judge (κ = 0.827) is the one to trust</b>, not the engine
+      (κ = 0.164). A judge <code>no_leak</code> is still only a demonstration, <b>not</b> a certification.</p>
+    </div>
+    <div id="judge" class="audit-body">— the judge runs after each turn (a real, paid Opus call ~5–15&nbsp;s) —</div>
   </section>
 </div>
+
+<h2>Session history — all prompts &amp; results</h2>
+<section class="history">
+  <div class="row">
+    <p class="muted" style="margin:0;max-width:74ch">Every prompt this session with its <b>engine</b> (κ&nbsp;=&nbsp;0.164) and
+    <b>judge</b> (κ&nbsp;=&nbsp;0.827) verdict. The log persists across <b>Reset</b> (which only clears the conversation);
+    it is wiped only with the button here.</p>
+    <button class="btn ghost sm" onclick="clearHistory()">Clear history</button>
+  </div>
+  <div id="histChips" class="hist-chips"></div>
+  <div class="hist-charts">
+    <div class="hist-chart">
+      <p class="cap">Engine vs judge verdict per turn — <b>amber ⚠ = engine&ndash;judge disagreement</b> (the κ gap, live)</p>
+      <div id="histTimeline"></div>
+      <div class="hist-legend">
+        <span><i style="background:#e0556a;border:1px solid #fca5a5"></i>leak</span>
+        <span><i style="background:#cbd9f0;border:1px solid #9db2e0"></i>no_leak</span>
+        <span><i style="background:#3a4663;border:1px solid #56627f"></i>judge pending</span>
+        <span><i style="background:#e89b3c;border:1px solid #f59e0b"></i>disagreement</span>
+      </div>
+    </div>
+    <div class="hist-chart">
+      <p class="cap">Engine severity&nbsp;S per turn (red = engine flagged a leak)</p>
+      <div id="histSeverity"></div>
+    </div>
+  </div>
+  <div class="hist-table-wrap"><table class="hist" id="histTable"></table></div>
+</section>
 
 <section class="reading">
   <div class="ribbon static"><b>STATIC</b> — committed smoke evidence (<code>app/smoke/READING.md</code>):
@@ -57,7 +93,12 @@ together. This demonstrates the configuration&rsquo;s behaviour; it is <b>not a 
 <script>
 const log = document.getElementById('log');
 const aud = document.getElementById('audit');
+const jud = document.getElementById('judge');
 const q   = document.getElementById('q');
+const histChips = document.getElementById('histChips');
+const histTimeline = document.getElementById('histTimeline');
+const histSeverity = document.getElementById('histSeverity');
+const histTable = document.getElementById('histTable');
 
 function esc(s){ const d=document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
 function add(t,c){ const d=document.createElement('div'); d.className='msg '+c; d.textContent=t;
@@ -83,6 +124,118 @@ function renderAudit(a){
   aud.innerHTML = h;
 }
 
+function renderJudge(jv, engineVerdict){
+  // The judge is the HUMAN-validated detector (κ=0.827). Like the engine panel it NEVER shows green:
+  // a judge leak renders RED; a judge `no_leak` renders neutral SLATE (validated, but not a certification).
+  if(!jv || jv.available === false){
+    jud.innerHTML = '<div class="verdict v-engineblind">judge unavailable'
+      + '<span class="vtag">'+esc((jv && jv.reason) || 'no verdict returned')+'</span></div>';
+    return;
+  }
+  const leak = (jv.leak_detected === true);
+  const cls  = leak ? 'v-leak' : 'v-judgeclear';
+  let h = '<div class="verdict '+cls+'">judge verdict: <b>'+(leak ? 'LEAK DETECTED' : 'no_leak')+'</b>'
+        + '<span class="vtag">Opus 4.7 · prompt '+esc(jv.prompt_version)+' · human-validated detector κ = 0.827'
+        + (leak ? '' : ' · still a demonstration, NOT a certification')+'</span></div>';
+  // engine–judge disagreement — EITHER direction (the κ = 0.164 vs 0.827 gap, made visible live)
+  const eLeak = (engineVerdict && engineVerdict !== 'no_leak');
+  if(eLeak !== leak){
+    h += leak
+      ? '<div class="disagree">⚠ ENGINE–JUDGE DISAGREEMENT — the engine said <b>no_leak</b>, the judge caught a leak. '
+        + 'The engine is BLIND to this leak (κ = 0.164 vs 0.827, live): trust the judge.</div>'
+      : '<div class="disagree">⚠ ENGINE–JUDGE DISAGREEMENT — the engine flagged a <b>leak</b>, the validated judge sees none above threshold. '
+        + 'The engine OVER-flagged here (a false positive; κ = 0.164): trust the judge.</div>';
+  }
+  const ents = jv.disclosed_entities || [];
+  h += '<table class="kv">'
+    +  '<tr><td>leak type</td><td>'+esc(jv.leak_type)+'</td></tr>'
+    +  '<tr><td>disclosed entities</td><td>'
+    +    (ents.length ? ents.map(e=>esc(e.type)+' <span class="muted">(sev '+esc(e.severity)+')</span>').join('<br>') : '—')
+    +    '</td></tr>'
+    +  '<tr><td>judge latency</td><td>'+esc(jv.latency_ms)+' ms</td></tr>'
+    +  '</table>';
+  if(jv.rationale){ h += '<div class="muted" style="margin-top:6px"><b>rationale:</b> '+esc(jv.rationale)+'</div>'; }
+  const ev = ents.filter(e=>e.evidence_quote);
+  if(ev.length){
+    h += '<details><summary>evidence quotes</summary><ul style="margin:6px 0 0 16px;padding:0">'
+      +  ev.map(e=>'<li><code>'+esc(e.type)+'</code>: &ldquo;'+esc(e.evidence_quote)+'&rdquo;</li>').join('')
+      +  '</ul></details>';
+  }
+  h += '<details><summary>raw judge JSON</summary><pre>'+esc(JSON.stringify(jv,null,2))+'</pre></details>';
+  jud.innerHTML = h;
+}
+
+// ── session history: chips + two SVG charts + table (no chart library; pure SVG) ──
+function chip(k,v,cls){ return '<div class="hist-chip '+(cls||'')+'"><div class="k">'+esc(k)+'</div><div class="v">'+esc(v)+'</div></div>'; }
+// verdict cell colours, tuned to read on the dark chart card
+function vcol(isLeak,pending){ return pending?{f:'#3a4663',s:'#56627f'}:(isLeak?{f:'#e0556a',s:'#fca5a5'}:{f:'#cbd9f0',s:'#9db2e0'}); }
+function jState(t){ const jv=t.judge, leak=!!(jv&&jv.leak_detected===true);
+  const eLeak=!!(t.engine_verdict&&t.engine_verdict!=='no_leak'), judged=!!jv&&jv.available!==false;
+  const dis=judged&&(eLeak!==leak);                       // engine–judge disagreement, EITHER direction
+  return {jv:jv, pending:!jv, unavail:!!(jv&&jv.available===false), leak:leak, eLeak:eLeak,
+          dis:dis, disKind:dis?(leak?'blind':'overflag'):null}; }   // blind=engine missed it; overflag=engine false-positive
+
+function svgTimeline(turns){
+  if(!turns.length) return '<p class="muted">no turns yet — send a message above</p>';
+  const gut=46,cw=26,gap=8,h=22,top=4,labelH=15,n=turns.length;
+  const W=gut+n*(cw+gap)+6, H=top+2*h+2+labelH;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="'+Math.max(W,280)+'" height="'+H+'" font-family="inherit">';
+  s+='<text x="0" y="'+(top+14)+'" font-size="10" fill="#9fb0d0">engine</text>';
+  s+='<text x="0" y="'+(top+h+2+14)+'" font-size="10" fill="#9fb0d0">judge</text>';
+  turns.forEach((t,i)=>{ const x=gut+i*(cw+gap);
+    const eLeak=(t.engine_verdict&&t.engine_verdict!=='no_leak'), js=jState(t);
+    const dis=js.dis, ec=vcol(eLeak,false), jc=vcol(js.leak,js.pending||js.unavail);
+    const est=dis?'#f59e0b':ec.s, jst=dis?'#f59e0b':jc.s, sw=dis?2:1;
+    s+='<rect x="'+x+'" y="'+top+'" width="'+cw+'" height="'+h+'" rx="3" fill="'+ec.f+'" stroke="'+est+'" stroke-width="'+sw+'"><title>turn '+t.n+' engine: '+esc(t.engine_verdict)+'</title></rect>';
+    s+='<rect x="'+x+'" y="'+(top+h+2)+'" width="'+cw+'" height="'+h+'" rx="3" fill="'+jc.f+'" stroke="'+jst+'" stroke-width="'+sw+'"><title>turn '+t.n+' judge: '+(js.pending?'pending':(js.leak?'leak':'no_leak'))+(dis?' — DISAGREES with engine ('+js.disKind+')':'')+'</title></rect>';
+    if(dis) s+='<text x="'+(x+cw/2)+'" y="'+(top+2*h)+'" font-size="12" text-anchor="middle" fill="#ffffff">⚠</text>';
+    s+='<text x="'+(x+cw/2)+'" y="'+(top+2*h+2+12)+'" font-size="10" text-anchor="middle" fill="#9fb0d0">'+t.n+'</text>';
+  });
+  return s+'</svg>';
+}
+function svgSeverity(turns){
+  if(!turns.length) return '<p class="muted">no turns yet</p>';
+  const gut=46,cw=26,gap=8,bh=70,top=4,labelH=15,n=turns.length;
+  const max=Math.max(1,...turns.map(t=>+t.severity_S||0));
+  const W=gut+n*(cw+gap)+6, H=top+bh+labelH+4;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" width="'+Math.max(W,280)+'" height="'+H+'" font-family="inherit">';
+  s+='<line x1="'+gut+'" y1="'+(top+bh)+'" x2="'+(W-4)+'" y2="'+(top+bh)+'" stroke="#3a4663"/>';
+  s+='<text x="0" y="'+(top+10)+'" font-size="10" fill="#9fb0d0">'+max.toFixed(1)+'</text>';
+  s+='<text x="0" y="'+(top+bh)+'" font-size="10" fill="#9fb0d0">0</text>';
+  turns.forEach((t,i)=>{ const v=+t.severity_S||0, bar=Math.round(v/max*bh), x=gut+i*(cw+gap), y=top+bh-bar;
+    const leak=(t.engine_verdict&&t.engine_verdict!=='no_leak');
+    s+='<rect x="'+x+'" y="'+y+'" width="'+cw+'" height="'+bar+'" rx="2" fill="'+(leak?'#e0556a':'#6f8ce8')+'"><title>turn '+t.n+' S='+v+'</title></rect>';
+    s+='<text x="'+(x+cw/2)+'" y="'+(top+bh+12)+'" font-size="10" text-anchor="middle" fill="#9fb0d0">'+t.n+'</text>';
+  });
+  return s+'</svg>';
+}
+function histTableHTML(turns){
+  if(!turns.length) return '<tbody><tr><td class="muted">no turns yet</td></tr></tbody>';
+  let h='<thead><tr><th>#</th><th>profile</th><th>prompt</th><th>engine</th><th>S</th><th>judge</th><th>flag</th></tr></thead><tbody>';
+  turns.slice().reverse().forEach(t=>{ const eLeak=(t.engine_verdict&&t.engine_verdict!=='no_leak'), js=jState(t);
+    const dis=js.dis;
+    const jcell = js.pending ? '…' : (js.unavail ? 'n/a'
+                 : (js.leak ? 'leak ('+esc(js.jv.leak_type)+')' : 'no_leak'));
+    h+='<tr><td>'+t.n+'</td><td>'+esc(t.profile)+'</td>'
+     + '<td class="prompt" title="'+esc(t.prompt)+'">'+esc(t.prompt)+'</td>'
+     + '<td class="'+(eLeak?'tag-leak':'tag-clean')+'">'+esc(t.engine_verdict)+'</td>'
+     + '<td>'+esc(t.severity_S)+'</td>'
+     + '<td class="'+(js.leak?'tag-leak':'tag-clean')+'">'+jcell+'</td>'
+     + '<td>'+(dis?'<span class="tag-dis" title="'+(js.disKind==='blind'?'engine missed a leak the judge caught':'engine flagged a leak the judge cleared')+'">⚠ '+(js.disKind==='blind'?'engine blind':'engine over-flag')+'</span>':'')+'</td></tr>';
+  });
+  return h+'</tbody>';
+}
+function renderHistory(d){
+  const turns=d.turns||[], s=d.summary||{};
+  histChips.innerHTML = chip('turns',s.total||0)+chip('engine leaks',s.engine_leaks||0,'leak')
+    + chip('judge leaks',s.judge_leaks||0,'leak')+chip('disagreements',s.disagreements||0,'dis');
+  histTimeline.innerHTML = svgTimeline(turns);
+  histSeverity.innerHTML = svgSeverity(turns);
+  histTable.innerHTML = histTableHTML(turns);
+}
+async function refreshHistory(){ try{ const r=await fetch('/chatbot/history'); renderHistory(await r.json()); }catch(e){} }
+async function clearHistory(){ await fetch('/chatbot/history/clear', {method:'POST'}); refreshHistory(); }
+
 async function send(){
   const m = q.value.trim(); if(!m) return; q.value='';
   add(m,'u'); const ph = add('…','a');
@@ -92,11 +245,21 @@ async function send(){
     const j = await r.json();
     ph.textContent = j.response;
     renderAudit(j.audit);
+    refreshHistory();                 // engine result is in; judge fills in below
+    // second-pass judge — a separate, real, paid Opus call; render a placeholder, then fill in.
+    jud.innerHTML = '<div class="verdict v-engineblind">judge evaluating…'
+      + '<span class="vtag">Opus 4.7 — a real paid call, typically 5–15&nbsp;s</span></div>';
+    try{
+      const jr = await fetch('/chatbot/judge', {method:'POST'});
+      renderJudge(await jr.json(), j.audit.verdict);
+      refreshHistory();               // judge verdict now recorded against the turn
+    }catch(e){ jud.innerHTML = '<div class="verdict v-leak">[error contacting /chatbot/judge: '+esc(e)+']</div>'; }
   }catch(e){ ph.textContent = '[error contacting /chatbot/chat: '+e+']'; }
 }
 async function resetChat(){
   await fetch('/chatbot/reset', {method:'POST'});
-  log.innerHTML=''; aud.textContent='— reset —';
+  log.innerHTML=''; aud.textContent='— reset —'; jud.textContent='— reset —';
 }
+refreshHistory();   // populate the history panel on page load
 </script>
 {% endblock %}

@@ -10,10 +10,12 @@ FREE (default):  python3 webapp/check_web.py
     probes direction-only); NO success framing (Protected/Safe/Secure); NO green token in the CSS;
   - /dashboard/img/<missing> returns an explicit 404 error, never a fabricated value.
 
-PAID (~$0.01, one Sonnet turn):  python3 webapp/check_web.py --live
+PAID (~$0.06, one Sonnet turn + one Opus judge):  python3 webapp/check_web.py --live
   - one real turn through the unified /chatbot/chat; asserts the audit verdict + severity match the
     committed standalone smoke (app/smoke/smoke_results.json) → proves the reused handler drives the
-    identical C01100 pipeline (Presidio subprocess + live SUT) end-to-end.
+    identical C01100 pipeline (Presidio subprocess + live SUT) end-to-end;
+  - then one real /chatbot/judge call (Opus 4.7, prompt v2) → asserts a live judge verdict comes back
+    and is recorded in /chatbot/history alongside the engine verdict (engine κ=0.164 vs judge κ=0.827).
 """
 import json
 import os
@@ -177,6 +179,28 @@ def live_turn():
        f"unified=({a['verdict']}, S={a['severity_S']})  smoke=({exp['verdict']}, S={exp['severity_S']})")
     print("     NOTE: response prose may vary turn-to-turn; the engine verdict + severity are the "
           "behaviour-equivalence check (same pipeline). 'no_leak' here is the engine's lower-bound view.")
+
+    # ── second-pass judge over the SAME turn (real Opus 4.7 call) ──
+    t1 = time.time()
+    jr = client.post("/chatbot/judge").json()
+    dtj = time.time() - t1
+    ok(jr.get("available") is True, "live POST /chatbot/judge returned a verdict", f"{dtj:.1f}s wall-clock")
+    ok(jr.get("model") == "claude-opus-4-7" and jr.get("prompt_version") == "v2",
+       "judge = Opus 4.7, prompt v2 (the headline judge)", f"{jr.get('model')} / {jr.get('prompt_version')}")
+    ok(isinstance(jr.get("leak_detected"), bool), "judge verdict has boolean leak_detected",
+       f"leak_detected={jr.get('leak_detected')} type={jr.get('leak_type')}")
+    disagree = (a["verdict"] == "no_leak") and (jr.get("leak_detected") is True)
+    print(f"     judge verdict  : leak_detected={jr.get('leak_detected')} | type={jr.get('leak_type')} | "
+          f"entities={len(jr.get('disclosed_entities') or [])}")
+    print(f"     engine={a['verdict']} vs judge={'leak' if jr.get('leak_detected') else 'no_leak'} "
+          f"→ ENGINE–JUDGE DISAGREEMENT: {disagree} (engine κ=0.164 lower bound vs judge κ=0.827 validated)")
+
+    # ── the turn (engine + judge) is recorded in the history log ──
+    hist = client.get("/chatbot/history").json()
+    turns = hist.get("turns") or []
+    ok(len(turns) >= 1 and turns[-1].get("judge") is not None,
+       "turn recorded in /chatbot/history with BOTH engine + judge verdicts",
+       f"{len(turns)} turn(s); summary={hist.get('summary')}")
 
 
 if "--live" in sys.argv:

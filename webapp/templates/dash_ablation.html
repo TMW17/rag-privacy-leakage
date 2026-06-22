@@ -11,9 +11,11 @@
 {{ table(fam, fam_err) }}
 <div class="callout warn">F1 (Direct PII) carries the reduction (0.778 → 0.222 once L2 is on).
 <strong>F2 (Linkability) is unreduced (within noise), NOT config-worse.</strong> Small-N families (F6 N=3, etc.) are coarse.</div>
+{{ figure(fam_heat, fam_heat_err, "NEW — full 8-family × 6-config heatmap of judged-strict ASR (PRIMARY). The F2 row stays ~flat (0.60/0.70/0.70/0.60/0.70/0.60) = linkability unreduced, NOT config-worse; F1 collapses under L2. Per-family n=3–10 ⇒ binomial SE ≈0.15, not the 0.08 overall floor. Generated from final_metrics.json.") }}
 
 <h2>Per-profile judged strict ASR</h2>
 {{ table(prof, prof_err) }}
+{{ figure(prof_heat, prof_heat_err, "NEW — profile × config heatmap of judged-strict ASR. P1 Internal and P2 External carry most of the residual; all profiles fall under L2. Generated from final_metrics.json.") }}
 <p class="src">ThirdParty (P4) is evaluated offline, not as a live cell.</p>
 
 <h2>Per-layer marginal effect &amp; RQ2 staircase</h2>

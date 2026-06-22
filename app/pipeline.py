@@ -45,3 +45,40 @@ AUDIT_FIELDS = ("timestamp", "profile", "active_layers", "layers_fired", "retrie
 
 def audit_view(rec):
     return {k: rec.get(k) for k in AUDIT_FIELDS}
+
+
+# ── second-pass LLM-as-Judge (Opus 4.7, prompt v2) ────────────────────────────────────────────────
+# The audit panel above shows the RULE ENGINE's verdict — a κ = 0.164 LOWER BOUND, blind to surname and
+# cross-document linkage leaks. The judge here is the HUMAN-validated detector (κ = 0.827): it catches
+# the semantic leaks the engine misses. Surfacing both side by side makes that gap visible live — it is
+# the thesis finding, not a contradiction. Each judge call is a real paid Opus call; the judge never
+# raises (LLMJudge returns a fallback verdict on any API / parse failure).
+JUDGE_MODEL = "claude-opus-4-7"
+JUDGE_PROMPT_VERSION = "v2"          # the prompt behind the 17.3% judged-ASR headline
+_JUDGE = {"obj": None, "error": None}
+
+
+def _judge():
+    if _JUDGE["obj"] is None and _JUDGE["error"] is None:
+        try:
+            from scripts.llm_judge import LLMJudge
+            _JUDGE["obj"] = LLMJudge(prompt_version=JUDGE_PROMPT_VERSION)
+        except Exception as exc:                     # missing API key / prompt file → degrade, don't crash
+            _JUDGE["error"] = f"{type(exc).__name__}: {exc}"
+    return _JUDGE["obj"]
+
+
+def judge_response(response_text, profile):
+    """Run the Opus judge over a SUT response; return a JSON-serialisable verdict dict (never raises).
+
+    `profile` must be an AttackerProfile enum member (use P.profile(name) to resolve a string).
+    """
+    j = _judge()
+    if j is None:
+        return {"available": False, "model": JUDGE_MODEL, "prompt_version": JUDGE_PROMPT_VERSION,
+                "reason": _JUDGE["error"] or "judge unavailable"}
+    v = j.judge(response_text, profile)
+    return {"available": True, "model": JUDGE_MODEL, "prompt_version": JUDGE_PROMPT_VERSION,
+            "leak_detected": v.leak_detected, "leak_type": v.leak_type,
+            "disclosed_entities": v.disclosed_entities, "rationale": v.rationale,
+            "latency_ms": v.latency_ms, "input_tokens": v.input_tokens, "output_tokens": v.output_tokens}

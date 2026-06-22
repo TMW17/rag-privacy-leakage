@@ -1181,6 +1181,7 @@
   },
   "RQ3_judge_validation_CITED": {
     "judge_human_kappa": 0.827,
+    "engine_human_kappa": 0.164,
     "claude_gptoss_kappa": 0.843,
     "gptoss_human_kappa": 0.777,
     "claude_annotator2_kappa": 0.775,
