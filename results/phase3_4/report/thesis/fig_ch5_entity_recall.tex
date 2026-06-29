@@ -1,0 +1,65 @@
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        xbar,
+        width=0.86\linewidth,
+        height=9.6cm,
+        xmin=0, xmax=1.10,
+        ymin=0.3, ymax=11.7,
+        bar width=0.38cm,
+        y=0.78cm,
+        enlarge y limits=false,
+        xtick={0,0.2,0.4,0.6,0.8,1.0},
+        xticklabel style={font=\footnotesize},
+        ytick={1,2,3,4,5,6,7,8,9,10,11},
+        yticklabels={%
+          \texttt{ADDRESS} (sev\,4),%
+          \texttt{WORK\_SCHEDULE} (sev\,2),%
+          \texttt{SURNAME\_TITLE} (sev\,4),%
+          \texttt{OFFICE\_LOCATION} (sev\,2),%
+          \texttt{JOB\_TITLE} (sev\,2),%
+          \texttt{DEPARTMENT} (sev\,2),%
+          \texttt{PERFORMANCE} (sev\,2),%
+          \texttt{IMMIGRATION} (sev\,3),%
+          \texttt{MEDICAL} (sev\,3),%
+          \texttt{AGE\_GENDER} (sev\,3),%
+          \texttt{SYSTEM\_PROMPT} (sev\,5)},
+        yticklabel style={font=\scriptsize},
+        xlabel={Presidio detection recall \;(fraction of instances flagged)},
+        xlabel style={font=\small},
+        axis line style={darkcharcoal!55},
+        tick style={darkcharcoal!55},
+        xmajorgrids=true, grid style={darkcharcoal!12, line width=0.4pt},
+        nodes near coords, point meta=x,
+        every node near coord/.append style={font=\scriptsize, text=darkcharcoal!70,
+          anchor=west, xshift=1pt, /pgf/number format/.cd, fixed, fixed zerofill, precision=2},
+        clip=false,
+        legend style={font=\scriptsize, at={(0.985,0.97)}, anchor=north east,
+          draw=darkcharcoal!35, fill=white}, legend cell align=left,
+      ]
+      % recall < 0.60 : detector gaps that survive L2 redaction (crimson)
+      \addplot[draw=accentcolor!60!black, fill=accentcolor] coordinates {
+        (0.00,11) (0.00,10) (0.00,9) (0.00,8) (0.00,7)
+        (0.00,6) (0.00,5) (0.00,4) (0.51,3)};
+      \addlegendentry{recall $<0.60$: survives L2 redaction}
+      % recall >= 0.60 : reliably redacted (teal)
+      \addplot[draw=figteal!55!black, fill=figteal] coordinates {(0.76,2) (0.89,1)};
+      \addlegendentry{recall $\ge 0.60$: reliably redacted}
+      % 0.60 threshold line + rotated label (drawn after the plots)
+      \draw[densely dashed, line width=0.8pt, darkcharcoal!75]
+        (axis cs:0.6,0.35) -- (axis cs:0.6,11.65);
+      \node[font=\scriptsize\itshape, text=darkcharcoal!75, anchor=south, rotate=90]
+        at (axis cs:0.6,6.0) {L2-reliable threshold ($0.60$)};
+    \end{axis}
+  \end{tikzpicture}
+  \caption[Per-entity-type Presidio detection recall]{Per-entity-type Presidio detection recall on
+  the synthetic corpus (Task~0.1 measurement), with each type's severity in parentheses and bars
+  sorted by recall so the worst detector blind spots sit at the top. The crimson types below the
+  dashed $0.60$ threshold are the categories Presidio fails to flag: \texttt{MEDICAL} and \texttt{AGE\_GENDER} (the age--gender
+  bridge), titled surnames (\texttt{SURNAME\_TITLE}, half missed), and the critical
+  \texttt{SYSTEM\_PROMPT}. These survive the L2
+  redaction layer and feed the residual F2 linkability leakage. The teal types at or above $0.60$ are
+  reliably redacted; bars at $0.00$ denote types Presidio never detected on this corpus.}
+  \label{fig:ch5-entity-recall}
+\end{figure}

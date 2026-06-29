@@ -1,0 +1,48 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  >={Latex[length=2.6mm]},
+  stepbox/.style 2 args={rounded corners=4pt, draw=#1!75!black, line width=0.9pt, fill=#1!8,
+      text=darkcharcoal, align=center, inner sep=7pt, text width=66mm, minimum height=13mm},
+  phasetag/.style={rounded corners=3pt, fill=#1!85!black, draw=none, text=white,
+      font=\bfseries\footnotesize, align=center, inner sep=5pt, text width=30mm},
+  arr/.style={-{Latex[length=2.6mm]}, line width=1pt, draw=darkcharcoal!55},
+  grp/.style={line width=2.6pt, draw=#1!75!black, line cap=round},
+]
+% ---- step chain: single centred column, top to bottom ----
+\node[stepbox={figslate}{}] (s1) at (0,0)
+  {\textbf{1.~~Corpus generation}\\[2pt]\footnotesize 155 synthetic documents (Faker, seed~42)};
+\node[stepbox={figslate}{}] (s2) at (0,-1.75)
+  {\textbf{2.~~Entity annotation}\\[2pt]\footnotesize 2{,}190 PII entities, 36-type taxonomy};
+\node[stepbox={figblue}{}] (s3) at (0,-3.50)
+  {\textbf{3.~~Undefended baseline attack}\\[2pt]\footnotesize 8 families $\times$ 4 profiles ($52$ scenarios, $89$ turns)};
+\node[stepbox={figamber}{}] (s4) at (0,-5.25)
+  {\textbf{4.~~Defense deployment}\\[2pt]\footnotesize five layers \textsf{L1}--\textsf{L5}, six configurations};
+\node[stepbox={figamber}{}] (s5) at (0,-7.00)
+  {\textbf{5.~~Defended-distribution attack}\\[2pt]\footnotesize the campaign re-run for each configuration};
+\node[stepbox={figteal}{}] (s6) at (0,-8.75)
+  {\textbf{6.~~Two-instrument adjudication}\\[2pt]\footnotesize deterministic engine $+$ validated judge ($\kappa$, $n{=}46$)};
+\node[stepbox={figgreen}{}] (s7) at (0,-10.50)
+  {\textbf{7.~~Security--utility trade-off}\\[2pt]\footnotesize Pareto knee and residual risk};
+% ---- downward arrows ----
+\foreach \a/\b in {s1/s2,s2/s3,s3/s4,s4/s5,s5/s6,s6/s7} \draw[arr] (\a) -- (\b);
+% ---- left-hand phase rails + tags (no overlap with boxes) ----
+\def\railx{-4.05}
+\draw[grp={figslate}] (\railx,0.55) -- (\railx,-2.30);
+\draw[grp={figblue}]  (\railx,-2.95) -- (\railx,-4.05);
+\draw[grp={figamber}] (\railx,-4.70) -- (\railx,-7.55);
+\draw[grp={figteal}]  (\railx,-8.20) -- (\railx,-9.30);
+\draw[grp={figgreen}] (\railx,-9.95) -- (\railx,-11.05);
+\node[phasetag={figslate}] at (-5.65,-0.875) {Ground truth};
+\node[phasetag={figblue}]  at (-5.65,-3.50)  {Baseline\\(RQ1)};
+\node[phasetag={figamber}] at (-5.65,-6.125) {Defended\\(RQ2 / RQ4)};
+\node[phasetag={figteal}]  at (-5.65,-8.75)  {Measurement\\(RQ3)};
+\node[phasetag={figgreen}] at (-5.65,-10.50) {Trade-off\\(RQ5)};
+\end{tikzpicture}
+\caption[The end-to-end experimental protocol]{The end-to-end experimental protocol, read top to
+bottom: from synthetic-corpus construction and annotation (the ground truth), through the undefended
+baseline campaign, the deployment and re-evaluation of the layered defense, the two-instrument
+adjudication of every response, to the closing security--utility trade-off. The coloured rails group
+the seven steps into the five phases that answer the five research questions.}
+\label{fig:ch6-protocol}
+\end{figure}
