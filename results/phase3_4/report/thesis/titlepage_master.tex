@@ -1,97 +1,146 @@
 %!TEX program = xelatex
-\documentclass[a4paper,12pt]{article}
+% =========================================================
+%  Thesis Cover Page Template
+%  Compile with XeLaTeX or LuaLaTeX (required for Arabic)
+% =========================================================
+\documentclass[12pt,a4paper]{article}
 
-\usepackage[a4paper, top=1.3cm, bottom=1.1cm, left=2.2cm, right=2.2cm]{geometry}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{microtype}
+% ---------- Page geometry ----------
+\usepackage[a4paper, top=1.2cm, bottom=1.2cm, left=2.5cm, right=2.5cm]{geometry}
+\pagestyle{empty} % no page number
+
+% ---------- Fonts & Arabic support ----------
 \usepackage{fontspec}
 \usepackage{polyglossia}
-
 \setmainlanguage{english}
-\setotherlanguage[calendar=gregorian]{arabic}
+\setotherlanguage{arabic}
+\setmainfont{lmroman10-regular.otf}[      % Computer Modern look (Latin Modern)
+  BoldFont       = lmroman10-bold.otf,
+  ItalicFont     = lmroman10-italic.otf,
+  BoldItalicFont = lmroman10-bolditalic.otf ]
+\newfontfamily\arabicfont[Script=Arabic,
+  BoldFont = Amiri-Bold.ttf]{Amiri-Regular.ttf}
 
-\setmainfont{Times New Roman}
-% NO ~ or -- inside \textarabic — use plain spaces and regular hyphen only
-\newfontfamily\arabicfont[Script=Arabic, Scale=1.15]{Al Nile}
+% ---------- Graphics & tables ----------
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{setspace}
 
-\definecolor{esiblue}{RGB}{0, 51, 102}
-\pagestyle{empty}
-\setlength{\parindent}{0pt}
-
-% one consistent rule used to frame the title
-\newcommand{\titleband}[1]{\noindent\textcolor{esiblue!#1}{\rule{\linewidth}{0.6pt}}}
+% Helper: Arabic centered line, slightly larger
+\newcommand{\arline}[1]{{\large\textarabic{#1}}\\[1pt]}
+% Helper: bold English institutional line with letter spacing feel
+\newcommand{\enline}[1]{{\large\textbf{#1}}\\[2pt]}
 
 \begin{document}
+
 \begin{center}
 
-%── 1. Bilingual administrative header — regular weight, understated ──────────
-\vspace{0.15cm}
-{\large\textarabic{الجمهورية الجزائرية الديمقراطية الشعبية}}\\[3pt]
-{\normalsize République Algérienne Démocratique et Populaire}\\[8pt]
-{\large\textarabic{وزارة التعليم العالي والبحث العلمي}}\\[3pt]
-{\normalsize Ministère de l'Enseignement Supérieur et de la Recherche Scientifique}
+% =====================================================
+% 1. INSTITUTIONAL HEADER (Arabic / English pairs)
+% =====================================================
+\begin{spacing}{1.15}
+\arline{الجمهورية الجزائرية الديمقراطية الشعبية}
+\enline{République Algérienne Démocratique et Populaire}
+\arline{وزارة التعليم العالي والبحث العلمي}
+{\normalsize\textbf{Ministère de l'Enseignement Supérieur et de la Recherche Scientifique}}\\[2pt]
+\arline{المدرسة العليا للإعلام الآلي - 08 ماي 1945 - بسيدي بلعباس}
+{\large\textbf{Ecole Supérieure en Informatique}}\\[2pt]
+{\large\textbf{08 Mai 1945 -- Sidi Bel Abbes}}
+\end{spacing}
 
-\vspace{0.5cm}
+\vspace{0.7cm}
 
-%── 2. Institution ───────────────────────────────────────────────────────────
-{\large\textarabic{المدرسة العليا للإعلام الآلي - 08 ماي 1945 - بسيدي بلعباس}}\\[5pt]
-{\Large Ecole Supérieure en Informatique}\\[3pt]
-{\large 08 Mai 1945 -- Sidi Bel Abbes}
+% =====================================================
+% 2. LOGO (single, centered)
+% =====================================================
+\includegraphics[height=4cm]{logo.jpeg}
 
-\vspace{0.55cm}
+\vspace{0.95cm}
 
-%── 3. Logo ──────────────────────────────────────────────────────────────────
-\includegraphics[width=4.0cm]{logo.jpeg}
+% =====================================================
+% 3. DOCUMENT TYPE
+% =====================================================
+{\LARGE\bfseries THESIS}
 
-\vspace{0.6cm}
+\vspace{0.3cm}
 
-%── 4. Degree ────────────────────────────────────────────────────────────────
-{\LARGE\bfseries\textcolor{esiblue}{Thesis}}\\[0.34cm]
-{\Large to obtain the Master's degree}\\[0.30cm]
-{\Large Field:~~Computer Science}\\[0.16cm]
-{\Large Specialty:~~Artificial Intelligence and Data Science}
+% =====================================================
+% 4. DIPLOMA / FIELD / SPECIALTY
+% =====================================================
+\begin{spacing}{1.2}\large
+To obtain the \textbf{Master's degree}\\
+Field: \textbf{Computer Science}\\
+Specialty: \textbf{Artificial Intelligence and Data Science}
+\end{spacing}
 
-\vspace{0.6cm}
+\vspace{0.2cm}
 
-%── 5. Theme + title (the focal point, framed by two thin rules) ─────────────
-{\huge\textcolor{esiblue}{Theme}}
+% =====================================================
+% 5. "Theme" LABEL
+% =====================================================
+{\LARGE\bfseries Theme}
 
-\vspace{0.5cm}
-{\Large\textcolor{esiblue}{Generative AI, Privacy and Personal Data:}}\\[8pt]
-{\Large\textcolor{esiblue}{Mapping and Reducing Data Leakage in}}\\[8pt]
-{\Large\textcolor{esiblue}{Retrieval-Augmented Generation Systems}}
+\vspace{0.2cm}
 
-\vspace{1.15cm}
+% =====================================================
+% 6. TITLE BLOCK (between two horizontal rules)
+% =====================================================
+% rule width = widest title line, so the lines are flush with the text
+\newlength{\titlerulew}
+\settowidth{\titlerulew}{{\LARGE\bfseries Generative AI, Privacy and Personal Data:}}
+\rule{\titlerulew}{0.6pt}
 
-%── 6. People — labels bold, names regular, one consistent size ──────────────
-\begin{minipage}[t]{0.47\textwidth}
-  \raggedright
-  {\large\textbf{Presented by}}\\[6pt]
-  {\large $\bullet$~~TADJ Mohamed Walid}\\[16pt]
-  {\large\textbf{Supervised by}}\\[6pt]
-  {\large $\bullet$~~Dr. CHAIB Souleyman}\\[5pt]
-  {\large $\bullet$~~Pr. AÏMEUR Esma}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.49\textwidth}
-  \raggedright
-  {\large\textbf{Defended on}}\\[5pt]
-  {\large Thursday, 9 July 2026}\\[14pt]
-  {\large\textbf{Before the jury}}\\[6pt]
-  {\normalsize
-  \begin{tabular}{@{}ll@{}}
-    Dr. ELHANNANI Souad & \quad President  \\[5pt]
-    Dr. BOUDIEB Wassim  & \quad Examiner   \\[5pt]
-    Dr. CHAIB Souleyman & \quad Supervisor \\
-  \end{tabular}}
-\end{minipage}
+\vspace{0.2cm}
+{\LARGE\bfseries\begin{spacing}{1.15}
+Generative AI, Privacy and Personal Data:\\
+Mapping and Reducing Data Leakage in\\
+Retrieval-Augmented Generation Systems
+\end{spacing}}
+\vspace{0.2cm}
 
-\vspace{0.6cm}
-\noindent\textcolor{esiblue}{\rule{\linewidth}{1.2pt}}
-\vspace{0.22cm}
+\rule{\titlerulew}{0.6pt}
 
-%── 7. Academic year ─────────────────────────────────────────────────────────
-{\large Academic Year~~~2025\,/\,2026}
+\vspace{0.2cm}
+
+% =====================================================
+% 7. AUTHOR
+% =====================================================
+{\large
+Presented by:\\[2pt]
+{\textbf{TADJ Mohamed Walid}}
+
+\vspace{0.2cm}
+
+% =====================================================
+% 8. DEFENSE DATE
+% =====================================================
+Defended on: \textbf{Thursday, 9 July 2026}\\[2pt]
+{\itshape In front of the jury composed of:}
+}
 
 \end{center}
+
+\vspace{0.15cm}
+
+% =====================================================
+% 9. JURY TABLE (bold names left, roles right)
+% =====================================================
+\noindent
+{\large
+\begin{tabularx}{\textwidth}{@{}l X r@{}}
+\textbf{Dr.~ELHANNANI Souad} & & President  \\[2pt]
+\textbf{Dr.~BOUDIEB Wassim}  & & Examiner   \\[2pt]
+\textbf{Dr.~CHAIB Souleyman} & & Supervisor \\[2pt]
+\textbf{Pr.~AÏMEUR Esma}     & & Co-Supervisor \\
+\end{tabularx}}
+
+\vfill
+
+% =====================================================
+% 10. ACADEMIC YEAR FOOTER
+% =====================================================
+\begin{center}
+{\bfseries\itshape Academic Year: 2025/2026}
+\end{center}
+
 \end{document}
