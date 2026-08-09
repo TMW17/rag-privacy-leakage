@@ -37,7 +37,9 @@
 
 ## 1. Repository map (depth 3)
 
-*Source: `p0_inventory.py` → `out/p0_inventory.json` → `tree_depth3` (82 directories at depth ≤ 3).*
+*Source: `p0_inventory.py` → `out/p0_inventory.json` → `tree_depth3` (**78** directories at
+depth ≤ 3). `analysis/` is excluded from the walk — it is this task's own output, not
+repository evidence — and is described from first principles in the table below.*
 
 | Area | Contents (not self-describing parts only) |
 |---|---|
