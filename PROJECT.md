@@ -1,6 +1,6 @@
 # PROJECT.md
 
-> **A complete explanation of this thesis project.** Read this if you want to understand what the work is, why it matters, what gets built, and what gets measured. For operational details about the codebase (script contracts, invariants, conventions for AI coding agents), see `CLAUDE.md`. For the active phase plan, see `Phase2.md`.
+> **A complete explanation of this thesis project.** Read this if you want to understand what the work is, why it matters, what gets built, and what gets measured. For operational details about the codebase (script contracts, invariants, conventions for AI coding agents), see `CLAUDE.md`. For the active phase plan, see `docs/plans/Phase2.md`.
 
 ---
 
@@ -286,10 +286,10 @@ These limitations are not flaws to be glossed over. They are the envelope within
 
 This file is the explanation of the project. The deep treatment lives in companion documents:
 
-- **`Phase2.md`** — the active phase plan, including the 50+ scenario suite construction, the test RAG implementation, the baseline campaign structure, the LLM-as-Judge calibration, and the six-week timeline with hard exit gates.
-- **`docs/Threat_Model.pdf`** — the full four-attacker threat model with CVSS vectors, per-profile attack instances, LINDDUN mappings, the leakage taxonomy (Table 6.1), and the operational attack-objective table.
-- **`docs/Formal_Leakage_Definitions_and_Ground_Truth.pdf`** — the formal foundations chapter, including the synthetic corpus generation, the 2,190-entity annotation protocol, the evaluation engine architecture, the re-identification analysis, and the inter-annotator validation.
-- **`docs/State_Of_The_Art.pdf`** — the literature review, fifty primary sources organized into five thematic pillars with explicit residual-gap analysis per pillar.
+- **`docs/plans/Phase2.md`** — the active phase plan, including the 50+ scenario suite construction, the test RAG implementation, the baseline campaign structure, the LLM-as-Judge calibration, and the six-week timeline with hard exit gates.
+- **`reports/phase1/Threat_Model.pdf`** — the full four-attacker threat model with CVSS vectors, per-profile attack instances, LINDDUN mappings, the leakage taxonomy (Table 6.1), and the operational attack-objective table.
+- **`reports/phase1/Formal_Leakage_Definitions_and_Ground_Truth.pdf`** — the formal foundations chapter, including the synthetic corpus generation, the 2,190-entity annotation protocol, the evaluation engine architecture, the re-identification analysis, and the inter-annotator validation.
+- **`reports/phase1/State_Of_The_Art.pdf`** — the literature review, fifty primary sources organized into five thematic pillars with explicit residual-gap analysis per pillar.
 - **`docs/GenAI_Privacy_Project_Roadmap.pdf`** — the original six-month plan as submitted to the supervisor.
 - **`CLAUDE.md`** _(if you created it from the previous PROJECT.md)_ — operational guidance for AI coding agents working on the codebase: script contracts, invariants, conventions, frozen-artifact lists.
 

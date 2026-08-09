@@ -267,7 +267,7 @@ at-risk material first, as a tone/quality proof before scaling to the consolidat
 
 **STATUS — Ch 5 DONE:** drafted at `results/phase3_4/report/thesis/ch5_defenses_measurement.tex`
 (9pp standalone, compiles clean; reviewed + corrected). The pattern that made it work: a captured
-**reasoning spine** (`methodology_kappa_notes.md`) written *before* the prose.
+**reasoning spine** (`../notes/methodology_kappa_notes.md`) written *before* the prose.
 
 **Carry that pattern forward — it is the make-or-break for the next 19 days.** The consolidate chapters
 (2/3/4) already have their spine (the committed phase reports). But **Ch 7 (Discussion) and Ch 1 (Intro)
