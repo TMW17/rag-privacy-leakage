@@ -47,21 +47,25 @@ results/phase3/audit/smoke.jsonl
 results/phase3/audit/chatbot.jsonl
 
 # LaTeX build byproducts in report dirs (the .tex + .pdf are committed; these regenerate on each compile)
-results/**/report/*.aux
+# These extensions are LaTeX-only and unambiguous — ignore them anywhere.
+*.aux
+*.toc
+*.fls
+*.fdb_latexmk
+*.xdv
+*.bbl
+*.blg
+*.lof
+*.lot
+*.synctex.gz
+texput.log
+
+# .log and .out are AMBIGUOUS — experiment runs write real evidence to
+# results/phase3/**/execute.log, dryrun.log, etc. and those ARE committed.
+# So ignore these two only inside directories that hold a .tex.
+reports/**/*.log
+reports/**/*.out
 results/**/report/*.log
 results/**/report/*.out
-results/**/report/*.toc
-results/**/report/*.fls
-results/**/report/*.fdb_latexmk
-results/**/report/*.synctex.gz
-results/**/report/thesis/*.aux
 results/**/report/thesis/*.log
 results/**/report/thesis/*.out
-results/**/report/thesis/*.toc
-results/**/report/thesis/*.fls
-results/**/report/thesis/*.fdb_latexmk
-results/**/report/thesis/*.synctex.gz
-results/**/report/*.bbl
-results/**/report/*.blg
-results/**/report/thesis/*.bbl
-results/**/report/thesis/*.blg
