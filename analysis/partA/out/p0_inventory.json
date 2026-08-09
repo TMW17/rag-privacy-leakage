@@ -1,0 +1,6982 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/p0_inventory.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "b44ec73f4fa318ce8622a184e86ded52d2b8b640",
+    "git_branch": "fix/part-a-blockers",
+    "note": "Values are DETERMINISTIC given the repository state; no wall-clock or RNG enters any figure. Timestamps are not recorded in outputs for that reason."
+  },
+  "_purpose": "TASK_SPEC §3.1 inventory: tree, artifacts, required-item checklist, scenario registry coverage, manuscript float mapping.",
+  "tree_depth3": [
+    {
+      "dir": ".",
+      "depth": 0,
+      "n_files_here": 9,
+      "ext_histogram": {
+        ".md": 5,
+        ".pdf": 2,
+        ".txt": 1,
+        "": 1
+      },
+      "subdirs": [
+        "analysis",
+        "app",
+        "dashboard",
+        "data",
+        "docs",
+        "experiment_logs",
+        "experiments",
+        "reports",
+        "results",
+        "scenarios",
+        "scripts",
+        "webapp"
+      ]
+    },
+    {
+      "dir": "analysis",
+      "depth": 1,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "partA"
+      ]
+    },
+    {
+      "dir": "analysis/partA",
+      "depth": 2,
+      "n_files_here": 3,
+      "ext_histogram": {
+        ".md": 3
+      },
+      "subdirs": [
+        "out",
+        "scripts"
+      ]
+    },
+    {
+      "dir": "analysis/partA/out",
+      "depth": 3,
+      "n_files_here": 4,
+      "ext_histogram": {
+        ".json": 4
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "analysis/partA/scripts",
+      "depth": 3,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".py": 5
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "app",
+      "depth": 1,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".py": 4,
+        ".md": 1
+      },
+      "subdirs": [
+        "smoke"
+      ]
+    },
+    {
+      "dir": "app/smoke",
+      "depth": 2,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".md": 1,
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "dashboard",
+      "depth": 1,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".py": 3,
+        ".txt": 1,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "data",
+      "depth": 1,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "ground_truth",
+        "rag_index",
+        "synthetic"
+      ]
+    },
+    {
+      "dir": "data/ground_truth",
+      "depth": 2,
+      "n_files_here": 3,
+      "ext_histogram": {
+        ".json": 3
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "data/rag_index",
+      "depth": 2,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "chromadb",
+        "poisoned_chromadb",
+        "sanitized_chromadb"
+      ]
+    },
+    {
+      "dir": "data/rag_index/chromadb",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".sqlite3": 1
+      },
+      "subdirs": [
+        "58595a05-bf69-42f3-8bda-ed4c82f32934",
+        "6bcf7d39-30ce-40a2-b7c6-490b5b2e6c24",
+        "d1a8bf7d-4672-4ded-89a0-307b72a75e54"
+      ]
+    },
+    {
+      "dir": "data/rag_index/poisoned_chromadb",
+      "depth": 3,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "data/rag_index/sanitized_chromadb",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".sqlite3": 1
+      },
+      "subdirs": [
+        "585a5fc6-df33-4b0e-875c-90bad9ea8338"
+      ]
+    },
+    {
+      "dir": "data/synthetic",
+      "depth": 2,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "docs",
+      "depth": 1,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".txt": 1
+      },
+      "subdirs": [
+        "notes",
+        "plans"
+      ]
+    },
+    {
+      "dir": "docs/notes",
+      "depth": 2,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".md": 6
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "docs/plans",
+      "depth": 2,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".md": 5
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "experiment_logs",
+      "depth": 1,
+      "n_files_here": 18,
+      "ext_histogram": {
+        ".jsonl": 9,
+        ".json": 8,
+        ".csv": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "experiments",
+      "depth": 1,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "reports",
+      "depth": 1,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "phase1",
+        "phase2",
+        "sprints"
+      ]
+    },
+    {
+      "dir": "reports/phase1",
+      "depth": 2,
+      "n_files_here": 7,
+      "ext_histogram": {
+        ".tex": 4,
+        ".pdf": 3
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "reports/phase2",
+      "depth": 2,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".pdf": 1,
+        ".tex": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "reports/sprints",
+      "depth": 2,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".pdf": 3,
+        ".tex": 3
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results",
+      "depth": 1,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".json": 2
+      },
+      "subdirs": [
+        "annotation_reconciliation",
+        "baseline",
+        "figures",
+        "judge_calibration",
+        "judge_validation",
+        "p4_offline",
+        "phase3",
+        "phase3_4",
+        "phase3_handoff",
+        "phase4",
+        "retrieval_conditional"
+      ]
+    },
+    {
+      "dir": "results/annotation_reconciliation",
+      "depth": 2,
+      "n_files_here": 4,
+      "ext_histogram": {
+        ".json": 2,
+        ".md": 1,
+        ".py": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/baseline",
+      "depth": 2,
+      "n_files_here": 13,
+      "ext_histogram": {
+        ".md": 7,
+        ".json": 3,
+        ".csv": 2,
+        ".bak": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/figures",
+      "depth": 2,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "phase2"
+      ]
+    },
+    {
+      "dir": "results/figures/phase2",
+      "depth": 3,
+      "n_files_here": 13,
+      "ext_histogram": {
+        ".png": 6,
+        ".pdf": 6,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/judge_calibration",
+      "depth": 2,
+      "n_files_here": 10,
+      "ext_histogram": {
+        ".csv": 4,
+        ".jsonl": 3,
+        ".md": 2,
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/judge_validation",
+      "depth": 2,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "results/p4_offline",
+      "depth": 2,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3",
+      "depth": 2,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".md": 1
+      },
+      "subdirs": [
+        "ablation",
+        "audit",
+        "compliance",
+        "dashboard",
+        "enron",
+        "figures",
+        "judge_ensemble",
+        "l1_tests",
+        "l2_llm",
+        "l2_tests",
+        "l3_tests",
+        "l4_tests",
+        "l5_tests",
+        "linkability_diagnosis",
+        "mimic",
+        "p7",
+        "presidio_check",
+        "reduction",
+        "report",
+        "risk_matrix",
+        "sanitized_tests",
+        "scale",
+        "tradeoff",
+        "utility"
+      ]
+    },
+    {
+      "dir": "results/phase3/ablation",
+      "depth": 3,
+      "n_files_here": 10,
+      "ext_histogram": {
+        ".log": 4,
+        ".jsonl": 3,
+        ".json": 3
+      },
+      "subdirs": [
+        "engine",
+        "judged",
+        "metrics"
+      ]
+    },
+    {
+      "dir": "results/phase3/audit",
+      "depth": 3,
+      "n_files_here": 10,
+      "ext_histogram": {
+        ".jsonl": 9,
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/compliance",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/dashboard",
+      "depth": 3,
+      "n_files_here": 13,
+      "ext_histogram": {
+        ".png": 13
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/enron",
+      "depth": 3,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".json": 5,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/figures",
+      "depth": 3,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/judge_ensemble",
+      "depth": 3,
+      "n_files_here": 9,
+      "ext_histogram": {
+        ".jsonl": 4,
+        ".json": 3,
+        ".csv": 1,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/l1_tests",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/l2_llm",
+      "depth": 3,
+      "n_files_here": 7,
+      "ext_histogram": {
+        ".json": 3,
+        ".md": 1,
+        ".pdf": 1,
+        ".log": 1,
+        ".png": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/l2_tests",
+      "depth": 3,
+      "n_files_here": 3,
+      "ext_histogram": {
+        ".json": 3
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/l3_tests",
+      "depth": 3,
+      "n_files_here": 3,
+      "ext_histogram": {
+        ".json": 3
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/l4_tests",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/l5_tests",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/linkability_diagnosis",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/mimic",
+      "depth": 3,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/p7",
+      "depth": 3,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".json": 6
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/presidio_check",
+      "depth": 3,
+      "n_files_here": 8,
+      "ext_histogram": {
+        ".json": 4,
+        ".md": 4
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/reduction",
+      "depth": 3,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/report",
+      "depth": 3,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".png": 3,
+        ".pdf": 1,
+        ".tex": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/risk_matrix",
+      "depth": 3,
+      "n_files_here": 4,
+      "ext_histogram": {
+        ".csv": 2,
+        ".md": 1,
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/sanitized_tests",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/scale",
+      "depth": 3,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".json": 1,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/tradeoff",
+      "depth": 3,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".md": 1,
+        ".json": 1,
+        ".csv": 1,
+        ".pdf": 1,
+        ".png": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3/utility",
+      "depth": 3,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".json": 2,
+        ".jsonl": 1,
+        ".log": 1,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_4",
+      "depth": 2,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".json": 1
+      },
+      "subdirs": [
+        "baseline_regen",
+        "judge_defended_calibration",
+        "l3_accumulation_submetric",
+        "report"
+      ]
+    },
+    {
+      "dir": "results/phase3_4/baseline_regen",
+      "depth": 3,
+      "n_files_here": 8,
+      "ext_histogram": {
+        ".jsonl": 3,
+        ".json": 3,
+        ".txt": 1,
+        ".csv": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_4/judge_defended_calibration",
+      "depth": 3,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".json": 3,
+        ".md": 1,
+        ".csv": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_4/l3_accumulation_submetric",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_4/report",
+      "depth": 3,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".pdf": 3,
+        ".tex": 3
+      },
+      "subdirs": [
+        "thesis"
+      ]
+    },
+    {
+      "dir": "results/phase3_handoff",
+      "depth": 2,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".md": 2
+      },
+      "subdirs": [
+        "baseline",
+        "data",
+        "figures",
+        "judge_calibration",
+        "report",
+        "scripts"
+      ]
+    },
+    {
+      "dir": "results/phase3_handoff/baseline",
+      "depth": 3,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".json": 3,
+        ".md": 3
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_handoff/data",
+      "depth": 3,
+      "n_files_here": 3,
+      "ext_histogram": {
+        ".md": 2,
+        ".csv": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_handoff/figures",
+      "depth": 3,
+      "n_files_here": 13,
+      "ext_histogram": {
+        ".png": 6,
+        ".pdf": 6,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_handoff/judge_calibration",
+      "depth": 3,
+      "n_files_here": 5,
+      "ext_histogram": {
+        ".jsonl": 2,
+        ".md": 1,
+        ".csv": 1,
+        ".json": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_handoff/report",
+      "depth": 3,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase3_handoff/scripts",
+      "depth": 3,
+      "n_files_here": 8,
+      "ext_histogram": {
+        ".py": 7,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/phase4",
+      "depth": 2,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "report"
+      ]
+    },
+    {
+      "dir": "results/phase4/report",
+      "depth": 3,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".tex": 1,
+        ".pdf": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "results/retrieval_conditional",
+      "depth": 2,
+      "n_files_here": 12,
+      "ext_histogram": {
+        ".json": 4,
+        ".md": 2,
+        ".py": 2,
+        ".csv": 2,
+        ".jsonl": 1,
+        ".log": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "scenarios",
+      "depth": 1,
+      "n_files_here": 0,
+      "ext_histogram": {},
+      "subdirs": [
+        "judge_prompts",
+        "poisoned_documents",
+        "registry"
+      ]
+    },
+    {
+      "dir": "scenarios/judge_prompts",
+      "depth": 2,
+      "n_files_here": 2,
+      "ext_histogram": {
+        ".txt": 2
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "scenarios/poisoned_documents",
+      "depth": 2,
+      "n_files_here": 6,
+      "ext_histogram": {
+        ".json": 6
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "scenarios/registry",
+      "depth": 2,
+      "n_files_here": 3,
+      "ext_histogram": {
+        ".json": 2,
+        ".md": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "scripts",
+      "depth": 1,
+      "n_files_here": 29,
+      "ext_histogram": {
+        ".py": 28,
+        ".code-workspace": 1
+      },
+      "subdirs": [
+        "phase3",
+        "phase3_4"
+      ]
+    },
+    {
+      "dir": "scripts/phase3",
+      "depth": 2,
+      "n_files_here": 40,
+      "ext_histogram": {
+        ".py": 40
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "scripts/phase3_4",
+      "depth": 2,
+      "n_files_here": 4,
+      "ext_histogram": {
+        ".py": 4
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "webapp",
+      "depth": 1,
+      "n_files_here": 4,
+      "ext_histogram": {
+        ".py": 3,
+        ".md": 1
+      },
+      "subdirs": [
+        "static",
+        "templates"
+      ]
+    },
+    {
+      "dir": "webapp/static",
+      "depth": 2,
+      "n_files_here": 1,
+      "ext_histogram": {
+        ".css": 1
+      },
+      "subdirs": []
+    },
+    {
+      "dir": "webapp/templates",
+      "depth": 2,
+      "n_files_here": 9,
+      "ext_histogram": {
+        ".html": 9
+      },
+      "subdirs": []
+    }
+  ],
+  "results_artifacts": [
+    {
+      "path": "results/kappa_results.json",
+      "bytes": 455,
+      "mtime_utc": "2026-05-14T17:13:28.611219Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "binary_kappa",
+        "disagreements",
+        "n_disagreements",
+        "n_responses",
+        "threshold",
+        "weighted_kappa"
+      ]
+    },
+    {
+      "path": "results/reidentification_risk.json",
+      "bytes": 46064,
+      "mtime_utc": "2026-05-14T16:43:35.910227Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "k_anonymity_analysis",
+        "l_diversity_analysis",
+        "summary"
+      ]
+    },
+    {
+      "path": "results/annotation_reconciliation/fresh_count.json",
+      "bytes": 1429,
+      "mtime_utc": "2026-06-01T13:36:15.729348Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "description",
+        "distinct_types_in_annotations",
+        "entity_spec_count",
+        "integrity_check",
+        "linddun_histogram",
+        "per_type",
+        "reproduces_document",
+        "severity_histogram",
+        "total_entities"
+      ]
+    },
+    {
+      "path": "results/annotation_reconciliation/version_diff.json",
+      "bytes": 2142,
+      "mtime_utc": "2026-06-01T13:36:15.749137Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "git_cross_check_state_A",
+        "net_delta_B_minus_A",
+        "per_linddun_diff",
+        "per_severity_diff",
+        "per_type_diff",
+        "removed_types",
+        "reshuffled_types",
+        "state_A",
+        "state_B"
+      ]
+    },
+    {
+      "path": "results/baseline/baseline_metrics.json",
+      "bytes": 2337,
+      "mtime_utc": "2026-05-19T18:26:14.759641Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 28,
+      "keys": [
+        "ASR_by_family",
+        "ASR_by_family_strict",
+        "ASR_by_leak_type",
+        "ASR_by_leak_type_strict",
+        "ASR_by_profile",
+        "ASR_by_profile_strict",
+        "ASR_overall",
+        "ASR_overall_strict",
+        "conditional_S_given_leak",
+        "hard_refusal_rate",
+        "leak_type_distribution",
+        "mean_S_by_family",
+        "mean_S_by_profile",
+        "mean_S_overall",
+        "n_records",
+        "n_runs",
+        "n_scenarios",
+        "n_scenarios_by_profile",
+        "p3_leak_given_poisoned_retrieved",
+        "p3_leak_type_distribution",
+        "p3_retrieval_rate",
+        "p3_soft_refusal_with_leak_rate",
+        "retrieval_precision_by_family",
+        "retrieval_precision_rate",
+        "run_to_run_sigma_ASR",
+        "run_to_run_sigma_S",
+        "sev2_only_count",
+        "soft_refusal_with_leak_rate"
+      ]
+    },
+    {
+      "path": "results/baseline/baseline_metrics_augmented.json",
+      "bytes": 2635,
+      "mtime_utc": "2026-05-22T02:46:33.811087Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 29,
+      "keys": [
+        "ASR_by_family",
+        "ASR_by_family_strict",
+        "ASR_by_leak_type",
+        "ASR_by_leak_type_strict",
+        "ASR_by_profile",
+        "ASR_by_profile_strict",
+        "ASR_overall",
+        "ASR_overall_strict",
+        "augmentation_summary",
+        "conditional_S_given_leak",
+        "hard_refusal_rate",
+        "leak_type_distribution",
+        "mean_S_by_family",
+        "mean_S_by_profile",
+        "mean_S_overall",
+        "n_records",
+        "n_runs",
+        "n_scenarios",
+        "n_scenarios_by_profile",
+        "p3_leak_given_poisoned_retrieved",
+        "p3_leak_type_distribution",
+        "p3_retrieval_rate",
+        "p3_soft_refusal_with_leak_rate",
+        "retrieval_precision_by_family",
+        "retrieval_precision_rate",
+        "run_to_run_sigma_ASR",
+        "run_to_run_sigma_S",
+        "sev2_only_count",
+        "soft_refusal_with_leak_rate"
+      ]
+    },
+    {
+      "path": "results/baseline/baseline_per_scenario.csv",
+      "bytes": 11158,
+      "mtime_utc": "2026-05-19T18:26:14.746005Z",
+      "tracked_in_git": false,
+      "format": "csv",
+      "rows": 156,
+      "keys": [
+        "scenario_id",
+        "run_index",
+        "attacker_profile",
+        "attack_family",
+        "L_scenario",
+        "L_scenario_strict",
+        "S_scenario",
+        "leak_type_scenario",
+        "n_turns",
+        "any_hard_refusal",
+        "any_soft_refusal_with_leak",
+        "target_retrieved_scenario"
+      ]
+    },
+    {
+      "path": "results/baseline/baseline_summary.csv",
+      "bytes": 22782,
+      "mtime_utc": "2026-05-19T18:26:14.694438Z",
+      "tracked_in_git": false,
+      "format": "csv",
+      "rows": 267,
+      "keys": [
+        "scenario_id",
+        "attacker_profile",
+        "attack_family",
+        "run_index",
+        "turn_index",
+        "L",
+        "S",
+        "leak_type",
+        "leak_count",
+        "hard_refusal",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "wall_clock_ms",
+        "input_tokens",
+        "output_tokens"
+      ]
+    },
+    {
+      "path": "results/baseline/p4_offline_metrics.json",
+      "bytes": 2602,
+      "mtime_utc": "2026-05-22T02:01:38.094818Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "metadata",
+        "metric1_training_leakage_proxy",
+        "metric2_retention_overreach",
+        "metric3_cross_doc_linkability",
+        "metric4_vec2text_inversion_risk"
+      ]
+    },
+    {
+      "path": "results/judge_calibration/annotation_template.csv",
+      "bytes": 16414,
+      "mtime_utc": "2026-05-20T16:52:22.486857Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "record_id",
+        "scenario_id",
+        "query_preview",
+        "response_preview",
+        "L_engine",
+        "L_human",
+        "leak_type_engine",
+        "leak_type_human",
+        "severity_human",
+        "notes"
+      ]
+    },
+    {
+      "path": "results/judge_calibration/annotation_triage.csv",
+      "bytes": 39021,
+      "mtime_utc": "2026-05-21T21:57:08.497120Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "record_id",
+        "stratum",
+        "clarity_tier",
+        "scenario_id",
+        "attack_family",
+        "attacker_profile",
+        "query_one_line",
+        "response_signal",
+        "response_excerpt",
+        "full_response_link",
+        "L_human",
+        "leak_type_human",
+        "severity_human",
+        "notes"
+      ]
+    },
+    {
+      "path": "results/judge_calibration/annotator2_labels.csv",
+      "bytes": 4655,
+      "mtime_utc": "2026-06-02T22:09:08.523699Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "﻿record_id",
+        "independent_human_annotator_2",
+        "Reasoning Summary"
+      ]
+    },
+    {
+      "path": "results/judge_calibration/disagreement_matrix.csv",
+      "bytes": 3692,
+      "mtime_utc": "2026-05-21T21:57:32.716528Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "record_id",
+        "scenario_id",
+        "attack_family",
+        "L_engine",
+        "L_judge",
+        "L_human",
+        "leak_type_engine",
+        "leak_type_judge",
+        "leak_type_human",
+        "severity_engine",
+        "severity_judge",
+        "severity_human",
+        "all_three_agree",
+        "judge_matches_human",
+        "engine_matches_human"
+      ]
+    },
+    {
+      "path": "results/judge_calibration/judge_verdicts.jsonl",
+      "bytes": 19751,
+      "mtime_utc": "2026-05-21T21:48:11.958182Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 46,
+      "keys": [
+        "L_judge",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "record_id",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/judge_calibration/judge_verdicts_full.jsonl",
+      "bytes": 172829,
+      "mtime_utc": "2026-05-22T02:46:32.908260Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 284,
+      "keys": [
+        "L_judge",
+        "_cache_key",
+        "attack_family",
+        "attacker_profile",
+        "cost_usd",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_judge",
+        "turn_index"
+      ],
+      "dist_run_index": {
+        "0": 106,
+        "1": 89,
+        "2": 89
+      },
+      "dist_run_id": {
+        "main-w3": 246,
+        "pilot-B1-w3": 17,
+        "poisoned-w4": 21
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 104,
+        "F3_DIRECT_INJECTION": 28,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 23,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39,
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21,
+        "External": 129,
+        "Internal": 134
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/judge_calibration/kappa_results.json",
+      "bytes": 819,
+      "mtime_utc": "2026-05-21T21:57:32.717073Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 4,
+      "keys": [
+        "agreement",
+        "kappas",
+        "label_distributions",
+        "sample_size"
+      ]
+    },
+    {
+      "path": "results/judge_calibration/sample_46.jsonl",
+      "bytes": 111527,
+      "mtime_utc": "2026-05-20T16:52:22.486440Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 46,
+      "keys": [
+        "L_engine",
+        "S_engine",
+        "attack_family",
+        "attacker_profile",
+        "events_engine",
+        "leak_type_engine",
+        "query",
+        "record_id",
+        "response",
+        "retrieved_doc_ids",
+        "run_index",
+        "scenario_id",
+        "stratum",
+        "turn_index"
+      ],
+      "dist_run_index": {
+        "0": 20,
+        "1": 12,
+        "2": 14
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 8,
+        "F2_LINKABILITY": 11,
+        "F3_DIRECT_INJECTION": 7,
+        "F4_OBFUSCATION": 1,
+        "F5_JAILBREAK": 6,
+        "F6_RECON": 3,
+        "F7_SOCIAL_ENG": 8,
+        "F8_CORPUS_POISONING": 2
+      },
+      "dist_attacker_profile": {
+        "Admin": 2,
+        "External": 30,
+        "Internal": 14
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/config_set6.json",
+      "bytes": 12376,
+      "mtime_utc": "2026-06-02T16:03:06.075091Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 4,
+      "keys": [
+        "cells",
+        "future_work_configs",
+        "metadata",
+        "notes"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/cost_recon.json",
+      "bytes": 2716,
+      "mtime_utc": "2026-06-02T10:34:35.329520Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 13,
+      "keys": [
+        "c00000_reuse",
+        "envelope_usd",
+        "live_scenarios",
+        "notes",
+        "projection_full_5_defended",
+        "recommended_scope",
+        "scenarios_by_family",
+        "sut_cost_per_call_usd",
+        "task",
+        "trim",
+        "turns_by_family",
+        "turns_decomposition",
+        "turns_per_full_run"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/guard_baseline_f1.jsonl",
+      "bytes": 166267,
+      "mtime_utc": "2026-06-02T10:17:14.799020Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 39,
+      "keys": [
+        "L",
+        "S",
+        "active_layers",
+        "attack_family",
+        "attacker_profile",
+        "defense_config",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "is_baseline",
+        "layers_fired",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "response_modified",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 13,
+        "1": 13,
+        "2": 13
+      },
+      "dist_run_id": {
+        "guard-baseline-f1-allFalse": 39
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39
+      },
+      "dist_attacker_profile": {
+        "External": 24,
+        "Internal": 15
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/guard_baseline_f1_summary.json",
+      "bytes": 601,
+      "mtime_utc": "2026-06-02T10:17:14.809732Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "PASS",
+        "abs_delta_vs_target",
+        "baseline_log_asr",
+        "config",
+        "fresh_asr",
+        "fresh_leak_count",
+        "guard",
+        "interpretation",
+        "n_cells",
+        "per_cell_flips_vs_baseline",
+        "target_asr",
+        "tolerance"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/l7_judge_cache.jsonl",
+      "bytes": 26432,
+      "mtime_utc": "2026-06-10T22:13:43.836686Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 224,
+      "keys": [
+        "L_judge",
+        "_judge_key",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/ablation/l7_sweep_responses.jsonl",
+      "bytes": 268856,
+      "mtime_utc": "2026-06-10T22:13:43.838219Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 224,
+      "keys": [
+        "arm",
+        "judge",
+        "k",
+        "profile",
+        "response",
+        "scenario"
+      ],
+      "has_response_text": true,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/ablation/engine/C00000_anchor.jsonl",
+      "bytes": 52694,
+      "mtime_utc": "2026-06-02T16:39:18.943447Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 13,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 13
+      },
+      "dist_run_id": {
+        "C00000-anchor": 13
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 13
+      },
+      "dist_attacker_profile": {
+        "External": 8,
+        "Internal": 5
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/engine/C00000_metrics.json",
+      "bytes": 1297,
+      "mtime_utc": "2026-06-02T17:22:13.738891Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "ASR_inclusive",
+        "ASR_strict",
+        "config",
+        "mean_S",
+        "n_scenarios",
+        "per_family",
+        "per_profile",
+        "source"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/C00100.jsonl",
+      "bytes": 311489,
+      "mtime_utc": "2026-06-02T17:00:52.634672Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 89,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 89
+      },
+      "dist_run_id": {
+        "C00100": 89
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 13,
+        "F2_LINKABILITY": 32,
+        "F3_DIRECT_INJECTION": 7,
+        "F4_OBFUSCATION": 6,
+        "F5_JAILBREAK": 7,
+        "F6_RECON": 4,
+        "F7_SOCIAL_ENG": 13,
+        "F8_CORPUS_POISONING": 7
+      },
+      "dist_attacker_profile": {
+        "Admin": 7,
+        "External": 41,
+        "Internal": 41
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/engine/C00100_metrics.json",
+      "bytes": 1257,
+      "mtime_utc": "2026-06-02T17:00:52.637037Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "ASR_inclusive",
+        "ASR_strict",
+        "config",
+        "mean_S",
+        "n_scenarios",
+        "n_turns",
+        "per_family",
+        "per_profile"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/C01000.jsonl",
+      "bytes": 306972,
+      "mtime_utc": "2026-06-02T16:59:27.461096Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 89,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 89
+      },
+      "dist_run_id": {
+        "C01000": 89
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 13,
+        "F2_LINKABILITY": 32,
+        "F3_DIRECT_INJECTION": 7,
+        "F4_OBFUSCATION": 6,
+        "F5_JAILBREAK": 7,
+        "F6_RECON": 4,
+        "F7_SOCIAL_ENG": 13,
+        "F8_CORPUS_POISONING": 7
+      },
+      "dist_attacker_profile": {
+        "Admin": 7,
+        "External": 41,
+        "Internal": 41
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/engine/C01000_metrics.json",
+      "bytes": 1248,
+      "mtime_utc": "2026-06-02T16:59:27.468735Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "ASR_inclusive",
+        "ASR_strict",
+        "config",
+        "mean_S",
+        "n_scenarios",
+        "n_turns",
+        "per_family",
+        "per_profile"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/C01100.jsonl",
+      "bytes": 306335,
+      "mtime_utc": "2026-06-02T17:02:59.414049Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 89,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 89
+      },
+      "dist_run_id": {
+        "C01100": 89
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 13,
+        "F2_LINKABILITY": 32,
+        "F3_DIRECT_INJECTION": 7,
+        "F4_OBFUSCATION": 6,
+        "F5_JAILBREAK": 7,
+        "F6_RECON": 4,
+        "F7_SOCIAL_ENG": 13,
+        "F8_CORPUS_POISONING": 7
+      },
+      "dist_attacker_profile": {
+        "Admin": 7,
+        "External": 41,
+        "Internal": 41
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/engine/C01100_metrics.json",
+      "bytes": 1248,
+      "mtime_utc": "2026-06-02T17:02:59.416670Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "ASR_inclusive",
+        "ASR_strict",
+        "config",
+        "mean_S",
+        "n_scenarios",
+        "n_turns",
+        "per_family",
+        "per_profile"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/C10000.jsonl",
+      "bytes": 292770,
+      "mtime_utc": "2026-06-02T16:46:48.032264Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 89,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 89
+      },
+      "dist_run_id": {
+        "C10000": 89
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 13,
+        "F2_LINKABILITY": 32,
+        "F3_DIRECT_INJECTION": 7,
+        "F4_OBFUSCATION": 6,
+        "F5_JAILBREAK": 7,
+        "F6_RECON": 4,
+        "F7_SOCIAL_ENG": 13,
+        "F8_CORPUS_POISONING": 7
+      },
+      "dist_attacker_profile": {
+        "Admin": 7,
+        "External": 41,
+        "Internal": 41
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/engine/C10000_metrics.json",
+      "bytes": 1257,
+      "mtime_utc": "2026-06-02T16:46:48.038458Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "ASR_inclusive",
+        "ASR_strict",
+        "config",
+        "mean_S",
+        "n_scenarios",
+        "n_turns",
+        "per_family",
+        "per_profile"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/C11111.jsonl",
+      "bytes": 277729,
+      "mtime_utc": "2026-06-02T17:10:48.541357Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 89,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 89
+      },
+      "dist_run_id": {
+        "C11111": 89
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 13,
+        "F2_LINKABILITY": 32,
+        "F3_DIRECT_INJECTION": 7,
+        "F4_OBFUSCATION": 6,
+        "F5_JAILBREAK": 7,
+        "F6_RECON": 4,
+        "F7_SOCIAL_ENG": 13,
+        "F8_CORPUS_POISONING": 7
+      },
+      "dist_attacker_profile": {
+        "Admin": 7,
+        "External": 41,
+        "Internal": 41
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/ablation/engine/C11111_metrics.json",
+      "bytes": 1239,
+      "mtime_utc": "2026-06-02T17:10:48.544043Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "ASR_inclusive",
+        "ASR_strict",
+        "config",
+        "mean_S",
+        "n_scenarios",
+        "n_turns",
+        "per_family",
+        "per_profile"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/ablation_engine_summary.json",
+      "bytes": 9484,
+      "mtime_utc": "2026-06-02T17:22:13.739712Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "anchor",
+        "dedup_hit_rate",
+        "metrics",
+        "real_calls",
+        "sut_cost_usd"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/engine/drift_anchor.json",
+      "bytes": 136,
+      "mtime_utc": "2026-06-02T16:39:18.946140Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "delta",
+        "fresh_F1_ASR_inclusive",
+        "n_f1_scenarios",
+        "phase2_F1_inclusive",
+        "within_0.05"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/judged/augmented_summary.json",
+      "bytes": 5699,
+      "mtime_utc": "2026-06-02T19:11:59.370467Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "C00000_augmented",
+        "configs",
+        "judge",
+        "judge_cost_usd",
+        "mode",
+        "n_real_judge_calls",
+        "n_reuse",
+        "n_unique_judged",
+        "noise_floor"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/judged/dryrun.json",
+      "bytes": 5671,
+      "mtime_utc": "2026-06-02T18:56:05.519463Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "C00000_augmented",
+        "configs",
+        "judge",
+        "judge_cost_usd",
+        "mode",
+        "n_real_judge_calls",
+        "n_reuse",
+        "n_unique_judged",
+        "noise_floor"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/judged/judge_cache.jsonl",
+      "bytes": 85808,
+      "mtime_utc": "2026-06-02T19:11:59.347794Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 227,
+      "keys": [
+        "L_judge",
+        "_judge_key",
+        "cost_usd",
+        "leak_type_judge",
+        "rationale",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/ablation/metrics/final_metrics.json",
+      "bytes": 36411,
+      "mtime_utc": "2026-06-22T01:06:33.166193Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "GUARD",
+        "RQ1_per_layer",
+        "RQ2_L2L3_vs_full",
+        "RQ3_judge_validation_CITED",
+        "RQ4_per_profile",
+        "deltas_per_family_profile",
+        "deltas_vs_C00000_overall",
+        "detection_metrics",
+        "metric_ordering",
+        "noise_floor",
+        "per_cell"
+      ]
+    },
+    {
+      "path": "results/phase3/ablation/metrics/severity_aggregates.json",
+      "bytes": 3286,
+      "mtime_utc": "2026-06-09T14:40:32.991709Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 10,
+      "keys": [
+        "S_residual_full_stack",
+        "S_residual_knee_C01100",
+        "caveats",
+        "coverage",
+        "delta_S_vs_baseline",
+        "interpretation",
+        "method",
+        "no_new_model_calls",
+        "per_cell_mean_S",
+        "purpose"
+      ]
+    },
+    {
+      "path": "results/phase3/audit/chatbot.jsonl",
+      "bytes": 526219,
+      "mtime_utc": "2026-07-09T11:23:19.081566Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 248,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 248
+      },
+      "dist_run_id": {
+        "chatbot": 248
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/conf-audit-test.jsonl",
+      "bytes": 10311,
+      "mtime_utc": "2026-06-02T15:26:54.430298Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 5,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 3,
+        "1": 2
+      },
+      "dist_run_id": {
+        "conf-audit-test": 5
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/confidence_audit_results.json",
+      "bytes": 6139,
+      "mtime_utc": "2026-06-02T15:26:54.430746Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 17,
+      "keys": [
+        "PASS",
+        "all_required_fields_present",
+        "audit_file",
+        "audit_records_written",
+        "checks",
+        "conf_mode",
+        "conf_threshold",
+        "confidence_metric",
+        "example_suppressed_audit_record",
+        "guard_all_false_baseline",
+        "n_engine_consistent_with_log",
+        "n_suppressed",
+        "n_turns",
+        "required_fields",
+        "run_id",
+        "source_log",
+        "turns"
+      ]
+    },
+    {
+      "path": "results/phase3/audit/dom.jsonl",
+      "bytes": 8332,
+      "mtime_utc": "2026-07-03T00:12:32.640404Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 4,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "l7",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 4
+      },
+      "dist_run_id": {
+        "dom": 4
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/final.jsonl",
+      "bytes": 37409,
+      "mtime_utc": "2026-07-01T18:36:52.216826Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 18,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "l7",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 18
+      },
+      "dist_run_id": {
+        "final": 18
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/jurytest.jsonl",
+      "bytes": 25070,
+      "mtime_utc": "2026-07-01T17:42:14.058310Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 12,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "l7",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 12
+      },
+      "dist_run_id": {
+        "jurytest": 12
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/repro.jsonl",
+      "bytes": 39552,
+      "mtime_utc": "2026-07-01T17:58:24.669006Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 19,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "l7",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 19
+      },
+      "dist_run_id": {
+        "repro": 19
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/short.jsonl",
+      "bytes": 8294,
+      "mtime_utc": "2026-07-01T19:56:52.696733Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 4,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "l7",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 4
+      },
+      "dist_run_id": {
+        "short": 4
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/smoke.jsonl",
+      "bytes": 5993,
+      "mtime_utc": "2026-06-03T10:15:43.446172Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 3,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 3
+      },
+      "dist_run_id": {
+        "smoke": 3
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/audit/sw.jsonl",
+      "bytes": 6192,
+      "mtime_utc": "2026-07-03T00:46:52.411792Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 3,
+      "keys": [
+        "active_layers",
+        "audit_trail",
+        "confidence_threshold",
+        "config",
+        "family",
+        "is_baseline",
+        "l7",
+        "layers_fired",
+        "profile",
+        "response_modified",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_S",
+        "source",
+        "timestamp",
+        "turn_index",
+        "verdict"
+      ],
+      "dist_run_index": {
+        "0": 3
+      },
+      "dist_run_id": {
+        "sw": 3
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3/enron/enron_results.json",
+      "bytes": 13033,
+      "mtime_utc": "2026-06-03T07:56:51.005670Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 4,
+      "keys": [
+        "C00000",
+        "C01100",
+        "CORRECTED_INTERPRETATION",
+        "summary"
+      ]
+    },
+    {
+      "path": "results/phase3/enron/index_info.json",
+      "bytes": 230,
+      "mtime_utc": "2026-06-03T07:37:29.886182Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 7,
+      "keys": [
+        "chunk_overlap",
+        "chunk_size",
+        "collection",
+        "embedder",
+        "n_chunks",
+        "n_emails",
+        "path"
+      ]
+    },
+    {
+      "path": "results/phase3/enron/presidio_check.json",
+      "bytes": 136,
+      "mtime_utc": "2026-06-03T07:43:39.539962Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "after",
+        "before",
+        "n_redacted"
+      ]
+    },
+    {
+      "path": "results/phase3/enron/scenarios.json",
+      "bytes": 2841,
+      "mtime_utc": "2026-06-03T07:43:14.502707Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 7,
+      "keys": [
+        "example_phones_retrieved",
+        "family",
+        "id",
+        "retrieval_surfaces_phone_PII",
+        "target",
+        "turns"
+      ]
+    },
+    {
+      "path": "results/phase3/enron/selection.json",
+      "bytes": 51816,
+      "mtime_utc": "2026-06-03T07:34:32.178782Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 2,
+      "keys": [
+        "emails",
+        "summary"
+      ]
+    },
+    {
+      "path": "results/phase3/judge_ensemble/_cache_B_deepseek_r1.jsonl",
+      "bytes": 33970,
+      "mtime_utc": "2026-06-01T20:10:25.201165Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 58,
+      "keys": [
+        "abstain",
+        "cache_key",
+        "completion_tokens",
+        "cost_usd",
+        "finish_reason",
+        "model",
+        "profile",
+        "prompt_tokens",
+        "raw",
+        "verdict"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/judge_ensemble/_cache_B_gptoss120b_free.jsonl",
+      "bytes": 52790,
+      "mtime_utc": "2026-06-01T21:22:05.437552Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 46,
+      "keys": [
+        "abstain",
+        "cache_key",
+        "completion_tokens",
+        "cost_usd",
+        "error",
+        "finish_reason",
+        "model",
+        "profile",
+        "prompt_tokens",
+        "raw",
+        "verdict"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/judge_ensemble/_cache_C_qwen3_235b.jsonl",
+      "bytes": 5555,
+      "mtime_utc": "2026-06-01T19:36:52.755811Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 3,
+      "keys": [
+        "abstain",
+        "cache_key",
+        "completion_tokens",
+        "cost_usd",
+        "finish_reason",
+        "model",
+        "profile",
+        "prompt_tokens",
+        "raw",
+        "verdict"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/judge_ensemble/_cache_C_qwen3next80b_free.jsonl",
+      "bytes": 2225,
+      "mtime_utc": "2026-06-02T01:20:34.504244Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 3,
+      "keys": [
+        "abstain",
+        "cache_key",
+        "completion_tokens",
+        "cost_usd",
+        "error",
+        "finish_reason",
+        "model",
+        "profile",
+        "prompt_tokens",
+        "raw",
+        "verdict"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/judge_ensemble/ensemble_summary.json",
+      "bytes": 2983,
+      "mtime_utc": "2026-06-02T08:56:35.978508Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "RQ3_seed",
+        "abstentions",
+        "arbitrated_equals_majority",
+        "arbitration_escalations",
+        "correctness_gate",
+        "effective_ensemble",
+        "judges",
+        "kappas",
+        "n_records",
+        "notes",
+        "rule_comparison",
+        "task"
+      ]
+    },
+    {
+      "path": "results/phase3/judge_ensemble/human2_agreement.json",
+      "bytes": 1983,
+      "mtime_utc": "2026-06-02T09:45:21.138737Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "disagreement_detail",
+        "disagreement_record_ids",
+        "human_human_2x2",
+        "inputs",
+        "kappas",
+        "label_distributions",
+        "n_records",
+        "reference_unchanged",
+        "task"
+      ]
+    },
+    {
+      "path": "results/phase3/judge_ensemble/paid_partial_poc.json",
+      "bytes": 8877,
+      "mtime_utc": "2026-06-01T20:27:15.586502Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 2,
+      "keys": [
+        "description",
+        "paid_models"
+      ]
+    },
+    {
+      "path": "results/phase3/judge_ensemble/per_record_verdicts.csv",
+      "bytes": 3678,
+      "mtime_utc": "2026-06-02T08:56:35.979430Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "record_id",
+        "stratum",
+        "profile",
+        "L_human",
+        "leak_type_human",
+        "L_claude",
+        "L_B",
+        "L_C",
+        "leak_type_claude",
+        "leak_type_B",
+        "leak_type_C",
+        "n_valid_judges",
+        "majority",
+        "any_flags",
+        "arbitrated",
+        "escalated",
+        "independent_human_annotator_2"
+      ]
+    },
+    {
+      "path": "results/phase3/l1_tests/l1_results.json",
+      "bytes": 1734,
+      "mtime_utc": "2026-06-02T13:44:08.842118Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "L1_engine",
+        "attacks",
+        "attacks_blocked",
+        "attacks_total",
+        "benign",
+        "benign_block_rate",
+        "benign_blocked",
+        "benign_total",
+        "nemo_guardrails"
+      ]
+    },
+    {
+      "path": "results/phase3/l2_llm/dryrun.json",
+      "bytes": 158,
+      "mtime_utc": "2026-06-03T06:52:06.760875Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "benign",
+        "f2_scenarios",
+        "f2_turns",
+        "intended_sut_generations",
+        "nominal_redaction_calls",
+        "unique_redaction_calls"
+      ]
+    },
+    {
+      "path": "results/phase3/l2_llm/gate_results.json",
+      "bytes": 1684,
+      "mtime_utc": "2026-06-03T06:53:32.070046Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "benign_after",
+        "benign_before",
+        "benign_placeholders",
+        "benign_preserved",
+        "catches",
+        "clean_output",
+        "gate_pass",
+        "planted_after",
+        "planted_before",
+        "preserved",
+        "redactor_stats"
+      ]
+    },
+    {
+      "path": "results/phase3/l2_llm/l2_llm_results.json",
+      "bytes": 14780,
+      "mtime_utc": "2026-06-03T07:31:47.595256Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "CORRECTED_INTERPRETATION",
+        "per_query_utility",
+        "summary"
+      ]
+    },
+    {
+      "path": "results/phase3/l2_tests/l2_collateral.json",
+      "bytes": 2006,
+      "mtime_utc": "2026-06-02T11:11:35.328187Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "engine_L",
+        "engine_leak_type",
+        "per_chunk_redaction",
+        "retrieved_doc_ids",
+        "scenario",
+        "unknown_labels_failclosed"
+      ]
+    },
+    {
+      "path": "results/phase3/l2_tests/l2_oracle_killer.json",
+      "bytes": 5447,
+      "mtime_utc": "2026-06-02T11:11:22.214316Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "baseline_L2_OFF",
+        "delta",
+        "forced_on_target_ASR_engine_L2_ON",
+        "n_units",
+        "per_run",
+        "sample_oracle_hr_file_042"
+      ]
+    },
+    {
+      "path": "results/phase3/l2_tests/l2_utility_survivors.json",
+      "bytes": 1237,
+      "mtime_utc": "2026-06-02T11:11:37.050050Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "sev>=3_types_surviving_in_redacted_context",
+        "targets",
+        "utility_before_after"
+      ]
+    },
+    {
+      "path": "results/phase3/l3_tests/l3_test1_p1link.json",
+      "bytes": 744,
+      "mtime_utc": "2026-06-02T11:51:49.156739Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 4,
+      "keys": [
+        "finding",
+        "l3_fired_any",
+        "per_turn",
+        "scenario"
+      ]
+    },
+    {
+      "path": "results/phase3/l3_tests/l3_test2_fp_guard.json",
+      "bytes": 836,
+      "mtime_utc": "2026-06-02T11:52:09.070233Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "any_refused",
+        "n",
+        "per_query"
+      ]
+    },
+    {
+      "path": "results/phase3/l3_tests/l3_test3_handoff.json",
+      "bytes": 1717,
+      "mtime_utc": "2026-06-02T12:20:23.162710Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "claim",
+        "defense_in_depth__live_forced_run",
+        "gate_unit_test__constructed_input",
+        "handoff_demonstrated_on_real_data",
+        "real_evidence__l3_caught_residual",
+        "test"
+      ]
+    },
+    {
+      "path": "results/phase3/l4_tests/l4_results.json",
+      "bytes": 2024,
+      "mtime_utc": "2026-06-02T14:00:15.995159Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "after_excerpt_redact",
+        "after_suppress",
+        "before_excerpt",
+        "modes",
+        "n_spans_redacted",
+        "note",
+        "presidio_detected_in_response",
+        "sev>=3_GT_PII_redacted_by_L4",
+        "sev>=3_GT_PII_surviving_redaction",
+        "source_response",
+        "suppress_triggered",
+        "survivor_examples"
+      ]
+    },
+    {
+      "path": "results/phase3/l5_tests/l5_results.json",
+      "bytes": 2190,
+      "mtime_utc": "2026-06-02T14:18:59.479771Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "f8_exploit",
+        "test1_provenance",
+        "test2_acl"
+      ]
+    },
+    {
+      "path": "results/phase3/p7/corpus_k10.json",
+      "bytes": 105169,
+      "mtime_utc": "2026-06-10T23:07:42.103836Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "results/phase3/p7/corpus_k2.json",
+      "bytes": 96781,
+      "mtime_utc": "2026-06-10T23:07:41.091446Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "results/phase3/p7/corpus_k5.json",
+      "bytes": 101254,
+      "mtime_utc": "2026-06-10T23:07:41.599671Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "results/phase3/p7/corpus_random_k10.json",
+      "bytes": 106200,
+      "mtime_utc": "2026-06-10T23:07:42.105753Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "results/phase3/p7/corpus_random_k2.json",
+      "bytes": 106486,
+      "mtime_utc": "2026-06-10T23:07:41.093404Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "results/phase3/p7/corpus_random_k5.json",
+      "bytes": 105939,
+      "mtime_utc": "2026-06-10T23:07:41.601360Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "results/phase3/presidio_check/answer_key_inventory.json",
+      "bytes": 8637,
+      "mtime_utc": "2026-06-01T18:18:02.107372Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 13,
+      "keys": [
+        "classification_legend",
+        "custom_recognizers_required_for_subtask3",
+        "distinct_types",
+        "entity_specs_declared",
+        "generated_at",
+        "note_spec_gap",
+        "offsets_present_in_answer_key",
+        "presidio",
+        "source_annotations",
+        "step4_matching_design",
+        "summary_by_classification",
+        "total_entities",
+        "types"
+      ]
+    },
+    {
+      "path": "results/phase3/presidio_check/corpus_text.json",
+      "bytes": 92922,
+      "mtime_utc": "2026-06-01T18:26:44.531704Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 155,
+      "keys": [
+        "hr_file_000",
+        "hr_file_001",
+        "hr_file_002",
+        "hr_file_003",
+        "hr_file_004",
+        "hr_file_005",
+        "hr_file_006",
+        "hr_file_007",
+        "hr_file_008",
+        "hr_file_009",
+        "hr_file_010",
+        "hr_file_011",
+        "hr_file_012",
+        "hr_file_013",
+        "hr_file_014",
+        "hr_file_015",
+        "hr_file_016",
+        "hr_file_017",
+        "hr_file_018",
+        "hr_file_019",
+        "hr_file_020",
+        "hr_file_021",
+        "hr_file_022",
+        "hr_file_023",
+        "hr_file_024",
+        "hr_file_025",
+        "hr_file_026",
+        "hr_file_027",
+        "hr_file_028",
+        "hr_file_029",
+        "hr_file_030",
+        "hr_file_031",
+        "hr_file_032",
+        "hr_file_033",
+        "hr_file_034",
+        "hr_file_035",
+        "hr_file_036",
+        "hr_file_037",
+        "hr_file_038",
+        "hr_file_039",
+        "hr_file_040",
+        "hr_file_041",
+        "hr_file_042",
+        "hr_file_043",
+        "hr_file_044",
+        "hr_file_045",
+        "hr_file_046",
+        "hr_file_047",
+        "hr_file_048",
+        "hr_file_049",
+        "hr_file_050",
+        "hr_file_051",
+        "hr_file_052",
+        "hr_file_053",
+        "hr_file_054",
+        "hr_file_055",
+        "hr_file_056",
+        "hr_file_057",
+        "hr_file_058",
+        "hr_file_059"
+      ]
+    },
+    {
+      "path": "results/phase3/presidio_check/presidio_recall.json",
+      "bytes": 13591,
+      "mtime_utc": "2026-06-01T18:41:20.178304Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 16,
+      "keys": [
+        "custom_recognizers",
+        "detection_label_histogram",
+        "detections_overlapping_a_gt_entity",
+        "environment",
+        "iban_code_default_catches_dz",
+        "iban_code_test_sample",
+        "method",
+        "n_custom_recognizers",
+        "overall",
+        "per_type",
+        "precision_estimate_lower_bound",
+        "real_presidio_call",
+        "recognizer_set",
+        "task",
+        "total_presidio_detections",
+        "types_flagged_recall_below_0.90"
+      ]
+    },
+    {
+      "path": "results/phase3/presidio_check/presidio_recall_baseline.json",
+      "bytes": 13511,
+      "mtime_utc": "2026-06-01T18:41:13.962431Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 16,
+      "keys": [
+        "custom_recognizers",
+        "detection_label_histogram",
+        "detections_overlapping_a_gt_entity",
+        "environment",
+        "iban_code_default_catches_dz",
+        "iban_code_test_sample",
+        "method",
+        "n_custom_recognizers",
+        "overall",
+        "per_type",
+        "precision_estimate_lower_bound",
+        "real_presidio_call",
+        "recognizer_set",
+        "task",
+        "total_presidio_detections",
+        "types_flagged_recall_below_0.90"
+      ]
+    },
+    {
+      "path": "results/phase3/risk_matrix/risk_matrix.json",
+      "bytes": 13661,
+      "mtime_utc": "2026-06-03T06:27:24.344179Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 3,
+      "keys": [
+        "entities",
+        "families",
+        "key_findings"
+      ]
+    },
+    {
+      "path": "results/phase3/risk_matrix/risk_matrix_entities.csv",
+      "bytes": 2325,
+      "mtime_utc": "2026-06-03T06:27:24.343761Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 31,
+      "keys": [
+        "entity_type",
+        "severity",
+        "linddun",
+        "presidio_recall_any_task01",
+        "residual_exposure_under_L2",
+        "risk_sev_x_residual",
+        "residual_class",
+        "note"
+      ]
+    },
+    {
+      "path": "results/phase3/risk_matrix/risk_matrix_families.csv",
+      "bytes": 1018,
+      "mtime_utc": "2026-06-03T06:27:24.343561Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 8,
+      "keys": [
+        "family",
+        "n_scenarios",
+        "impact_tier_assigned",
+        "baseline_judged_ASR",
+        "residual_judged_ASR_C01100",
+        "linddun",
+        "risk_tier_x_residual",
+        "delta_vs_baseline",
+        "note"
+      ]
+    },
+    {
+      "path": "results/phase3/sanitized_tests/sanitized_results.json",
+      "bytes": 8722,
+      "mtime_utc": "2026-06-02T15:14:23.866077Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "PASS",
+        "blind_spots_documented",
+        "checks",
+        "clean_baseline_leak_check",
+        "config",
+        "corpus_wide_scan",
+        "free_retrieval_comparison",
+        "index_structure_check",
+        "note",
+        "probe",
+        "sut_probe",
+        "target_doc_direct_fetch"
+      ]
+    },
+    {
+      "path": "results/phase3/scale/scale_report.json",
+      "bytes": 8418,
+      "mtime_utc": "2026-06-03T06:05:33.404970Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 7,
+      "keys": [
+        "components",
+        "definition",
+        "draft_claim_check",
+        "out_of_scope_phase2_dev_executions",
+        "padding_trap_AVOIDED",
+        "totals_DEDUP_AWARE",
+        "usability_FPR"
+      ]
+    },
+    {
+      "path": "results/phase3/tradeoff/pareto_data.csv",
+      "bytes": 1663,
+      "mtime_utc": "2026-06-03T05:35:31.567495Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 6,
+      "keys": [
+        "cell",
+        "bit_vector",
+        "active_layers",
+        "n_layers",
+        "has_L2",
+        "judged_asr",
+        "engine_asr",
+        "precision",
+        "residual_leak_rate",
+        "prevention_rate",
+        "security_composite",
+        "faithfulness",
+        "relevancy",
+        "query_success",
+        "context_precision",
+        "latency_ms_mean",
+        "U3_spec",
+        "U4_incl_cp",
+        "utility_source",
+        "security_tier",
+        "near_tie_cluster",
+        "on_frontier_U4",
+        "frontier_representative",
+        "is_knee_RQ5",
+        "role"
+      ]
+    },
+    {
+      "path": "results/phase3/tradeoff/tradeoff_meta.json",
+      "bytes": 4835,
+      "mtime_utc": "2026-06-03T05:35:31.567732Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 18,
+      "keys": [
+        "context_precision_caveat",
+        "frontier_operating_points",
+        "guardrail_composite_rank_eq_pure_judged_rank",
+        "knee_RQ5",
+        "latency_caveat",
+        "metric_primacy",
+        "near_tie_clusters_by_judged_asr",
+        "noise_floor_judged_asr",
+        "pivot_finding",
+        "polarity_fix",
+        "purpose",
+        "recommendations",
+        "redundant_cells",
+        "roles",
+        "security_ranking",
+        "structural_benign_caveat",
+        "utility_proxy_note",
+        "weights"
+      ]
+    },
+    {
+      "path": "results/phase3/utility/benign_queries.json",
+      "bytes": 10323,
+      "mtime_utc": "2026-06-02T20:29:51.973243Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 2,
+      "keys": [
+        "metadata",
+        "queries"
+      ]
+    },
+    {
+      "path": "results/phase3/utility/utility_per_query.jsonl",
+      "bytes": 20649,
+      "mtime_utc": "2026-06-02T21:08:34.712422Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 30,
+      "keys": [
+        "C00000",
+        "C11111",
+        "dimension",
+        "id",
+        "query"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3/utility/utility_results.json",
+      "bytes": 26749,
+      "mtime_utc": "2026-06-02T21:08:34.717835Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 2,
+      "keys": [
+        "per_query",
+        "summary"
+      ]
+    },
+    {
+      "path": "results/phase3_4/pfe_review_facts.json",
+      "bytes": 19155,
+      "mtime_utc": "2026-06-27T04:18:40.619274Z",
+      "tracked_in_git": false,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "_meta",
+        "_reconciliation",
+        "campaign_structure",
+        "headline_ci",
+        "judge_error_rates_ENRICHED_n46",
+        "l3",
+        "per_entity_recall",
+        "power_analysis",
+        "rogan_gladen",
+        "rogan_gladen_full",
+        "weight_sensitivity"
+      ]
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/B2_CLEAN_regen.jsonl",
+      "bytes": 873850,
+      "mtime_utc": "2026-06-08T19:58:51.779514Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 246,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 82,
+        "1": 82,
+        "2": 82
+      },
+      "dist_run_id": {
+        "regen": 246
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 96,
+        "F3_DIRECT_INJECTION": 21,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 21,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39
+      },
+      "dist_attacker_profile": {
+        "External": 123,
+        "Internal": 123
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/B2_CLEAN_regen_summary.json",
+      "bytes": 26075,
+      "mtime_utc": "2026-06-08T19:58:51.782808Z",
+      "tracked_in_git": false,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios",
+        "strict_leaks_count",
+        "strict_leaks_rate"
+      ]
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/B2_POISONED_regen.jsonl",
+      "bytes": 76038,
+      "mtime_utc": "2026-06-08T20:02:08.443537Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 21,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 7,
+        "1": 7,
+        "2": 7
+      },
+      "dist_run_id": {
+        "regen": 21
+      },
+      "dist_attack_family": {
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/B2_POISONED_regen_summary.json",
+      "bytes": 4350,
+      "mtime_utc": "2026-06-08T20:02:08.445065Z",
+      "tracked_in_git": false,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios",
+        "strict_leaks_count",
+        "strict_leaks_rate"
+      ]
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/cost_ledger.csv",
+      "bytes": 397,
+      "mtime_utc": "2026-06-08T20:02:08.445557Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 4,
+      "keys": [
+        "run_id",
+        "batch",
+        "timestamp",
+        "calls",
+        "in_tokens",
+        "out_tokens",
+        "cost_usd",
+        "price_as_of_date"
+      ]
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/judge_cache_regen.jsonl",
+      "bytes": 81890,
+      "mtime_utc": "2026-06-08T20:30:24.434371Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 240,
+      "keys": [
+        "L_judge",
+        "_judge_key",
+        "cost_usd",
+        "leak_type_judge",
+        "rationale",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3_4/baseline_regen/regen_summary.json",
+      "bytes": 2653,
+      "mtime_utc": "2026-06-08T20:30:24.446373Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 13,
+      "keys": [
+        "committed_C00000",
+        "comparison_run0_vs_committed",
+        "conditions",
+        "guard_reproduces_committed",
+        "judge_cost_usd_this_run",
+        "judge_real_calls",
+        "methodology",
+        "purpose",
+        "regen_all_3_runs",
+        "regen_per_run",
+        "regen_run0",
+        "regen_run_to_run_sigma",
+        "regen_turns_by_run"
+      ]
+    },
+    {
+      "path": "results/phase3_4/judge_defended_calibration/annotation_defended.csv",
+      "bytes": 59857,
+      "mtime_utc": "2026-06-08T19:05:34.670885Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "row_id",
+        "scenario_id",
+        "turn",
+        "profile",
+        "family",
+        "query",
+        "response",
+        "L_human",
+        "leak_type_human",
+        "severity_human",
+        "notes"
+      ]
+    },
+    {
+      "path": "results/phase3_4/judge_defended_calibration/kappa_defended.json",
+      "bytes": 10244,
+      "mtime_utc": "2026-06-08T19:12:33.951730Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "comparison_to_undefended",
+        "judge_PPV_on_defended",
+        "kappa_defended",
+        "label_totals",
+        "n_records",
+        "no_new_model_calls",
+        "over_flagging",
+        "per_record",
+        "purpose",
+        "raw_agreement",
+        "sample_design"
+      ]
+    },
+    {
+      "path": "results/phase3_4/judge_defended_calibration/residual_bounds.json",
+      "bytes": 6004,
+      "mtime_utc": "2026-06-09T11:24:31.174935Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "all_conditional_rates_with_denominators",
+        "anchor",
+        "calibration_sample",
+        "corrected_estimate",
+        "error_modes",
+        "hard_caveats",
+        "method",
+        "naive_overflag_only_floor",
+        "no_new_model_calls",
+        "purpose",
+        "sensitivity_stratum_weighted_FOR",
+        "sources"
+      ]
+    },
+    {
+      "path": "results/phase3_4/judge_defended_calibration/sample_manifest.json",
+      "bytes": 84211,
+      "mtime_utc": "2026-06-08T18:55:04.462806Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "judge",
+        "no_new_model_calls",
+        "pool_unique_responses",
+        "purpose",
+        "records",
+        "sample_configs",
+        "seed",
+        "selected_n",
+        "selected_stratum_counts",
+        "stratum_pool_counts",
+        "target_n",
+        "verdict_resolution"
+      ]
+    },
+    {
+      "path": "results/phase3_4/l3_accumulation_submetric/l3_firing.json",
+      "bytes": 2489,
+      "mtime_utc": "2026-06-08T18:12:22.955776Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "findings",
+        "judged_strict_ASR_source_final_metrics",
+        "l3_firing_submetric",
+        "method",
+        "purpose"
+      ]
+    },
+    {
+      "path": "results/phase3_handoff/baseline/baseline_metrics.json",
+      "bytes": 2337,
+      "mtime_utc": "2026-05-19T18:26:14.759641Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 28,
+      "keys": [
+        "ASR_by_family",
+        "ASR_by_family_strict",
+        "ASR_by_leak_type",
+        "ASR_by_leak_type_strict",
+        "ASR_by_profile",
+        "ASR_by_profile_strict",
+        "ASR_overall",
+        "ASR_overall_strict",
+        "conditional_S_given_leak",
+        "hard_refusal_rate",
+        "leak_type_distribution",
+        "mean_S_by_family",
+        "mean_S_by_profile",
+        "mean_S_overall",
+        "n_records",
+        "n_runs",
+        "n_scenarios",
+        "n_scenarios_by_profile",
+        "p3_leak_given_poisoned_retrieved",
+        "p3_leak_type_distribution",
+        "p3_retrieval_rate",
+        "p3_soft_refusal_with_leak_rate",
+        "retrieval_precision_by_family",
+        "retrieval_precision_rate",
+        "run_to_run_sigma_ASR",
+        "run_to_run_sigma_S",
+        "sev2_only_count",
+        "soft_refusal_with_leak_rate"
+      ]
+    },
+    {
+      "path": "results/phase3_handoff/baseline/baseline_metrics_augmented.json",
+      "bytes": 2635,
+      "mtime_utc": "2026-05-22T02:46:33.811087Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 29,
+      "keys": [
+        "ASR_by_family",
+        "ASR_by_family_strict",
+        "ASR_by_leak_type",
+        "ASR_by_leak_type_strict",
+        "ASR_by_profile",
+        "ASR_by_profile_strict",
+        "ASR_overall",
+        "ASR_overall_strict",
+        "augmentation_summary",
+        "conditional_S_given_leak",
+        "hard_refusal_rate",
+        "leak_type_distribution",
+        "mean_S_by_family",
+        "mean_S_by_profile",
+        "mean_S_overall",
+        "n_records",
+        "n_runs",
+        "n_scenarios",
+        "n_scenarios_by_profile",
+        "p3_leak_given_poisoned_retrieved",
+        "p3_leak_type_distribution",
+        "p3_retrieval_rate",
+        "p3_soft_refusal_with_leak_rate",
+        "retrieval_precision_by_family",
+        "retrieval_precision_rate",
+        "run_to_run_sigma_ASR",
+        "run_to_run_sigma_S",
+        "sev2_only_count",
+        "soft_refusal_with_leak_rate"
+      ]
+    },
+    {
+      "path": "results/phase3_handoff/baseline/p4_offline_metrics.json",
+      "bytes": 2602,
+      "mtime_utc": "2026-05-22T02:01:38.094818Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "metadata",
+        "metric1_training_leakage_proxy",
+        "metric2_retention_overreach",
+        "metric3_cross_doc_linkability",
+        "metric4_vec2text_inversion_risk"
+      ]
+    },
+    {
+      "path": "results/phase3_handoff/data/attack_scenarios_summary.csv",
+      "bytes": 11659,
+      "mtime_utc": "2026-05-25T18:37:38.220920Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 57,
+      "keys": [
+        "scenario_id",
+        "attacker_profile",
+        "attack_family",
+        "linddun_target",
+        "target_severity",
+        "priority",
+        "execution_mode",
+        "success_criteria"
+      ]
+    },
+    {
+      "path": "results/phase3_handoff/judge_calibration/annotation_triage.csv",
+      "bytes": 39021,
+      "mtime_utc": "2026-05-21T21:57:08.497120Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "record_id",
+        "stratum",
+        "clarity_tier",
+        "scenario_id",
+        "attack_family",
+        "attacker_profile",
+        "query_one_line",
+        "response_signal",
+        "response_excerpt",
+        "full_response_link",
+        "L_human",
+        "leak_type_human",
+        "severity_human",
+        "notes"
+      ]
+    },
+    {
+      "path": "results/phase3_handoff/judge_calibration/judge_verdicts.jsonl",
+      "bytes": 19751,
+      "mtime_utc": "2026-05-21T21:48:11.958182Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 46,
+      "keys": [
+        "L_judge",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "record_id",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3_handoff/judge_calibration/judge_verdicts_full.jsonl",
+      "bytes": 172829,
+      "mtime_utc": "2026-05-22T02:46:32.908260Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 284,
+      "keys": [
+        "L_judge",
+        "_cache_key",
+        "attack_family",
+        "attacker_profile",
+        "cost_usd",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_judge",
+        "turn_index"
+      ],
+      "dist_run_index": {
+        "0": 106,
+        "1": 89,
+        "2": 89
+      },
+      "dist_run_id": {
+        "main-w3": 246,
+        "pilot-B1-w3": 17,
+        "poisoned-w4": 21
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 104,
+        "F3_DIRECT_INJECTION": 28,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 23,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39,
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21,
+        "External": 129,
+        "Internal": 134
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "results/phase3_handoff/judge_calibration/kappa_results.json",
+      "bytes": 819,
+      "mtime_utc": "2026-05-21T21:57:32.717073Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 4,
+      "keys": [
+        "agreement",
+        "kappas",
+        "label_distributions",
+        "sample_size"
+      ]
+    },
+    {
+      "path": "results/retrieval_conditional/ablation_cost.json",
+      "bytes": 138,
+      "mtime_utc": "2026-06-01T14:36:20.762093Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 7,
+      "keys": [
+        "n_gen",
+        "n_judge",
+        "opus_in",
+        "opus_out",
+        "sonnet_in",
+        "sonnet_out",
+        "usd"
+      ]
+    },
+    {
+      "path": "results/retrieval_conditional/ablation_drift_anchor.json",
+      "bytes": 218,
+      "mtime_utc": "2026-06-01T14:14:42.468726Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 7,
+      "keys": [
+        "abs_diff_strict",
+        "canonical_engine_inclusive",
+        "canonical_engine_strict",
+        "fresh_k5_inclusive",
+        "fresh_k5_strict",
+        "tolerance",
+        "within_tolerance"
+      ]
+    },
+    {
+      "path": "results/retrieval_conditional/ablation_oracle.json",
+      "bytes": 4509,
+      "mtime_utc": "2026-06-01T14:36:20.761891Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 8,
+      "keys": [
+        "arm",
+        "baseline_note",
+        "baseline_on_target_ASR",
+        "forced_judge_L1_rate",
+        "forced_on_target_ASR_engine",
+        "n_scenarios",
+        "n_units",
+        "per_run"
+      ]
+    },
+    {
+      "path": "results/retrieval_conditional/ablation_topk_curve.csv",
+      "bytes": 235,
+      "mtime_utc": "2026-06-01T14:33:01.800129Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 5,
+      "keys": [
+        "k",
+        "ASR_inclusive_engine",
+        "ASR_strict_engine",
+        "target_retrieval_rate",
+        "mean_unique_docs",
+        "n_units"
+      ]
+    },
+    {
+      "path": "results/retrieval_conditional/ablation_turns.jsonl",
+      "bytes": 894373,
+      "mtime_utc": "2026-06-01T14:33:01.799333Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 195,
+      "keys": [
+        "L",
+        "S",
+        "_k",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 65,
+        "1": 65,
+        "2": 65
+      },
+      "dist_run_id": {
+        "ablation-k1": 39,
+        "ablation-k10": 39,
+        "ablation-k20": 39,
+        "ablation-k3": 39,
+        "ablation-k5": 39
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 195
+      },
+      "dist_attacker_profile": {
+        "External": 120,
+        "Internal": 75
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "results/retrieval_conditional/per_turn_classification.csv",
+      "bytes": 17556,
+      "mtime_utc": "2026-06-01T13:53:54.781729Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 115,
+      "keys": [
+        "scenario_id",
+        "run_index",
+        "turn_index",
+        "attacker_profile",
+        "attack_family",
+        "L_engine",
+        "L_aug",
+        "strict_aug",
+        "target_set",
+        "target_source",
+        "target_retrieved",
+        "retrieved_doc_ids",
+        "leak_source_docs_strict",
+        "bucket_strict",
+        "method_strict",
+        "bucket_inclusive",
+        "method_inclusive"
+      ]
+    },
+    {
+      "path": "results/retrieval_conditional/retrieval_conditional_metrics.json",
+      "bytes": 9423,
+      "mtime_utc": "2026-06-01T13:53:54.799240Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 10,
+      "keys": [
+        "ASR_decomposition_reconciles",
+        "ASR_strict_decomposition",
+        "collateral_definition",
+        "f1_collateral_examples",
+        "guard",
+        "n_inclusive_turns",
+        "n_strict_turns",
+        "question",
+        "turn_level_decomposition_inclusive",
+        "turn_level_decomposition_strict"
+      ]
+    },
+    {
+      "path": "experiment_logs/B1_PILOT_pilot-B1-w3.jsonl",
+      "bytes": 57469,
+      "mtime_utc": "2026-05-18T14:13:07.377033Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 17,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 17
+      },
+      "dist_run_id": {
+        "pilot-B1-w3": 17
+      },
+      "dist_attack_family": {
+        "F2_LINKABILITY": 8,
+        "F3_DIRECT_INJECTION": 7,
+        "F5_JAILBREAK": 2
+      },
+      "dist_attacker_profile": {
+        "External": 6,
+        "Internal": 11
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/B1_PILOT_pilot-B1-w3_summary.json",
+      "bytes": 2208,
+      "mtime_utc": "2026-05-18T14:13:07.377775Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "experiment_logs/B2_CLEAN_main-w3.jsonl",
+      "bytes": 866302,
+      "mtime_utc": "2026-05-18T19:40:59.688882Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 246,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 82,
+        "1": 82,
+        "2": 82
+      },
+      "dist_run_id": {
+        "main-w3": 246
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 96,
+        "F3_DIRECT_INJECTION": 21,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 21,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39
+      },
+      "dist_attacker_profile": {
+        "External": 123,
+        "Internal": 123
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/B2_CLEAN_main-w3_summary.json",
+      "bytes": 26285,
+      "mtime_utc": "2026-05-18T19:40:59.691154Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "experiment_logs/B2_POISONED_poisoned-w4.jsonl",
+      "bytes": 76142,
+      "mtime_utc": "2026-05-19T18:01:54.853375Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 21,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 7,
+        "1": 7,
+        "2": 7
+      },
+      "dist_run_id": {
+        "poisoned-w4": 21
+      },
+      "dist_attack_family": {
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/B2_POISONED_poisoned-w4_summary.json",
+      "bytes": 4482,
+      "mtime_utc": "2026-05-19T18:01:54.854708Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios",
+        "strict_leaks_count",
+        "strict_leaks_rate"
+      ]
+    },
+    {
+      "path": "experiment_logs/DRY_RUN_smoketest.jsonl",
+      "bytes": 19457,
+      "mtime_utc": "2026-05-18T14:05:34.138095Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 17,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 17
+      },
+      "dist_run_id": {
+        "smoketest": 17
+      },
+      "dist_attack_family": {
+        "F2_LINKABILITY": 8,
+        "F3_DIRECT_INJECTION": 7,
+        "F5_JAILBREAK": 2
+      },
+      "dist_attacker_profile": {
+        "External": 6,
+        "Internal": 11
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/DRY_RUN_smoketest_summary.json",
+      "bytes": 2187,
+      "mtime_utc": "2026-05-18T14:05:34.138210Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "experiment_logs/DRY_RUN_w3-dryrun-test.jsonl",
+      "bytes": 19542,
+      "mtime_utc": "2026-05-18T14:05:02.634228Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 17,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 17
+      },
+      "dist_run_id": {
+        "w3-dryrun-test": 17
+      },
+      "dist_attack_family": {
+        "F2_LINKABILITY": 8,
+        "F3_DIRECT_INJECTION": 7,
+        "F5_JAILBREAK": 2
+      },
+      "dist_attacker_profile": {
+        "External": 6,
+        "Internal": 11
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/DRY_RUN_w3-dryrun-test_summary.json",
+      "bytes": 2242,
+      "mtime_utc": "2026-05-18T14:05:02.634362Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "batch",
+        "collection",
+        "cost_usd",
+        "dry_run",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "experiment_logs/cost_ledger.csv",
+      "bytes": 837,
+      "mtime_utc": "2026-05-19T18:01:54.855821Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 9,
+      "keys": [
+        "run_id",
+        "batch",
+        "timestamp",
+        "calls",
+        "in_tokens",
+        "out_tokens",
+        "cost_usd",
+        "price_as_of_date"
+      ]
+    },
+    {
+      "path": "experiment_logs/final-test-v1.jsonl",
+      "bytes": 4772,
+      "mtime_utc": "2026-05-17T22:24:28.195927Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 1,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 1
+      },
+      "dist_run_id": {
+        "final-test-v1": 1
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 1
+      },
+      "dist_attacker_profile": {
+        "Internal": 1
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/final-test-v1_summary.json",
+      "bytes": 384,
+      "mtime_utc": "2026-05-17T22:24:28.196869Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "collection",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "experiment_logs/final-test-v3-all-fixes.jsonl",
+      "bytes": 4977,
+      "mtime_utc": "2026-05-17T22:40:39.027300Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 1,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 1
+      },
+      "dist_run_id": {
+        "final-test-v3-all-fixes": 1
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 1
+      },
+      "dist_attacker_profile": {
+        "Internal": 1
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/final-test-v3-all-fixes_summary.json",
+      "bytes": 403,
+      "mtime_utc": "2026-05-17T22:40:39.027719Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "collection",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "experiment_logs/rag_20260429_000508.jsonl",
+      "bytes": 1747,
+      "mtime_utc": "2026-04-28T23:05:08.436949Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 1,
+      "keys": [
+        "answer",
+        "config",
+        "latency_ms",
+        "leakage",
+        "privacy_guard_filtered",
+        "profile",
+        "question",
+        "retrieval_strategy",
+        "retrieved_chunks",
+        "source_doc_ids",
+        "timestamp"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false
+    },
+    {
+      "path": "experiment_logs/sanity-check.jsonl",
+      "bytes": 5169,
+      "mtime_utc": "2026-05-18T13:42:18.056537Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 1,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 1
+      },
+      "dist_run_id": {
+        "sanity-check": 1
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 1
+      },
+      "dist_attacker_profile": {
+        "Internal": 1
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true
+    },
+    {
+      "path": "experiment_logs/sanity-check_summary.json",
+      "bytes": 382,
+      "mtime_utc": "2026-05-18T13:42:18.056908Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 6,
+      "keys": [
+        "collection",
+        "generated_at",
+        "n_errors",
+        "n_scenarios",
+        "run_id",
+        "scenarios"
+      ]
+    },
+    {
+      "path": "data/ground_truth/ground_truth.json",
+      "bytes": 127207,
+      "mtime_utc": "2026-05-14T16:43:06.243060Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ]
+    },
+    {
+      "path": "data/ground_truth/ground_truth_annotations.json",
+      "bytes": 742060,
+      "mtime_utc": "2026-05-14T16:43:22.805513Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 2,
+      "keys": [
+        "annotations",
+        "metadata"
+      ]
+    },
+    {
+      "path": "data/ground_truth/ground_truth_index.json",
+      "bytes": 122470,
+      "mtime_utc": "2026-05-14T16:43:06.244912Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 155,
+      "keys": [
+        "hr_file_000",
+        "hr_file_001",
+        "hr_file_002",
+        "hr_file_003",
+        "hr_file_004",
+        "hr_file_005",
+        "hr_file_006",
+        "hr_file_007",
+        "hr_file_008",
+        "hr_file_009",
+        "hr_file_010",
+        "hr_file_011",
+        "hr_file_012",
+        "hr_file_013",
+        "hr_file_014",
+        "hr_file_015",
+        "hr_file_016",
+        "hr_file_017",
+        "hr_file_018",
+        "hr_file_019",
+        "hr_file_020",
+        "hr_file_021",
+        "hr_file_022",
+        "hr_file_023",
+        "hr_file_024",
+        "hr_file_025",
+        "hr_file_026",
+        "hr_file_027",
+        "hr_file_028",
+        "hr_file_029",
+        "hr_file_030",
+        "hr_file_031",
+        "hr_file_032",
+        "hr_file_033",
+        "hr_file_034",
+        "hr_file_035",
+        "hr_file_036",
+        "hr_file_037",
+        "hr_file_038",
+        "hr_file_039",
+        "hr_file_040",
+        "hr_file_041",
+        "hr_file_042",
+        "hr_file_043",
+        "hr_file_044",
+        "hr_file_045",
+        "hr_file_046",
+        "hr_file_047",
+        "hr_file_048",
+        "hr_file_049",
+        "hr_file_050",
+        "hr_file_051",
+        "hr_file_052",
+        "hr_file_053",
+        "hr_file_054",
+        "hr_file_055",
+        "hr_file_056",
+        "hr_file_057",
+        "hr_file_058",
+        "hr_file_059"
+      ]
+    },
+    {
+      "path": "scenarios/poisoned_documents/poisoned_001.json",
+      "bytes": 4374,
+      "mtime_utc": "2026-05-19T13:20:15.598792Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "annotation",
+        "author",
+        "content",
+        "date",
+        "document_id",
+        "document_type",
+        "expected_behavior",
+        "poisoning_attack_type",
+        "title"
+      ]
+    },
+    {
+      "path": "scenarios/poisoned_documents/poisoned_002.json",
+      "bytes": 4687,
+      "mtime_utc": "2026-05-19T13:23:20.820030Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "annotation",
+        "author",
+        "content",
+        "date",
+        "document_id",
+        "document_type",
+        "expected_behavior",
+        "poisoning_attack_type",
+        "title"
+      ]
+    },
+    {
+      "path": "scenarios/poisoned_documents/poisoned_003.json",
+      "bytes": 4167,
+      "mtime_utc": "2026-05-19T13:29:49.114174Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "annotation",
+        "author",
+        "content",
+        "date",
+        "document_id",
+        "document_type",
+        "expected_behavior",
+        "poisoning_attack_type",
+        "title"
+      ]
+    },
+    {
+      "path": "scenarios/poisoned_documents/poisoned_004.json",
+      "bytes": 4743,
+      "mtime_utc": "2026-05-19T13:29:49.114462Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "annotation",
+        "author",
+        "content",
+        "date",
+        "document_id",
+        "document_type",
+        "expected_behavior",
+        "poisoning_attack_type",
+        "title"
+      ]
+    },
+    {
+      "path": "scenarios/poisoned_documents/poisoned_005.json",
+      "bytes": 4214,
+      "mtime_utc": "2026-05-19T13:21:47.614057Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "annotation",
+        "author",
+        "content",
+        "date",
+        "document_id",
+        "document_type",
+        "expected_behavior",
+        "poisoning_attack_type",
+        "title"
+      ]
+    },
+    {
+      "path": "scenarios/poisoned_documents/poisoned_006.json",
+      "bytes": 4319,
+      "mtime_utc": "2026-05-19T13:22:11.873634Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 9,
+      "keys": [
+        "annotation",
+        "author",
+        "content",
+        "date",
+        "document_id",
+        "document_type",
+        "expected_behavior",
+        "poisoning_attack_type",
+        "title"
+      ]
+    },
+    {
+      "path": "scenarios/registry/v0_skeletons.json",
+      "bytes": 102061,
+      "mtime_utc": "2026-05-16T19:53:22.876826Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 57,
+      "keys": [
+        "attack_family",
+        "attacker_profile",
+        "author_notes",
+        "execution_mode",
+        "linddun_target",
+        "maps_to_threat_row",
+        "priority",
+        "scenario_id",
+        "success_criteria",
+        "target_severity",
+        "turns"
+      ]
+    },
+    {
+      "path": "scenarios/registry/v1_queries.json",
+      "bytes": 107041,
+      "mtime_utc": "2026-05-17T19:33:30.319718Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 57,
+      "keys": [
+        "attack_family",
+        "attacker_profile",
+        "author_notes",
+        "execution_mode",
+        "linddun_target",
+        "maps_to_threat_row",
+        "priority",
+        "scenario_id",
+        "success_criteria",
+        "target_severity",
+        "turns"
+      ]
+    }
+  ],
+  "required_artifact_checklist": [
+    {
+      "item": "155-document corpus",
+      "status": "FOUND",
+      "path": "data/ground_truth/ground_truth.json",
+      "bytes": 127207,
+      "mtime_utc": "2026-05-14T16:43:06.243060Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 5,
+      "keys": [
+        "employee_records",
+        "internal_memos",
+        "medical_reports",
+        "metadata",
+        "system_configs"
+      ],
+      "note": ""
+    },
+    {
+      "item": "corpus generator script",
+      "status": "FOUND",
+      "path": "scripts/generate_dataset.py",
+      "bytes": 30368,
+      "mtime_utc": "2026-05-13T12:07:13.850978Z",
+      "tracked_in_git": true,
+      "format": "py",
+      "rows": 654,
+      "note": ""
+    },
+    {
+      "item": "2,190-entity annotation file",
+      "status": "FOUND",
+      "path": "data/ground_truth/ground_truth_annotations.json",
+      "bytes": 742060,
+      "mtime_utc": "2026-05-14T16:43:22.805513Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 2,
+      "keys": [
+        "annotations",
+        "metadata"
+      ],
+      "note": ""
+    },
+    {
+      "item": "annotation pipeline script",
+      "status": "FOUND",
+      "path": "scripts/annotate_dataset.py",
+      "bytes": 19080,
+      "mtime_utc": "2026-05-11T22:55:00.139180Z",
+      "tracked_in_git": true,
+      "format": "py",
+      "rows": 338,
+      "note": ""
+    },
+    {
+      "item": "52-scenario registry",
+      "status": "FOUND",
+      "path": "scenarios/registry/v1_queries.json",
+      "bytes": 107041,
+      "mtime_utc": "2026-05-17T19:33:30.319718Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 57,
+      "keys": [
+        "attack_family",
+        "attacker_profile",
+        "author_notes",
+        "execution_mode",
+        "linddun_target",
+        "maps_to_threat_row",
+        "priority",
+        "scenario_id",
+        "success_criteria",
+        "target_severity",
+        "turns"
+      ],
+      "note": "profile/family/target-severity coverage tested separately below"
+    },
+    {
+      "item": "scenario skeletons",
+      "status": "FOUND",
+      "path": "scenarios/registry/v0_skeletons.json",
+      "bytes": 102061,
+      "mtime_utc": "2026-05-16T19:53:22.876826Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 57,
+      "keys": [
+        "attack_family",
+        "attacker_profile",
+        "author_notes",
+        "execution_mode",
+        "linddun_target",
+        "maps_to_threat_row",
+        "priority",
+        "scenario_id",
+        "success_criteria",
+        "target_severity",
+        "turns"
+      ],
+      "note": ""
+    },
+    {
+      "item": "baseline per-execution results (clean)",
+      "status": "FOUND",
+      "path": "experiment_logs/B2_CLEAN_main-w3.jsonl",
+      "bytes": 866302,
+      "mtime_utc": "2026-05-18T19:40:59.688882Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 246,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 82,
+        "1": 82,
+        "2": 82
+      },
+      "dist_run_id": {
+        "main-w3": 246
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 96,
+        "F3_DIRECT_INJECTION": 21,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 21,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39
+      },
+      "dist_attacker_profile": {
+        "External": 123,
+        "Internal": 123
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true,
+      "note": "CANONICAL -- reproduces the published baseline"
+    },
+    {
+      "item": "baseline per-execution results (poisoned)",
+      "status": "FOUND",
+      "path": "experiment_logs/B2_POISONED_poisoned-w4.jsonl",
+      "bytes": 76142,
+      "mtime_utc": "2026-05-19T18:01:54.853375Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 21,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 7,
+        "1": 7,
+        "2": 7
+      },
+      "dist_run_id": {
+        "poisoned-w4": 21
+      },
+      "dist_attack_family": {
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true,
+      "note": ""
+    },
+    {
+      "item": "ablation per-execution results",
+      "status": "FOUND",
+      "path": "results/phase3/ablation/engine",
+      "format": "dir",
+      "note": "6 jsonl files: C00000_anchor.jsonl, C00100.jsonl, C01000.jsonl, C01100.jsonl, C10000.jsonl, C11111.jsonl"
+    },
+    {
+      "item": "engine (rule-based) verdicts per turn",
+      "status": "FOUND",
+      "path": "experiment_logs/B2_CLEAN_main-w3.jsonl",
+      "bytes": 866302,
+      "mtime_utc": "2026-05-18T19:40:59.688882Z",
+      "tracked_in_git": false,
+      "format": "jsonl",
+      "rows": 246,
+      "keys": [
+        "L",
+        "S",
+        "attack_family",
+        "attacker_profile",
+        "engine_timestamp",
+        "events",
+        "execution_mode",
+        "hard_refusal",
+        "input_tokens",
+        "leak_count",
+        "leak_type",
+        "linddun_breakdown",
+        "model",
+        "output_tokens",
+        "query",
+        "response",
+        "response_hash",
+        "retrieved_chunks_preview",
+        "retrieved_doc_ids",
+        "run_id",
+        "run_index",
+        "runner_timestamp_iso",
+        "scenario_id",
+        "severity_breakdown",
+        "soft_refusal_with_leak",
+        "target_document",
+        "target_document_retrieved",
+        "turn_index",
+        "wall_clock_ms"
+      ],
+      "dist_run_index": {
+        "0": 82,
+        "1": 82,
+        "2": 82
+      },
+      "dist_run_id": {
+        "main-w3": 246
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 96,
+        "F3_DIRECT_INJECTION": 21,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 21,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39
+      },
+      "dist_attacker_profile": {
+        "External": 123,
+        "Internal": 123
+      },
+      "has_response_text": true,
+      "has_retrieved_doc_ids": true,
+      "note": "engine verdict is inline on each execution record: fields 'L', 'S', 'events' (invariant 7 -- NOT leak_detected/severity_score)"
+    },
+    {
+      "item": "judge verdicts per turn (baseline)",
+      "status": "FOUND",
+      "path": "results/judge_calibration/judge_verdicts_full.jsonl",
+      "bytes": 172829,
+      "mtime_utc": "2026-05-22T02:46:32.908260Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 284,
+      "keys": [
+        "L_judge",
+        "_cache_key",
+        "attack_family",
+        "attacker_profile",
+        "cost_usd",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_judge",
+        "turn_index"
+      ],
+      "dist_run_index": {
+        "0": 106,
+        "1": 89,
+        "2": 89
+      },
+      "dist_run_id": {
+        "main-w3": 246,
+        "pilot-B1-w3": 17,
+        "poisoned-w4": 21
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 104,
+        "F3_DIRECT_INJECTION": 28,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 23,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39,
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21,
+        "External": 129,
+        "Internal": 134
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false,
+      "note": "carries L_judge, severity_judge, leak_type_judge, rationale -- NO evidence_quote field"
+    },
+    {
+      "item": "judge verdicts per turn (ablation)",
+      "status": "FOUND",
+      "path": "results/phase3/ablation/judged/judge_cache.jsonl",
+      "bytes": 85808,
+      "mtime_utc": "2026-06-02T19:11:59.347794Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 227,
+      "keys": [
+        "L_judge",
+        "_judge_key",
+        "cost_usd",
+        "leak_type_judge",
+        "rationale",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false,
+      "note": "content-addressed by sha256(profile|response); no scenario/turn keys"
+    },
+    {
+      "item": "undefended 46-record calibration sample",
+      "status": "FOUND",
+      "path": "results/judge_calibration/judge_verdicts.jsonl",
+      "bytes": 19751,
+      "mtime_utc": "2026-05-21T21:48:11.958182Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 46,
+      "keys": [
+        "L_judge",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "record_id",
+        "severity_judge"
+      ],
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false,
+      "note": ""
+    },
+    {
+      "item": "undefended calibration HUMAN labels",
+      "status": "FOUND",
+      "path": "results/phase3_handoff/judge_calibration/judge_verdicts_full.jsonl",
+      "bytes": 172829,
+      "mtime_utc": "2026-05-22T02:46:32.908260Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 284,
+      "keys": [
+        "L_judge",
+        "_cache_key",
+        "attack_family",
+        "attacker_profile",
+        "cost_usd",
+        "input_tokens",
+        "latency_ms",
+        "leak_type_judge",
+        "output_tokens",
+        "rationale",
+        "run_id",
+        "run_index",
+        "scenario_id",
+        "severity_judge",
+        "turn_index"
+      ],
+      "dist_run_index": {
+        "0": 106,
+        "1": 89,
+        "2": 89
+      },
+      "dist_run_id": {
+        "main-w3": 246,
+        "pilot-B1-w3": 17,
+        "poisoned-w4": 21
+      },
+      "dist_attack_family": {
+        "F1_DIRECT_PII": 39,
+        "F2_LINKABILITY": 104,
+        "F3_DIRECT_INJECTION": 28,
+        "F4_OBFUSCATION": 18,
+        "F5_JAILBREAK": 23,
+        "F6_RECON": 12,
+        "F7_SOCIAL_ENG": 39,
+        "F8_CORPUS_POISONING": 21
+      },
+      "dist_attacker_profile": {
+        "Admin": 21,
+        "External": 129,
+        "Internal": 134
+      },
+      "has_response_text": false,
+      "has_retrieved_doc_ids": false,
+      "note": "resolved by inspection below -- see A1_inputs"
+    },
+    {
+      "item": "defended 46-record calibration + HUMAN labels",
+      "status": "FOUND",
+      "path": "results/phase3_4/judge_defended_calibration/annotation_defended.csv",
+      "bytes": 59857,
+      "mtime_utc": "2026-06-08T19:05:34.670885Z",
+      "tracked_in_git": true,
+      "format": "csv",
+      "rows": 46,
+      "keys": [
+        "row_id",
+        "scenario_id",
+        "turn",
+        "profile",
+        "family",
+        "query",
+        "response",
+        "L_human",
+        "leak_type_human",
+        "severity_human",
+        "notes"
+      ],
+      "note": "columns include L_human, leak_type_human, severity_human AND full response text"
+    },
+    {
+      "item": "defended kappa",
+      "status": "FOUND",
+      "path": "results/phase3_4/judge_defended_calibration/kappa_defended.json",
+      "bytes": 10244,
+      "mtime_utc": "2026-06-08T19:12:33.951730Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "comparison_to_undefended",
+        "judge_PPV_on_defended",
+        "kappa_defended",
+        "label_totals",
+        "n_records",
+        "no_new_model_calls",
+        "over_flagging",
+        "per_record",
+        "purpose",
+        "raw_agreement",
+        "sample_design"
+      ],
+      "note": ""
+    },
+    {
+      "item": "published residual bounds",
+      "status": "FOUND",
+      "path": "results/phase3_4/judge_defended_calibration/residual_bounds.json",
+      "bytes": 6004,
+      "mtime_utc": "2026-06-09T11:24:31.174935Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 12,
+      "keys": [
+        "all_conditional_rates_with_denominators",
+        "anchor",
+        "calibration_sample",
+        "corrected_estimate",
+        "error_modes",
+        "hard_caveats",
+        "method",
+        "naive_overflag_only_floor",
+        "no_new_model_calls",
+        "purpose",
+        "sensitivity_stratum_weighted_FOR",
+        "sources"
+      ],
+      "note": ""
+    },
+    {
+      "item": "cross-vendor (gpt-oss) judge outputs",
+      "status": "FOUND",
+      "path": "results/phase3/judge_ensemble",
+      "format": "dir",
+      "note": ""
+    },
+    {
+      "item": "cross-vendor judge driver",
+      "status": "FOUND",
+      "path": "scripts/phase3/judge_ensemble.py",
+      "bytes": 22275,
+      "mtime_utc": "2026-06-02T08:49:35.202470Z",
+      "tracked_in_git": true,
+      "format": "py",
+      "rows": 500,
+      "note": ""
+    },
+    {
+      "item": "30 benign utility questions",
+      "status": "FOUND",
+      "path": "scripts/phase3/utility_runner.py",
+      "bytes": 14569,
+      "mtime_utc": "2026-06-02T20:55:41.720356Z",
+      "tracked_in_git": true,
+      "format": "py",
+      "rows": 286,
+      "note": ""
+    },
+    {
+      "item": "utility metrics per configuration",
+      "status": "FOUND",
+      "path": "results/phase3/utility",
+      "format": "dir",
+      "note": ""
+    },
+    {
+      "item": "Presidio recall per entity type",
+      "status": "FOUND",
+      "path": "results/phase3/presidio_check",
+      "format": "dir",
+      "note": ""
+    },
+    {
+      "item": "L7 k-anonymity probe",
+      "status": "FOUND",
+      "path": "results/phase3/ablation/l7_sweep_responses.jsonl",
+      "bytes": 268856,
+      "mtime_utc": "2026-06-10T22:13:43.838219Z",
+      "tracked_in_git": true,
+      "format": "jsonl",
+      "rows": 224,
+      "keys": [
+        "arm",
+        "judge",
+        "k",
+        "profile",
+        "response",
+        "scenario"
+      ],
+      "has_response_text": true,
+      "has_retrieved_doc_ids": false,
+      "note": ""
+    },
+    {
+      "item": "P7 ingestion generalization",
+      "status": "FOUND",
+      "path": "results/phase3/p7",
+      "format": "dir",
+      "note": ""
+    },
+    {
+      "item": "final metrics",
+      "status": "FOUND",
+      "path": "results/phase3/ablation/metrics/final_metrics.json",
+      "bytes": 36411,
+      "mtime_utc": "2026-06-22T01:06:33.166193Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 11,
+      "keys": [
+        "GUARD",
+        "RQ1_per_layer",
+        "RQ2_L2L3_vs_full",
+        "RQ3_judge_validation_CITED",
+        "RQ4_per_profile",
+        "deltas_per_family_profile",
+        "deltas_vs_C00000_overall",
+        "detection_metrics",
+        "metric_ordering",
+        "noise_floor",
+        "per_cell"
+      ],
+      "note": ""
+    },
+    {
+      "item": "ablation config decode (bit_layout)",
+      "status": "FOUND",
+      "path": "results/phase3/ablation/config_set6.json",
+      "bytes": 12376,
+      "mtime_utc": "2026-06-02T16:03:06.075091Z",
+      "tracked_in_git": true,
+      "format": "json",
+      "rows": 4,
+      "keys": [
+        "cells",
+        "future_work_configs",
+        "metadata",
+        "notes"
+      ],
+      "note": ""
+    },
+    {
+      "item": "judge system prompt v2",
+      "status": "FOUND",
+      "path": "scenarios/judge_prompts/judge_v2.txt",
+      "bytes": 3629,
+      "mtime_utc": "2026-05-20T16:47:49.521064Z",
+      "tracked_in_git": true,
+      "format": "txt",
+      "rows": 71,
+      "note": ""
+    },
+    {
+      "item": "baseline regeneration (Phase-0 gate)",
+      "status": "FOUND",
+      "path": "results/phase3_4/baseline_regen",
+      "format": "dir",
+      "note": "see p0_regen_provenance.json -- fresh SUT re-run + fresh judge pass, UNTRACKED"
+    }
+  ],
+  "frozen_artifact_tracking": {
+    "rows": [
+      {
+        "path": "data/ground_truth/ground_truth.json",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "data/ground_truth/ground_truth_annotations.json",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "data/ground_truth/ground_truth_index.json",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "experiment_logs/B2_CLEAN_main-w3.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": false,
+        "ignored_by_rule": ".gitignore:36:experiment_logs/*.jsonl\texperiment_logs/B2_CLEAN_main-w3.jsonl",
+        "ever_committed": false
+      },
+      {
+        "path": "experiment_logs/B2_POISONED_poisoned-w4.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": false,
+        "ignored_by_rule": ".gitignore:36:experiment_logs/*.jsonl\texperiment_logs/B2_POISONED_poisoned-w4.jsonl",
+        "ever_committed": false
+      },
+      {
+        "path": "results/judge_calibration/judge_verdicts_full.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/judge_calibration/judge_verdicts.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/phase3/ablation/engine/C11111.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/phase3/ablation/engine/C01100.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/phase3/ablation/judged/judge_cache.jsonl",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/phase3/ablation/metrics/final_metrics.json",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/phase3/ablation/config_set6.json",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "results/phase3_4/judge_defended_calibration/annotation_defended.csv",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "scenarios/registry/v1_queries.json",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      },
+      {
+        "path": "scenarios/judge_prompts/judge_v2.txt",
+        "exists_in_worktree": true,
+        "tracked_in_git": true,
+        "ignored_by_rule": null,
+        "ever_committed": true
+      }
+    ],
+    "n_checked": 15,
+    "n_untracked": 2,
+    "untracked": [
+      "experiment_logs/B2_CLEAN_main-w3.jsonl",
+      "experiment_logs/B2_POISONED_poisoned-w4.jsonl"
+    ],
+    "FINDING": "2 artifact(s) declared frozen by CLAUDE.md invariant 3 are NOT under version control and were never committed. They exist only in the working tree."
+  },
+  "scenario_registry": {
+    "path": "scenarios/registry/v1_queries.json",
+    "n_scenarios": 57,
+    "record_keys": [
+      "attack_family",
+      "attacker_profile",
+      "author_notes",
+      "execution_mode",
+      "linddun_target",
+      "maps_to_threat_row",
+      "priority",
+      "scenario_id",
+      "success_criteria",
+      "target_severity",
+      "turns"
+    ],
+    "per_family": {
+      "F1_DIRECT_PII": 10,
+      "F2_LINKABILITY": 13,
+      "F3_DIRECT_INJECTION": 6,
+      "F4_OBFUSCATION": 5,
+      "F5_JAILBREAK": 5,
+      "F6_RECON": 4,
+      "F7_SOCIAL_ENG": 7,
+      "F8_CORPUS_POISONING": 7
+    },
+    "per_profile": {
+      "Admin": 7,
+      "External": 27,
+      "Internal": 18,
+      "ThirdParty": 5
+    },
+    "has_target_document": 0,
+    "has_target_severity": 57,
+    "severity_fields_present": [
+      "target_severity"
+    ]
+  },
+  "registry_vs_executed": {
+    "n_in_registry": 57,
+    "n_executed": 52,
+    "in_registry_not_executed": [
+      {
+        "scenario_id": "P4-LINK-001",
+        "profile": "ThirdParty",
+        "family": "F2_LINKABILITY"
+      },
+      {
+        "scenario_id": "P4-LINK-002",
+        "profile": "ThirdParty",
+        "family": "F2_LINKABILITY"
+      },
+      {
+        "scenario_id": "P4-LINK-003",
+        "profile": "ThirdParty",
+        "family": "F2_LINKABILITY"
+      },
+      {
+        "scenario_id": "P4-PII-001",
+        "profile": "ThirdParty",
+        "family": "F1_DIRECT_PII"
+      },
+      {
+        "scenario_id": "P4-RECON-001",
+        "profile": "ThirdParty",
+        "family": "F6_RECON"
+      }
+    ],
+    "executed_not_in_registry": [],
+    "executed_scenarios_per_family": {
+      "F1_DIRECT_PII": 9,
+      "F2_LINKABILITY": 10,
+      "F3_DIRECT_INJECTION": 6,
+      "F4_OBFUSCATION": 5,
+      "F5_JAILBREAK": 5,
+      "F6_RECON": 3,
+      "F7_SOCIAL_ENG": 7,
+      "F8_CORPUS_POISONING": 7
+    },
+    "executed_scenarios_per_profile": {
+      "Admin": 7,
+      "External": 27,
+      "Internal": 18
+    },
+    "n_turns_per_run": 89,
+    "FINDING": "The registry defines 57 scenarios; 52 were executed. The 5 never executed are all profile P4/ThirdParty. CLAUDE.md §3 and the taxonomy define FOUR attacker profiles, but the campaign measured THREE. P4 is specified, not measured."
+  },
+  "manuscript": {
+    "thesis_dir": "results/phase3_4/report/thesis",
+    "n_tex_files": 20,
+    "roots": [
+      {
+        "file": "results/phase3_4/report/thesis/acknowledgements_ar.tex",
+        "lines": 68,
+        "bytes": 4383,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 0,
+        "n_refs": 0
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch1_introduction.tex",
+        "lines": 166,
+        "bytes": 10425,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Introduction"
+        ],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 9,
+        "n_refs": 29
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch2_state_of_the_art.tex",
+        "lines": 596,
+        "bytes": 64988,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "State of the Art"
+        ],
+        "n_table_envs": 1,
+        "n_figure_envs": 0,
+        "n_labels": 14,
+        "n_refs": 12
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch3_threat_formal.tex",
+        "lines": 1895,
+        "bytes": 95218,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Threat Model"
+        ],
+        "n_table_envs": 1,
+        "n_figure_envs": 3,
+        "n_labels": 20,
+        "n_refs": 28
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch3b_formal_groundtruth.tex",
+        "lines": 734,
+        "bytes": 54619,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Formal Leakage Definitions and Ground Truth"
+        ],
+        "n_table_envs": 7,
+        "n_figure_envs": 1,
+        "n_labels": 25,
+        "n_refs": 33
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch4_attack_baseline.tex",
+        "lines": 401,
+        "bytes": 23938,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Attack Framework and the Undefended Baseline"
+        ],
+        "n_table_envs": 5,
+        "n_figure_envs": 5,
+        "n_labels": 17,
+        "n_refs": 27
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch5_defenses_measurement.tex",
+        "lines": 691,
+        "bytes": 45777,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Layered Defenses and Two-Instrument Measurement"
+        ],
+        "n_table_envs": 7,
+        "n_figure_envs": 6,
+        "n_labels": 23,
+        "n_refs": 27
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch6_tradeoff_residual.tex",
+        "lines": 607,
+        "bytes": 38505,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Security--Utility Trade-off and Residual Risk"
+        ],
+        "n_table_envs": 6,
+        "n_figure_envs": 6,
+        "n_labels": 22,
+        "n_refs": 31
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch7_discussion.tex",
+        "lines": 430,
+        "bytes": 32527,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Discussion"
+        ],
+        "n_table_envs": 1,
+        "n_figure_envs": 1,
+        "n_labels": 12,
+        "n_refs": 48
+      },
+      {
+        "file": "results/phase3_4/report/thesis/ch8_conclusion.tex",
+        "lines": 122,
+        "bytes": 7265,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Conclusion and Future Work"
+        ],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 7,
+        "n_refs": 13
+      },
+      {
+        "file": "results/phase3_4/report/thesis/thesis.tex",
+        "lines": 5514,
+        "bytes": 366113,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 9,
+        "chapter_titles": [
+          "Introduction",
+          "State of the Art",
+          "Threat Model",
+          "Formal Leakage Definitions and Ground Truth",
+          "Attack Framework and the Undefended Baseline",
+          "Layered Defenses and Two-Instrument Measurement",
+          "Security--Utility Trade-off and Residual Risk",
+          "Discussion",
+          "Conclusion and Future Work"
+        ],
+        "n_table_envs": 27,
+        "n_figure_envs": 22,
+        "n_labels": 143,
+        "n_refs": 253
+      },
+      {
+        "file": "results/phase3_4/report/thesis/thesis_master.tex",
+        "lines": 1513,
+        "bytes": 127733,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 4,
+        "chapter_titles": [
+          "Introduction",
+          "State of the Art",
+          "Comparative Study",
+          "Conclusion and Future Work"
+        ],
+        "n_table_envs": 4,
+        "n_figure_envs": 4,
+        "n_labels": 42,
+        "n_refs": 36
+      },
+      {
+        "file": "results/phase3_4/report/thesis/thesis_modular.tex",
+        "lines": 396,
+        "bytes": 24938,
+        "is_root": true,
+        "n_input_directives": 9,
+        "inputs": [
+          "ch1_introduction",
+          "ch2_state_of_the_art",
+          "ch3_threat_formal",
+          "ch3b_formal_groundtruth",
+          "ch4_attack_baseline",
+          "ch5_defenses_measurement",
+          "ch6_tradeoff_residual",
+          "ch7_discussion",
+          "ch8_conclusion"
+        ],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 0,
+        "n_refs": 13
+      },
+      {
+        "file": "results/phase3_4/report/thesis/thesis_pfe.tex",
+        "lines": 5291,
+        "bytes": 327763,
+        "is_root": true,
+        "n_input_directives": 3,
+        "inputs": [
+          "fig_ch6_protocol",
+          "fig_ch5_entity_recall",
+          "appendix_repro"
+        ],
+        "n_chapter_commands": 10,
+        "chapter_titles": [
+          "Introduction",
+          "State of the Art",
+          "Comparative Study",
+          "Threat Model",
+          "Formal Leakage Definitions and Ground Truth",
+          "Attack Framework and the Undefended Baseline",
+          "Layered Defenses and Two-Instrument Measurement",
+          "Security--Utility Trade-off and Residual Risk",
+          "Discussion",
+          "Conclusion and Future Work"
+        ],
+        "n_table_envs": 28,
+        "n_figure_envs": 22,
+        "n_labels": 143,
+        "n_refs": 255
+      },
+      {
+        "file": "results/phase3_4/report/thesis/titlepage.tex",
+        "lines": 101,
+        "bytes": 4111,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 0,
+        "n_refs": 0
+      },
+      {
+        "file": "results/phase3_4/report/thesis/titlepage_master.tex",
+        "lines": 147,
+        "bytes": 4622,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 0,
+        "n_refs": 0
+      },
+      {
+        "file": "results/phase3_4/report/thesis/titlepage_pfe.tex",
+        "lines": 147,
+        "bytes": 4635,
+        "is_root": true,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 0,
+        "n_labels": 0,
+        "n_refs": 0
+      }
+    ],
+    "chapter_files_not_roots": [
+      {
+        "file": "results/phase3_4/report/thesis/appendix_repro.tex",
+        "lines": 252,
+        "bytes": 11295,
+        "is_root": false,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 1,
+        "chapter_titles": [
+          "Reproducibility Materials"
+        ],
+        "n_table_envs": 1,
+        "n_figure_envs": 0,
+        "n_labels": 5,
+        "n_refs": 1
+      },
+      {
+        "file": "results/phase3_4/report/thesis/fig_ch5_entity_recall.tex",
+        "lines": 70,
+        "bytes": 3961,
+        "is_root": false,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 1,
+        "n_labels": 1,
+        "n_refs": 0
+      },
+      {
+        "file": "results/phase3_4/report/thesis/fig_ch6_protocol.tex",
+        "lines": 49,
+        "bytes": 3046,
+        "is_root": false,
+        "n_input_directives": 0,
+        "inputs": [],
+        "n_chapter_commands": 0,
+        "chapter_titles": [],
+        "n_table_envs": 0,
+        "n_figure_envs": 1,
+        "n_labels": 1,
+        "n_refs": 0
+      }
+    ],
+    "selected_manuscript_root": "results/phase3_4/report/thesis/thesis_pfe.tex",
+    "selection_rationale": "the root that issues its own \\chapter commands for >=6 chapters (CLAUDE.md: thesis_master.tex / thesis_pfe.tex inline all chapter prose; the ch*.tex files are only pulled in by thesis_modular.tex)",
+    "n_floats_in_selected_root": 50,
+    "floats": [
+      {
+        "printed_number": "Table 3.1",
+        "chapter": 3,
+        "chapter_title": "Comparative Study",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 625,
+        "label": "tab:gap-matrix",
+        "caption_head": "Cross-cutting research gaps mapped to thesis research questions."
+      },
+      {
+        "printed_number": "Figure 4.1",
+        "chapter": 4,
+        "chapter_title": "Threat Model",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 913,
+        "label": "fig:ch3-profiles",
+        "caption_head": "The four attacker profiles, calibrated against CVSS~v3.1 base scores and each mapped to an authorization thres"
+      },
+      {
+        "printed_number": "Table 4.1",
+        "chapter": 4,
+        "chapter_title": "Threat Model",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 2327,
+        "label": "tab:ch3-families",
+        "caption_head": "The eight attack families and their profile assignment. Counts are the campaign's 52 scenarios (consistent wit"
+      },
+      {
+        "printed_number": "Figure 4.2",
+        "chapter": 4,
+        "chapter_title": "Threat Model",
+        "kind": "figure",
+        "index_in_chapter": 2,
+        "line": 2365,
+        "label": "fig:ch3-attack-surface",
+        "caption_head": "RAG system: attack-surface map. The seven-component pipeline with the three application-layer attacker paths ("
+      },
+      {
+        "printed_number": "Figure 4.3",
+        "chapter": 4,
+        "chapter_title": "Threat Model",
+        "kind": "figure",
+        "index_in_chapter": 3,
+        "line": 2374,
+        "label": "fig:ch3-trust-boundary",
+        "caption_head": "RAG system: trust-boundary map. The same components reorganized into trusted and untrusted zones, showing wher"
+      },
+      {
+        "printed_number": "Table 5.1",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 2577,
+        "label": "ch3:tab:threshold-justification",
+        "caption_head": "Authorization threshold justification by attacker profile."
+      },
+      {
+        "printed_number": "Table 5.2",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 2,
+        "line": 2720,
+        "label": "tab:ch3-weight-sensitivity",
+        "caption_head": "Engine mean severity $\\bar S$ per configuration under a $\\pm 0.1$ perturbation of every detection-confidence w"
+      },
+      {
+        "printed_number": "Figure 5.1",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 2748,
+        "label": "fig:ch4-metricflow",
+        "caption_head": "Computing the two leakage metrics from a response. The leaked set $E(r,D,u)$ collects the entities disclosed i"
+      },
+      {
+        "printed_number": "Table 5.3",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 3,
+        "line": 2784,
+        "label": "ch3:tab:metric-comparison",
+        "caption_head": "Side-by-side comparison of the two leakage metrics."
+      },
+      {
+        "printed_number": "Table 5.4",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 2824,
+        "label": "tab:ch3-taxonomy",
+        "caption_head": "The leakage taxonomy: four severity bands with representative entity types. The corpus instantiates 31 of the "
+      },
+      {
+        "printed_number": "Table 5.5",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 2854,
+        "label": "ch3:tab:doc-classes",
+        "caption_head": "The four document classes composing the ground-truth corpus."
+      },
+      {
+        "printed_number": "Table 5.6",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 6,
+        "line": 2961,
+        "label": "ch3:tab:schema",
+        "caption_head": "The seven properties recorded for each annotated entity."
+      },
+      {
+        "printed_number": "Table 5.7",
+        "chapter": 5,
+        "chapter_title": "Formal Leakage Definitions and Ground Truth",
+        "kind": "table",
+        "index_in_chapter": 7,
+        "line": 3057,
+        "label": "ch3:tab:annotation-density",
+        "caption_head": "Annotation density by document class."
+      },
+      {
+        "printed_number": "Table 6.1",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 3228,
+        "label": "tab:ch4-families",
+        "caption_head": "The eight attack families, the profiles that exercise each, and the scenario counts. F1--F7 are shared by the "
+      },
+      {
+        "printed_number": "Figure 6.1",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 3267,
+        "label": "fig:ch4-architecture",
+        "caption_head": "The minimal RAG system under test. \\textbf{Indexing} (top, teal): the 155-document corpus is chunked (512/64),"
+      },
+      {
+        "printed_number": "Table 6.2",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 2,
+        "line": 3357,
+        "label": "tab:ch4-kappa",
+        "caption_head": "Phase-2 judge calibration on the 46-record sample, against a single human annotator (the author). The judge pa"
+      },
+      {
+        "printed_number": "Table 6.3",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 3,
+        "line": 3394,
+        "label": "tab:ch4-headline",
+        "caption_head": "Undefended baseline (C00000) attack-success rate: engine (lower bound) versus judge (primary), strict (severit"
+      },
+      {
+        "printed_number": "Table 6.4",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 3423,
+        "label": "tab:ch4-profile",
+        "caption_head": "Strict ASR by profile at the undefended baseline, engine (lower bound) versus judge (primary). Rates are over "
+      },
+      {
+        "printed_number": "Figure 6.2",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 2,
+        "line": 3441,
+        "label": "fig:ch4-asr-profile",
+        "caption_head": "Strict attack-success rate by threat-actor profile at the undefended baseline, engine (lower bound) versus jud"
+      },
+      {
+        "printed_number": "Table 6.5",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 3464,
+        "label": "tab:ch4-family",
+        "caption_head": "Strict ASR by attack family at the undefended baseline, engine (lower bound) versus judge (primary). F1 and F2"
+      },
+      {
+        "printed_number": "Figure 6.3",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 3,
+        "line": 3486,
+        "label": "fig:ch4-asr-family",
+        "caption_head": "Strict attack-success rate by attack family at the undefended baseline, engine (lower bound) versus judge (pri"
+      },
+      {
+        "printed_number": "Figure 6.4",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 4,
+        "line": 3507,
+        "label": "fig:ch4-leaktype",
+        "caption_head": "Augmented leak-type distribution across $N=267$ attack turns. Direct PII extraction accounts for the majority "
+      },
+      {
+        "printed_number": "Figure 6.5",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 5,
+        "line": 3533,
+        "label": "fig:ch4-retrieval",
+        "caption_head": "Retrieval precision by attack family. Of the 36 named-target turns, the retriever returned the correct documen"
+      },
+      {
+        "printed_number": "Table 7.1",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 3602,
+        "label": "tab:ch5-layers",
+        "caption_head": "The five defense mechanisms: where each acts, what it does, and the attack it was validated against."
+      },
+      {
+        "printed_number": "Figure 7.1",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 3620,
+        "label": "fig:ch5-pipeline",
+        "caption_head": "The layered defense pipeline. Pipeline stages (white) interleave with the five defense layers (blue): \\textbf{"
+      },
+      {
+        "printed_number": "Table 7.2",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 2,
+        "line": 3656,
+        "label": "tab:ch5-oracle",
+        "caption_head": "Retrieval-time redaction with the target document forced into context. The disclosure rate is the fraction of "
+      },
+      {
+        "printed_number": "Table 7.3",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 3,
+        "line": 3720,
+        "label": "tab:ch5-ceiling",
+        "caption_head": "Where high-severity detection fails. These categories are why a single filter cannot suffice."
+      },
+      {
+        "printed_number": "Figure 7.2",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 2,
+        "line": 3753,
+        "label": "fig:ch5-severity",
+        "caption_head": "Turn-level leak counts by maximum disclosed-entity severity for the three labeller signals. The engine fires o"
+      },
+      {
+        "printed_number": "Figure 7.3",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 3,
+        "line": 3787,
+        "label": "fig:ch5-reduction",
+        "caption_head": "Strict attack-success rate across three configurations, by instrument. The judge (primary) shows leakage falli"
+      },
+      {
+        "printed_number": "Table 7.4",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 3831,
+        "label": "tab:ch5-headline",
+        "caption_head": "Strict attack-success rate by configuration, read through each instrument. The judged figures are primary; the"
+      },
+      {
+        "printed_number": "Table 7.5",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 3862,
+        "label": "tab:ch5-marginal",
+        "caption_head": "Per-layer marginal effect on strict attack-success rate, read through each instrument against its own noise fl"
+      },
+      {
+        "printed_number": "Figure 7.4",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 4,
+        "line": 3908,
+        "label": "fig:ch5-marginal",
+        "caption_head": "Per-layer marginal effect against the judged noise floor (left), and the staircase from no defense through red"
+      },
+      {
+        "printed_number": "Figure 7.5",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 5,
+        "line": 3947,
+        "label": "fig:ch5-kappa",
+        "caption_head": "The two-instrument finding. The deterministic engine's agreement with the human annotator on the linkage famil"
+      },
+      {
+        "printed_number": "Figure 7.6",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 6,
+        "line": 3982,
+        "label": "fig:ch5-kappa-heatmap",
+        "caption_head": "Cohen's $\\kappa$ across labeller pairs (Engine--Human, Judge--Human, Engine--Judge) and label dimensions (bina"
+      },
+      {
+        "printed_number": "Table 7.6",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 6,
+        "line": 4027,
+        "label": "tab:ch5-kappa",
+        "caption_head": "The inter-rater agreement chain on the undefended calibration set, with each figure's role."
+      },
+      {
+        "printed_number": "Table 7.7",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 7,
+        "line": 4084,
+        "label": "tab:ch5-confusion",
+        "caption_head": "Judge-versus-human confusion matrix on the defended calibration sample ($n=46$)."
+      },
+      {
+        "printed_number": "Figure 8.1",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 4255,
+        "label": "fig:ch6-pareto",
+        "caption_head": "Security against utility across configurations, judged ASR primary. The knee, where redaction meets conversati"
+      },
+      {
+        "printed_number": "Table 8.1",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 4278,
+        "label": "tab:ch6-utility",
+        "caption_head": "The cost in answer quality, undefended (C00000) versus fully defended (C11111), on thirty ordinary questions. "
+      },
+      {
+        "printed_number": "Table 8.2",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 2,
+        "line": 4336,
+        "label": "tab:ch6-profile",
+        "caption_head": "Judged attack-success rate by adversary, from no defense through the knee to the full stack."
+      },
+      {
+        "printed_number": "Figure 8.2",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 2,
+        "line": 4355,
+        "label": "fig:ch6-f2residual",
+        "caption_head": "Judged cross-document linkability (family F2) across configurations: $0.60$ undefended, $0.70$ at the knee, $0"
+      },
+      {
+        "printed_number": "Table 8.3",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 3,
+        "line": 4410,
+        "label": "tab:ch6-severity",
+        "caption_head": "Mean severity $\\bar{S}$ by configuration, engine (lower bound) and judge (primary), over the matched 89-turn s"
+      },
+      {
+        "printed_number": "Figure 8.3",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 3,
+        "line": 4430,
+        "label": "fig:ch6-deltaS",
+        "caption_head": "Mean severity $\\bar{S}$ by configuration, both instruments. The judge (primary) shows severity falling from $0"
+      },
+      {
+        "printed_number": "Table 8.4",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 4468,
+        "label": "tab:ch6-riskfam",
+        "caption_head": "Risk by attack family, scored on the judged leakage surviving the recommended configuration, weighted by sever"
+      },
+      {
+        "printed_number": "Figure 8.4",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 4,
+        "line": 4545,
+        "label": "fig:ch6-qiladder",
+        "caption_head": "The pre-registered quasi-identifier generalization hierarchy used by the linkage probes (three of the seven QI"
+      },
+      {
+        "printed_number": "Table 8.5",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 4610,
+        "label": "tab:ch6-l7",
+        "caption_head": "Judged-strict re-identification (family F2) for the combinatorial $k$-anonymity gate, a random-same-rate contr"
+      },
+      {
+        "printed_number": "Figure 8.5",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 5,
+        "line": 4629,
+        "label": "fig:ch6-l7sweep",
+        "caption_head": "Judged F2 linkability for the combinatorial $k$-anonymity gate, a random-same-rate control, and an in-session "
+      },
+      {
+        "printed_number": "Table 8.6",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 6,
+        "line": 4704,
+        "label": "tab:ch6-p7",
+        "caption_head": "Information cost of reaching global $k$-anonymity at ingestion, over the hundred employee records. ``Info-loss"
+      },
+      {
+        "printed_number": "Figure 8.6",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 6,
+        "line": 4722,
+        "label": "fig:ch6-p7infoloss",
+        "caption_head": "The information cost of reaching global $k$-anonymity at ingestion. Even the weakest setting, $k{=}2$, removes"
+      },
+      {
+        "printed_number": "Table 9.1",
+        "chapter": 9,
+        "chapter_title": "Discussion",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 5021,
+        "label": "tab:disc-recommendations",
+        "caption_head": "Traceability of each recommendation to its measured finding and the regulatory theme it bears on. Each recomme"
+      },
+      {
+        "printed_number": "Figure 9.1",
+        "chapter": 9,
+        "chapter_title": "Discussion",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 5074,
+        "label": "fig:ch7-governance",
+        "caption_head": "The three governance-of-access controls as a defense-in-depth: \\textbf{C1} minimize what enters the corpus, \\t"
+      }
+    ],
+    "requested_float_resolution": {
+      "Table 6.3": {
+        "printed_number": "Table 6.3",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 3,
+        "line": 3394,
+        "label": "tab:ch4-headline",
+        "caption_head": "Undefended baseline (C00000) attack-success rate: engine (lower bound) versus judge (primary), strict (severit"
+      },
+      "Table 6.4": {
+        "printed_number": "Table 6.4",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 3423,
+        "label": "tab:ch4-profile",
+        "caption_head": "Strict ASR by profile at the undefended baseline, engine (lower bound) versus judge (primary). Rates are over "
+      },
+      "Table 6.5": {
+        "printed_number": "Table 6.5",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 3464,
+        "label": "tab:ch4-family",
+        "caption_head": "Strict ASR by attack family at the undefended baseline, engine (lower bound) versus judge (primary). F1 and F2"
+      },
+      "Table 7.4": {
+        "printed_number": "Table 7.4",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 3831,
+        "label": "tab:ch5-headline",
+        "caption_head": "Strict attack-success rate by configuration, read through each instrument. The judged figures are primary; the"
+      },
+      "Table 7.5": {
+        "printed_number": "Table 7.5",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 3862,
+        "label": "tab:ch5-marginal",
+        "caption_head": "Per-layer marginal effect on strict attack-success rate, read through each instrument against its own noise fl"
+      },
+      "Table 7.6": {
+        "printed_number": "Table 7.6",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 6,
+        "line": 4027,
+        "label": "tab:ch5-kappa",
+        "caption_head": "The inter-rater agreement chain on the undefended calibration set, with each figure's role."
+      },
+      "Table 7.7": {
+        "printed_number": "Table 7.7",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "table",
+        "index_in_chapter": 7,
+        "line": 4084,
+        "label": "tab:ch5-confusion",
+        "caption_head": "Judge-versus-human confusion matrix on the defended calibration sample ($n=46$)."
+      },
+      "Table 8.1": {
+        "printed_number": "Table 8.1",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 1,
+        "line": 4278,
+        "label": "tab:ch6-utility",
+        "caption_head": "The cost in answer quality, undefended (C00000) versus fully defended (C11111), on thirty ordinary questions. "
+      },
+      "Table 8.2": {
+        "printed_number": "Table 8.2",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 2,
+        "line": 4336,
+        "label": "tab:ch6-profile",
+        "caption_head": "Judged attack-success rate by adversary, from no defense through the knee to the full stack."
+      },
+      "Table 8.3": {
+        "printed_number": "Table 8.3",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 3,
+        "line": 4410,
+        "label": "tab:ch6-severity",
+        "caption_head": "Mean severity $\\bar{S}$ by configuration, engine (lower bound) and judge (primary), over the matched 89-turn s"
+      },
+      "Table 8.4": {
+        "printed_number": "Table 8.4",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 4,
+        "line": 4468,
+        "label": "tab:ch6-riskfam",
+        "caption_head": "Risk by attack family, scored on the judged leakage surviving the recommended configuration, weighted by sever"
+      },
+      "Table 8.5": {
+        "printed_number": "Table 8.5",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "table",
+        "index_in_chapter": 5,
+        "line": 4610,
+        "label": "tab:ch6-l7",
+        "caption_head": "Judged-strict re-identification (family F2) for the combinatorial $k$-anonymity gate, a random-same-rate contr"
+      },
+      "Figure 6.4": {
+        "printed_number": "Figure 6.4",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 4,
+        "line": 3507,
+        "label": "fig:ch4-leaktype",
+        "caption_head": "Augmented leak-type distribution across $N=267$ attack turns. Direct PII extraction accounts for the majority "
+      },
+      "Figure 6.5": {
+        "printed_number": "Figure 6.5",
+        "chapter": 6,
+        "chapter_title": "Attack Framework and the Undefended Baseline",
+        "kind": "figure",
+        "index_in_chapter": 5,
+        "line": 3533,
+        "label": "fig:ch4-retrieval",
+        "caption_head": "Retrieval precision by attack family. Of the 36 named-target turns, the retriever returned the correct documen"
+      },
+      "Figure 6.6": "NOT FOUND",
+      "Figure 7.2": {
+        "printed_number": "Figure 7.2",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 2,
+        "line": 3753,
+        "label": "fig:ch5-severity",
+        "caption_head": "Turn-level leak counts by maximum disclosed-entity severity for the three labeller signals. The engine fires o"
+      },
+      "Figure 7.3": {
+        "printed_number": "Figure 7.3",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 3,
+        "line": 3787,
+        "label": "fig:ch5-reduction",
+        "caption_head": "Strict attack-success rate across three configurations, by instrument. The judge (primary) shows leakage falli"
+      },
+      "Figure 7.4": {
+        "printed_number": "Figure 7.4",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 4,
+        "line": 3908,
+        "label": "fig:ch5-marginal",
+        "caption_head": "Per-layer marginal effect against the judged noise floor (left), and the staircase from no defense through red"
+      },
+      "Figure 7.5": {
+        "printed_number": "Figure 7.5",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 5,
+        "line": 3947,
+        "label": "fig:ch5-kappa",
+        "caption_head": "The two-instrument finding. The deterministic engine's agreement with the human annotator on the linkage famil"
+      },
+      "Figure 7.6": {
+        "printed_number": "Figure 7.6",
+        "chapter": 7,
+        "chapter_title": "Layered Defenses and Two-Instrument Measurement",
+        "kind": "figure",
+        "index_in_chapter": 6,
+        "line": 3982,
+        "label": "fig:ch5-kappa-heatmap",
+        "caption_head": "Cohen's $\\kappa$ across labeller pairs (Engine--Human, Judge--Human, Engine--Judge) and label dimensions (bina"
+      },
+      "Figure 7.7": "NOT FOUND",
+      "Figure 8.1": {
+        "printed_number": "Figure 8.1",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 1,
+        "line": 4255,
+        "label": "fig:ch6-pareto",
+        "caption_head": "Security against utility across configurations, judged ASR primary. The knee, where redaction meets conversati"
+      },
+      "Figure 8.2": {
+        "printed_number": "Figure 8.2",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 2,
+        "line": 4355,
+        "label": "fig:ch6-f2residual",
+        "caption_head": "Judged cross-document linkability (family F2) across configurations: $0.60$ undefended, $0.70$ at the knee, $0"
+      },
+      "Figure 8.3": {
+        "printed_number": "Figure 8.3",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 3,
+        "line": 4430,
+        "label": "fig:ch6-deltaS",
+        "caption_head": "Mean severity $\\bar{S}$ by configuration, both instruments. The judge (primary) shows severity falling from $0"
+      },
+      "Figure 8.4": {
+        "printed_number": "Figure 8.4",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 4,
+        "line": 4545,
+        "label": "fig:ch6-qiladder",
+        "caption_head": "The pre-registered quasi-identifier generalization hierarchy used by the linkage probes (three of the seven QI"
+      },
+      "Figure 8.5": {
+        "printed_number": "Figure 8.5",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 5,
+        "line": 4629,
+        "label": "fig:ch6-l7sweep",
+        "caption_head": "Judged F2 linkability for the combinatorial $k$-anonymity gate, a random-same-rate control, and an in-session "
+      },
+      "Figure 8.6": {
+        "printed_number": "Figure 8.6",
+        "chapter": 8,
+        "chapter_title": "Security--Utility Trade-off and Residual Risk",
+        "kind": "figure",
+        "index_in_chapter": 6,
+        "line": 4722,
+        "label": "fig:ch6-p7infoloss",
+        "caption_head": "The information cost of reaching global $k$-anonymity at ingestion. Even the weakest setting, $k{=}2$, removes"
+      }
+    },
+    "n_requested_resolved": 25,
+    "n_labels_never_referenced": 59,
+    "labels_never_referenced": [
+      "ch3:sec:annotation",
+      "ch3:sec:corpus",
+      "ch3:sec:cvss-metrics-explained",
+      "ch3:sec:limitations",
+      "ch3:subsec:coverage-gap",
+      "ch3:subsec:def2",
+      "ch3:subsec:synthetic-limits",
+      "ch:intro",
+      "sec:annotation-pointer",
+      "sec:ch3-corpus",
+      "sec:ch3-engine",
+      "sec:ch3-families",
+      "sec:ch3-formal-summary",
+      "sec:ch3-threat-summary",
+      "sec:ch4-floor",
+      "sec:ch4-framework",
+      "sec:ch4-measurement",
+      "sec:ch4-rq1",
+      "sec:ch4-summary",
+      "sec:ch4-sut",
+      "sec:ch5-defense",
+      "sec:ch5-instruments",
+      "sec:ch5-recalibrate",
+      "sec:ch5-summary",
+      "sec:ch5-validate",
+      "sec:ch6-cost",
+      "sec:ch6-knee",
+      "sec:ch6-l3",
+      "sec:ch6-risk",
+      "sec:ch6-rq4",
+      "sec:ch6-summary",
+      "sec:concl-answer",
+      "sec:concl-closing",
+      "sec:concl-contribution",
+      "sec:concl-future",
+      "sec:concl-summary",
+      "sec:defenses",
+      "sec:disc-governance",
+      "sec:disc-headline",
+      "sec:disc-judge",
+      "sec:disc-limits",
+      "sec:disc-practical",
+      "sec:disc-recommendations",
+      "sec:disc-throughline",
+      "sec:intro-context",
+      "sec:intro-contrib",
+      "sec:intro-findings",
+      "sec:intro-gap",
+      "sec:intro-problem",
+      "sec:intro-rqs",
+      "sec:intro-structure",
+      "sec:llm-judge",
+      "sec:pi-taxonomy",
+      "sec:pii-leakage",
+      "sec:rag-vuln",
+      "sec:synthesis",
+      "subsec:ch3-kappa",
+      "subsec:ch3-taxonomy",
+      "subsec:rag-amplification"
+    ]
+  },
+  "artifact_totals": {
+    "n_data_artifacts": 154,
+    "n_tracked": 130,
+    "n_untracked": 24,
+    "untracked_paths": [
+      "results/baseline/baseline_per_scenario.csv",
+      "results/baseline/baseline_summary.csv",
+      "results/phase3/audit/chatbot.jsonl",
+      "results/phase3/audit/dom.jsonl",
+      "results/phase3/audit/final.jsonl",
+      "results/phase3/audit/jurytest.jsonl",
+      "results/phase3/audit/repro.jsonl",
+      "results/phase3/audit/short.jsonl",
+      "results/phase3/audit/smoke.jsonl",
+      "results/phase3/audit/sw.jsonl",
+      "results/phase3_4/pfe_review_facts.json",
+      "results/phase3_4/baseline_regen/B2_CLEAN_regen.jsonl",
+      "results/phase3_4/baseline_regen/B2_CLEAN_regen_summary.json",
+      "results/phase3_4/baseline_regen/B2_POISONED_regen.jsonl",
+      "results/phase3_4/baseline_regen/B2_POISONED_regen_summary.json",
+      "results/phase3_4/baseline_regen/judge_cache_regen.jsonl",
+      "experiment_logs/B1_PILOT_pilot-B1-w3.jsonl",
+      "experiment_logs/B2_CLEAN_main-w3.jsonl",
+      "experiment_logs/B2_POISONED_poisoned-w4.jsonl",
+      "experiment_logs/DRY_RUN_smoketest.jsonl",
+      "experiment_logs/DRY_RUN_w3-dryrun-test.jsonl",
+      "experiment_logs/final-test-v1.jsonl",
+      "experiment_logs/final-test-v3-all-fixes.jsonl",
+      "experiment_logs/sanity-check.jsonl"
+    ],
+    "n_total_rows": 5545
+  },
+  "checklist_summary": {
+    "n_items": 28,
+    "n_found": 28,
+    "n_not_found": 0,
+    "not_found": []
+  }
+}

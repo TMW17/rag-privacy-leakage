@@ -1,13 +1,24 @@
 # Phase S — Preflight
 
 **Produced by:** Claude Opus 5 (1M context), model id `claude-opus-5[1m]`
-**Effort:** ultracode (xhigh + dynamic workflow orchestration) — *observed from session transcript, PENDING operator confirmation via `/status`*
+**Effort:** **ultracode — observed from transcript, never confirmed; `/status` does not report
+effort and the session has since restarted.** Not upgradable to "confirmed" (amendment 6).
 **Date:** 2026-08-09
 **Repo:** `/Users/user/Desktop/Final_Year_Project/Code`
 **Task:** Pre-Submission Blocker Fixes (Part A) v3, Phase S
 
-> Per hard rule 10, the agent cannot read or set its own model/effort. Every value in the
-> header above is *observed*, not authoritative, until the operator confirms from `/status`.
+> Per hard rule 10, the agent cannot read or set its own model/effort.
+>
+> **Amendment 5 — corrected confirmation procedure, in force from Phase 0 onward.** The
+> original instruction to confirm *both* model and effort from `/status` is only
+> half-satisfiable: **`/status` reports Model only, never effort.** The correct procedure is:
+> **model from `/status`; effort from the session header next to the model name, or from
+> `/effort`.**
+>
+> **Amendment 6 — Phase S effort is permanently unconfirmable.** It was observed as ultracode
+> in the transcript, `/status` could not have confirmed it, and the session has since
+> restarted, so it cannot be confirmed retroactively. This is harmless: **Phase S produced no
+> statistics**, so nothing downstream depends on the value.
 
 ---
 
@@ -311,3 +322,36 @@ committed and branch created, Opus 5 confirmed for all phases, Phase-0 discovery
 the candidate paths.
 
 **Outstanding operator action: restart the session**, then confirm to proceed to Phase 0.
+
+---
+
+## Post-restart addendum — how Phase S's open items actually resolved
+
+Added during Phase 0 (2026-08-09, post-restart session). Phase S itself was **not** redone.
+Every claim below is emitted by a script under `analysis/partA/scripts/` (hard rule 11).
+
+| Phase S item | Resolution in Phase 0 |
+|---|---|
+| Restart for `switchModelsOnFlag` | **Done.** Effective value verified as `false` across both active setting sources; only `~/.claude/settings.json` sets it, `.claude/settings.local.json` does not, so there is no precedence conflict (amendment 8). Script: `p0_preflight_verify.py`. |
+| S5 candidate paths, "existence only" | **All 28 required artifacts FOUND and schema-verified.** See `00_inventory.md` §2. Script: `p0_inventory.py`. |
+| The two make-or-break fields (retrieved doc IDs, full response text) | **Both present on every execution record.** No truncation: 0 responses hit the 1,024-token cap, no constant-length logging truncation, median 1,184 chars. **A3 and A4 are UNBLOCKED.** No `evidence_quote` field was ever persisted, so A4 works from response text + `rationale` (amendment 4). Script: `p0_regen_provenance.py`. |
+| Phase-0 gate — `baseline_regen` | **Neither of the two anticipated cases.** It is a fresh SUT re-run *and* a fresh judge pass, so its sigma is joint and cannot be decomposed into SUT and judge halves. See `00_inventory.md` §4. |
+| Canonicity (amendment 3c) | **Settled, no CRITICAL stop.** `experiment_logs/B2_CLEAN_main-w3.jsonl` + `B2_POISONED_poisoned-w4.jsonl` reproduce engine 0.1923 / judged 0.2885 exactly. The regen is a *different execution*, so its different numbers are condition drift, not a reproducibility failure. Script: `p0_sanity_checks.py`. |
+| `test.py` OpenRouter header (carried A6 risk) | **Cleared.** One distinct blob in all of history; the value was the literal placeholder `<OPENROUTER_API_KEY>`. There is no earlier version that could have held a live key and been replaced. |
+| MCP servers | **Zero configured locally** (both scopes empty, no `.mcp.json`). The 6 unauthenticated servers are claude.ai account connectors; a `settings.json` edit would disable nothing. Not needed for Part A (amendment 8). |
+| Cleanup commit `34f9c02` | **Verified.** 39 deletions: 32 LaTeX byproducts, 4 built PDFs, 2 root scratch scripts, 1 empty `.gitkeep`. **0** under any source/evidence directory. One caveat: `build_check/phase1/phase1.pdf` was the only tracked build of `reports/phase1/phase1.tex` and has no surviving counterpart (recoverable at `34f9c02^`). |
+
+**Corrections to Phase S's own text, per the amendments:**
+
+- The header's effort line now reads as amendment 6 requires and is **not** upgradable to
+  "confirmed".
+- The Phase-S-era instruction to confirm model *and* effort from `/status` is superseded by
+  amendment 5: **model from `/status`, effort from the session header or `/effort`.**
+- Phase S's S3 note predicted Phase 0 would start at plain `xhigh`. In fact the operator
+  re-issued `/effort` in the Phase 0 session, so Phase 0 ran at **ultracode**. Recorded, not
+  corrected — both satisfy the A3/A4 requirement of at least `xhigh`.
+
+**New finding Phase S could not have seen:** the canonical baseline logs are excluded by
+`.gitignore:36` (`experiment_logs/*.jsonl`) and were **never committed** (`git log --all`
+returns nothing for either path). They exist only in this working tree, and they are the sole
+source that reproduces the published baseline. Escalated to A6 at CRITICAL severity.

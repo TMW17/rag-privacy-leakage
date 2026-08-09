@@ -1,0 +1,377 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/p0_preflight_verify.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "b44ec73f4fa318ce8622a184e86ded52d2b8b640",
+    "git_branch": "fix/part-a-blockers",
+    "note": "Values are DETERMINISTIC given the repository state; no wall-clock or RNG enters any figure. Timestamps are not recorded in outputs for that reason."
+  },
+  "_purpose": "Re-derive Phase 0 environment and cleanup-commit claims from primary sources so that every number in the Phase 0 markdown traces to this script (hard rule 11 / amendment 1).",
+  "verification_1_cleanup_commit": {
+    "commit": "34f9c02ef1da7e7a62e8c19f65e9ab25134a528e",
+    "subject": "Remove build artifacts and stale scratch; harden .gitignore",
+    "n_deleted": 39,
+    "n_modified": 1,
+    "n_added": 0,
+    "modified_paths": [
+      ".gitignore"
+    ],
+    "class_histogram": {
+      "LATEX_BUILD_BYPRODUCT": 32,
+      "EMPTY_PLACEHOLDER": 1,
+      "BUILT_PDF": 4,
+      "PYTHON_SCRATCH": 2
+    },
+    "per_file": [
+      {
+        "path": "Phase2_Report_Detailed.aux",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".aux is a LaTeX build byproduct"
+      },
+      {
+        "path": "Phase2_Report_Detailed.log",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".log is a LaTeX build byproduct"
+      },
+      {
+        "path": "Phase2_Report_Detailed.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "Phase2_Report_Detailed.toc",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".toc is a LaTeX build byproduct"
+      },
+      {
+        "path": "agents/.gitkeep",
+        "class": "EMPTY_PLACEHOLDER",
+        "rationale": "empty directory placeholder"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.aux",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".aux is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.fdb_latexmk",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fdb_latexmk is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.fls",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fls is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.log",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".log is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.pdf",
+        "class": "BUILT_PDF",
+        "rationale": "compiled PDF (regenerable from .tex; check for a surviving counterpart)"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.toc",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".toc is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/latexmk.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.aux",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".aux is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.fdb_latexmk",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fdb_latexmk is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.fls",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fls is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.log",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".log is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.pdf",
+        "class": "BUILT_PDF",
+        "rationale": "compiled PDF (regenerable from .tex; check for a surviving counterpart)"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.toc",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".toc is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Phase2_Report_Detailed/latexmk.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.aux",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".aux is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.fdb_latexmk",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fdb_latexmk is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.fls",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fls is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.log",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".log is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.pdf",
+        "class": "BUILT_PDF",
+        "rationale": "compiled PDF (regenerable from .tex; check for a surviving counterpart)"
+      },
+      {
+        "path": "build_check/Threat_Model/Threat_Model.toc",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".toc is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/Threat_Model/latexmk.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/latexmk.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/phase1.aux",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".aux is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/phase1.fdb_latexmk",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fdb_latexmk is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/phase1.fls",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".fls is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/phase1.log",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".log is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/phase1.out",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".out is a LaTeX build byproduct"
+      },
+      {
+        "path": "build_check/phase1/phase1.pdf",
+        "class": "BUILT_PDF",
+        "rationale": "compiled PDF (regenerable from .tex; check for a surviving counterpart)"
+      },
+      {
+        "path": "build_check/phase1/phase1.toc",
+        "class": "LATEX_BUILD_BYPRODUCT",
+        "rationale": ".toc is a LaTeX build byproduct"
+      },
+      {
+        "path": "test.py",
+        "class": "PYTHON_SCRATCH",
+        "rationale": "Python file at repo root (not under a source directory)"
+      },
+      {
+        "path": "test_simple.py",
+        "class": "PYTHON_SCRATCH",
+        "rationale": "Python file at repo root (not under a source directory)"
+      }
+    ],
+    "pdf_survivor_checks": [
+      {
+        "deleted_path": "build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.pdf",
+        "deleted_sha1": "32cab94952083d55e217c4e432b138d2622a3d1e",
+        "deleted_bytes": 847768,
+        "survivors_same_basename": [
+          {
+            "path": "reports/phase1/Formal_Leakage_Definitions_and_Ground_Truth.pdf",
+            "sha1": "c6f3e3f1b55296af79a2ed1354952ebd7289bbb2",
+            "bytes": 849785,
+            "identical_to_deleted": false
+          }
+        ],
+        "has_survivor": true,
+        "recoverable_from_history_at": "34f9c02^:build_check/Formal_Leakage_Definitions_and_Ground_Truth/Formal_Leakage_Definitions_and_Ground_Truth.pdf"
+      },
+      {
+        "deleted_path": "build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.pdf",
+        "deleted_sha1": "f8165e4a4f687b78c08a4bfe860d33c501ff17ad",
+        "deleted_bytes": 592584,
+        "survivors_same_basename": [
+          {
+            "path": "reports/phase2/Phase2_Report_Detailed.pdf",
+            "sha1": "64a67b66ced79101b669f3aa998f04025d2835b1",
+            "bytes": 604106,
+            "identical_to_deleted": false
+          }
+        ],
+        "has_survivor": true,
+        "recoverable_from_history_at": "34f9c02^:build_check/Phase2_Report_Detailed/Phase2_Report_Detailed.pdf"
+      },
+      {
+        "deleted_path": "build_check/Threat_Model/Threat_Model.pdf",
+        "deleted_sha1": "eaa3ac817c2186c7f368377b1f55c7052bb06008",
+        "deleted_bytes": 628704,
+        "survivors_same_basename": [
+          {
+            "path": "reports/phase1/Threat_Model.pdf",
+            "sha1": "84f5fc509d108c672ac402be8495fc1a03a2370e",
+            "bytes": 645527,
+            "identical_to_deleted": false
+          }
+        ],
+        "has_survivor": true,
+        "recoverable_from_history_at": "34f9c02^:build_check/Threat_Model/Threat_Model.pdf"
+      },
+      {
+        "deleted_path": "build_check/phase1/phase1.pdf",
+        "deleted_sha1": "43df102aaf917b3fcd337af92b0b240579fb500a",
+        "deleted_bytes": 1229073,
+        "survivors_same_basename": [],
+        "has_survivor": false,
+        "recoverable_from_history_at": "34f9c02^:build_check/phase1/phase1.pdf"
+      }
+    ],
+    "source_or_evidence_caught": [],
+    "VERDICT": "PASS -- no file under any source/evidence directory was deleted"
+  },
+  "verification_2_test_py_secret": {
+    "n_commits_touching": 2,
+    "n_versions_with_content": 1,
+    "n_distinct_blobs": 1,
+    "distinct_blob_ids": [
+      "e1b79e6b2776d9c6"
+    ],
+    "versions": [
+      {
+        "commit": "34f9c02ef1da7e7a62e8c19f65e9ab25134a528e",
+        "state": "ABSENT (deleted at this commit)",
+        "subject": "Remove build artifacts and stale scratch; harden .gitignore"
+      },
+      {
+        "commit": "102186ad8f169b7f7fae81963f4bb61599bb5381",
+        "subject": "Phase 3 Task 0.1 (Presidio recall) + 0.2 (judge ensemble): gate held κ=0.827, cross-vendor κ=0.843, 2-judge final",
+        "state": "PRESENT",
+        "content_sha256_16": "e1b79e6b2776d9c6",
+        "n_lines": 21,
+        "credential_lines": [
+          "\"Authorization\": \"Bearer <OPENROUTER_API_KEY>\","
+        ],
+        "live_credential_candidates": []
+      }
+    ],
+    "VERDICT": "PASS -- placeholder in every historical version; no live credential ever committed"
+  },
+  "amendment_8_settings_precedence": {
+    "sources": [
+      {
+        "scope": "user",
+        "path": "/Users/user/.claude/settings.json",
+        "exists": true,
+        "parses_as_json": true,
+        "parse_error": null,
+        "bytes": 1715,
+        "top_level_keys": [
+          "advisorModel",
+          "effortLevel",
+          "enabledPlugins",
+          "extraKnownMarketplaces",
+          "permissions",
+          "skipWorkflowUsageWarning",
+          "switchModelsOnFlag",
+          "tui"
+        ],
+        "sets_switchModelsOnFlag": true,
+        "switchModelsOnFlag_value": false
+      },
+      {
+        "scope": "project_shared",
+        "path": "/Users/user/Desktop/Final_Year_Project/Code/.claude/settings.json",
+        "exists": false
+      },
+      {
+        "scope": "project_local",
+        "path": "/Users/user/Desktop/Final_Year_Project/Code/.claude/settings.local.json",
+        "exists": true,
+        "parses_as_json": true,
+        "parse_error": null,
+        "bytes": 42206,
+        "top_level_keys": [
+          "permissions"
+        ],
+        "sets_switchModelsOnFlag": false,
+        "switchModelsOnFlag_value": null
+      }
+    ],
+    "n_sources_setting_the_key": 1,
+    "precedence_order_strongest_first": [
+      "project_local",
+      "project_shared",
+      "user"
+    ],
+    "winning_scope": "user",
+    "effective_value_by_file_precedence": false,
+    "VERDICT": "switchModelsOnFlag = False, set only in user settings; no project-local override exists, so there is no precedence conflict",
+    "CAVEAT": "This is FILE-LEVEL precedence. The agent cannot observe the runtime value of the flag; a restart was required for it to take effect and that is an operator-side fact, not an observable one."
+  },
+  "amendment_8_mcp": {
+    "local_config_files": {
+      "~/.claude.json": true,
+      ".mcp.json (project)": false
+    },
+    "user_scope_mcpServers": [],
+    "project_scope_mcpServers": [],
+    "enabledMcpjsonServers": [],
+    "disabledMcpjsonServers": [],
+    "locally_configured_server_count": 0,
+    "FINDING": "No MCP server is configured in any LOCAL file (both scopes empty and no .mcp.json). The servers surfaced in-session are therefore claude.ai account-level connectors, not repository or settings.json state.",
+    "IMPLICATION": "A settings.json edit would disable nothing. The lever is the claude.ai connector settings, or /mcp in-session.",
+    "NEEDED_FOR_PART_A": "No. Part A is entirely local file analysis plus (for A1) one OpenRouter HTTP call. No Part A task reads Atlassian, Canva, Microsoft 365, Microsoft Learn, Notion, Slack, Figma or Google Drive."
+  }
+}
