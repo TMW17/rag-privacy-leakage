@@ -1,0 +1,230 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/d13_cost_estimate.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "dee981e723f45de83ae77bd1a57a7e6a8ca8d6be",
+    "git_branch": "fix/part-a-blockers",
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
+  },
+  "_purpose": "Directive D13: exact call counts and dollar estimates for the experiment that would convert A2's per-layer verdicts from UNRESOLVABLE into measured results. NO API CALLS MADE.",
+  "price_basis": {
+    "sut": {
+      "source": "results/phase3_4/baseline_regen/cost_ledger.csv",
+      "billed_calls": 267,
+      "input_tokens": 215004,
+      "output_tokens": 64517,
+      "billed_cost_usd": 1.6128,
+      "candidate_rate_usd_per_mtok": {
+        "in_per_mtok": 3.0,
+        "out_per_mtok": 15.0
+      },
+      "cost_implied_by_candidate_rate": 1.6128,
+      "reconciles": true,
+      "note": "SUT rate is CONFIRMED by reconciliation against a real billed run, not assumed."
+    },
+    "judge": {
+      "rate_usd_per_mtok_from_driver": {
+        "in_per_mtok": 15.0,
+        "out_per_mtok": 75.0
+      },
+      "n_logged_judge_calls": 284,
+      "mean_input_tokens": 1720.4,
+      "mean_output_tokens": 148.9,
+      "modelled_cost_per_call_usd": 0.03697,
+      "observed_cost_per_call_usd_baseline_regen": 0.03949,
+      "note": "The OBSERVED per-call cost from the most recent real judge pass is used for the estimate; it is the more conservative of the two."
+    }
+  },
+  "measured_cell_profiles": {
+    "C10000": {
+      "n_turns": 89,
+      "token_coverage_turns": 65,
+      "token_coverage_pct": 73.0,
+      "measured_input_tokens": 48297,
+      "measured_output_tokens": 16133,
+      "imputed_from": "own non-zero mean",
+      "per_turn_mean_input_used": 743.0,
+      "per_turn_mean_output_used": 248.2,
+      "sut_input_tokens": 66130,
+      "sut_output_tokens": 22090,
+      "mean_input_tokens": 743.0,
+      "mean_output_tokens": 248.2,
+      "n_unique_responses": 80,
+      "n_unique_nonempty_responses": 79,
+      "judge_dedup_ratio": 0.899,
+      "n_already_in_judge_cache": 75
+    },
+    "C01000": {
+      "n_turns": 89,
+      "token_coverage_turns": 89,
+      "token_coverage_pct": 100.0,
+      "measured_input_tokens": 67195,
+      "measured_output_tokens": 22764,
+      "imputed_from": "own non-zero mean",
+      "per_turn_mean_input_used": 755.0,
+      "per_turn_mean_output_used": 255.8,
+      "sut_input_tokens": 67195,
+      "sut_output_tokens": 22764,
+      "mean_input_tokens": 755.0,
+      "mean_output_tokens": 255.8,
+      "n_unique_responses": 87,
+      "n_unique_nonempty_responses": 85,
+      "judge_dedup_ratio": 0.978,
+      "n_already_in_judge_cache": 85
+    },
+    "C00100": {
+      "n_turns": 89,
+      "token_coverage_turns": 14,
+      "token_coverage_pct": 15.7,
+      "measured_input_tokens": 16812,
+      "measured_output_tokens": 2831,
+      "imputed_from": "own non-zero mean",
+      "per_turn_mean_input_used": 1200.9,
+      "per_turn_mean_output_used": 202.2,
+      "sut_input_tokens": 106876,
+      "sut_output_tokens": 17997,
+      "mean_input_tokens": 1200.9,
+      "mean_output_tokens": 202.2,
+      "n_unique_responses": 86,
+      "n_unique_nonempty_responses": 84,
+      "judge_dedup_ratio": 0.966,
+      "n_already_in_judge_cache": 80
+    },
+    "C01100": {
+      "n_turns": 89,
+      "token_coverage_turns": 0,
+      "token_coverage_pct": 0.0,
+      "measured_input_tokens": 0,
+      "measured_output_tokens": 0,
+      "imputed_from": "CROSS-CELL non-zero mean (this cell has NO token data at all)",
+      "per_turn_mean_input_used": 789.2,
+      "per_turn_mean_output_used": 252.1,
+      "sut_input_tokens": 70237,
+      "sut_output_tokens": 22432,
+      "mean_input_tokens": 789.2,
+      "mean_output_tokens": 252.1,
+      "n_unique_responses": 87,
+      "n_unique_nonempty_responses": 85,
+      "judge_dedup_ratio": 0.978,
+      "n_already_in_judge_cache": 85
+    },
+    "C11111": {
+      "n_turns": 89,
+      "token_coverage_turns": 32,
+      "token_coverage_pct": 36.0,
+      "measured_input_tokens": 25531,
+      "measured_output_tokens": 8682,
+      "imputed_from": "own non-zero mean",
+      "per_turn_mean_input_used": 797.8,
+      "per_turn_mean_output_used": 271.3,
+      "sut_input_tokens": 71008,
+      "sut_output_tokens": 24147,
+      "mean_input_tokens": 797.8,
+      "mean_output_tokens": 271.3,
+      "n_unique_responses": 80,
+      "n_unique_nonempty_responses": 79,
+      "judge_dedup_ratio": 0.899,
+      "n_already_in_judge_cache": 79
+    },
+    "_token_accounting_gap": {
+      "FINDING": "Ablation per-execution records carry token/latency accounting on only 200 of 445 turns. C01100 -- the RQ5 knee and the config the demo app ships -- has ZERO coverage: input_tokens, output_tokens and wall_clock_ms are 0 on all 89 turns despite real responses.",
+      "IMPLICATION": "Any per-configuration latency or cost figure computed from these records is computed on a subset, and for C01100 on nothing at all. Flagged for A6 (environment capture / reproducibility) and for A8 (the frontier figure's latency axis).",
+      "cross_cell_mean_input_used_for_fallback": 789.2,
+      "cross_cell_mean_output_used_for_fallback": 252.1
+    }
+  },
+  "SCOPE_A_FULL": {
+    "cells": [
+      "C10000",
+      "C01000",
+      "C00100",
+      "C01100",
+      "C11111"
+    ],
+    "additional_runs_each": 2,
+    "per_cell": {
+      "C10000": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.0595,
+        "judge_calls_estimated": 160,
+        "judge_cost_usd": 6.3184,
+        "total_usd": 7.3779
+      },
+      "C01000": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.0861,
+        "judge_calls_estimated": 174,
+        "judge_cost_usd": 6.8713,
+        "total_usd": 7.9573
+      },
+      "C00100": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.1812,
+        "judge_calls_estimated": 172,
+        "judge_cost_usd": 6.7923,
+        "total_usd": 7.9734
+      },
+      "C01100": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.0944,
+        "judge_calls_estimated": 174,
+        "judge_cost_usd": 6.8713,
+        "total_usd": 7.9656
+      },
+      "C11111": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.1505,
+        "judge_calls_estimated": 160,
+        "judge_cost_usd": 6.3184,
+        "total_usd": 7.4689
+      }
+    },
+    "TOTAL_sut_calls": 890,
+    "TOTAL_judge_calls_estimated": 840,
+    "TOTAL_api_calls": 1730,
+    "TOTAL_sut_cost_usd": 5.57,
+    "TOTAL_judge_cost_usd": 33.17,
+    "TOTAL_USD": 38.74
+  },
+  "SCOPE_B_MINIMAL_L1_and_L3": {
+    "cells": [
+      "C00100",
+      "C10000"
+    ],
+    "additional_runs_each": 2,
+    "per_cell": {
+      "C00100": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.1812,
+        "judge_calls_estimated": 172,
+        "judge_cost_usd": 6.7923,
+        "total_usd": 7.9734
+      },
+      "C10000": {
+        "sut_calls": 178,
+        "sut_cost_usd": 1.0595,
+        "judge_calls_estimated": 160,
+        "judge_cost_usd": 6.3184,
+        "total_usd": 7.3779
+      }
+    },
+    "TOTAL_sut_calls": 356,
+    "TOTAL_judge_calls_estimated": 332,
+    "TOTAL_api_calls": 688,
+    "TOTAL_sut_cost_usd": 2.24,
+    "TOTAL_judge_cost_usd": 13.11,
+    "TOTAL_USD": 15.35,
+    "resolves": {
+      "L1_input_filter": "C10000",
+      "L3_conversation_refusal": "C00100"
+    },
+    "note": "C10000 isolates L1 and C00100 isolates L3, each against the already-3-run C00000 baseline."
+  },
+  "WHAT_IT_BUYS": "Each defended cell currently has run_index 0 only. Two additional runs per cell gives 3 runs, matching the baseline, so every per-layer delta becomes a 3-run-mean vs 3-run-mean comparison with its own measured standard error, instead of a single draw against a single draw. That converts the D12 verdict from UNRESOLVABLE to a measured result and settles L1 (+0.077) and L3 (+0.058) outright rather than by inference.",
+  "WHAT_IT_DOES_NOT_BUY": "It does not reproduce the ORIGINAL responses. Condition drift is already demonstrated: baseline_regen re-ran the same baseline 3 weeks later and only 19 of 267 responses were byte-identical. New runs measure variance under CURRENT conditions, so they must be reported as a fresh 3-run block, not pooled with the original run 0.",
+  "NO_SPEND_WITHOUT_APPROVAL": true
+}

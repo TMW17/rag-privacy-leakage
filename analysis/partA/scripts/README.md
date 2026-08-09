@@ -14,6 +14,7 @@ Output goes to `analysis/partA/out/*.json` only.
 | `p0_regen_provenance.py` | `out/p0_regen_provenance.json` | what `baseline_regen` is, byte-identity vs the canonical log, the judge-determinism test, the amendment 4 truncation audit |
 | `p0_inventory.py` | `out/p0_inventory.json` | repo tree, 154 data artifacts, the 28-item required-artifact checklist, frozen-artifact tracking status, registry-vs-executed reconciliation, manuscript float mapping |
 | `d1_engine_arithmetic.py` | `out/d1_engine_arithmetic.json` | directive D1: every defensible reading of baseline strict ASR (scenario/execution/turn, per-run/pooled/union), which reading each published figure equals, and a sweep over alternate strict definitions |
+| `d13_cost_estimate.py` | `out/d13_cost_estimate.json` | directive D13: call counts and dollar estimates for re-running the defended cells (full + minimal scopes). Makes NO API calls |
 | `p0_verify_followups.py` | `out/p0_verify_followups.json` | four checks that qualify the above: locked-verdict per-run independence, true distinct-input n for the judge-determinism test, which manuscript the review's float numbers fit, and the distinct unjudged non-empty responses |
 
 Re-run all four (free, no API calls, deterministic):
@@ -25,6 +26,7 @@ python3 analysis/partA/scripts/p0_regen_provenance.py
 python3 analysis/partA/scripts/p0_inventory.py
 python3 analysis/partA/scripts/p0_verify_followups.py
 python3 analysis/partA/scripts/d1_engine_arithmetic.py
+python3 analysis/partA/scripts/d13_cost_estimate.py
 ```
 
 No script uses wall-clock time or an RNG, so output is byte-stable for a given repository
