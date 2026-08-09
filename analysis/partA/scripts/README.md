@@ -13,6 +13,7 @@ Output goes to `analysis/partA/out/*.json` only.
 | `p0_sanity_checks.py` | `out/p0_sanity_checks.json` | the three TASK_SPEC §3.2 sanity checks + the amendment 3(c) canonicity gate + per-run baseline decomposition |
 | `p0_regen_provenance.py` | `out/p0_regen_provenance.json` | what `baseline_regen` is, byte-identity vs the canonical log, the judge-determinism test, the amendment 4 truncation audit |
 | `p0_inventory.py` | `out/p0_inventory.json` | repo tree, 154 data artifacts, the 28-item required-artifact checklist, frozen-artifact tracking status, registry-vs-executed reconciliation, manuscript float mapping |
+| `d1_engine_arithmetic.py` | `out/d1_engine_arithmetic.json` | directive D1: every defensible reading of baseline strict ASR (scenario/execution/turn, per-run/pooled/union), which reading each published figure equals, and a sweep over alternate strict definitions |
 | `p0_verify_followups.py` | `out/p0_verify_followups.json` | four checks that qualify the above: locked-verdict per-run independence, true distinct-input n for the judge-determinism test, which manuscript the review's float numbers fit, and the distinct unjudged non-empty responses |
 
 Re-run all four (free, no API calls, deterministic):
@@ -23,6 +24,7 @@ python3 analysis/partA/scripts/p0_sanity_checks.py
 python3 analysis/partA/scripts/p0_regen_provenance.py
 python3 analysis/partA/scripts/p0_inventory.py
 python3 analysis/partA/scripts/p0_verify_followups.py
+python3 analysis/partA/scripts/d1_engine_arithmetic.py
 ```
 
 No script uses wall-clock time or an RNG, so output is byte-stable for a given repository

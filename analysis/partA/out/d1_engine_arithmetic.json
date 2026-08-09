@@ -1,0 +1,219 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/d1_engine_arithmetic.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "c797ca397d6b1fb40180edebbe981284d10baf0f",
+    "git_branch": "fix/part-a-blockers",
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
+  },
+  "_purpose": "Directive D1: locate the engine arithmetic discrepancy across every defensible reading of baseline strict ASR.",
+  "alternate_definition_sweep": {
+    "definitions": {
+      "events_sev_ge_3_CANONICAL": {
+        "scenario_run0_of_52": 10,
+        "execution_pooled_of_156": 29,
+        "turn_of_267": 32,
+        "scenario_union_of_52": 12
+      },
+      "L_eq_1_and_events_sev_ge_3": {
+        "scenario_run0_of_52": 10,
+        "execution_pooled_of_156": 29,
+        "turn_of_267": 32,
+        "scenario_union_of_52": 12
+      },
+      "severity_breakdown_345_gt_0": {
+        "scenario_run0_of_52": 10,
+        "execution_pooled_of_156": 29,
+        "turn_of_267": 32,
+        "scenario_union_of_52": 12
+      },
+      "L_eq_1_INCLUSIVE": {
+        "scenario_run0_of_52": 25,
+        "execution_pooled_of_156": 75,
+        "turn_of_267": 95,
+        "scenario_union_of_52": 27
+      },
+      "S_gt_0": {
+        "scenario_run0_of_52": 25,
+        "execution_pooled_of_156": 75,
+        "turn_of_267": 95,
+        "scenario_union_of_52": 27
+      },
+      "leak_count_gt_0": {
+        "scenario_run0_of_52": 25,
+        "execution_pooled_of_156": 75,
+        "turn_of_267": 95,
+        "scenario_union_of_52": 27
+      },
+      "events_sev_ge_4": {
+        "scenario_run0_of_52": 6,
+        "execution_pooled_of_156": 19,
+        "turn_of_267": 22,
+        "scenario_union_of_52": 8
+      }
+    },
+    "definitions_yielding_a_count_of_30": null,
+    "NOTE": "The inclusive turn count (L==1, all runs) is 95, which matches the count TASK_SPEC A4 attributes to the engine ('engine fired on 95 turns'). That corroborates that this reading of the engine is the paper's own."
+  },
+  "published_figures_under_test": {
+    "engine_strict_rate": 0.1923,
+    "engine_strict_gloss": "30/156",
+    "judged_strict_rate": 0.2885,
+    "judged_strict_gloss": "45/156",
+    "identity_claimed": "45/156 = 15/52"
+  },
+  "n_scenarios": 52,
+  "n_executions_scenario_x_run": 156,
+  "n_turns": 267,
+  "runs_present": [
+    0,
+    1,
+    2
+  ],
+  "readings": {
+    "engine_strict": {
+      "R1_scenario_run0": {
+        "numerator": 10,
+        "denominator": 52,
+        "rate": 0.1923,
+        "exact": "5/26"
+      },
+      "R2_scenario_per_run": {
+        "0": {
+          "numerator": 10,
+          "denominator": 52,
+          "rate": 0.1923,
+          "exact": "5/26"
+        },
+        "1": {
+          "numerator": 9,
+          "denominator": 52,
+          "rate": 0.1731,
+          "exact": "9/52"
+        },
+        "2": {
+          "numerator": 10,
+          "denominator": 52,
+          "rate": 0.1923,
+          "exact": "5/26"
+        }
+      },
+      "R2_mean_of_run_rates": 0.1859,
+      "R3_execution_pooled_3_runs": {
+        "numerator": 29,
+        "denominator": 156,
+        "rate": 0.1859,
+        "exact": "29/156"
+      },
+      "R4_scenario_union_any_run": {
+        "numerator": 12,
+        "denominator": 52,
+        "rate": 0.2308,
+        "exact": "3/13"
+      },
+      "R4b_scenario_intersection_all_runs": {
+        "numerator": 8,
+        "denominator": 52,
+        "rate": 0.1538,
+        "exact": "2/13"
+      },
+      "R5_turn_run0": {
+        "numerator": 11,
+        "denominator": 89,
+        "rate": 0.1236,
+        "exact": "11/89"
+      },
+      "R6_turn_all_runs": {
+        "numerator": 32,
+        "denominator": 267,
+        "rate": 0.1199,
+        "exact": "32/267"
+      }
+    },
+    "judged_strict": {
+      "R1_scenario_run0": {
+        "numerator": 15,
+        "denominator": 52,
+        "rate": 0.2885,
+        "exact": "15/52"
+      },
+      "R2_scenario_per_run": {
+        "0": {
+          "numerator": 15,
+          "denominator": 52,
+          "rate": 0.2885,
+          "exact": "15/52"
+        },
+        "1": {
+          "numerator": 16,
+          "denominator": 52,
+          "rate": 0.3077,
+          "exact": "4/13"
+        },
+        "2": {
+          "numerator": 14,
+          "denominator": 52,
+          "rate": 0.2692,
+          "exact": "7/26"
+        }
+      },
+      "R2_mean_of_run_rates": 0.28847,
+      "R3_execution_pooled_3_runs": {
+        "numerator": 45,
+        "denominator": 156,
+        "rate": 0.2885,
+        "exact": "15/52"
+      },
+      "R4_scenario_union_any_run": {
+        "numerator": 18,
+        "denominator": 52,
+        "rate": 0.3462,
+        "exact": "9/26"
+      },
+      "R4b_scenario_intersection_all_runs": {
+        "numerator": 12,
+        "denominator": 52,
+        "rate": 0.2308,
+        "exact": "3/13"
+      },
+      "R5_turn_run0": {
+        "numerator": 19,
+        "denominator": 89,
+        "rate": 0.2135,
+        "exact": "19/89"
+      },
+      "R6_turn_all_runs": {
+        "numerator": 56,
+        "denominator": 267,
+        "rate": 0.2097,
+        "exact": "56/267"
+      }
+    }
+  },
+  "reconciliation": {
+    "published_engine_0.1923_matches": [
+      "engine_strict.R1_scenario_run0 = 5/26 = 0.1923"
+    ],
+    "published_judged_0.2885_matches": [
+      "judged_strict.R1_scenario_run0 = 15/52 = 0.2885",
+      "judged_strict.R3_execution_pooled_3_runs = 15/52 = 0.2885"
+    ],
+    "engine_gloss_30_over_156_actual_numerator": 29,
+    "engine_gloss_is_correct": false,
+    "judged_gloss_45_over_156_actual_numerator": 45,
+    "judged_gloss_is_correct": true,
+    "judged_identity_45_over_156_equals_15_over_52": true,
+    "engine_run0_equals_pooled": false,
+    "judged_run0_equals_pooled": true
+  },
+  "VERDICT": {
+    "WHAT_THE_PUBLISHED_SCORER_COMPUTES": "run_filter=0, per-scenario max over turns, denominator 52. So both published headline rates are SCENARIO-LEVEL RUN-0 rates, not 3-run pooled rates.",
+    "ENGINE": "Published 0.1923 = run-0 scenario rate 5/26 (0.1923). The gloss '30/156' asserts a 3-run pooled execution count of 30; the actual pooled count is 29, giving 29/156 = 0.1859. The two readings DIFFER, so '0.192 (30/156)' pairs a run-0 rate with a 3-run gloss that is itself off by 1.",
+    "JUDGED": "Published 0.2885 = run-0 scenario rate 15/52 AND 3-run pooled 15/52 = 0.2885. Both readings coincide, which is why judged looked internally consistent: 45/156 really does equal 15/52. That is a numerical coincidence of this data, not a property of the estimator.",
+    "CONSEQUENCE_FOR_A2": "The per-run rates and the published headline are DIFFERENT ESTIMATORS, not a discrepancy within one. The published headline is a single draw (run 0). The run-to-run spread is therefore the uncertainty attached to that single draw, and A2 must compare defended cells against run 0 specifically, or against the 3-run mean consistently -- never one against the other."
+  }
+}
