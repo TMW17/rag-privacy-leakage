@@ -276,6 +276,11 @@ def provenance(script_file):
         "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
         "git_head": git("rev-parse", "HEAD"),
         "git_branch": git("rev-parse", "--abbrev-ref", "HEAD"),
-        "note": "Values are DETERMINISTIC given the repository state; no wall-clock or RNG "
-                "enters any figure. Timestamps are not recorded in outputs for that reason.",
+        "determinism_note": (
+            "Hard rule 5. Every STATISTIC in this file is a deterministic function of the "
+            "analysed artifacts: no wall-clock reading and no RNG enters any figure, and no "
+            "generation timestamp is recorded. Re-running on an unchanged tree reproduces every "
+            "number byte-for-byte. The single field that varies between runs is 'git_head' "
+            "above, which records WHICH repository state was analysed and must change when the "
+            "commit does. To diff two runs, ignore that field."),
     }

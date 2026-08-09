@@ -6,9 +6,9 @@
     "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
     "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
     "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
-    "git_head": "b44ec73f4fa318ce8622a184e86ded52d2b8b640",
+    "git_head": "deba31162eabb8f6750604291fe4cd6a1bc3e6d6",
     "git_branch": "fix/part-a-blockers",
-    "note": "Values are DETERMINISTIC given the repository state; no wall-clock or RNG enters any figure. Timestamps are not recorded in outputs for that reason."
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
   },
   "_purpose": "TASK_SPEC §3.1 inventory: tree, artifacts, required-item checklist, scenario registry coverage, manuscript float mapping.",
   "tree_depth3": [
@@ -23,7 +23,6 @@
         "": 1
       },
       "subdirs": [
-        "analysis",
         "app",
         "dashboard",
         "data",
@@ -36,45 +35,6 @@
         "scripts",
         "webapp"
       ]
-    },
-    {
-      "dir": "analysis",
-      "depth": 1,
-      "n_files_here": 0,
-      "ext_histogram": {},
-      "subdirs": [
-        "partA"
-      ]
-    },
-    {
-      "dir": "analysis/partA",
-      "depth": 2,
-      "n_files_here": 3,
-      "ext_histogram": {
-        ".md": 3
-      },
-      "subdirs": [
-        "out",
-        "scripts"
-      ]
-    },
-    {
-      "dir": "analysis/partA/out",
-      "depth": 3,
-      "n_files_here": 4,
-      "ext_histogram": {
-        ".json": 4
-      },
-      "subdirs": []
-    },
-    {
-      "dir": "analysis/partA/scripts",
-      "depth": 3,
-      "n_files_here": 5,
-      "ext_histogram": {
-        ".py": 5
-      },
-      "subdirs": []
     },
     {
       "dir": "app",

@@ -6,9 +6,9 @@
     "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
     "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
     "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
-    "git_head": "818a51125c3a1d84ac56c12176881a91deb4d44c",
+    "git_head": "deba31162eabb8f6750604291fe4cd6a1bc3e6d6",
     "git_branch": "fix/part-a-blockers",
-    "note": "Values are DETERMINISTIC given the repository state; no wall-clock or RNG enters any figure. Timestamps are not recorded in outputs for that reason."
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
   },
   "_purpose": "Verification checks that qualify Phase 0's reported findings before they are relied on by A2/A4/A8.",
   "V1_locked_verdict_per_run_independence": {

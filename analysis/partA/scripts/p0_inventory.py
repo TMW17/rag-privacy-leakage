@@ -17,8 +17,12 @@ from collections import Counter, OrderedDict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import lib_partA as L  # noqa: E402
 
+# "analysis" is excluded deliberately: it is THIS task's own output, not repository evidence.
+# Including it makes the inventory self-referential -- every new deliverable would change the
+# counts and break the hard-rule-5 determinism check. §1 of 00_inventory.md describes it
+# separately.
 SKIP_DIRS = {".git", ".venv", ".venv-presidio", "__pycache__", ".pytest_cache",
-             ".ipynb_checkpoints", "node_modules", ".DS_Store"}
+             ".ipynb_checkpoints", "node_modules", ".DS_Store", "analysis"}
 DATA_EXT = {".jsonl", ".json", ".csv", ".txt", ".md", ".tex", ".png", ".pdf", ".py"}
 
 
