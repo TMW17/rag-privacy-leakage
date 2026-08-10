@@ -1,0 +1,741 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/d9_erratum_audit.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "953e30db1fbdfe7c250dddcf01060d2baa146398",
+    "git_branch": "fix/part-a-blockers",
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
+  },
+  "_purpose": "Directive D9: consolidated erratum -- every published rate against the estimator and denominator that actually produced it.",
+  "manuscript": "results/phase3_4/report/thesis/thesis_pfe.tex",
+  "published_claims_under_test": {
+    "tab:ch4-headline (Table 6.3)": {
+      "line": 3394,
+      "rows": {
+        "ASR_strict": {
+          "engine": 0.192,
+          "judge": 0.288
+        },
+        "ASR_inclusive": {
+          "engine": 0.481,
+          "judge": 0.558
+        }
+      },
+      "denominator_shown": "none in table; caption says 'C00000'"
+    },
+    "tab:ch4-profile (Table 6.4)": {
+      "line": 3423,
+      "rows": {
+        "P1 Internal": {
+          "engine": 0.278,
+          "judge": 0.333,
+          "n_shown": 18
+        },
+        "P2 External": {
+          "engine": 0.185,
+          "judge": 0.296,
+          "n_shown": 27
+        },
+        "P3 Admin": {
+          "engine": 0.0,
+          "judge": 0.143,
+          "n_shown": 7
+        },
+        "Overall": {
+          "engine": 0.192,
+          "judge": 0.288,
+          "n_shown": 52
+        }
+      },
+      "denominator_shown": "column header 'Scenarios' (18/27/7, sum 52)",
+      "caption_says": "'Rates are over the EXECUTIONS in each profile's scenario subset'"
+    },
+    "tab:ch4-family (Table 6.5)": {
+      "line": 3464,
+      "rows": {
+        "F1_DIRECT_PII": {
+          "engine": 0.556,
+          "judge": 0.778,
+          "n_shown": 9
+        },
+        "F2_LINKABILITY": {
+          "engine": 0.4,
+          "judge": 0.6,
+          "n_shown": 10
+        },
+        "F5_JAILBREAK": {
+          "engine": 0.2,
+          "judge": 0.2,
+          "n_shown": 5
+        },
+        "F8_CORPUS_POISONING": {
+          "engine": 0.0,
+          "judge": 0.143,
+          "n_shown": 7
+        },
+        "F3_DIRECT_INJECTION": {
+          "engine": 0.0,
+          "judge": 0.0,
+          "n_shown": 6
+        },
+        "F4_OBFUSCATION": {
+          "engine": 0.0,
+          "judge": 0.0,
+          "n_shown": 5
+        },
+        "F6_RECON": {
+          "engine": 0.0,
+          "judge": 0.0,
+          "n_shown": 3
+        },
+        "F7_SOCIAL_ENG": {
+          "engine": 0.0,
+          "judge": 0.0,
+          "n_shown": 7
+        }
+      },
+      "denominator_shown": "column header 'Scenarios' (sum 52)"
+    }
+  },
+  "recomputed_run0_scenario_level": {
+    "by_profile": {
+      "P3 Admin": {
+        "n_scenarios": 7,
+        "engine_strict": 0.0,
+        "engine_incl": 0.0,
+        "judge_strict": 0.1429,
+        "judge_incl": 0.1429,
+        "engine_strict_count": 0,
+        "judge_strict_count": 1
+      },
+      "P2 External": {
+        "n_scenarios": 27,
+        "engine_strict": 0.1852,
+        "engine_incl": 0.7407,
+        "judge_strict": 0.2963,
+        "judge_incl": 0.8148,
+        "engine_strict_count": 5,
+        "judge_strict_count": 8
+      },
+      "P1 Internal": {
+        "n_scenarios": 18,
+        "engine_strict": 0.2778,
+        "engine_incl": 0.2778,
+        "judge_strict": 0.3333,
+        "judge_incl": 0.3333,
+        "engine_strict_count": 5,
+        "judge_strict_count": 6
+      }
+    },
+    "by_family": {
+      "F1_DIRECT_PII": {
+        "n_scenarios": 9,
+        "engine_strict": 0.5556,
+        "engine_incl": 0.7778,
+        "judge_strict": 0.7778,
+        "judge_incl": 1.0,
+        "engine_strict_count": 5,
+        "judge_strict_count": 7
+      },
+      "F2_LINKABILITY": {
+        "n_scenarios": 10,
+        "engine_strict": 0.4,
+        "engine_incl": 0.5,
+        "judge_strict": 0.6,
+        "judge_incl": 0.6,
+        "engine_strict_count": 4,
+        "judge_strict_count": 6
+      },
+      "F3_DIRECT_INJECTION": {
+        "n_scenarios": 6,
+        "engine_strict": 0.0,
+        "engine_incl": 0.6667,
+        "judge_strict": 0.0,
+        "judge_incl": 0.6667,
+        "engine_strict_count": 0,
+        "judge_strict_count": 0
+      },
+      "F4_OBFUSCATION": {
+        "n_scenarios": 5,
+        "engine_strict": 0.0,
+        "engine_incl": 0.2,
+        "judge_strict": 0.0,
+        "judge_incl": 0.2,
+        "engine_strict_count": 0,
+        "judge_strict_count": 0
+      },
+      "F5_JAILBREAK": {
+        "n_scenarios": 5,
+        "engine_strict": 0.2,
+        "engine_incl": 0.6,
+        "judge_strict": 0.2,
+        "judge_incl": 0.6,
+        "engine_strict_count": 1,
+        "judge_strict_count": 1
+      },
+      "F6_RECON": {
+        "n_scenarios": 3,
+        "engine_strict": 0.0,
+        "engine_incl": 0.6667,
+        "judge_strict": 0.0,
+        "judge_incl": 0.6667,
+        "engine_strict_count": 0,
+        "judge_strict_count": 0
+      },
+      "F7_SOCIAL_ENG": {
+        "n_scenarios": 7,
+        "engine_strict": 0.0,
+        "engine_incl": 0.4286,
+        "judge_strict": 0.0,
+        "judge_incl": 0.4286,
+        "engine_strict_count": 0,
+        "judge_strict_count": 0
+      },
+      "F8_CORPUS_POISONING": {
+        "n_scenarios": 7,
+        "engine_strict": 0.0,
+        "engine_incl": 0.0,
+        "judge_strict": 0.1429,
+        "judge_incl": 0.1429,
+        "engine_strict_count": 0,
+        "judge_strict_count": 1
+      }
+    },
+    "overall": {
+      "n_scenarios": 52,
+      "engine_strict": 0.1923,
+      "engine_incl": 0.4808,
+      "judge_strict": 0.2885,
+      "judge_incl": 0.5577,
+      "engine_strict_count": 10,
+      "judge_strict_count": 15
+    }
+  },
+  "recomputed_pooled_execution_level": {
+    "overall": {
+      "n_executions": 156,
+      "engine_strict": 0.1859,
+      "judge_strict": 0.2885
+    },
+    "by_profile": {
+      "P3 Admin": {
+        "n_executions": 21,
+        "engine_strict": 0.0,
+        "judge_strict": 0.1429
+      },
+      "P2 External": {
+        "n_executions": 81,
+        "engine_strict": 0.1358,
+        "judge_strict": 0.2593
+      },
+      "P1 Internal": {
+        "n_executions": 54,
+        "engine_strict": 0.3333,
+        "judge_strict": 0.3889
+      }
+    },
+    "by_family": {
+      "F1_DIRECT_PII": {
+        "n_executions": 27,
+        "engine_strict": 0.4815,
+        "judge_strict": 0.7778
+      },
+      "F2_LINKABILITY": {
+        "n_executions": 30,
+        "engine_strict": 0.5,
+        "judge_strict": 0.6333
+      },
+      "F3_DIRECT_INJECTION": {
+        "n_executions": 18,
+        "engine_strict": 0.0,
+        "judge_strict": 0.0
+      },
+      "F4_OBFUSCATION": {
+        "n_executions": 15,
+        "engine_strict": 0.0,
+        "judge_strict": 0.0
+      },
+      "F5_JAILBREAK": {
+        "n_executions": 15,
+        "engine_strict": 0.0667,
+        "judge_strict": 0.0667
+      },
+      "F6_RECON": {
+        "n_executions": 9,
+        "engine_strict": 0.0,
+        "judge_strict": 0.1111
+      },
+      "F7_SOCIAL_ENG": {
+        "n_executions": 21,
+        "engine_strict": 0.0,
+        "judge_strict": 0.0
+      },
+      "F8_CORPUS_POISONING": {
+        "n_executions": 21,
+        "engine_strict": 0.0,
+        "judge_strict": 0.1429
+      }
+    }
+  },
+  "ERRATUM_TABLE": [
+    {
+      "table": "tab:ch4-headline (Table 6.3)",
+      "row": "ASR_strict",
+      "metric": "engine",
+      "published_value": 0.192,
+      "recomputed_run0_scenario": 0.1923,
+      "recomputed_pooled_execution": 0.1859,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": null,
+      "correct_denominator_for_the_estimator_used": 52,
+      "denominator_shown_is_correct": null
+    },
+    {
+      "table": "tab:ch4-headline (Table 6.3)",
+      "row": "ASR_strict",
+      "metric": "judge",
+      "published_value": 0.288,
+      "recomputed_run0_scenario": 0.2885,
+      "recomputed_pooled_execution": 0.2885,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": null,
+      "correct_denominator_for_the_estimator_used": 52,
+      "denominator_shown_is_correct": null
+    },
+    {
+      "table": "tab:ch4-headline (Table 6.3)",
+      "row": "ASR_inclusive",
+      "metric": "engine",
+      "published_value": 0.481,
+      "recomputed_run0_scenario": 0.4808,
+      "recomputed_pooled_execution": null,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": null,
+      "correct_denominator_for_the_estimator_used": 52,
+      "denominator_shown_is_correct": null
+    },
+    {
+      "table": "tab:ch4-headline (Table 6.3)",
+      "row": "ASR_inclusive",
+      "metric": "judge",
+      "published_value": 0.558,
+      "recomputed_run0_scenario": 0.5577,
+      "recomputed_pooled_execution": null,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": null,
+      "correct_denominator_for_the_estimator_used": 52,
+      "denominator_shown_is_correct": null
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "P1 Internal",
+      "metric": "engine",
+      "published_value": 0.278,
+      "recomputed_run0_scenario": 0.2778,
+      "recomputed_pooled_execution": 0.3333,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 18,
+      "correct_denominator_for_the_estimator_used": 18,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "P1 Internal",
+      "metric": "judge",
+      "published_value": 0.333,
+      "recomputed_run0_scenario": 0.3333,
+      "recomputed_pooled_execution": 0.3889,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 18,
+      "correct_denominator_for_the_estimator_used": 18,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "P2 External",
+      "metric": "engine",
+      "published_value": 0.185,
+      "recomputed_run0_scenario": 0.1852,
+      "recomputed_pooled_execution": 0.1358,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 27,
+      "correct_denominator_for_the_estimator_used": 27,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "P2 External",
+      "metric": "judge",
+      "published_value": 0.296,
+      "recomputed_run0_scenario": 0.2963,
+      "recomputed_pooled_execution": 0.2593,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 27,
+      "correct_denominator_for_the_estimator_used": 27,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "P3 Admin",
+      "metric": "engine",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 7,
+      "correct_denominator_for_the_estimator_used": 7,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "P3 Admin",
+      "metric": "judge",
+      "published_value": 0.143,
+      "recomputed_run0_scenario": 0.1429,
+      "recomputed_pooled_execution": 0.1429,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 7,
+      "correct_denominator_for_the_estimator_used": 7,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "Overall",
+      "metric": "engine",
+      "published_value": 0.192,
+      "recomputed_run0_scenario": 0.1923,
+      "recomputed_pooled_execution": 0.1859,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 52,
+      "correct_denominator_for_the_estimator_used": 52,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-profile (Table 6.4)",
+      "row": "Overall",
+      "metric": "judge",
+      "published_value": 0.288,
+      "recomputed_run0_scenario": 0.2885,
+      "recomputed_pooled_execution": 0.2885,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 52,
+      "correct_denominator_for_the_estimator_used": 52,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F1_DIRECT_PII",
+      "metric": "engine",
+      "published_value": 0.556,
+      "recomputed_run0_scenario": 0.5556,
+      "recomputed_pooled_execution": 0.4815,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 9,
+      "correct_denominator_for_the_estimator_used": 9,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F1_DIRECT_PII",
+      "metric": "judge",
+      "published_value": 0.778,
+      "recomputed_run0_scenario": 0.7778,
+      "recomputed_pooled_execution": 0.7778,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 9,
+      "correct_denominator_for_the_estimator_used": 9,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F2_LINKABILITY",
+      "metric": "engine",
+      "published_value": 0.4,
+      "recomputed_run0_scenario": 0.4,
+      "recomputed_pooled_execution": 0.5,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 10,
+      "correct_denominator_for_the_estimator_used": 10,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F2_LINKABILITY",
+      "metric": "judge",
+      "published_value": 0.6,
+      "recomputed_run0_scenario": 0.6,
+      "recomputed_pooled_execution": 0.6333,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 10,
+      "correct_denominator_for_the_estimator_used": 10,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F5_JAILBREAK",
+      "metric": "engine",
+      "published_value": 0.2,
+      "recomputed_run0_scenario": 0.2,
+      "recomputed_pooled_execution": 0.0667,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 5,
+      "correct_denominator_for_the_estimator_used": 5,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F5_JAILBREAK",
+      "metric": "judge",
+      "published_value": 0.2,
+      "recomputed_run0_scenario": 0.2,
+      "recomputed_pooled_execution": 0.0667,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 5,
+      "correct_denominator_for_the_estimator_used": 5,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F8_CORPUS_POISONING",
+      "metric": "engine",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 7,
+      "correct_denominator_for_the_estimator_used": 7,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F8_CORPUS_POISONING",
+      "metric": "judge",
+      "published_value": 0.143,
+      "recomputed_run0_scenario": 0.1429,
+      "recomputed_pooled_execution": 0.1429,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 7,
+      "correct_denominator_for_the_estimator_used": 7,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F3_DIRECT_INJECTION",
+      "metric": "engine",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 6,
+      "correct_denominator_for_the_estimator_used": 6,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F3_DIRECT_INJECTION",
+      "metric": "judge",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 6,
+      "correct_denominator_for_the_estimator_used": 6,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F4_OBFUSCATION",
+      "metric": "engine",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 5,
+      "correct_denominator_for_the_estimator_used": 5,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F4_OBFUSCATION",
+      "metric": "judge",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 5,
+      "correct_denominator_for_the_estimator_used": 5,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F6_RECON",
+      "metric": "engine",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 3,
+      "correct_denominator_for_the_estimator_used": 3,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F6_RECON",
+      "metric": "judge",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.1111,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": false,
+      "denominator_shown_in_table": 3,
+      "correct_denominator_for_the_estimator_used": 3,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F7_SOCIAL_ENG",
+      "metric": "engine",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 7,
+      "correct_denominator_for_the_estimator_used": 7,
+      "denominator_shown_is_correct": true
+    },
+    {
+      "table": "tab:ch4-family (Table 6.5)",
+      "row": "F7_SOCIAL_ENG",
+      "metric": "judge",
+      "published_value": 0.0,
+      "recomputed_run0_scenario": 0.0,
+      "recomputed_pooled_execution": 0.0,
+      "matches_run0_scenario_estimator": true,
+      "matches_pooled_execution_estimator": true,
+      "denominator_shown_in_table": 7,
+      "correct_denominator_for_the_estimator_used": 7,
+      "denominator_shown_is_correct": true
+    }
+  ],
+  "prose_hits_needing_correction": [
+    {
+      "line": 1538,
+      "kind": "execution-level language",
+      "text": "kind of attack as exploiting the LLM's code-execution reasoning to process"
+    },
+    {
+      "line": 1819,
+      "kind": "execution-level language",
+      "text": "An obfuscated execution payload is hidden in a corpus document. The attack"
+    },
+    {
+      "line": 1823,
+      "kind": "execution-level language",
+      "text": "in a ReAct loop, LangGraph agents with a sandbox execution node, or the"
+    },
+    {
+      "line": 1832,
+      "kind": "execution-level language",
+      "text": "the RAG-native analogue of classic remote-code-execution via deserialization,"
+    },
+    {
+      "line": 1833,
+      "kind": "execution-level language",
+      "text": "and is consistent with the corpus-side execution risk discussed by"
+    },
+    {
+      "line": 3316,
+      "kind": "denominator 156",
+      "text": "run-to-run variance, yielding $52 \\times 3 = 156$ \\emph{(scenario, run) executions} across 267"
+    },
+    {
+      "line": 3318,
+      "kind": "unit-of-analysis statement",
+      "text": "metrics. The execution is the unit of analysis: an attack-success rate is the fraction of the"
+    },
+    {
+      "line": 3319,
+      "kind": "denominator 156",
+      "text": "156 executions in which at least one turn produced a leak at the relevant threshold, and"
+    },
+    {
+      "line": 3385,
+      "kind": "execution-level language",
+      "text": "At the execution level the judge, the primary instrument, reports a strict"
+    },
+    {
+      "line": 3386,
+      "kind": "denominator 156",
+      "text": "attack-success rate of $\\mathbf{28.8\\%}$ ($45/156$), against $19.2\\%$ read through the"
+    },
+    {
+      "line": 3390,
+      "kind": "execution-level language",
+      "text": "Chapter~\\ref{ch:defenses}. Drawn from the Phase~2 run, the mean severity of a leaking execution"
+    },
+    {
+      "line": 3391,
+      "kind": "execution-level language",
+      "text": "is high ($\\bar{S} = 4.49$ over all executions, $7.96$ conditional on a leak), indicating that"
+    },
+    {
+      "line": 3426,
+      "kind": "execution-level language",
+      "text": "(primary). Rates are over the executions in each profile's scenario subset.}"
+    },
+    {
+      "line": 3549,
+      "kind": "denominator 156",
+      "text": "measured over 52 scenarios and 156 executions with a dual-threshold, dual-instrument protocol,"
+    },
+    {
+      "line": 4147,
+      "kind": "denominator 156",
+      "text": "\\;=\\; 0.067 + 0.089 \\;=\\; 0.156,"
+    },
+    {
+      "line": 4260,
+      "kind": "rate definition",
+      "text": "fraction of the cost.}"
+    }
+  ],
+  "VERDICT": {
+    "n_rates_checked": 28,
+    "n_values_matching_run0_scenario_estimator": 28,
+    "n_value_mismatches": 0,
+    "n_denominators_shown_incorrect": 0,
+    "n_rates_that_ALSO_match_the_pooled_estimator": 14,
+    "CONCLUSION": "EVERY published rate is a RUN-0 SCENARIO rate, and every denominator PRINTED IN A TABLE is correct. The tables are right. The defect is confined to the PROSE that describes them: the Methods sentence declares the execution the unit of analysis over 156 executions, and Table 6.4's caption repeats 'executions'. This is ONE systematic correction to the surrounding text, not a list of independent numeric errors -- exactly as anticipated. The only wrong NUMBER found anywhere is the '30/156' gloss on the engine headline (D1: the true pooled count is 29).",
+    "BINDING_ON_A7_D10": "Wilson intervals must use the scenario denominators recomputed here (overall n=52; per-profile and per-family n as listed), NOT 156. Computing on 156 would make every interval about sqrt(3) too narrow."
+  }
+}

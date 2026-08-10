@@ -17,6 +17,7 @@ Output goes to `analysis/partA/out/*.json` only.
 | `d13_cost_estimate.py` | `out/d13_cost_estimate.json` | directive D13: call counts and dollar estimates for re-running the defended cells (full + minimal scopes). Makes NO API calls |
 | `d11_instability_intersection.py` | `out/d11_instability_intersection.json` | directive D11: per-layer changed-scenario sets intersected with run-unstable scenarios, the D11(c) mechanism test, and the undefended drift control |
 | `d14_d18_cost.py` | `out/d14_d18_cost.json` | D14 fresh undefended arm costing + model-snapshot check, D18 A8 Path 1 re-cost and combined number, D17 telemetry-coverage audit. NO billed calls |
+| `d9_erratum_audit.py` | `out/d9_erratum_audit.json` | directive D9: every published rate vs the estimator and denominator that produced it; consolidated erratum table + prose scan |
 | `p0_verify_followups.py` | `out/p0_verify_followups.json` | four checks that qualify the above: locked-verdict per-run independence, true distinct-input n for the judge-determinism test, which manuscript the review's float numbers fit, and the distinct unjudged non-empty responses |
 
 Re-run all four (free, no API calls, deterministic):
