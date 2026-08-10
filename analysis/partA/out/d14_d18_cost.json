@@ -1,0 +1,197 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/d14_d18_cost.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "6bd0c2acd1c51afeae7cdb4b47707baca78ac0d0",
+    "git_branch": "fix/part-a-blockers",
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
+  },
+  "_purpose": "D14 (fresh undefended arm), D18 (A8 Path 1 re-cost, combined number), D17 (telemetry coverage). NO BILLED API CALLS MADE.",
+  "D14_fresh_undefended_arm": {
+    "basis": "baseline_regen executed exactly this experiment (undefended, 89 turns x 3 runs, matched config) and was really billed, so the per-run cost is measured, not modelled.",
+    "measured_3_run_cost": {
+      "sut_calls": 267,
+      "sut_cost_usd": 1.6128,
+      "judge_calls": 240,
+      "judge_cost_usd": 9.4781,
+      "TOTAL_USD": 11.09
+    },
+    "ONE_RUN": {
+      "runs": 1,
+      "sut_calls": 89,
+      "sut_cost_usd": 0.54,
+      "judge_calls": 80,
+      "judge_cost_usd": 3.16,
+      "total_api_calls": 169,
+      "TOTAL_USD": 3.7
+    },
+    "TWO_RUNS": {
+      "runs": 2,
+      "sut_calls": 178,
+      "sut_cost_usd": 1.08,
+      "judge_calls": 160,
+      "judge_cost_usd": 6.32,
+      "total_api_calls": 338,
+      "TOTAL_USD": 7.39
+    },
+    "WHY_JUDGE_DOMINATES": "Opus 4.7 at $15/$75 per Mtok. The SUT half is a rounding error; almost the whole cost is re-judging the fresh responses."
+  },
+  "D14_model_snapshot_check": {
+    "model_alias_baseline": {
+      "claude-sonnet-4-6": 267
+    },
+    "model_alias_regen": {
+      "claude-sonnet-4-6": 267
+    },
+    "model_alias_ablation_cells": {
+      "C10000": {
+        "claude-sonnet-4-6": 89
+      },
+      "C01000": {
+        "claude-sonnet-4-6": 89
+      },
+      "C00100": {
+        "claude-sonnet-4-6": 89
+      },
+      "C01100": {
+        "claude-sonnet-4-6": 89
+      },
+      "C11111": {
+        "claude-sonnet-4-6": 89
+      }
+    },
+    "alias_identical_everywhere": true,
+    "snapshot_recorded_anywhere": false,
+    "closest_thing_recorded": "model snapshot context: anthropic SDK 0.107.1, 2026-06-08T19:18:28Z\nSUT=claude-sonnet-4-6 temp=0 max_tokens=1024; embed=all-MiniLM-L6-v2; k=5; seed=42; collections phase2_baseline_seed42 + phase2_poisoned_p3",
+    "VERDICT": "The model ALIAS ('claude-sonnet-4-6') is identical across the 2026-05-18 baseline, the 2026-06-02 ablation cells and the 2026-06-08 regen. But NO dated model SNAPSHOT is recorded on any execution record -- only the alias. An alias can be repointed to a new snapshot without any record changing. So it is NOT possible to demonstrate that the SUT was the same model version across those dates.\nCONSEQUENCE for D14: a fresh arm run TODAY is contemporaneous with itself and with nothing else -- it cannot retroactively match the 2026-06-02 cells either. It would give a same-day control for cells re-run the same day, which is a different and larger experiment. Against the EXISTING cells, the nearest control remains baseline_regen at a 6-day gap. This is a stated limitation, not something a purchase can remove.",
+    "RECOMMENDATION": "Do NOT buy a fresh undefended arm to fix the existing comparison: it cannot. baseline_regen (6-day gap) is already the best available control and is free. A fresh arm is only worth buying as part of a fully re-run, same-day matched experiment (control + all cells), which is the expensive design D13 priced."
+  },
+  "D18_utility_measurement": {
+    "basis": "the real 2-config utility run: 60 SUT + 180 judge calls, $2.7052 judge, 30 benign queries, judge=claude-opus-4-7",
+    "measured_per_config": {
+      "queries": 30,
+      "sut_calls": 30,
+      "judge_calls": 90,
+      "judge_cost_usd": 1.3526,
+      "judge_calls_per_query": 3
+    },
+    "already_measured": [
+      "C00000",
+      "C11111"
+    ],
+    "not_yet_measured": [
+      "C10000",
+      "C01000",
+      "C00100",
+      "C01100"
+    ],
+    "SCOPE_missing_four_only": {
+      "label": "the 4 unmeasured configs (reuse existing C00000/C11111)",
+      "configs": [
+        "C10000",
+        "C01000",
+        "C00100",
+        "C01100"
+      ],
+      "n_configs": 4,
+      "sut_calls": 120,
+      "judge_calls": 360,
+      "judge_cost_usd": 5.41,
+      "sut_cost_usd_est": 0.08,
+      "TOTAL_USD": 5.49
+    },
+    "SCOPE_all_six_fresh": {
+      "label": "all 6 configs re-run fresh (internally consistent)",
+      "configs": [
+        "C00000",
+        "C10000",
+        "C01000",
+        "C00100",
+        "C01100",
+        "C11111"
+      ],
+      "n_configs": 6,
+      "sut_calls": 180,
+      "judge_calls": 540,
+      "judge_cost_usd": 8.12,
+      "sut_cost_usd_est": 0.12,
+      "TOTAL_USD": 8.24
+    },
+    "NOTE": "SUT cost is a rounding error at this size; the judge dominates. The SUT figure is an estimate, the judge figure is measured."
+  },
+  "D17_telemetry_coverage": {
+    "table_8_1_latency_source": {
+      "source_file": "results/phase3/utility/utility_results.json",
+      "per_config": {
+        "C00000": {
+          "n_queries": 30,
+          "latency_ms_mean": 3727,
+          "latency_ms_p95": 7233,
+          "coverage": "30/30 (full)"
+        },
+        "C11111": {
+          "n_queries": 30,
+          "latency_ms_mean": 6942,
+          "latency_ms_p95": 9446,
+          "coverage": "30/30 (full)"
+        }
+      },
+      "ratio_C11111_over_C00000": 1.863,
+      "FINDING": "Table 8.1's latency row is NOT computed from the ablation records. It comes from the utility harness, where coverage is FULL (30/30 benign queries per config). The '~1.9x' figure is therefore well supported -- but ONLY for the two configurations the utility run actually measured."
+    },
+    "ablation_record_latency_coverage": {
+      "per_cell": {
+        "C10000": {
+          "n_turns": 89,
+          "turns_with_latency": 78,
+          "coverage_pct": 87.6
+        },
+        "C01000": {
+          "n_turns": 89,
+          "turns_with_latency": 89,
+          "coverage_pct": 100.0
+        },
+        "C00100": {
+          "n_turns": 89,
+          "turns_with_latency": 14,
+          "coverage_pct": 15.7
+        },
+        "C01100": {
+          "n_turns": 89,
+          "turns_with_latency": 0,
+          "coverage_pct": 0.0
+        },
+        "C11111": {
+          "n_turns": 89,
+          "turns_with_latency": 32,
+          "coverage_pct": 36.0
+        }
+      },
+      "total_turns_with_latency": 213,
+      "total_turns": 445,
+      "coverage_pct": 47.9
+    },
+    "C01100_latency_availability": {
+      "in_utility_run": "NOT MEASURED -- the utility run covered only C00000 and C11111",
+      "in_ablation_records": "ZERO of 89 turns carry wall_clock_ms",
+      "VERDICT": "C01100 -- the RQ5 knee and the configuration the demo app ships -- has NO latency measurement anywhere in this repository, from either source. A8 must not report one for it."
+    },
+    "BINDING_ON_A8": [
+      "Do not report a per-configuration latency figure for C01100.",
+      "Table 8.1's 3727 -> 6942 ms (~1.9x) is supportable at full 30/30 coverage, but label it as measured on 30 benign queries for C00000 and C11111 ONLY -- it is not a per-cell ablation figure and must not be read across the other four configs.",
+      "Any latency drawn from the ablation records must carry its coverage fraction; overall that is 213/445 turns."
+    ]
+  },
+  "COMBINED": {
+    "fresh_undefended_arm_2_runs": 7.39,
+    "utility_missing_four_configs": 5.49,
+    "COMBINED_USD": 12.88,
+    "COMBINED_alt_all_six_utility": 15.63,
+    "RECOMMENDATION_SPLIT": "These two purchases are NOT equally worthwhile. The utility measurement buys something nothing else can supply: A8 Path 1 currently proxies 4 of 6 points, and only real measurement removes that. The fresh undefended arm buys much less than it appears to (see snapshot check) -- it cannot retroactively match the existing 2026-06-02 cells, and baseline_regen already provides a 6-day-gap control for free."
+  },
+  "NO_SPEND_WITHOUT_APPROVAL": true
+}
