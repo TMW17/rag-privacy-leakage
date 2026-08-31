@@ -1,0 +1,13 @@
+# LaTeX build byproducts — the two PDFs are built artifacts, not sources
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.spl
+*.synctex.gz
+*.xdv
+manuscript.pdf
+title_page.pdf

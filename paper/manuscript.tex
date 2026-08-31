@@ -1,0 +1,84 @@
+%% ===========================================================================
+%%  ANONYMIZED MANUSCRIPT -- Information Processing & Management (IPM)
+%%  Elsevier CAS single-column (cas-sc).
+%%
+%%  IPM is DOUBLE ANONYMIZED. This file must contain NO author names, NO
+%%  affiliations, NO acknowledgements, NO funding attributions, and NO
+%%  self-identifying repository or institution URLs. Author details live in
+%%  title_page.tex, which is uploaded as a SEPARATE file.
+%%
+%%  Build:  latexmk -pdf manuscript.tex
+%% ===========================================================================
+\documentclass[a4paper,fleqn]{cas-sc}
+
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title[mode=title]{Instrument-dependent measurement of privacy leakage in
+retrieval-augmented generation}
+
+%% ---------------------------------------------------------------------------
+%% ANONYMIZED. cas-sc requires an author block for \maketitle to run, so a
+%% neutral placeholder stands in. NO real name, affiliation, e-mail, ORCID or
+%% institution appears in this file -- they live in title_page.tex only.
+%% ---------------------------------------------------------------------------
+\author[1]{}
+\affiliation[1]{organization={Author details withheld for anonymized review}}
+
+\begin{abstract}
+TODO: 150--250 words, drafted against the seven claims once Section 1 lands.
+\end{abstract}
+
+\begin{keywords}
+%% TODO: 4--6 keywords.
+retrieval-augmented generation \sep privacy leakage \sep measurement validity \sep
+LLM-as-judge \sep re-identification
+\end{keywords}
+
+\maketitle
+
+\input{sections/01_intro}
+\input{sections/02_related_work}
+\input{sections/03_framework}
+\input{sections/04_experimental_design}
+\input{sections/05_results}
+\input{sections/06_discussion}
+\input{sections/07_conclusion}
+
+%% ---------------------------------------------------------------------------
+%% Declarations. CRediT, funding and data availability are listed here in the
+%% anonymized file with identifying detail withheld; the unblinded versions go
+%% on the title page.
+%% ---------------------------------------------------------------------------
+\section*{CRediT authorship contribution statement}
+%% TODO: withheld for anonymized review; see title page.
+
+\section*{Funding}
+%% TODO: withheld for anonymized review; see title page.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work reported
+in this paper.
+
+\section*{Data availability}
+%% TODO: state what is released and how, without naming the host or the authors
+%% while under anonymized review.
+
+%% This section title is prescribed by Elsevier policy and must appear verbatim,
+%% immediately before the references.
+\section*{Declaration of generative AI and AI-assisted technologies in the
+manuscript preparation process}
+%% TODO: state which tool was used, for what, and that the authors reviewed and
+%% edited the output and take full responsibility for the content of the
+%% publication.
+
+\bibliographystyle{cas-model2-names}
+\bibliography{references}
+
+\end{document}
