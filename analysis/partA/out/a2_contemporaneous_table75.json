@@ -6,7 +6,7 @@
     "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
     "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
     "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
-    "git_head": "93e6c5158a088e7363910406ca426897b0409708",
+    "git_head": "b697af92acb21ce994c35e0b4296f0c004912673",
     "git_branch": "fix/part-a-blockers",
     "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
   },
