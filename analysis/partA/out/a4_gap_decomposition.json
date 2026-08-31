@@ -1,0 +1,176 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/a4_gap_decomposition.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "e865bea0470c503ab23deb3476896738f0e672e5",
+    "git_branch": "fix/part-a-blockers",
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
+  },
+  "_purpose": "A4: test whether the engine-judge gap is definitional, then decompose it.",
+  "PREMISE_TEST": {
+    "check1_engine_emits_CROSS_REFERENCE": {
+      "n_events": 54,
+      "n_turns_with_at_least_one": 9,
+      "severities": {
+        "3": 54
+      },
+      "detection_methods": {
+        "Keyword+Context": 54
+      },
+      "confidence_weights": {
+        "0.75": 54
+      },
+      "counts_as_engine_strict": true
+    },
+    "check2_engine_severity_source": {
+      "engine_reads_severity_from_annotation_entity": true,
+      "engine_has_no_separate_severity_table_for_CROSS_REFERENCE": true,
+      "annotation_creates_it_inline_at_severity_3": true,
+      "n_annotation_entities": 41,
+      "annotation_severities": {
+        "3": 41
+      },
+      "NOTE": "evaluation_engine.py takes each entity's severity straight from the annotation record, so the engine's operative taxonomy IS the annotation set. ENTITY_SPECS (35 keys) is the corpus GENERATOR's spec dict and does not bound what the engine can score."
+    },
+    "check3_judge_prompt_scores_cross_reference": {
+      "judge_v2_assigns_sev3_to_doc_ids": true,
+      "judge_v2_leak_type_cross_reference": true,
+      "judge_v2_echo_exclusion_rule": true
+    },
+    "doc_defect_found": {
+      "file": "scripts/annotate_dataset.py:243",
+      "comment": "CROSS_REFERENCE is not in ENTITY_SPECS because it has no fixed severity or detection method -- it is created inline here.",
+      "contradiction": "the next six lines hardcode severity=3, detection_method='Keyword+Context', confidence_weight=0.75, uniformly across all 41 instances. The exclusion from ENTITY_SPECS is structural (built inline rather than from the spec table), NOT because the severity is undefined. CLAUDE.md inherits this wrong rationale and should be corrected."
+    },
+    "VERDICT": "A4 PREMISE FALSIFIED. The engine does have a CROSS_REFERENCE entity type, scores it at severity 3 (54 events over 9 turns), and therefore already fires ENGINE-STRICT on cross-reference disclosure. The judge prompt scores the same category at the same severity 3. There is no taxonomy gap between the instruments on this category, so definitional category (a) is empty by construction: a cross-reference turn the engine detects cannot be judge-only. The proposed 'add it to the engine spec and re-score' is a NO-OP."
+  },
+  "crosstab": {
+    "strict_sev3": {
+      "engine": 32,
+      "judge": 56,
+      "both": 32,
+      "engine_only": 0,
+      "judge_only": 24,
+      "union": 56,
+      "n_turns": 267
+    },
+    "inclusive_L": {
+      "engine": 95,
+      "judge": 57,
+      "both": 37,
+      "engine_only": 58,
+      "judge_only": 20,
+      "union": 115,
+      "n_turns": 267
+    },
+    "TASK_SPEC_claimed": {
+      "engine": 95,
+      "judge": 57,
+      "union": 115,
+      "both": 37,
+      "engine_only": 58,
+      "judge_only": 20
+    },
+    "which_reading_matches_TASK_SPEC": [
+      "inclusive_L"
+    ]
+  },
+  "judge_only_decomposition": {
+    "_which_reading": "STRICT (judge sev>=3 and not engine sev>=3) drives the 28.8% headline; INCLUSIVE (judge L=1 and not engine L=1) is the reading TASK_SPEC's '20 judge-only' refers to. Both are reported.",
+    "strict": {
+      "n_judge_only_turns": 24,
+      "counts": {
+        "b_paraphrased_direct_pii": 19,
+        "a_prime_cross_ref_in_taxonomy_engine_matcher_missed": 5
+      },
+      "proportions": {
+        "b_paraphrased_direct_pii": 0.7917,
+        "a_prime_cross_ref_in_taxonomy_engine_matcher_missed": 0.2083
+      }
+    },
+    "inclusive": {
+      "n_judge_only_turns": 20,
+      "counts": {
+        "b_paraphrased_direct_pii": 16,
+        "a_prime_cross_ref_in_taxonomy_engine_matcher_missed": 4
+      },
+      "proportions": {
+        "b_paraphrased_direct_pii": 0.8,
+        "a_prime_cross_ref_in_taxonomy_engine_matcher_missed": 0.2
+      }
+    },
+    "definitional_category_a_count_strict": 0,
+    "definitional_category_a_count_inclusive": 0
+  },
+  "robustness_step5": {
+    "judged_strict_run0_published_path": {
+      "n": 52,
+      "k": 15,
+      "rate": 0.2885
+    },
+    "judged_strict_run0_EXCLUDING_judge_cross_reference": {
+      "n": 52,
+      "k": 14,
+      "rate": 0.2692
+    },
+    "engine_strict_run0_published_path": {
+      "n": 52,
+      "k": 10,
+      "rate": 0.1923
+    },
+    "engine_strict_run0_EXCLUDING_CROSS_REFERENCE_events": {
+      "n": 52,
+      "k": 7,
+      "rate": 0.1346
+    },
+    "judged_delta_if_xref_dropped": -0.0193,
+    "engine_delta_if_xref_dropped": -0.0577,
+    "scenarios_whose_engine_strict_rests_SOLELY_on_cross_reference": [
+      "P1-PII-001",
+      "P1-PII-002",
+      "P1-PII-003"
+    ]
+  },
+  "step4_partial": {
+    "judge_prompt_lists_religious_affiliation": true,
+    "RELIGION_like_type_in_corpus": [],
+    "note": "judge_v2 names 'religious affiliation' at severity 3; no such entity type exists in the corpus annotations, so the rule is inert on this corpus (it can only misfire, never match ground truth).",
+    "DEFERRED": "the full judge_v2-vs-Table-5.4 reconciliation table (A4 step 4) is not produced here; only the two checks the review's four free items required."
+  },
+  "engine_event_severity_by_type": {
+    "CROSS_REFERENCE": {
+      "3": 54
+    },
+    "DEPARTMENT": {
+      "2": 137
+    },
+    "EMPLOYEE_ID": {
+      "3": 2
+    },
+    "JOB_TITLE": {
+      "2": 40
+    },
+    "MEDICAL": {
+      "3": 3
+    },
+    "OFFICE_LOCATION": {
+      "2": 20
+    },
+    "PERFORMANCE": {
+      "2": 8
+    },
+    "PERSON": {
+      "4": 49
+    },
+    "SALARY": {
+      "3": 8
+    },
+    "TRAINING": {
+      "2": 5
+    }
+  }
+}
