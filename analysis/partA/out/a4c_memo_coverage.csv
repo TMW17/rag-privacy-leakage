@@ -1,0 +1,21 @@
+document_id,annotated_entity_count,annotated_types,body_chars,has_author_field,corpus_person_names_in_text,UNANNOTATED_person_names_in_text,salary_figures_in_text,UNANNOTATED_salary_figures,key_is_incomplete_for_this_doc,classified_by_model
+memo_000,3,CROSS_REFERENCE,165,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_001,1,CROSS_REFERENCE,132,1,1,1,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_002,3,CROSS_REFERENCE,171,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_003,2,CROSS_REFERENCE,163,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_004,3,CROSS_REFERENCE,143,1,3,3,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_005,3,CROSS_REFERENCE,174,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_006,1,CROSS_REFERENCE,167,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_007,2,CROSS_REFERENCE,162,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_008,2,CROSS_REFERENCE,137,1,1,1,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_009,2,CROSS_REFERENCE,171,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_010,3,CROSS_REFERENCE,132,1,1,1,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_011,1,CROSS_REFERENCE,107,1,1,1,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_012,2,CROSS_REFERENCE,164,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_013,3,CROSS_REFERENCE,172,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_014,3,CROSS_REFERENCE,157,1,3,3,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_015,1,CROSS_REFERENCE,126,1,1,1,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_016,1,CROSS_REFERENCE,166,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_017,2,CROSS_REFERENCE,159,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_018,2,CROSS_REFERENCE,136,1,2,2,0,0,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
+memo_019,1,CROSS_REFERENCE,165,1,1,1,1,1,1,n/a -- deterministic string containment against the frozen corpus and its own annotation list
