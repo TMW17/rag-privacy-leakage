@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "Instrument-dependent measurement of privacy leakage in retrieval-augmented generation: corpus, evaluation harness and analysis artifacts"
+message: "If you use this artifact, please cite it using these metadata."
+type: dataset
+authors:
+  - family-names: Tadj
+    given-names: Mohamed Walid
+    affiliation: "Ecole Superieure en Informatique 08 Mai 1945 (ESI-SBA), Sidi Bel Abbes, Algeria"
+  - family-names: Aimeur
+    given-names: Esma
+    affiliation: "Departement d'informatique et de recherche operationnelle (DIRO), Universite de Montreal, Montreal, Canada"
+  - family-names: Chaib
+    given-names: Souleyman
+    affiliation: "Ecole Superieure en Informatique 08 Mai 1945 (ESI-SBA), Sidi Bel Abbes, Algeria"
+version: 1.0.0
+date-released: "2026-09-01"
+license: CC-BY-4.0
+abstract: >-
+  Reproducibility artifact for a study measuring privacy leakage in enterprise
+  retrieval-augmented generation. Includes the deterministic synthetic corpus
+  generator and entity annotations, the adversarial scenario registry, the
+  evaluation engine implementing the leakage function L and severity score S,
+  the judge harness and its versioned prompts, per-execution logs for the
+  undefended baseline and six defense-ablation configurations, two
+  human-labelled judge calibration samples, and all analysis scripts. The
+  corpus is entirely synthetic and deliberately contains credential-shaped
+  strings; no live credential is included.

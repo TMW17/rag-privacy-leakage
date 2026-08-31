@@ -1,0 +1,24 @@
+{
+  "title": "Instrument-dependent measurement of privacy leakage in retrieval-augmented generation: corpus, evaluation harness and analysis artifacts",
+  "upload_type": "dataset",
+  "description": "<p>Reproducibility artifact for the study of privacy leakage in enterprise retrieval-augmented generation (RAG). Contains the deterministic synthetic corpus generator and its entity-level annotations (155 documents, 2,190 annotations, seed 42), the 57-scenario adversarial registry across four attacker profiles and eight attack families, the evaluation engine implementing the binary leakage function L and severity score S, the LLM-judge harness and its versioned system prompts, per-execution logs for the undefended baseline and all six defense-ablation configurations, both human-labelled judge calibration samples, and every analysis script used to produce the reported statistics.</p><p><strong>Synthetic data notice.</strong> The corpus is entirely synthetic (Faker, seed 42). It deliberately contains credential-shaped strings &mdash; API-key, JWT, database-connection-string, private-key and password-hash patterns &mdash; because detecting them is part of what the study measures. These are generated values, not live secrets. Automated secret scanners will flag them; that is expected and is why the artifact is deposited here rather than on a code-hosting platform with push protection.</p><p><strong>No live credentials.</strong> No .env file, no API key and no git history are included. The archive was scanned against every real credential value known to the project and none is present.</p>",
+  "creators": [
+    { "name": "Tadj, Mohamed Walid", "affiliation": "Ecole Superieure en Informatique 08 Mai 1945 (ESI-SBA), Sidi Bel Abbes, Algeria" },
+    { "name": "Aimeur, Esma", "affiliation": "Departement d'informatique et de recherche operationnelle (DIRO), Universite de Montreal, Montreal, Canada" },
+    { "name": "Chaib, Souleyman", "affiliation": "Ecole Superieure en Informatique 08 Mai 1945 (ESI-SBA), Sidi Bel Abbes, Algeria" }
+  ],
+  "keywords": [
+    "retrieval-augmented generation",
+    "privacy leakage",
+    "re-identification",
+    "quasi-identifiers",
+    "LLM-as-a-judge",
+    "measurement validity",
+    "synthetic corpus",
+    "privacy-utility trade-off"
+  ],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "language": "eng",
+  "version": "1.0.0"
+}
