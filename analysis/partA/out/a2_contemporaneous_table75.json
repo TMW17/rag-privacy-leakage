@@ -6,7 +6,7 @@
     "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
     "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
     "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
-    "git_head": "b697af92acb21ce994c35e0b4296f0c004912673",
+    "git_head": "55c069ea47644ad6dc7d049af667082aff0afd7d",
     "git_branch": "fix/part-a-blockers",
     "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
   },
@@ -79,6 +79,11 @@
     },
     "NOTE": "sigma is a 3-run population sd from a single regeneration and is an unstable estimate; the sqrt(2) scaling to a between-configuration SE assumes independence and equal variance. The paired McNemar tests above do not rely on either assumption and should be preferred."
   },
+  "INSTRUMENT_SENSITIVITY_FINDING": {
+    "observation": "On every cell where a defense effect exists, the ENGINE -- the instrument the thesis calls a blind lower bound -- reaches a smaller exact McNemar p than the JUDGE, the instrument it calls primary. L2: engine 0.00635 vs judged 0.05737. Full stack: engine 0.00098 vs judged 0.03516.",
+    "mechanism": "the engine is deterministic given a response, so its only variance is the SUT's; the judge adds its own stochastic verdict on top (temp ~1 per sample_manifest.json), which widens discordance and costs power. Engine discordance is 11:1 and 11:0 where judged is 11:3 and 12:3.",
+    "implication": "instrument choice should follow the QUESTION, not a single ranking. The judge is required for the COMPOSITION of the residual (it sees linkage the engine cannot). The engine is better for DETECTING whether a defense moved the rate. Reporting one as globally primary loses this."
+  },
   "TABLE_7_5_REVISED": [
     {
       "cell": "C10000",
@@ -113,8 +118,10 @@
         "note": "exact binomial on the discordant pairs"
       },
       "n_paired_scenarios": 52,
+      "INSTRUMENT_COMPARISON": "judge detects this effect at least as decisively as the engine",
       "published_verdict_vs_reused_baseline": "within noise",
-      "revised_verdict_vs_contemporaneous": "no measurable effect (exact McNemar p=1.000)"
+      "revised_verdict_vs_contemporaneous": "NO DETECTABLE EFFECT (p=1.0, discordance 1:2 -- near-symmetric and tiny)",
+      "revised_verdict_engine": "NO DETECTABLE EFFECT (p=1.0, discordance 0:1 -- near-symmetric and tiny)"
     },
     {
       "cell": "C01000",
@@ -149,8 +156,10 @@
         "note": "exact binomial on the discordant pairs"
       },
       "n_paired_scenarios": 52,
+      "INSTRUMENT_COMPARISON": "engine detects this defense effect more decisively than the judge (engine p=0.00635 vs judged p=0.05737)",
       "published_verdict_vs_reused_baseline": "clears the asserted floor",
-      "revised_verdict_vs_contemporaneous": "no measurable effect (exact McNemar p=0.057)"
+      "revised_verdict_vs_contemporaneous": "MARGINAL reduction, directionally unambiguous but underpowered (p=0.05737, discordance 11:3 -- 11 scenarios moved toward the baseline, 3 against)",
+      "revised_verdict_engine": "SIGNIFICANT reduction (exact McNemar p=0.00635, discordance 11:1)"
     },
     {
       "cell": "C00100",
@@ -185,8 +194,10 @@
         "note": "exact binomial on the discordant pairs"
       },
       "n_paired_scenarios": 52,
+      "INSTRUMENT_COMPARISON": "judge detects this effect at least as decisively as the engine",
       "published_verdict_vs_reused_baseline": "within noise",
-      "revised_verdict_vs_contemporaneous": "no measurable effect (exact McNemar p=1.000)"
+      "revised_verdict_vs_contemporaneous": "NO DETECTABLE EFFECT (p=1.0, discordance 2:2 -- near-symmetric and tiny)",
+      "revised_verdict_engine": "NO DETECTABLE EFFECT (p=1.0, discordance 2:1 -- near-symmetric and tiny)"
     },
     {
       "cell": "C01100",
@@ -221,8 +232,10 @@
         "note": "exact binomial on the discordant pairs"
       },
       "n_paired_scenarios": 52,
+      "INSTRUMENT_COMPARISON": "engine detects this defense effect more decisively than the judge (engine p=0.00635 vs judged p=0.05737)",
       "published_verdict_vs_reused_baseline": "clears the asserted floor",
-      "revised_verdict_vs_contemporaneous": "no measurable effect (exact McNemar p=0.057)"
+      "revised_verdict_vs_contemporaneous": "MARGINAL reduction, directionally unambiguous but underpowered (p=0.05737, discordance 11:3 -- 11 scenarios moved toward the baseline, 3 against)",
+      "revised_verdict_engine": "SIGNIFICANT reduction (exact McNemar p=0.00635, discordance 11:1)"
     },
     {
       "cell": "C11111",
@@ -257,8 +270,10 @@
         "note": "exact binomial on the discordant pairs"
       },
       "n_paired_scenarios": 52,
+      "INSTRUMENT_COMPARISON": "engine detects this defense effect more decisively than the judge (engine p=0.00098 vs judged p=0.03516)",
       "published_verdict_vs_reused_baseline": "clears the asserted floor",
-      "revised_verdict_vs_contemporaneous": "reduces leakage (exact McNemar p=0.0352)"
+      "revised_verdict_vs_contemporaneous": "SIGNIFICANT reduction (exact McNemar p=0.03516, discordance 12:3)",
+      "revised_verdict_engine": "SIGNIFICANT reduction (exact McNemar p=0.00098, discordance 11:0)"
     }
   ],
   "HEADLINE": {

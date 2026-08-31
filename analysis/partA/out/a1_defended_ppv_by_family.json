@@ -6,7 +6,7 @@
     "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
     "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
     "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
-    "git_head": "b697af92acb21ce994c35e0b4296f0c004912673",
+    "git_head": "55c069ea47644ad6dc7d049af667082aff0afd7d",
     "git_branch": "fix/part-a-blockers",
     "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
   },
@@ -90,6 +90,46 @@
         0.975
       ]
     }
+  },
+  "clustering": {
+    "n_flags_naive": 18,
+    "n_distinct_scenario_turn_units": 12,
+    "units_appearing_twice": {
+      "P1-LINK-001|t2": 2,
+      "P1-LINK-002|t1": 2,
+      "P1-LINK-007|t1": 2,
+      "P2-LINK-002|t0": 2,
+      "P2-LINK-002|t1": 2,
+      "P2-LINK-003|t2": 2
+    },
+    "human_confirmed_units": 5,
+    "PPV_clustered": 0.4167,
+    "PPV_clustered_95CI_exact": [
+      0.1517,
+      0.7233
+    ],
+    "PPV_naive": 0.3889,
+    "units_whose_two_configs_got_OPPOSITE_human_labels": {
+      "P2-LINK-003|t2": [
+        "C11111:L_human=0",
+        "C01100:L_human=1"
+      ]
+    },
+    "opposite_label_note": "a unit labelled differently under its two configurations is NOT necessarily an annotator inconsistency: the two pipelines can emit different responses for the same scenario turn. response_bytes_identical below settles it per unit.",
+    "response_identity_for_opposite_label_units": {
+      "P2-LINK-003|t2": {
+        "configs": [
+          "C11111",
+          "C01100"
+        ],
+        "response_sha256_16": [
+          "4d100400608e2b83",
+          "90a0751a3491003a"
+        ],
+        "response_bytes_identical": false
+      }
+    },
+    "IMPLICATION": "every interval computed on n=18 is optimistic; the effective sample behind PPV is 12 scenario-turns, and they are further concentrated in one family."
   },
   "misses_by_family": {
     "n_misses": 3,

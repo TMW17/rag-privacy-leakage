@@ -70,6 +70,30 @@ def mcnemar_exact(b, c):
             "note": "exact binomial on the discordant pairs"}
 
 
+def verdict_label(mc, cell_rate, base_rate):
+    """A verdict must distinguish 'nothing moved' from 'a lot moved, n is small'.
+
+    p>0.05 with near-symmetric discordance is genuine absence of effect. p>0.05 with lopsided
+    discordance is an underpowered but directionally unambiguous effect. Collapsing both into
+    'no measurable effect' -- as an earlier revision of this script did -- is wrong, and it
+    was wrong in the direction that flatters the null.
+    """
+    b, c, n = mc["b"], mc["c"], mc["n_discordant"]
+    direction = "reduction" if cell_rate < base_rate else (
+        "increase" if cell_rate > base_rate else "no change")
+    p = mc["p_two_sided"]
+    if n == 0:
+        return "IDENTICAL: no scenario changed verdict (0 discordant pairs)"
+    if p <= 0.05:
+        return f"SIGNIFICANT {direction} (exact McNemar p={p}, discordance {b}:{c})"
+    lopsided = max(b, c) >= 3 * max(1, min(b, c)) and n >= 8
+    if lopsided:
+        return (f"MARGINAL {direction}, directionally unambiguous but underpowered "
+                f"(p={p}, discordance {b}:{c} -- {b} scenarios moved toward the baseline, "
+                f"{c} against)")
+    return f"NO DETECTABLE EFFECT (p={p}, discordance {b}:{c} -- near-symmetric and tiny)"
+
+
 def scen_flags(rows, verdict_fn, run_filter):
     """scenario_id -> {'es':0/1,'as':0/1} using the canonical per-scenario max."""
     d = defaultdict(lambda: {"es": 0, "as": 0})
@@ -155,15 +179,16 @@ def main():
             "mcnemar_judged_vs_contemporaneous": mc,
             "mcnemar_engine_vs_contemporaneous": mce,
             "n_paired_scenarios": len(shared),
+            "INSTRUMENT_COMPARISON": (
+                "engine detects this defense effect more decisively than the judge "
+                f"(engine p={mce['p_two_sided']} vs judged p={mc['p_two_sided']})"
+                if mce["p_two_sided"] < mc["p_two_sided"] else
+                "judge detects this effect at least as decisively as the engine"),
             "published_verdict_vs_reused_baseline":
                 "within noise" if abs(j - base_reused["judged"]) < PUBLISHED_FLOOR["judged"]
                 else "clears the asserted floor",
-            "revised_verdict_vs_contemporaneous":
-                ("no measurable effect (exact McNemar p=%.3f)" % mc["p_two_sided"])
-                if mc["p_two_sided"] > 0.05 else
-                ("reduces leakage (exact McNemar p=%.4f)" % mc["p_two_sided"])
-                if j < base_contemp["judged"] else
-                ("increases leakage (exact McNemar p=%.4f)" % mc["p_two_sided"]),
+            "revised_verdict_vs_contemporaneous": verdict_label(mc, j, base_contemp["judged"]),
+            "revised_verdict_engine": verdict_label(mce, e, base_contemp["engine"]),
         })
 
     headline = {
@@ -213,6 +238,22 @@ def main():
                     "and equal variance. The paired McNemar tests above do not rely on either "
                     "assumption and should be preferred.",
         },
+        "INSTRUMENT_SENSITIVITY_FINDING": {
+            "observation": "On every cell where a defense effect exists, the ENGINE -- the "
+                           "instrument the thesis calls a blind lower bound -- reaches a smaller "
+                           "exact McNemar p than the JUDGE, the instrument it calls primary. "
+                           "L2: engine 0.00635 vs judged 0.05737. Full stack: engine 0.00098 vs "
+                           "judged 0.03516.",
+            "mechanism": "the engine is deterministic given a response, so its only variance is "
+                         "the SUT's; the judge adds its own stochastic verdict on top (temp ~1 "
+                         "per sample_manifest.json), which widens discordance and costs power. "
+                         "Engine discordance is 11:1 and 11:0 where judged is 11:3 and 12:3.",
+            "implication": "instrument choice should follow the QUESTION, not a single ranking. "
+                           "The judge is required for the COMPOSITION of the residual (it sees "
+                           "linkage the engine cannot). The engine is better for DETECTING "
+                           "whether a defense moved the rate. Reporting one as globally primary "
+                           "loses this.",
+        },
         "TABLE_7_5_REVISED": table,
         "HEADLINE": headline,
     }
@@ -235,11 +276,14 @@ def main():
           f"{result['_comparators']['measured_drift_with_no_defense']['judged']:+}  engine "
           f"{result['_comparators']['measured_drift_with_no_defense']['engine']:+}")
     print(f"  judge-cache misses: ablation {cache_misses}, regen {regen_misses}\n")
-    print(f"{'cell':8} {'layer':24} {'judged':>7} {'vs reused':>10} {'vs contemp':>11} {'McNemar p':>10}  verdict (contemporaneous)")
+    print(f"{'cell':8} {'layer':24} {'judged':>7} {'vs contemp':>11} {'judged p':>9} {'engine p':>9}")
     for r in table:
         print(f"  {r['cell']:6} {r['layer']:24} {r['judged_strict']:>7} "
-              f"{r['judged_delta_vs_REUSED_baseline']:>+10} {r['judged_delta_vs_CONTEMPORANEOUS']:>+11} "
-              f"{r['mcnemar_judged_vs_contemporaneous']['p_two_sided']:>10}  {r['revised_verdict_vs_contemporaneous']}")
+              f"{r['judged_delta_vs_CONTEMPORANEOUS']:>+11} "
+              f"{r['mcnemar_judged_vs_contemporaneous']['p_two_sided']:>9} "
+              f"{r['mcnemar_engine_vs_contemporaneous']['p_two_sided']:>9}")
+        print(f"       judged: {r['revised_verdict_vs_contemporaneous']}")
+        print(f"       engine: {r['revised_verdict_engine']}")
     print(f"\nHEADLINE")
     for k, h in headline.items():
         print(f"  {k:16} {h['baseline']} -> {h['full_stack']}  "

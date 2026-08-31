@@ -165,6 +165,44 @@ def main():
 
     overall_ppv = round(cells["TP_confirmed"] / len(judge_pos), 4)
 
+    # ---- CLUSTERING: the 18 flags are not 18 independent observations ----
+    # C01100 and C11111 are sampled separately, so the same (scenario, turn) can appear twice.
+    # Treating those as independent narrows every interval spuriously. Collapse to the
+    # (scenario, turn) unit -- confirmed if ANY config's response was human-confirmed -- and
+    # report both the naive and the clustered figure.
+    units = defaultdict(list)
+    for r in judge_pos:
+        units[(r["scenario"], r["turn"])].append(r)
+    dup_units = {f"{k[0]}|t{k[1]}": len(v) for k, v in sorted(units.items()) if len(v) > 1}
+    u_conf = sum(1 for v in units.values() if any(x["L_human"] for x in v))
+    u_disagree = {f"{k[0]}|t{k[1]}": [x["config"] + ":L_human=" + str(x["L_human"]) for x in v]
+                  for k, v in sorted(units.items())
+                  if len(v) > 1 and len({x["L_human"] for x in v}) > 1}
+    clustered = {
+        "n_flags_naive": len(judge_pos),
+        "n_distinct_scenario_turn_units": len(units),
+        "units_appearing_twice": dup_units,
+        "human_confirmed_units": u_conf,
+        "PPV_clustered": round(u_conf / len(units), 4),
+        "PPV_clustered_95CI_exact": clopper_pearson(u_conf, len(units)),
+        "PPV_naive": overall_ppv,
+        "units_whose_two_configs_got_OPPOSITE_human_labels": u_disagree,
+        "opposite_label_note":
+            "a unit labelled differently under its two configurations is NOT necessarily an "
+            "annotator inconsistency: the two pipelines can emit different responses for the "
+            "same scenario turn. response_bytes_identical below settles it per unit.",
+        "response_identity_for_opposite_label_units": {
+            f"{k[0]}|t{k[1]}": {
+                "configs": [x["config"] for x in v],
+                "response_sha256_16": [__import__("hashlib").sha256(
+                    (recs[str(x["row_id"])]["response"] or "").encode()).hexdigest()[:16] for x in v],
+                "response_bytes_identical": len({recs[str(x["row_id"])]["response"] for x in v}) == 1,
+            } for k, v in units.items() if len(v) > 1 and len({x["L_human"] for x in v}) > 1},
+        "IMPLICATION":
+            "every interval computed on n=18 is optimistic; the effective sample behind PPV is "
+            f"{len(units)} scenario-turns, and they are further concentrated in one family.",
+    }
+
     # ---- the misses, by family (the thesis's stated basis for 'lower bound') ----
     misses = [r for r in rows if r["cell"] == "FN_miss"]
     miss_fams = dict(Counter(r["family"] for r in misses))
@@ -211,6 +249,7 @@ def main():
             "published_ppv_for_comparison": kap["judge_PPV_on_defended"]["ppv"],
         },
         "ANSWER_ppv_by_family": ppv_by_family,
+        "clustering": clustered,
         "misses_by_family": {"n_misses": len(misses), "families": miss_fams,
                              "row_ids": [r["row_id"] for r in misses]},
         "false_omission": {
@@ -244,6 +283,14 @@ def main():
     for fam, d in ppv_by_family.items():
         print(f"  {fam:22} {d['judge_flagged']:>8} {d['human_confirmed']:>10} "
               f"{d['over_flagged']:>9} {str(d['PPV']):>7}  {d['PPV_95CI_exact']}")
+    print(f"\nCLUSTERING: {clustered['n_flags_naive']} flags span "
+          f"{clustered['n_distinct_scenario_turn_units']} distinct scenario-turns "
+          f"({len(dup_units)} appear under both configs)")
+    print(f"  PPV naive {clustered['PPV_naive']} {result['overall']['PPV_95CI_exact']} -> "
+          f"clustered {clustered['PPV_clustered']} {clustered['PPV_clustered_95CI_exact']}")
+    for k, v in clustered["response_identity_for_opposite_label_units"].items():
+        print(f"  opposite human labels on {k}: configs {v['configs']}, "
+              f"responses byte-identical = {v['response_bytes_identical']}")
     print(f"\nmisses (human leak, judge silent): n={len(misses)} families={miss_fams}")
     print(f"FOR on the 26 examined negatives = {for_examined}")
     print(f"extrapolated misses across the {sum(pool[s] for s in neg_strata)}-response negative pool "
