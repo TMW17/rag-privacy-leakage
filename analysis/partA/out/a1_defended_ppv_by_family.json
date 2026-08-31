@@ -1,0 +1,135 @@
+{
+  "_provenance": {
+    "generated_by_script": "analysis/partA/scripts/a1_defended_ppv_by_family.py",
+    "model_id": "claude-opus-5",
+    "model_label": "Claude Opus 5 (1M context), reached via Default (not an explicit pin)",
+    "model_source": "/status -> 'Default (Opus 5 with 1M context)'",
+    "effort": "ultracode (xhigh + dynamic workflow orchestration), session-only override; settings.json persists effortLevel=xhigh",
+    "effort_source": "session header / /effort -- /status does not report effort (amendment 5)",
+    "git_head": "c3355a6abb98126c49b66af2f1e40970afc7daa2",
+    "git_branch": "fix/part-a-blockers",
+    "determinism_note": "Hard rule 5. Every STATISTIC in this file is a deterministic function of the analysed artifacts: no wall-clock reading and no RNG enters any figure, and no generation timestamp is recorded. Re-running on an unchanged tree reproduces every number byte-for-byte. The single field that varies between runs is 'git_head' above, which records WHICH repository state was analysed and must change when the commit does. To diff two runs, ignore that field."
+  },
+  "_purpose": "Per-family PPV of the judge on the defended distribution; whether the F2 residual survives human confirmation.",
+  "_sampling_design": {
+    "n": 46,
+    "pool_unique_responses": 143,
+    "stratum_pool_counts": {
+      "clean_refusal": 2,
+      "degraded_answer": 59,
+      "judge_flagged_leak": 18,
+      "redacted_residue": 64
+    },
+    "selected_stratum_counts": {
+      "clean_refusal": 2,
+      "degraded_answer": 13,
+      "judge_flagged_leak": 18,
+      "redacted_residue": 13
+    },
+    "judge_positives_are_a_census": true,
+    "judge": "Claude Opus 4.7, prompt v2, Anthropic (temp = API default ~1, per llm_judge.py).",
+    "VALID_ON_THIS_SAMPLE": [
+      "PPV (positives are a census)",
+      "raw counts"
+    ],
+    "INVALID_ON_THIS_SAMPLE": [
+      "FPR / specificity (negatives are subsampled; 11/36 = 0.306 is NOT an FPR)",
+      "any population leak rate"
+    ]
+  },
+  "guard_2x2_reproduces_published": {
+    "published_n11_TP": 7,
+    "recomputed_TP": 7,
+    "published_n10_FP": 11,
+    "recomputed_FP": 11,
+    "published_n01_FN": 3,
+    "recomputed_FN": 3,
+    "published_n00_TN": 25,
+    "recomputed_TN": 25,
+    "all_match": true
+  },
+  "overall": {
+    "judge_flagged": 18,
+    "human_confirmed": 7,
+    "over_flagged": 11,
+    "PPV": 0.3889,
+    "PPV_95CI_exact": [
+      0.173,
+      0.6425
+    ],
+    "published_ppv_for_comparison": 0.3889
+  },
+  "ANSWER_ppv_by_family": {
+    "F1_DIRECT_PII": {
+      "judge_flagged": 2,
+      "human_confirmed": 0,
+      "over_flagged": 2,
+      "PPV": 0.0,
+      "PPV_95CI_exact": [
+        0.0,
+        0.8419
+      ]
+    },
+    "F2_LINKABILITY": {
+      "judge_flagged": 15,
+      "human_confirmed": 7,
+      "over_flagged": 8,
+      "PPV": 0.4667,
+      "PPV_95CI_exact": [
+        0.2127,
+        0.7341
+      ]
+    },
+    "F6_RECON": {
+      "judge_flagged": 1,
+      "human_confirmed": 0,
+      "over_flagged": 1,
+      "PPV": 0.0,
+      "PPV_95CI_exact": [
+        0.0,
+        0.975
+      ]
+    }
+  },
+  "misses_by_family": {
+    "n_misses": 3,
+    "families": {
+      "F2_LINKABILITY": 3
+    },
+    "row_ids": [
+      36,
+      38,
+      39
+    ]
+  },
+  "false_omission": {
+    "examined_negatives": 28,
+    "FOR_on_examined_negatives": 0.1071,
+    "per_negative_stratum": {
+      "clean_refusal": {
+        "pool_n": 2,
+        "examined_n": 2,
+        "misses_found": 0,
+        "FOR_in_stratum": 0.0,
+        "estimated_misses_in_pool": 0.0
+      },
+      "degraded_answer": {
+        "pool_n": 59,
+        "examined_n": 13,
+        "misses_found": 0,
+        "FOR_in_stratum": 0.0,
+        "estimated_misses_in_pool": 0.0
+      },
+      "redacted_residue": {
+        "pool_n": 64,
+        "examined_n": 13,
+        "misses_found": 3,
+        "FOR_in_stratum": 0.2308,
+        "estimated_misses_in_pool": 14.77
+      }
+    },
+    "extrapolated_missed_leaks_in_pool": 14.77,
+    "over_flags_observed_census": 11,
+    "EXTRAPOLATION_WARNING": "estimated_misses_in_pool is an extrapolation from 26 examined negatives to a 123-response negative pool, at 1-3 observed misses per stratum. Its sampling error is large and it is NOT a measured quantity. It is reported only to show which way the net bias could go, not to settle it."
+  }
+}
