@@ -101,7 +101,8 @@ def main():
         "whether the scenario's NAMED TARGET document was retrieved -- reported separately "
         "below as named_target_retrieved.")
 
-    vfn = L.locked_verdict_fn(strict_run_index=True)
+    # Verdicts are looked up positionally against the locked set; misses are counted per
+    # execution in judge_verdicts_missing rather than asserted away.
     lv = {f"{v['run_id']}|{v['scenario_id']}|{v['run_index']}|{v['turn_index']}": v
           for v in L.load_jsonl("locked_verdicts")}
 
@@ -111,7 +112,6 @@ def main():
         ex[(r["scenario_id"], r.get("run_index"))].append(r)
     for v in ex.values():
         v.sort(key=lambda r: r["turn_index"])
-    assert vfn.misses["n"] == 0 or True  # misses are counted after the verdict loop below
 
     out_rows, unresolved = [], 0
     for (sid, ri), turns in sorted(ex.items()):
