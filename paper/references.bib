@@ -466,3 +466,146 @@
   year         = {2024},
   note         = {Adopted 18 December 2024. An AI model is anonymous only if personal data is very unlikely to be extracted from it through queries; sets a three-step legitimate-interest test for model development and deployment.}
 }
+
+% ===========================================================================
+% Entries added for the IPM manuscript, replacing the 17 drafting placeholders.
+% Five placeholders were already covered by real entries above and were NOT
+% duplicated -- cite the existing key instead:
+%     greshake2023not   -> greshake2023ipi
+%     zheng2023judging  -> zheng2023judge
+%     sweeney2002kanon  -> sweeney2002kanonymity
+%     carlini2021extracting   (already present, key unchanged)
+%     carlini2023quantifying  (already present, key unchanged)
+% Every entry below was web-verified against arXiv / ACL Anthology / the
+% publisher before being written. Key names keep the placeholder spelling where
+% that spelling is unambiguous, so the manuscript's \cite calls need no edit.
+% ===========================================================================
+
+@inproceedings{lewis2020rag,
+  author    = {Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and Petroni, Fabio
+               and Karpukhin, Vladimir and Goyal, Naman and K{\"u}ttler, Heinrich
+               and Lewis, Mike and Yih, Wen-tau and Rockt{\"a}schel, Tim
+               and Riedel, Sebastian and Kiela, Douwe},
+  title     = {Retrieval-Augmented Generation for Knowledge-Intensive {NLP} Tasks},
+  booktitle = {Advances in Neural Information Processing Systems 33 (NeurIPS 2020)},
+  year      = {2020},
+  pages     = {9459--9474},
+  url       = {https://arxiv.org/abs/2005.11401}
+}
+
+@inproceedings{zeng2024good,
+  author    = {Zeng, Shenglai and Zhang, Jiankun and He, Pengfei and Xing, Yue
+               and Liu, Yiding and Xu, Han and Ren, Jie and Wang, Shuaiqiang
+               and Yin, Dawei and Chang, Yi and Tang, Jiliang},
+  title     = {The Good and The Bad: Exploring Privacy Issues in
+               Retrieval-Augmented Generation ({RAG})},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2024},
+  year      = {2024},
+  address   = {Bangkok, Thailand},
+  url       = {https://aclanthology.org/2024.findings-acl.267/}
+}
+
+@article{qi2024follow,
+  author  = {Qi, Zhenting and Zhang, Hanlin and Xing, Eric and Kakade, Sham
+             and Lakkaraju, Himabindu},
+  title   = {Follow My Instruction and Spill the Beans: Scalable Data Extraction
+             from Retrieval-Augmented Generation Systems},
+  journal = {arXiv preprint arXiv:2402.17840},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2402.17840}
+}
+
+@inproceedings{zou2024poisonedrag,
+  author    = {Zou, Wei and Geng, Runpeng and Wang, Binghui and Jia, Jinyuan},
+  title     = {{PoisonedRAG}: Knowledge Corruption Attacks to Retrieval-Augmented
+               Generation of Large Language Models},
+  booktitle = {34th USENIX Security Symposium (USENIX Security 25)},
+  year      = {2025},
+  note      = {First released as arXiv:2402.07867 (2024); the key name reflects
+               the preprint year, the venue is USENIX Security 2025},
+  url       = {https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag}
+}
+
+@article{machanavajjhala2007ldiversity,
+  author  = {Machanavajjhala, Ashwin and Kifer, Daniel and Gehrke, Johannes
+             and Venkitasubramaniam, Muthuramakrishnan},
+  title   = {$\ell$-Diversity: Privacy Beyond $k$-Anonymity},
+  journal = {ACM Transactions on Knowledge Discovery from Data},
+  volume  = {1},
+  number  = {1},
+  pages   = {3--es},
+  year    = {2007},
+  doi     = {10.1145/1217299.1217302}
+}
+
+@misc{microsoft2023presidio,
+  author       = {{Microsoft}},
+  title        = {{Presidio}: Data Protection and De-identification {SDK}},
+  howpublished = {Open-source software},
+  year         = {2023},
+  note         = {Version 2.2.362 used in this work},
+  url          = {https://github.com/microsoft/presidio}
+}
+
+@article{inan2023llamaguard,
+  author  = {Inan, Hakan and Upasani, Kartikeya and Chi, Jianfeng and Rungta, Rashi
+             and Iyer, Krithika and Mao, Yuning and Tontchev, Michael and Hu, Qing
+             and Fuller, Brian and Testuggine, Davide and Khabsa, Madian},
+  title   = {{Llama Guard}: {LLM}-based Input-Output Safeguard for Human-{AI}
+             Conversations},
+  journal = {arXiv preprint arXiv:2312.06674},
+  year    = {2023},
+  url     = {https://arxiv.org/abs/2312.06674}
+}
+
+@article{ayyamperumal2024guardrails,
+  author  = {Ayyamperumal, Suriya Ganesh and Ge, Limin},
+  title   = {Current State of {LLM} Risks and {AI} Guardrails},
+  journal = {arXiv preprint arXiv:2406.12934},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2406.12934}
+}
+
+@article{gu2024survey,
+  author  = {Gu, Jiawei and Jiang, Xuhui and Shi, Zhichao and Tan, Hexiang
+             and Zhai, Xuehao and Xu, Chengjin and Li, Wei and Shen, Yinghan
+             and Ma, Shengjie and Liu, Honghao and Wang, Saizhuo and Zhang, Kun
+             and Wang, Yuanzhuo and Gao, Wen and Ni, Lionel and Guo, Jian},
+  title   = {A Survey on {LLM-as-a-Judge}},
+  journal = {arXiv preprint arXiv:2411.15594},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2411.15594}
+}
+
+@article{cohen1960kappa,
+  author  = {Cohen, Jacob},
+  title   = {A Coefficient of Agreement for Nominal Scales},
+  journal = {Educational and Psychological Measurement},
+  volume  = {20},
+  number  = {1},
+  pages   = {37--46},
+  year    = {1960},
+  doi     = {10.1177/001316446002000104}
+}
+
+@article{landis1977measurement,
+  author  = {Landis, J. Richard and Koch, Gary G.},
+  title   = {The Measurement of Observer Agreement for Categorical Data},
+  journal = {Biometrics},
+  volume  = {33},
+  number  = {1},
+  pages   = {159--174},
+  year    = {1977},
+  doi     = {10.2307/2529310}
+}
+
+@article{rogan1978estimating,
+  author  = {Rogan, Walter J. and Gladen, Beth},
+  title   = {Estimating Prevalence from the Results of a Screening Test},
+  journal = {American Journal of Epidemiology},
+  volume  = {107},
+  number  = {1},
+  pages   = {71--76},
+  year    = {1978},
+  doi     = {10.1093/oxfordjournals.aje.a112510}
+}
