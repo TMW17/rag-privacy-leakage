@@ -1,0 +1,395 @@
+%!TEX program = xelatex
+% ============================================================================
+%  thesis.tex — MASTER DOCUMENT (assembles the nine committed chapters)
+%  Thesis: Generative AI, Privacy & Personal Data — TADJ Mohamed Walid, ESI SBA
+%
+%  MECHANICAL ASSEMBLY. \def\ThesisMaster{} makes every chapter's
+%  \ifdefined\ThesisMaster guard take the \input branch (its standalone preamble,
+%  \begin{document}, per-chapter \bibliography all vanish), so the master preamble
+%  below must re-declare the COMPLETE UNION of the chapters' preambles.
+%
+%  PREAMBLE ORDER IS LOAD-BEARING: xcolor[table] is loaded BEFORE tcolorbox
+%  (tcolorbox/pgf pull in xcolor; loading it after triggers an option clash);
+%  cleveref is loaded LAST, after hyperref. The rich callout boxes are a single
+%  UNIFIED set (the prosebox/notebox collision among the three source documents
+%  is resolved here, once) so the verbatim State-of-the-Art chapter and the
+%  expanded Threat-Model/Ground-Truth chapter share one visual language.
+% ============================================================================
+\documentclass[12pt,a4paper]{report}
+\def\ThesisMaster{}   % every \ifdefined\ThesisMaster guard now takes the \input branch
+
+% ============================== MASTER PREAMBLE ==============================
+% Engine: XeLaTeX.  Compile with:  latexmk -xelatex thesis.tex
+% (The title page is a separate XeLaTeX PDF, \includepdf'd below, so its
+%  Arabic/polyglossia stack never touches this master.)
+\usepackage{fontspec}
+% TeX Gyre fonts loaded by FILE NAME (they live in the TeXLive tree, not fontconfig, so
+% name-based lookup fails on macOS; *-suffix patterns force the kpsewhich file lookup).
+\setmainfont{texgyrepagella}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]   % Palatino-class roman: body + default
+\setsansfont{texgyreheros}[Extension=.otf, Scale=0.95, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]   % Helvetica-class sans: available but unused (headings share the body roman)
+\setmonofont{texgyrecursor}[Extension=.otf, Scale=0.95, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]   % monospace: code / \texttt
+\usepackage[a4paper,left=3.18cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}   % CS-layout spec: 3.18cm binding margin, 2.5cm elsewhere
+\usepackage{pdfpages}
+
+% ---- color FIRST: tcolorbox/pgf load xcolor internally; loading it later clashes ----
+\usepackage[table,dvipsnames]{xcolor}
+% PALETTE: esiblue is reserved for TITLES (headings) and FIGURES only; everything else
+% (body text, boxes, badges, table headers) renders in esidark. Blue removed from the chrome.
+\definecolor{esiblue}{RGB}{0,51,102}
+\definecolor{esidark}{RGB}{26,26,26}
+% --- Navy & Steel academic palette (requested): 60-30-10, color-blind-safe ---
+\definecolor{primarylink}{HTML}{1565C0}    % blue: links, key terms
+\definecolor{secondarycite}{HTML}{0D47A1}  % navy: citations
+\definecolor{accentcolor}{HTML}{E53935}    % crimson: alerts / highlights
+\definecolor{darkcharcoal}{HTML}{263238}   % charcoal: headers / structural
+% Every legacy palette name now maps to esidark, so boxes / badges / inline color are dark:
+\colorlet{navy}{darkcharcoal}\colorlet{steel}{darkcharcoal}\colorlet{accent}{darkcharcoal}
+\colorlet{ink}{darkcharcoal}\colorlet{headerrow}{darkcharcoal}\colorlet{steelmid}{darkcharcoal}
+\colorlet{medgray}{darkcharcoal}\colorlet{codeframe}{darkcharcoal}\colorlet{danger}{accentcolor}
+\colorlet{warn}{accentcolor}\colorlet{safe}{darkcharcoal}\colorlet{capyes}{darkcharcoal}\colorlet{capno}{darkcharcoal}
+\colorlet{rowodd}{white}\colorlet{roweven}{white}\colorlet{linddunblue}{white}
+\colorlet{blockbg}{white}\colorlet{steellight}{white}\colorlet{lightgray}{white}\colorlet{codebg}{white}
+% ---- FIGURE data-viz palette (NOT remapped; figures may use color even though body chrome is 2-color) ----
+\definecolor{figblue}{RGB}{31,78,121}
+\definecolor{figteal}{RGB}{33,158,150}
+\definecolor{figgreen}{RGB}{82,170,110}
+\definecolor{figamber}{RGB}{240,170,60}
+\definecolor{figorange}{RGB}{232,125,55}
+\definecolor{figcoral}{RGB}{214,80,72}
+\definecolor{figslate}{RGB}{120,135,155}
+\definecolor{figviolet}{RGB}{124,103,196}
+
+% ---- tables / lists / floats / symbols ----
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{pifont}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+% chapters' per-file \graphicspath are guarded out in master mode; set the union here so
+% ch5 (fig_marginal_and_rq2), ch6 (pareto) and ch3 (the two architecture maps) resolve:
+\graphicspath{{.}{../}{../../../phase3/report/}{../../../phase3/ablation/metrics/}{../../../phase3/tradeoff/}{../../../figures/phase2/}}
+\usepackage{pgfplots}                       % vector data charts (CS-layout spec: vector figures)
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds,shapes.geometric}
+\usepackage{caption}
+\captionsetup{font=small,labelfont={bf,color=esidark}}  % style spec: caption bold, small
+\usepackage{listings}
+
+% ---- column types: no-arg L (tabularx, thesis-wide) + parametrized C/R/W (imported tables) ----
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{W}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+
+% ---- rich callout boxes (ONE unified set shared by Ch2 and Ch3) ----
+\usepackage[most]{tcolorbox}
+% Simple, uncolored callout boxes: white background, thin neutral-grey frame, plain bold
+% dark title (no colored title bars, left rules, or tinted backgrounds).
+\newtcolorbox{prosebox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, left=8pt, right=8pt, top=6pt, bottom=6pt}
+\newtcolorbox{notebox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, left=10pt, right=8pt, top=6pt, bottom=6pt}
+\newtcolorbox{critbox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, left=10pt, right=8pt, top=5pt, bottom=5pt, fontupper=\small}
+\newtcolorbox{gapbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries, coltitle=darkcharcoal, colbacktitle=white,
+  left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
+\newtcolorbox{transitionbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries, coltitle=darkcharcoal, colbacktitle=white,
+  left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
+\newtcolorbox{profilebanner}[2]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries\normalsize, coltitle=darkcharcoal, colbacktitle=white,
+  title={#1}, after title={\hfill{\small #2}}, top=5pt, bottom=5pt, left=10pt, right=8pt}
+\newtcolorbox{attackbox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, top=3pt, bottom=3pt, left=6pt, right=6pt, fontupper=\small\ttfamily}
+\newtcolorbox{cvssbox}[1]{enhanced, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, title={\textbf{CVSS v3.1 Base Score \quad #1}}, fonttitle=\normalsize,
+  coltitle=darkcharcoal, colbacktitle=white, top=5pt, bottom=5pt, left=10pt, right=8pt}
+\newtcolorbox{limitbox}{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, top=5pt, bottom=5pt, left=8pt, right=6pt}
+\newtcolorbox{defbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries, coltitle=darkcharcoal, colbacktitle=white,
+  left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
+\newtcolorbox{resultbox}[1][]{enhanced, breakable, colback=white, colframe=gray!45,
+  boxrule=0.5pt, arc=2pt, fonttitle=\bfseries\small, coltitle=darkcharcoal, colbacktitle=white,
+  left=8pt, right=8pt, top=6pt, bottom=6pt, title={#1}}
+
+% ---- badge / capability commands used by the imported threat-model content ----
+\newcommand{\badgecritical}{\colorbox{gray!15}{\footnotesize\textbf{Critical}}}
+\newcommand{\badgehigh}{\colorbox{gray!15}{\footnotesize\textbf{High}}}
+\newcommand{\badgemedium}{\colorbox{gray!15}{\footnotesize\textbf{Medium}}}
+\newcommand{\yes}{\textcolor{capyes}{\ding{51}}}
+\newcommand{\no}{\textcolor{capno}{\ding{55}}}
+\newcommand{\cvssvec}[1]{\texttt{\small #1}}
+
+% ---- listing styles (terminal output + python) ----
+% Legible code: override the 2-color remap (codebg was white, codeframe charcoal) with a
+% light panel + soft rule + muted line numbers so listings read clearly.
+\definecolor{codebg}{HTML}{F5F7FA}      % light blue-grey code panel
+\definecolor{codeframe}{HTML}{C3CDD9}   % soft rule
+\definecolor{codenum}{HTML}{93A1B0}     % muted line numbers
+\lstdefinestyle{pythonstyle}{language=Python,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{primarylink}\bfseries,
+  stringstyle=\color{purple!75!black},
+  commentstyle=\color{green!55!black}\itshape,
+  numbers=left, numberstyle=\ttfamily\tiny\color{codenum}, numbersep=10pt, stepnumber=1,
+  frame=single, framerule=0.7pt, rulecolor=\color{codeframe},
+  framesep=8pt, xleftmargin=22pt, framexleftmargin=16pt, xrightmargin=6pt,
+  breaklines=true, breakatwhitespace=false, showstringspaces=false,
+  tabsize=2, columns=fullflexible, keepspaces=true,
+  captionpos=b, aboveskip=10pt, belowskip=6pt}
+\lstdefinestyle{termstyle}{language={},
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small\color{darkcharcoal},
+  frame=single, framerule=0.7pt, rulecolor=\color{codeframe},
+  framesep=8pt, xleftmargin=8pt, xrightmargin=6pt, breaklines=true,
+  showstringspaces=false, aboveskip=8pt, belowskip=6pt}
+\lstset{style=pythonstyle}
+
+\usepackage{microtype}
+\usepackage{setspace}\onehalfspacing   % style spec: 1.5 line spacing
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=primarylink, urlcolor=primarylink,
+  filecolor=primarylink, citecolor=secondarycite,
+  pdftitle={Generative AI, Privacy and Personal Data: Mapping and Reducing Data Leakage in Retrieval-Augmented Generation Systems},
+  pdfauthor={Tadj Mohamed Walid},
+  pdfsubject={End-of-Study Dissertation, Ecole Superieure en Informatique - Sidi Bel Abbes, 2025/2026},
+  pdfkeywords={Generative AI; Retrieval-Augmented Generation; privacy leakage; re-identification; quasi-identifiers; LLM-as-judge; privacy-utility trade-off; data governance}}
+\usepackage{cleveref}                   % MUST load after hyperref
+% Long \texttt identifiers (QUASI\_IDENTIFIER, file\_names) must break at underscores so they
+% never cross a line / box / table-cell edge; emergencystretch absorbs residual loose lines.
+\AtBeginDocument{\renewcommand{\_}{\textunderscore\allowbreak}}
+\emergencystretch=3em
+\setlength{\tabcolsep}{4pt}   % tighter inter-column padding so wide multi-column tables fit the text width
+
+% ---- thesis style spec: alignment, paragraph spacing, heading styles ----
+\usepackage{titlesec}
+\usepackage{ragged2e}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt plus 2pt minus 1pt}   % 0 before / 12 after
+% CS-layout spec: main text JUSTIFIED (LaTeX default; previous \RaggedRight removed)
+% H1 chapter: 16pt bold ALL CAPS, centered, 0 before / 24 after, single-spaced
+\titleformat{\chapter}[display]
+  {\singlespacing\centering\bfseries\color{darkcharcoal}\fontsize{16}{19}\selectfont}
+  {\MakeUppercase{\chaptertitlename}\ \thechapter}{6pt}{\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{0pt}{24pt}
+% H2 section: 14pt bold, left, 15 before / 12 after
+\titleformat{\section}{\bfseries\color{darkcharcoal}\fontsize{14}{17}\selectfont}{\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{15pt}{12pt}
+% H3 subsection: 12pt bold, left, 12 before / 9 after
+\titleformat{\subsection}{\bfseries\color{darkcharcoal}\fontsize{12}{15}\selectfont}{\thesubsection}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{12pt}{9pt}
+% H4 subsubsection: 12pt bold italic, left, 9 before / 6 after
+\titleformat{\subsubsection}{\bfseries\itshape\color{darkcharcoal}\fontsize{12}{15}\selectfont}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\subsubsection}{0pt}{9pt}{6pt}
+
+\begin{document}
+\pagenumbering{roman}
+\hypersetup{pageanchor=false}   % no page anchors over front matter (kills the page.i warning)
+
+% =============================== TITLE PAGE ===============================
+% The title page is a separate XeLaTeX document (titlepage.tex -> titlepage.pdf),
+% included verbatim so its Arabic/polyglossia/bidi stack stays OUT of this master.
+% To change it: edit titlepage.tex and rebuild with  latexmk -xelatex titlepage.tex
+\includepdf[pages=1,fitpaper=true]{titlepage.pdf}
+
+% ===================== ACKNOWLEDGMENTS (ARABIC) =====================
+% Separate XeLaTeX document (acknowledgements_ar.tex -> acknowledgements_ar.pdf), like the
+% title page, so the Arabic/polyglossia/bidi stack stays OUT of this master. The roman folio
+% and TOC entry are overlaid via pagecommand. To change the text: edit acknowledgements_ar.tex
+% and rebuild with  latexmk -xelatex acknowledgements_ar.tex
+\clearpage
+\includepdf[pages=1, pagecommand={\thispagestyle{plain}\phantomsection%
+  \addcontentsline{toc}{chapter}{Acknowledgments}%
+  \markboth{Acknowledgments}{}}]{acknowledgements_ar.pdf}
+
+% ================================ ABSTRACT ================================
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\markboth{Abstract}{}
+
+\noindent Enterprise retrieval-augmented generation (RAG) makes a sensitive document
+corpus conversationally accessible, and in doing so can disclose personal data to users and
+attackers not authorized to see it. This thesis measures that leakage rather than asserting
+it. It formalizes a LINDDUN-aligned metric pair (a binary leakage function $L$ and a
+severity score $S$) evaluated through a profile-dependent engine across four CVSS-calibrated
+attacker profiles and a systematic adversarial campaign of eight attack families, over a
+deterministically generated corpus of 155 synthetic documents (2{,}190 entity-level
+annotations of personally identifiable information, PII; inter-annotator $\kappa = 0.875$), and quantifies a layered defense by ablation.
+The central finding is a genuine but \emph{partial} reduction: through a validated
+language-model judge, the full stack lowers measured leakage from $28.8\%$ to $17.3\%$,
+about forty percent, \textbf{not} an elimination. Redaction defeats direct PII extraction, but
+\emph{re-identification by linkage}, a person reassembled from individually innocuous
+attributes scattered across documents, is the dominant unreduced residual, and is shown
+\emph{intractable at the model layer} across three independent mechanisms: redaction,
+query-time $k$-anonymity, and ingestion-time $k$-anonymity all fail or are foreclosed by their
+information cost. Linkage is therefore a \emph{data-governance} problem, not a model-layer one:
+access control \emph{solves} the external, unauthorized attacker, whereas the authorized user
+who brings outside knowledge leaves a residual that can be \emph{bounded}, minimized and
+audited, but not eliminated. A methodological contribution underwrites these results: the
+deterministic detection engine is blind to linkage ($\kappa = -0.10$ against human judgment),
+while the language-model judge, reliable on undefended output ($\kappa = 0.827$), degrades on
+the defended distribution ($\kappa = 0.306$), so leakage evaluation must be re-validated on
+the distribution it scores, not only on undefended text. The absolute percentages demonstrate
+a measurement methodology on a controlled corpus; they are not a safety certification for any
+particular deployment.
+
+\medskip
+\noindent\textbf{Keywords:} Generative AI; Retrieval-Augmented Generation; privacy leakage;
+re-identification; quasi-identifiers; LLM-as-judge; privacy-utility trade-off; data governance.
+
+% French résumé / Arabic ملخص (if the school requires them) are added here later as sibling
+% blocks --- a parallel \begin{abstract}...\end{abstract} (or \chapter*{Résumé}) below;
+% translations only, not part of the English-abstract task.
+
+% ====================== PROBLEM STATEMENT (after abstract) ======================
+\chapter*{Problem Statement}
+\addcontentsline{toc}{chapter}{Problem Statement}
+\markboth{Problem Statement}{}
+
+Organizations hold years of sensitive internal data: human-resources files, medical reports,
+internal memoranda, and system configurations. Increasingly they want this data conversationally
+accessible, and retrieval-augmented generation makes that possible. Documents are embedded into a
+vector store, retrieved on demand, and used to ground a large language model's answers. The
+capability is useful, but it carries a privacy problem that is easy to miss. The retriever does
+not know who is allowed to see what, and neither does the model; both are built to be
+\emph{helpful} rather than \emph{minimally informative}. If an employee asks for a colleague's
+salary, the pipeline retrieves the record and the model relays it. If an outside attacker hides an
+instruction in a document that the retriever later fetches, the same pipeline can be steered into
+disclosure. Two well-documented phenomena combine here into a third: language models can memorize
+and reproduce training data, and adversarial prompts can steer model behavior; in RAG, the
+retriever itself becomes a channel into the model's context that an attacker can influence.
+
+The consequences fall under data-protection law, the General Data Protection Regulation (GDPR)
+in particular, where unauthorized
+disclosure of personal data is a reportable harm. They are compounded by the nature of the most
+damaging leak. The worst disclosure in this setting is not a single record read out verbatim, but
+\emph{re-identification by linkage}: a person reconstructed from attributes that are individually
+innocuous and scattered across documents. Such a leak corresponds to no discrete field that a
+filter can excise, which makes it both hard to prevent and, as this thesis argues, hard to
+measure. The substantive question is therefore threefold. How much sensitive data does a baseline
+enterprise RAG deployment leak, under what attack conditions and against which attacker? How much
+do existing defenses actually reduce that leakage under matched conditions? And, underlying both,
+how do we know the measurement itself is trustworthy rather than an artifact of one instrument's
+blind spots?
+
+% ====================== PROPOSED APPROACH (after abstract) ======================
+\chapter*{Proposed Approach}
+\addcontentsline{toc}{chapter}{Proposed Approach}
+\markboth{Proposed Approach}{}
+
+This thesis addresses the problem by building one unified measurement framework and applying it
+to a controlled enterprise-RAG testbed, rather than by proposing a new attack or a new defense in
+isolation. The framework has five parts, each closing a gap identified in the literature review.
+First, it gives privacy leakage a precise mathematical foundation through two complementary
+metrics: the binary leakage function $L$, which decides whether an unauthorized disclosure
+occurred, and the continuous severity score $S$, which measures how serious it was. Both are
+grounded in the LINDDUN privacy-threat taxonomy and made operational by a profile-dependent
+authorization threshold. Second, it fixes the threat surface in advance as four attacker profiles
+(a curious insider, an external adversary, a malicious administrator, and an offline third-party
+provider), each calibrated against a Common Vulnerability Scoring System (CVSS) v3.1 base score and mapped to the LINDDUN categories it
+activates. Third, an adversarial campaign of eight attack families exercises the baseline and the
+defended configurations systematically. Fourth, a layered defense (input filtering, retrieval-time
+redaction, conversation-aware refusal, output filtering, and access control) is ablated
+configuration by configuration, and its effect is quantified by the severity reduction $\Delta S$
+and the residual $\bar{S}_{\text{residual}}$. Fifth, because a leakage number is only as trustworthy
+as the instrument that produced it, a language-model judge is validated against human annotation
+and re-checked on the defended distribution, with a deterministic detection engine reported
+alongside it as a lower bound. The whole framework runs on a deterministically generated synthetic
+corpus, so that every figure is reproducible and no real person is exposed, and its findings are
+read as relative and methodological rather than as absolute predictions.
+
+% ===== List of acronyms =====
+\chapter*{List of Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+\markboth{List of Acronyms}{}
+\begin{tabularx}{\textwidth}{lL}
+\toprule
+\textbf{API}   & Application Programming Interface\\
+\textbf{ASR}   & Attack Success Rate (the mean of $L$ over a batch; defined Ch.~\ref{ch:formal})\\
+\textbf{BIPIA} & Indirect prompt-injection benchmark of Yi et al.\ (2024)\\
+\textbf{CVSS}  & Common Vulnerability Scoring System\\
+\textbf{DOB}   & Date of Birth\\
+\textbf{DPA}   & Data-Processing Agreement (GDPR Art.~28)\\
+\textbf{FOR}   & False Omission Rate (judge-calibration bounds, Ch.~\ref{ch:defenses})\\
+\textbf{GDPR}  & General Data Protection Regulation\\
+\textbf{HR}    & Human Resources\\
+\textbf{IBAN}  & International Bank Account Number\\
+\textbf{JWT}   & JSON Web Token\\
+\textbf{LINDDUN} & Linkability, Identifiability, Non-repudiation, Detectability, Disclosure, Unawareness, Non-compliance (privacy threat framework)\\
+\textbf{LLM}   & Large Language Model\\
+\textbf{NER}   & Named-Entity Recognition\\
+\textbf{NIST}  & National Institute of Standards and Technology\\
+\textbf{OWASP} & Open Worldwide Application Security Project\\
+\textbf{PII}   & Personally Identifiable Information\\
+\textbf{PPV}   & Positive Predictive Value\\
+\textbf{RAG}   & Retrieval-Augmented Generation\\
+\textbf{SaaS}  & Software as a Service\\
+\textbf{SUT}   & System Under Test\\
+\textbf{SVM}   & Support Vector Machine\\
+$\boldsymbol{\kappa}$ & Cohen's kappa (chance-corrected inter-rater agreement)\\
+\bottomrule
+\end{tabularx}
+
+% ===== Notation glossary (transcribed from Ch3, which owns the definitions) =====
+\chapter*{Notation}
+\addcontentsline{toc}{chapter}{Notation}
+\markboth{Notation}{}
+\noindent The symbols below are defined in Chapter~\ref{ch:formal} (formal foundations) and
+Chapters~\ref{ch:defenses}--\ref{ch:tradeoff}; this table is a reference only.
+\medskip
+
+\begin{tabularx}{\textwidth}{lL}
+\toprule
+\textbf{Symbol} & \textbf{Meaning (definition: Ch.~\ref{ch:formal} unless noted)}\\
+\midrule
+$L(q,r,D,u)$ & Binary leakage function: $1$ iff a disclosed entity's severity exceeds $u$'s authorization\\
+$S(q,r,D,u)$ & Severity score: $\sum_{e} s(e)\,w(e)$ over leaked entities\\
+$\text{ASR}$ & Attack-success rate, $\tfrac{1}{N}\sum_i L(q_i,r_i,D,u)$\\
+$\Delta S$ & Severity reduction, $\bar{S}_{\text{baseline}}-\bar{S}_{\text{defended}}$ (computed Ch.~\ref{ch:tradeoff})\\
+$\bar{S}_{\text{residual}}$ & Mean $S$ under the full defense stack (Ch.~\ref{ch:tradeoff})\\
+$s(e)\in\{2,3,4,5\}$ & Intrinsic entity severity\\
+$w(e)\in\{0.60,0.75,0.90,1.00\}$ & Detection-confidence weight\\
+$u$ & Attacker profile: P1 Internal (thr.\ 2), P2 External (thr.\ 0), P3 Admin (thr.\ 3), P4 Third-Party (offline)\\
+F1--F8 & The eight attack families (Ch.~\ref{ch:threat}, Ch.~\ref{ch:baseline})\\
+C[L1L2L3L4L5] & Defense-configuration encoding; C00000 = no defense, C11111 = full stack, C01100 = knee (L2+L3) (Ch.~\ref{ch:defenses})\\
+$\kappa$ & Cohen's kappa: annotation $0.875$ (Ch.~\ref{ch:formal}); judge--human $0.827$ undefended / $0.306$ defended (Ch.~\ref{ch:defenses})\\
+\bottomrule
+\end{tabularx}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ============================ BODY (9 chapters) ============================
+\cleardoublepage
+\pagenumbering{arabic}   % body restarts page numbering at 1
+\hypersetup{pageanchor=true}   % re-enable page anchors for the body
+\input{ch1_introduction}
+\input{ch2_state_of_the_art}
+\input{ch3_threat_formal}          % Threat Model (ch:threat)
+\input{ch3b_formal_groundtruth}    % Formal Leakage Definitions and Ground Truth (ch:formal)
+\input{ch4_attack_baseline}
+\input{ch5_defenses_measurement}
+\input{ch6_tradeoff_residual}
+\input{ch7_discussion}
+\input{ch8_conclusion}
+
+% ===================== References (last section) =====================
+% The State-of-the-Art chapter cites its 49 sources inline (author--year) and
+% in its own annotation matrix rather than via \cite; \nocite{*} therefore lists every
+% entry in references.bib so the bibliography reflects the full surveyed corpus.
+% (references.bib: all 54 entries carry verified real titles + venues; see the .bib header.)
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

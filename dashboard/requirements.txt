@@ -1,0 +1,12 @@
+# Streamlit Community Cloud dependencies for the Phase-3 dashboard (app.py).
+#
+# Deliberately MINIMAL. The dashboard imports only streamlit + pandas; everything else
+# it uses (os, sys, csv, json) is the Python standard library, so nothing else is needed.
+#
+# Do NOT replace this with `pip freeze` — that dumps the whole project ML stack
+# (torch, spaCy, Presidio, ChromaDB, LangChain, sentence-transformers, …) which the app
+# never imports and which would make the Streamlit Cloud install fail or time out.
+#
+# streamlit >= 1.49 is required for the width="stretch" API used by st.image / st.dataframe.
+streamlit>=1.49
+pandas>=2.0

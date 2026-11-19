@@ -4,7 +4,8 @@
 %  Like titlepage.tex, this isolates the Arabic/polyglossia/bidi stack from the
 %  thesis master. Rebuild with:  latexmk -xelatex acknowledgements_ar.tex
 %  Source text: Acknowledgements.txt (author-provided, reproduced verbatim).
-%  The master \includepdf's acknowledgements_ar.pdf right after the Abstract.
+%  The master \includepdf's acknowledgements_ar.pdf as the first front-matter
+%  page, immediately before the Abstract.
 % ============================================================================
 \documentclass[12pt,a4paper]{article}
 
@@ -23,8 +24,9 @@
 
 \begin{document}
 
-% Drop to the same height as the master's \chapter* front-matter headings
-% (report/titlesec leave ~1.6cm above ABSTRACT etc. beyond the 2.5cm margin)
+% Drop the heading to the same height as the master's \chapter* front-matter
+% pages (ABSTRACT etc.): tuned so the title's first ink lands ~4.1cm from the
+% paper top, matching the Abstract heading (measured, not theoretical).
 \vspace*{0.65cm}
 
 % Heading mirrors the thesis front-matter chapter heads (bold, centered, charcoal)

@@ -69,3 +69,6 @@ results/**/report/*.log
 results/**/report/*.out
 results/**/report/thesis/*.log
 results/**/report/thesis/*.out
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json

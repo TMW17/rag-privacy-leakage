@@ -534,7 +534,14 @@ matters, we report both the formal CVSS score and a qualitative
 uplift, rather than forcing the model to fit. MITRE~ATLAS is used for
 cross-validation of ML-specific threat patterns but not as a primary
 scoring framework, because its coverage of RAG-specific attack
-techniques remains partial at the time of writing.
+techniques remains partial at the time of writing. Third, and most
+fundamentally, the specific base-score assignments themselves (P1~$6.5$,
+P2~$8.2$, P3~$9.1$, P4~$7.7$) rest on principled but \emph{subjective}
+judgement: each metric-vector component is argued from the threat model,
+not fitted to real-world incident data. We therefore treat the calibration
+as a transparent design assumption---every vector is stated explicitly so a
+reader can disagree component by component---and flag external validation
+against incident reports or a domain-expert survey as future work.
 \end{limitbox}
 
 

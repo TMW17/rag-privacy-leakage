@@ -283,10 +283,16 @@ error.}
 \label{fig:ch5-reduction}
 \end{figure}
 
-With the stack assembled, six configurations were measured across the full campaign: the
-undefended baseline, each of the three most informative layers in isolation, the pairing of
-redaction with conversational refusal, and the complete stack, each scored through
-both instruments (Table~\ref{tab:ch5-headline}). RQ2 is answered here through the binary
+With the stack assembled, a six-configuration \emph{ablation study} was run across the full
+campaign: the undefended baseline, each of the three most informative layers in isolation, the
+pairing of redaction with conversational refusal, and the complete stack, each scored through
+both instruments (Table~\ref{tab:ch5-headline}). The ablation is deliberately L2-anchored rather
+than exhaustive: of the $2^5 = 32$ possible layer combinations, these six isolate the baseline, the
+single-layer effect of the input filter (L1), retrieval redaction (L2), and conversational refusal
+(L3), the recommended pair, and the full stack. The output filter (L4) and access-control (L5) layers
+were not measured in isolation, and layer \emph{interaction} effects beyond the additive per-layer
+reading below were not separately estimated; both are deliberate scope limits rather than oversights,
+and a fuller $2^5$ sweep is left to future work. RQ2 is answered here through the binary
 leakage function $L$, reported as attack-success rate; the severity-weighted reduction
 $\Delta S$, which the formal framework of Chapter~\ref{ch:formal} also defines, is developed
 in Chapter~\ref{ch:tradeoff} alongside the residual-risk analysis, where severity governs
@@ -352,6 +358,22 @@ reaches a judged rate of $0.192$, and the full stack's additional descent to $0.
 of $0.019$, comfortably within the $0.08$ judged floor. Essentially all of the full stack's
 measurable benefit is already captured by two layers, a finding whose deployment implications
 are taken up in Chapter~\ref{ch:tradeoff}.
+
+The conversational-refusal layer (L3) deserves a specific account, because a null contribution
+could mean either that the layer was tested and found ineffective or that it was never exercised.
+The logs distinguish the two. Counting exact firings of the refusal constant in the engine ablation
+records, L3 fired on only \textbf{3 of 89 turns} in isolation (configuration C00100, a $3.4\%$
+trigger rate), and all three were multi-turn \emph{linkability} chains (family F2) --- the single
+axis, disclosure accumulated across dialogue turns, that the layer is designed to guard. Inside the
+recommended knee (C01100) and inside the full stack it fired \textbf{0 of 89 times}: once L2 redaction
+sits upstream, it strips the sensitive content before L3's cross-turn accumulation threshold can be
+reached, so the layer never activates. The campaign is not single-turn-dominated --- 24 of its 52
+scenarios are multi-turn --- so L3 was genuinely exercised rather than starved of opportunity; it
+simply yields no measured leakage reduction over redaction alone (C01000 and C01100 are identical at
+a judged $0.192$) and is inert once redaction precedes it. It is therefore retained as
+\emph{unmeasured} multi-turn defence-in-depth, not credited with a reduction it did not produce. The
+single positive evidence for L3 is a constructed cross-turn hand-off unit test, a co-occurrence that
+did not arise in the live campaign.
 
 \begin{figure}[h]
 \centering
@@ -584,7 +606,10 @@ zero. Sensitivity and specificity simply do not transfer from a sample stratifie
 instrument's own verdict.
 
 The quantities that \emph{do} survive that sampling design are the positive predictive value,
-estimated on the census of all eighteen positives, and the false-omission rate. The valid
+$\mathrm{PPV} = \mathrm{TP}/(\mathrm{TP}+\mathrm{FP}) = 7/18 = 0.389$, estimated on the census of all
+eighteen flagged positives, and the false-omission rate,
+$\mathrm{FOR} = \mathrm{FN}/(\mathrm{FN}+\mathrm{TN}) = 3/28 = 0.107$ --- the share of the judge's
+\emph{negatives} that human review nonetheless found to be leaks. The valid
 estimator under verdict-stratified sampling is therefore
 \[
   p \;=\; \mathrm{PPV}\cdot q \;+\; \mathrm{FOR}\cdot(1-q)
@@ -612,6 +637,22 @@ calibration stratum the sample under-drew, so reweighting the strata to their po
 moves the center \emph{toward} $17.3\%$, not away from it. The propagated calibration error
 widens the interval around the residual; it does not lower it. The $17.3\%$ figure stands as
 the residual of record, now bounded rather than overturned.
+
+\textbf{A second statistical lens, and a power note.}\quad The interval above is the
+\emph{calibration-corrected} one, and it is the one to trust because it folds in the judge's measured
+error. A purely \emph{sampling} interval --- treating the $9/52$ flagged scenarios as a binomial
+proportion and ignoring instrument error --- is narrower: a Wilson $95\%$ interval on $9/52$ is
+$[9.4\%,\,29.7\%]$, and a $20{,}000$-resample bootstrap gives $[7.7\%,\,28.8\%]$. The two lenses agree
+on $17.3\%$ as the point estimate but disagree on its width, and the wider calibration-corrected
+$[5.3\%,\,25.8\%]$ is the honest one: a tighter binomial band would understate the uncertainty by
+pretending the instrument is perfect. The same small sample bounds what any interval can claim. A
+design-stage power calculation makes this concrete: at $n = 52$, an unpaired two-proportion test at
+$80\%$ power and $\alpha = 0.05$ can resolve only an absolute reduction of about $21$ percentage
+points, whereas the observed reduction is $11.5$ points. The paired design --- the same $52$ scenarios
+before and after --- carries more power than this conservative two-sample bound, but the reduction is
+reported as \emph{directional and bounded}, not as a powered significance result; this is precisely
+why the noise-floor and interval discipline of this chapter, rather than a $p$-value, carries the
+argument.
 
 \section{Summary}
 \label{sec:ch5-summary}

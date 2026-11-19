@@ -165,8 +165,7 @@
 }
 
 % ─── Graphics ────────────────────────────────────────────────────────────────
-% draft=true renders missing images as placeholder boxes (Threat_Model diagram)
-\usepackage[draft]{graphicx}
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, calc}
 \usepackage{pdflscape}
@@ -240,17 +239,17 @@
 {\color{navy}\rule{\textwidth}{1.2pt}}
 \vspace{1.6cm}
 
-{\color{navy}\Huge\bfseries State of the Art}
+{\color{navy}\Huge\bfseries Phase~1 --- Formal Foundations}
 
 \vspace{0.5cm}
-{\color{navy!85}\LARGE Security Threats, Privacy Risks, and\\[0.15cm] Evaluation Paradigms in\\[0.15cm] Retrieval-Augmented Generation Systems:\\[0.15cm] A Thematic Literature Review}
+{\color{navy!85}\LARGE Literature Review, Adversarial Threat Model, and\\[0.15cm] Formal Privacy-Leakage Metrics for\\[0.15cm] Retrieval-Augmented Generation Systems}
 
 \vspace{2cm}
 \begin{prosebox}
 {\small\textbf{Project:} Generative AI, Privacy \& Personal Data, Mapping and Reducing Data Leakage in Retrieval-Augmented Generation Systems.
 
 \medskip
-\textbf{Scope of this chapter.} The following pages bring together a critical synthesis of 50 primary sources published between 2021 and 2026. The material is grouped into five thematic pillars: RAG-specific vulnerabilities, PII memorization and leakage in large language models, prompt injection taxonomies and attack families, defense mechanisms and guardrail architectures, and LLM-as-Judge evaluation paradigms. The goal is not a flat catalogue. For each work we ask two questions. How methodologically robust is the contribution, measured against a common yardstick of reproducibility, empirical grounding, threat-model formality, and RAG-specificity? And what gap does it still leave open that the present thesis can close?}
+\textbf{Scope of this document.} This report consolidates the three foundational deliverables of Phase~1 into a single, continuous document. \emph{Part one} is a critical synthesis of 50 primary sources published between 2021 and 2026, grouped into five thematic pillars: RAG-specific vulnerabilities, PII memorization and leakage in large language models, prompt-injection taxonomies and attack families, defense mechanisms and guardrail architectures, and LLM-as-Judge evaluation paradigms. \emph{Part two} constructs a formal, LINDDUN-aligned adversarial threat model built around four calibrated attacker profiles, together with the supporting system-architecture and attack-to-leakage mapping analyses. \emph{Part three} defines the two core privacy metrics ($L$ and $S$), the 155-document synthetic ground-truth corpus, the 2{,}190-entity annotation protocol, the profile-dependent evaluation engine, the re-identification risk analysis, and the inter-annotator agreement validation ($\kappa = 0.875$, $\kappa_w = 0.968$).}
 \end{prosebox}
 \vfill
 {\color{navy}\rule{\textwidth}{1.2pt}}
@@ -264,6 +263,8 @@
 % ══════════════════════════════════════════════════════════
 %  INTRODUCTION (unnumbered)
 % ══════════════════════════════════════════════════════════
+
+\chapter{State of the Art}
 
 \section*{Introduction}
 \phantomsection
@@ -658,7 +659,6 @@ The value proposition is convergence rather than invention. Every individual com
 % ══════════════════════════════════════════════════════════
 
 \newpage
-\appendix
 \section{Literature Annotation Matrix}
 \label{app:annotation}
 
@@ -802,55 +802,10 @@ Kim et al.\ (2025) & RQ2, 5 & ObjexMT: confidence calibration benchmark & Jailbr
 
 % ══════════════════════════════════════════════════════════════════════════════
 %  PART 2: THREAT MODEL
-%  (counter reset: undo \appendix numbering from Part 1)
 % ══════════════════════════════════════════════════════════════════════════════
 \clearpage
-\renewcommand{\thechapter}{\arabic{chapter}}
-\renewcommand{\thesection}{\thechapter.\arabic{section}}
-\setcounter{chapter}{0}
-\setcounter{section}{0}
 \setlength{\parskip}{5pt}
-% ══════════════════════════════════════════════════════════════════════════════
 
-% ─────────────────────────────────────────────────────────────────────────────
-%  TITLE PAGE
-% ─────────────────────────────────────────────────────────────────────────────
-\begin{titlepage}
-\centering
-\vspace*{3cm}
-
-{\large\color{steel}
-  National Higher School of Computer Science\\[3pt]
-  Sidi Bel Abbes \enspace---\enspace
-  Artificial Intelligence and Data Science}
-
-\vspace{1.2cm}
-\textcolor{steelmid}{\rule{0.55\linewidth}{0.5pt}}
-\vspace{1.2cm}
-
-{\LARGE\bfseries\color{steel}
-  Formal Threat Model Construction}\\[12pt]
-
-\vspace{2cm}
-
-\begin{center}
-\includegraphics[width=1\textwidth]{0BDEA3E2-048E-42D5-840C-25A410954AD3_1_105_c}
-\end{center}
-
-\vfill
-
-\vspace{2cm}
-\end{titlepage}
-
-% ─────────────────────────────────────────────────────────────────────────────
-%  TABLE OF CONTENTS
-% ─────────────────────────────────────────────────────────────────────────────
-\tableofcontents
-\newpage
-
-% ══════════════════════════════════════════════════════════════════════════════
-%  CHAPTER 1 — LINDDUN FRAMEWORK
-% ══════════════════════════════════════════════════════════════════════════════
 \chapter{LINDDUN Framework Application}
 
 \section{Rationale for the Choice of Framework}
@@ -3400,55 +3355,7 @@ relevant to all four attacker profiles (Chapter~2).
 %  PART 3: FORMAL LEAKAGE DEFINITIONS AND GROUND TRUTH
 % ══════════════════════════════════════════════════════════════════════════════
 \clearpage
-\setcounter{section}{0}
-% ══════════════════════════════════════════════════════════
-
-% ── TITLE PAGE ──
-
-\begin{titlepage}
-\begin{center}
-
-\vspace*{1.2cm}
-
-{\small\color{steel}\textsc{National Higher School of Computer Science --- ESI Sidi Bel Abb\`{e}s}}\\[0.15cm]
-{\small\color{steel}\textsc{Artificial Intelligence and Data Science $\cdot$ Academic Year 2025--2026}}
-
-\vspace{0.5cm}
-{\color{navy}\rule{\textwidth}{1.2pt}}
-\vspace{1.6cm}
-
-{\color{navy}\Huge\bfseries Formal Leakage Definitions and\\[0.3cm] Experimental Ground Truth}
-
-\vspace{0.8cm}
-
-{\color{steel}\large Formal Foundations, Corpus Generation,\\[0.1cm]
-Annotation Protocol, and Evaluation Infrastructure}
-
-\vspace{2cm}
-
-\begin{prosebox}
-{\small\textbf{Project:} Generative AI, Privacy \& Personal Data --- Mapping and Reducing Data Leakage in Retrieval-Augmented Generation Systems.
-
-\medskip
-\textbf{Scope of this document:} This document lays out the two core privacy metrics ($L$ and $S$) that form the formal measurement framework for all experiments that follow. It introduces the 155-document synthetic ground truth corpus stratified across four document classes, describes the 2{,}190-entity annotation protocol, explains the profile-dependent evaluation engine, presents the re-identification risk analysis, and validates the taxonomic objectivity through inter-annotator agreement ($\kappa = 0.875$, $\kappa_w = 0.968$).
-
-\medskip
-\textbf{Status of this work:} Phase~1 delivers the measurement infrastructure; Phase~2 builds the actual RAG system that will be measured. The mathematical definitions, the corpus, the annotations, and the agreement validation are finished, reusable artifacts. The evaluation engine is an experimental prototype that anticipates the Phase~2 RAG pipeline; some of its components (notably the LLM-as-Judge detector) are placeholders that will be replaced before any final figure is published. \Cref{subsec:scope-limitations} lists the four limitations that follow from this status.}
-\end{prosebox}
-
-\vfill
-{\color{navy}\rule{\textwidth}{1.2pt}}
-
-\end{center}
-\end{titlepage}
-
-\newpage
-\tableofcontents
-\newpage
-
-% ══════════════════════════════════════════════════════════
-%  1 — INTRODUCTION
-% ══════════════════════════════════════════════════════════
+\chapter{Formal Leakage Definitions and Experimental Ground Truth}
 
 \section{Introduction}
 \label{sec:intro}

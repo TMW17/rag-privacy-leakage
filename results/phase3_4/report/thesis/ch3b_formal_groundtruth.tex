@@ -231,6 +231,53 @@ A value of $\bar{S}_{\text{residual}} = 0$ would mean the defense stack complete
   \item \textbf{Upper bound.} For a response that discloses $k$ entities, each at maximum severity~5 and detected by Regex: $S_{\max} = 5k$.
 \end{enumerate}
 
+\subsubsection{Sensitivity to the detection-confidence weights}
+\label{ch3:subsec:weight-sensitivity}
+
+The four confidence weights $w(e)$ are design choices, fixed to a pattern-reliability hierarchy
+(deterministic regex above probabilistic recognition above the model judge) rather than fitted to
+data, so it is fair to ask how much the conclusions depend on their exact values. The answer is,
+for the quantities that carry the thesis, \emph{structurally almost not at all}.
+
+First, the headline does not use the weights at all. The binary leakage function $L$ --- and therefore
+the attack-success rates that answer RQ1 and RQ2, including the $28.8\% \to 17.3\%$ reduction ---
+thresholds on the \emph{severity} $s(e)$, not on $w(e)$ (\Cref{ch3:subsec:def1}). Likewise the judged
+severity is the language-model judge's own rating, which never consults the detection-method table.
+The weights enter only the deterministic engine's continuous score $S$. Whatever value the weights
+take, then, the primary findings are invariant by construction; only the engine's lower-bound
+severity moves.
+
+Second, even that movement is small and order-preserving. Recomputing the engine's mean severity
+$\bar S$ for every configuration with each weight perturbed by $\pm 0.1$ (clamped to $[0,1]$) leaves
+the ranking of configurations --- and the redaction reduction that drives it --- unchanged
+(\Cref{tab:ch3-weight-sensitivity}). The baseline-to-full-stack engine reduction is $1.50$ at the
+nominal weights and stays between $1.32$ and $1.68$ across the perturbation; the recommended knee
+(C01100) and the redaction-only cell (C01000) remain tied, and the full stack remains lowest. No
+configuration changes rank. The continuous metric inherits a modest, near-uniform rescaling from the
+weights, but every comparative claim made from it survives.
+
+\begin{table}[h]
+\centering
+\caption[Engine severity under detection-weight perturbation]{Engine mean severity $\bar S$ per
+configuration under a $\pm 0.1$ perturbation of every detection-confidence weight. The configuration
+ordering and the redaction reduction are preserved; the binary leakage rate --- the headline --- does
+not depend on the weights at all.}
+\label{tab:ch3-weight-sensitivity}
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Configuration} & $\bar S$ \textbf{at} $w$ & $\bar S$ \textbf{at} $w{+}0.1$ & $\bar S$ \textbf{at} $w{-}0.1$\\
+\midrule
+C00000 (undefended)          & $2.57$ & $2.87$ & $2.27$\\
+C10000 (input filter)        & $2.65$ & $2.96$ & $2.35$\\
+C00100 (refusal only)        & $2.63$ & $2.94$ & $2.33$\\
+C01000 (redaction only)      & $1.25$ & $1.40$ & $1.11$\\
+C01100 (redaction + refusal) & $1.25$ & $1.40$ & $1.11$\\
+C11111 (full stack)          & $1.07$ & $1.19$ & $0.94$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 % ── COMPARISON TABLE ──
 
 \subsubsection{Comparison of the Two Metrics}

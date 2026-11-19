@@ -7,7 +7,12 @@
 %  author-year mentions); where the canonical publication date differs, the
 %  note records the precise arXiv id and venue.
 %
-%  STATUS: all 54 entries carry verified real titles + venue (one of them,
+%  STATUS: 56 entries (54 surveyed sources plus GDPR and EU AI Act legal instruments)
+%  carry verified real titles plus venue. June 2026 audit: BIPIA (KDD 2025), MEXTRA
+%  (ACL 2025), PII-Compass (PrivateNLP 2024) upgraded to published proceedings with
+%  pages and DOI; Borkar (GenLaw at ICML 2023, non-archival) noted; author lists
+%  standardized (up to six listed in full, more than six truncated to first three
+%  plus et al.). Of these (one of them,
 %  duarte2026taxonomy, has a verified IEEE Access venue/DOI but its exact title
 %  string is behind IEEE Xplore and is given descriptively). The three formerly
 %  unverified entries were resolved: Bayhan -> Schulhoff et al. (2023, HackAPrompt,
@@ -33,25 +38,27 @@
   note      = {arXiv:2211.09527. PROMPTINJECT framework; goal hijacking and prompt leaking over 35 scenarios.}
 }
 @misc{yi2024jailbreaksurvey,
-  author       = {Yi, Sibo and Liu, Yule and Sun, Zhen and Cong, Tianshuo and He, Xinlei and Song, Jiaxing and Xu, Ke and others},
+  author       = {Yi, Sibo and Liu, Yule and Sun, Zhen and others},
   title        = {Jailbreak Attacks and Defenses Against Large Language Models: A Survey},
   howpublished = {arXiv preprint arXiv:2407.04295},
   year         = {2024},
   note         = {Dual-axis taxonomy: attacks by target-model transparency (black-box vs.\ white-box); defenses by intervention level (prompt-level vs.\ model-level). Distinct from the BIPIA paper by Jingwei Yi et al.}
 }
-@misc{yi2024bipia,
-  author       = {Yi, Jingwei and others},
-  title        = {Benchmarking and Defending Against Indirect Prompt Injection Attacks on Large Language Models},
-  howpublished = {arXiv preprint arXiv:2312.14197},
-  year         = {2024},
-  note         = {First large-scale IPI robustness benchmark (instruction-vs-data confusion); appeared at ACM SIGKDD (KDD) 2025.}
+@inproceedings{yi2024bipia,
+  author    = {Yi, Jingwei and Xie, Yueqi and Zhu, Bin and others},
+  title     = {Benchmarking and Defending against Indirect Prompt Injection Attacks on Large Language Models},
+  booktitle = {Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '25), Volume 1},
+  pages     = {1809--1820},
+  year      = {2025},
+  doi       = {10.1145/3690624.3709179},
+  note      = {arXiv:2312.14197 (2023). First large-scale IPI robustness benchmark (instruction-vs-data confusion).}
 }
 @misc{liu2025houyi,
-  author       = {Liu, Yi and Deng, Gelei and Li, Yuekang and Wang, Kailong and Zhang, Tianwei and Liu, Yepang and Wang, Haoyu and Zheng, Yan and Liu, Yang},
+  author       = {Liu, Yi and Deng, Gelei and Li, Yuekang and others},
   title        = {Prompt Injection Attack against {LLM}-integrated Applications},
   howpublished = {arXiv preprint arXiv:2306.05499},
   year         = {2025},
-  note         = {The HOUYI framework (iterative 3-component black-box attack), 36 services. arXiv first posted 2023; appeared at USENIX Security 2024.}
+  note         = {The HOUYI framework (iterative 3-component black-box attack), 36 services. arXiv:2306.05499, first posted 2023; arXiv preprint only --- the occasionally-cited ``USENIX Security 2024'' attribution conflates HOUYI with a separate paper (Yupei Liu et al., \emph{Formalizing and Benchmarking Prompt Injection Attacks and Defenses}).}
 }
 @misc{xue2024poisoning,
   author       = {Xue, Jiaqi and Zheng, Meng and Hu, Yebowen and Liu, Fei and Chen, Xun and Lou, Qian},
@@ -96,13 +103,15 @@
   author    = {Wen and Wang and others},
   title     = {Defending against Indirect Prompt Injection by Instruction Detection},
   booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2025},
+  pages     = {19472--19487},
   year      = {2025},
+  doi       = {10.18653/v1/2025.findings-emnlp.1060},
   note      = {arXiv:2505.06311. InstructDetector: MLP on hidden states/gradients; binary detection on BIPIA; white-box only.}
 }
 
 % ─────────────── Cluster 2: PII memorization & leakage in LLMs ───────────────
 @inproceedings{carlini2021extracting,
-  author    = {Carlini, Nicholas and Tram{\`e}r, Florian and Wallace, Eric and Jagielski, Matthew and Herbert-Voss, Ariel and Lee, Katherine and Roberts, Adam and Brown, Tom and Song, Dawn and Erlingsson, {\'U}lfar and Oprea, Alina and Raffel, Colin},
+  author    = {Carlini, Nicholas and Tram{\`e}r, Florian and Wallace, Eric and others},
   title     = {Extracting Training Data from Large Language Models},
   booktitle = {30th USENIX Security Symposium (USENIX Security)},
   year      = {2021},
@@ -128,14 +137,15 @@
   booktitle = {Conference on Empirical Methods in Natural Language Processing (EMNLP)},
   pages     = {12448--12460},
   year      = {2023},
+  doi       = {10.18653/v1/2023.emnlp-main.765},
   note      = {arXiv:2310.06816. Vec2Text iterative embedding inversion; recovers up to 92\% of 32-token inputs and full names from clinical-note embeddings.}
 }
 @misc{borkar2023finetuning,
   author       = {Borkar, Jaydeep},
-  title        = {What Can We Learn from Data Leakage and Unlearning for Law?},
+  title        = {What can we learn from Data Leakage and Unlearning for Law?},
   howpublished = {arXiv preprint arXiv:2307.10476},
   year         = {2023},
-  note         = {Fine-tuning leaks pre-training data and PII; unlearning can backfire (the unlearning paradox).}
+  note         = {Accepted at the 1st Workshop on Generative AI and Law (GenLaw @ ICML 2023), non-archival. Fine-tuning leaks pre-training data and PII; unlearning can backfire (the unlearning paradox).}
 }
 @misc{zhang2025distillation,
   author       = {Zhang, Ziqi and others},
@@ -151,36 +161,40 @@
   year      = {2025},
   note      = {Distinguishes verbatim memorization from chat-based (instruction-following) extraction of fine-tuning data.}
 }
-@misc{nakka2025grounding,
-  author       = {Nakka, Krishna Kanth and Frikha, Ahmed and others},
-  title        = {{PII-Compass}: Guiding {LLM} Training Data Extraction Prompts towards the Target {PII} via Grounding},
-  howpublished = {arXiv preprint arXiv:2407.02943},
-  year         = {2025},
-  note         = {In-domain grounding amplifies memorized-PII extraction (GPT-J-6B, Enron). 5th Workshop on Privacy in NLP, 2024.}
+@inproceedings{nakka2025grounding,
+  author    = {Nakka, Krishna Kanth and Frikha, Ahmed and Mendes, Ricardo and Jiang, Xue and Zhou, Xuebing},
+  title     = {{PII-Compass}: Guiding {LLM} Training Data Extraction Prompts towards the Target {PII} via Grounding},
+  booktitle = {Proceedings of the Fifth Workshop on Privacy in Natural Language Processing (PrivateNLP @ ACL 2024)},
+  pages     = {63--73},
+  year      = {2024},
+  note      = {ACL Anthology 2024.privatenlp-1.7. In-domain grounding amplifies memorized-PII extraction (GPT-J-6B, Enron).}
 }
 @inproceedings{nie2025leakagent,
-  author    = {Nie, Yuzhou and Wang, Zhun and Yu, Ye and Wu, Xian and Zhao, Xuandong and Guo, Wenbo and Song, Dawn},
+  author    = {Nie, Yuzhou and Wang, Zhun and Yu, Ye and others},
   title     = {{LeakAgent}: {RL}-based Red-teaming Agent for {LLM} Privacy Leakage},
   booktitle = {Conference on Language Modeling (COLM)},
   year      = {2025},
   note      = {arXiv:2412.05734. PPO-trained attacker for training-data and system-prompt extraction; attacker-only.}
 }
 @article{li2024llmpbe,
-  author  = {Li, Qinbin and Hong, Junyuan and Xie, Chulin and Tan, Jeffrey and Xin, Rachel and Hou, Junyi and Yin, Xavier and Wang, Zhun and Hendrycks, Dan and Wang, Zhangyang and Li, Bo and He, Bingsheng and Song, Dawn},
+  author  = {Li, Qinbin and Hong, Junyuan and Xie, Chulin and others},
   title   = {{LLM-PBE}: Assessing Data Privacy in Large Language Models},
   journal = {Proceedings of the VLDB Endowment (PVLDB)},
   volume  = {17},
   number  = {11},
   pages   = {3201--3214},
   year    = {2024},
+  doi     = {10.14778/3681954.3681994},
   note    = {arXiv:2408.12787. Benchmarks extraction/MIA/PII leakage across 10+ models; static (no RAG dynamics).}
 }
 @inproceedings{wang2025mextra,
-  author    = {He, Pengfei and others},
+  author    = {Wang, Bo and He, Weiyi and Zeng, Shenglai and others},
   title     = {Unveiling Privacy Risks in {LLM} Agent Memory},
-  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL)},
+  booktitle = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL), Volume 1: Long Papers},
+  pages     = {25241--25260},
   year      = {2025},
-  note      = {arXiv:2502.13172. Interaction memory as a distinct privacy risk; the MEXTRA memory-extraction attack.}
+  doi       = {10.18653/v1/2025.acl-long.1227},
+  note      = {arXiv:2502.13172. Interaction memory as a distinct privacy risk; the MEXTRA memory-extraction attack. Cited in text as Wang et al.}
 }
 
 % ─────────────── Cluster 3: prompt-injection taxonomies ───────────────
@@ -193,16 +207,16 @@
 }
 @article{duarte2026taxonomy,
   author  = {Duarte and others},
-  title   = {A Four-Level Manipulation Taxonomy of Prompt Injection Attacks (character/word/sentence/semantic)},
+  title   = {A Systematic Review of Prompt Injection Attacks on Large Language Models: Trends, Taxonomy, Evaluation, Defenses, and Opportunities},
   journal = {IEEE Access},
   volume  = {14},
   pages   = {12875--12899},
   year    = {2026},
   doi     = {10.1109/ACCESS.2026.3656849},
-  note    = {Peer-reviewed (IEEE Access, open access); four manipulation levels crossed with intent; JSON/XML and multimodal injections. Verified venue/volume/pages/DOI; exact title string behind IEEE Xplore and given descriptively here.}
+  note    = {Peer-reviewed (IEEE Access, open access); systematic review with a four-level manipulation taxonomy (character/word/sentence/semantic) crossed with intent; JSON/XML and multimodal injections. Verified title/venue/volume/pages/DOI.}
 }
 @misc{correia2026catalog,
-  author       = {Correia, Pedro H. Barcha and Achjian, Ryan W. and Caetano de Oliveira, Diego E. G. and Maria, Ygor Acacio and Hayashi, Victor Takashi and Lopes, Marcos and Miers, Charles Christian and Simplicio Jr., Marcos A.},
+  author       = {Correia, Pedro H. Barcha and Achjian, Ryan W. and Caetano de Oliveira, Diego E. G. and others},
   title        = {A Systematic Literature Review on {LLM} Defenses Against Prompt Injection and Jailbreaking: Expanding {NIST} Taxonomy},
   howpublished = {arXiv preprint arXiv:2601.22240},
   year         = {2026},
@@ -247,7 +261,9 @@
   author    = {Schulhoff, Sander and others},
   title     = {Ignore This Title and {HackAPrompt}: Exposing Systemic Vulnerabilities of {LLMs} through a Global Scale Prompt Hacking Competition},
   booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  pages     = {4945--4977},
   year      = {2023},
+  doi       = {10.18653/v1/2023.emnlp-main.302},
   note      = {arXiv:2311.16119. Global-scale prompt-hacking competition; taxonomy over 600{,}000+ adversarial prompts classified by source and goal.}
 }
 
@@ -258,6 +274,7 @@
   booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP): System Demonstrations},
   pages     = {431--445},
   year      = {2023},
+  doi       = {10.18653/v1/2023.emnlp-demo.40},
   note      = {arXiv:2310.10501. First major open-source guardrail toolkit; static Colang flows; author-evaluated.}
 }
 @misc{dong2024safeguarding,
@@ -275,21 +292,21 @@
   note    = {Classificatory review (NeMo Guardrails, Llama Guard, Guardrails AI); utility-vs-censorship tension; no measurement.}
 }
 @misc{zizzo2025benchmark,
-  author       = {Zizzo, Giulio and Cornacchia, Giandomenico and Fraser, Kieran and Hameed, Muhammad Zaid and Rawat, Ambrish and Buesser, Beat and Purcell, Mark and Chen, Pin-Yu and Sattigeri, Prasanna and Varshney, Kush},
+  author       = {Zizzo, Giulio and Cornacchia, Giandomenico and Fraser, Kieran and others},
   title        = {Adversarial Prompt Evaluation: Systematic Benchmarking of Guardrails Against Prompt Input Attacks on {LLMs}},
   howpublished = {arXiv preprint arXiv:2502.15427},
   year         = {2025},
   note         = {Benchmarks 15 guardrails; simple baselines often match complex OOD detectors; generic jailbreaks (not privacy).}
 }
 @misc{chowdhury2024survey,
-  author       = {Chowdhury, Arijit Ghosh and Islam, Md Mofijul and Kumar, Vaibhav and Shezan, Faysal Hossain and Jain, Vinija and Chadha, Aman},
+  author       = {Chowdhury, Arijit Ghosh and Islam, Md Mofijul and Kumar, Vaibhav and others},
   title        = {Breaking Down the Defenses: A Comparative Survey of Attacks on Large Language Models},
   howpublished = {arXiv preprint arXiv:2403.04786},
   year         = {2024},
   note         = {Comparative attack survey; no RAG privacy management.}
 }
 @misc{cui2024risktaxonomy,
-  author       = {Cui, Tianyu and others},
+  author       = {Cui, Tianyu and Wang, Yanling and Fu, Chuanpu and others},
   title        = {Risk Taxonomy, Mitigation, and Assessment Benchmarks of Large Language Model Systems},
   howpublished = {arXiv preprint arXiv:2401.05778},
   year         = {2024},
@@ -319,7 +336,7 @@
 
 % ─────────────── Cluster 5: LLM-as-Judge & multi-agent evaluation ───────────────
 @inproceedings{zheng2023judge,
-  author    = {Zheng, Lianmin and Chiang, Wei-Lin and Sheng, Ying and Zhuang, Siyuan and Wu, Zhanghao and Zhuang, Yonghao and Lin, Zi and Li, Zhuohan and Li, Dacheng and Xing, Eric P. and Zhang, Hao and Gonzalez, Joseph E. and Stoica, Ion},
+  author    = {Zheng, Lianmin and Chiang, Wei-Lin and Sheng, Ying and others},
   title     = {Judging {LLM-as-a-Judge} with {MT-Bench} and Chatbot Arena},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},
   year      = {2023},
@@ -349,9 +366,9 @@
 @inproceedings{chen2025majeval,
   author    = {Chen and others},
   title     = {{Multi-Agent-as-Judge}: Aligning {LLM}-Agent-Based Automated Evaluation with Multi-Dimensional Human Evaluation},
-  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  booktitle = {MTI-LLM Workshop at the 39th Conference on Neural Information Processing Systems (NeurIPS)},
   year      = {2025},
-  note      = {arXiv:2507.21028. MAJ-EVAL: auto-extracts evaluator personas from documents and runs in-group debate; no Legal/GDPR personas.}
+  note      = {arXiv:2507.21028. NeurIPS 2025 MTI-LLM workshop (non-archival). MAJ-EVAL: auto-extracts evaluator personas from documents and runs in-group debate; no Legal/GDPR personas.}
 }
 @misc{mushtaq2025prisma,
   author       = {Mushtaq and others},
@@ -425,4 +442,27 @@
   pages   = {515--556},
   year    = {1989},
   note    = {DOI 10.1145/76894.76895; canonical statistical-disclosure-control survey (cell suppression, query-set restriction).}
+}
+
+% ─────────────── Regulatory / legal instruments ───────────────
+@misc{euaiact2024,
+  author       = {{European Parliament and Council of the European Union}},
+  title        = {Regulation (EU) 2024/1689 Laying Down Harmonised Rules on Artificial Intelligence (Artificial Intelligence Act)},
+  howpublished = {Official Journal of the European Union, L series},
+  year         = {2024},
+  note         = {Adopted 13 June 2024; published 12 July 2024; in force 1 August 2024. Article~10 governs data and data governance for high-risk AI systems.}
+}
+@misc{gdpr2016,
+  author       = {{European Parliament and Council of the European Union}},
+  title        = {Regulation (EU) 2016/679 (General Data Protection Regulation, {GDPR})},
+  howpublished = {Official Journal of the European Union, L 119, pp.~1--88},
+  year         = {2016},
+  note         = {Unauthorized disclosure of personal data is a reportable breach; Article~9 governs special-category (e.g.\ health) data.}
+}
+@misc{edpb2024opinion,
+  author       = {{European Data Protection Board}},
+  title        = {Opinion 28/2024 on Certain Data Protection Aspects Related to the Processing of Personal Data in the Context of {AI} Models},
+  howpublished = {European Data Protection Board},
+  year         = {2024},
+  note         = {Adopted 18 December 2024. An AI model is anonymous only if personal data is very unlikely to be extracted from it through queries; sets a three-step legitimate-interest test for model development and deployment.}
 }
