@@ -1,0 +1,14 @@
+flowchart TB
+    GEN[Synthetic corpus generator<br/>Faker, seed 42] --> CORPUS[(155 documents<br/>2,190 PII annotations)]
+    CORPUS --> IDX[(ChromaDB index<br/>all-MiniLM-L6-v2)]
+    SCN[52 attack scenarios<br/>8 families, 3 attacker profiles] --> SUT
+    IDX --> SUT[RAG system under test<br/>LangChain + Claude Sonnet 4.6]
+    DEF[Defense layers L1 to L5<br/>input filter, retrieval redaction,<br/>conversational refusal, output filter,<br/>provenance check] -.-|wraps| SUT
+    SUT --> LOGS[(Per-turn execution logs)]
+    LOGS --> ENG[Rule engine<br/>L and S from the answer key]
+    CORPUS -->|answer key| ENG
+    LOGS --> JUDGE[LLM judge<br/>Claude Opus 4.7]
+    HUMAN[Human labels<br/>validation samples] -->|Cohen's kappa| JUDGE
+    ENG --> MET[Ablation metrics<br/>6 defense configurations]
+    JUDGE --> MET
+    MET --> OUT[Reports, dashboard,<br/>chatbot demo]
